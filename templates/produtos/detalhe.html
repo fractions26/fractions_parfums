@@ -13,7 +13,7 @@
 
             {% if perfume.imagem %}
             <img 
-                src="{% static perfume.imagem.name %}"
+                src="{% static perfume.imagem %}"
                 class="thumb ativa"
                 onclick="event.stopPropagation(); trocarImagem(0)"
             >
@@ -22,7 +22,7 @@
 
             {% if perfume.imagem_descricao %}
             <img 
-                src="{% static perfume.imagem_descricao.name %}"
+                src="{% static perfume.imagem_descricao %}"
                 class="thumb"
                 onclick="event.stopPropagation(); trocarImagem(1)"
             >
@@ -36,7 +36,7 @@
 
             {% if perfume.imagem %}
             <img 
-                src="{% static perfume.imagem.name %}"
+                src="{% static perfume.imagem %}"
                 class="product-slider-image produto-img ativa"
                 alt="{{ perfume.nome }} - Perfume Importado"
                 loading="lazy"
@@ -45,7 +45,7 @@
 
             {% if perfume.imagem_descricao %}
             <img 
-                src="{% static perfume.imagem_descricao.name %}"
+                src="{% static perfume.imagem_descricao %}"
                 class="product-slider-image produto-img"
                 alt="Descrição"
             >
@@ -185,7 +185,7 @@
             {% if perfume.imagem_descricao %}
             <div class="descricao-imagem mobile-only">
                 <img 
-                    src="{% static perfume.imagem_descricao.name %}"
+                    src="{% static perfume.imagem_descricao %}"
                     class="img-desc"
                     onclick="abrirZoomDescricao(this.src)"
                 >
