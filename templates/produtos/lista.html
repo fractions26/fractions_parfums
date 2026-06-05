@@ -237,11 +237,15 @@
 
             <!-- ✅ IMAGEM -->
             <div class="img-box">
+                <p style="font-size:10px;">
+                    {{ perfume.imagem.name }}
+                </p>
+
                 <a href="/produtos/{{ perfume.slug }}/">
-                <img
-                    src="{% if perfume.imagem %}{% static perfume.imagem.name %}{% else %}{% static 'img/sem-imagem.png' %}{% endif %}"
-                    alt="{{ perfume.nome }}"
-                >
+                    <img
+                        src="{% static perfume.imagem.name %}"
+                        alt="{{ perfume.nome }}"
+                    >
                 </a>
             </div>
 
