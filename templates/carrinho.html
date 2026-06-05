@@ -13,35 +13,39 @@
         <!-- ✅ LISTA DE ITENS -->
         <div class="carrinho-itens">
 
-            {% for item in itens %}
-            <div class="item" data-id="{{ item.id }}">
+        {% for item in itens %}
+        <div class="item" data-id="{{ item.id }}">
 
-                <img src="{{ item.perfume.imagem.url }}" class="item-img">
+            <img
+                src="{% if item.perfume.imagem %}{% static item.perfume.imagem %}{% else %}{% static 'img/sem-imagem.png' %}{% endif %}"
+                class="item-img"
+                alt="{{ item.perfume.nome }}"
+            >
 
-                <div class="item-dados">
-                    <h2>{{ item.perfume.nome }}</h2>
-                    <p class="item-variacao">{{ item.tamanho }}</p>
-                    <p class="item-preco">R$ {{ item.preco|floatformat:2 }}</p>
+            <div class="item-dados">
+                <h2>{{ item.perfume.nome }}</h2>
+                <p class="item-variacao">{{ item.tamanho }}</p>
+                <p class="item-preco">R$ {{ item.preco|floatformat:2 }}</p>
+            </div>
+
+            <div class="item-final">
+
+                <div class="qtd">
+                    <button onclick="alterarQtd(this, -1)">−</button>
+                    <span class="qtd-value">{{ item.quantidade }}</span>
+                    <button onclick="alterarQtd(this, 1)">+</button>
                 </div>
 
-                <div class="item-final">
-
-                    <div class="qtd">
-                        <button onclick="alterarQtd(this, -1)">−</button>
-                        <span class="qtd-value">{{ item.quantidade }}</span>
-                        <button onclick="alterarQtd(this, 1)">+</button>
-                    </div>
-
-                    <strong class="subtotal">
-                        R$ {{ item.preco|floatformat:2 }}
-                    </strong>
-
-                </div>
-
-                <button class="remover" onclick="removerItem(this)">✕</button>
+                <strong class="subtotal">
+                    R$ {{ item.preco|floatformat:2 }}
+                </strong>
 
             </div>
-            {% endfor %}
+
+            <button class="remover" onclick="removerItem(this)">✕</button>
+
+        </div>
+        {% endfor %}
 
         </div>
 
