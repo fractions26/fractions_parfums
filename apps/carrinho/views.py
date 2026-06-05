@@ -5,6 +5,7 @@ from django.shortcuts import render
 from .models import Item
 from .utils import get_carrinho
 from apps.produtos.models import Perfume, Preco
+from django.templatetags.static import static
 
 MAX_QTD = 10
 
@@ -77,12 +78,17 @@ def adicionar_carrinho(request):
             )
 
             # ✅ TRATAMENTO SEGURO DE IMAGEM (resolve string/url)
+
             imagem_url = ""
+
             if perfume.imagem:
                 try:
+                    # caso seja ImageField
                     imagem_url = perfume.imagem.url
                 except Exception:
-                    imagem_url = str(perfume.imagem)
+                    # ✅ CASO STRING (SEU CASO REAL)
+                    imagem_url = static(perfume.imagem)
+
 
             # ✅ RESPOSTA FINAL
             return JsonResponse({

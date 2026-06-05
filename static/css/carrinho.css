@@ -218,13 +218,13 @@
 }
 
 .cep-bloco input {
-    height: 42px;       /* 🔥 aumenta altura */
+    height: 52px;       /* 🔥 aumenta altura */
     padding: 0 10px;
     font-size: 13px;
 }
 
 .cep-bloco button {
-    height: 42px;       /* 🔥 iguala com input */
+    height: 52px;       /* 🔥 iguala com input */
     padding: 0 14px;
     font-size: 13px;
 }
