@@ -17,7 +17,7 @@
                 onclick="event.stopPropagation(); trocarImagem(0)">
             {% endif %}
 
-            {% if perfume.get_imagem_descricao %}
+            {% if perfume.imagem_descricao %}
             <img src="{{ perfume.get_imagem_descricao_url }}"
                 class="thumb"
                 onclick="event.stopPropagation(); trocarImagem(1)">
@@ -35,7 +35,7 @@
             loading="lazy">
         {% endif %}
 
-        {% if perfume.get_imagem_descricao %}
+        {% if perfume.imagem_descricao %}
         <img src="{{ perfume.get_imagem_descricao_url }}"
              class="product-slider-image produto-img"
              alt="Descrição">
