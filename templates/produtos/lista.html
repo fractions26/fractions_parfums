@@ -238,14 +238,14 @@
             <!-- ✅ IMAGEM -->
             <div class="img-box">
                 <p style="font-size:10px;">
-                    {{ perfume.imagem.name }}
+                    {{ perfume.imagem }}
                 </p>
 
                 <a href="/produtos/{{ perfume.slug }}/">
-                    <img
-                        src="{% static perfume.imagem.name %}"
-                        alt="{{ perfume.nome }}"
-                    >
+                <img
+                    src="{% static perfume.imagem %}"
+                    alt="{{ perfume.nome }}"
+                >
                 </a>
             </div>
 
@@ -290,7 +290,7 @@
                     onclick="abrirModalCompra(this)"
                     data-id="{{ perfume.id }}"
                     data-nome="{{ perfume.nome }}"
-                    data-img="{% if perfume.imagem %}{% static perfume.imagem.name %}{% else %}{% static 'img/sem-imagem.png' %}{% endif %}"
+                    data-img="{% if perfume.imagem %}{% static perfume.imagem %}{% else %}{% static 'img/sem-imagem.png' %}{% endif %}"
                     data-precos='[
                         {% for p in perfume.precos.all %}
                             {"id":"{{ p.id }}","tamanho":"{{ p.tamanho }}","valor":"{{ p.valor }}"}{% if not forloop.last %},{% endif %}
