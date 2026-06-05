@@ -237,15 +237,11 @@
 
             <!-- ✅ IMAGEM -->
             <div class="img-box">
-                <p style="font-size:10px;">
-                    {{ perfume.imagem }}
-                </p>
-
                 <a href="/produtos/{{ perfume.slug }}/">
-                <img
-                    src="{% static perfume.imagem %}"
-                    alt="{{ perfume.nome }}"
-                >
+                    <img
+                        src="{% static perfume.imagem %}"
+                        alt="{{ perfume.nome }}"
+                    >
                 </a>
             </div>
 
