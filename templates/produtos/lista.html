@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 <h2 class="titulo-categoria">
@@ -238,9 +238,10 @@
             <!-- ✅ IMAGEM -->
             <div class="img-box">
                 <a href="/produtos/{{ perfume.slug }}/">
-                    {% if perfume.imagem %}
-                        <img src="{{ perfume.imagem.url }}" alt="{{ perfume.nome }}">
-                    {% endif %}
+                    <img 
+                        src="{% if perfume.imagem %}{{ perfume.imagem.url }}{% else %}{% static 'img/sem-imagem.png' %}{% endif %}" 
+                        alt="{{ perfume.nome }}"
+                    >
                 </a>
             </div>
 
@@ -285,7 +286,7 @@
                     onclick="abrirModalCompra(this)"
                     data-id="{{ perfume.id }}"
                     data-nome="{{ perfume.nome }}"
-                    data-img="{{ perfume.imagem.url }}"
+                    data-img="{% if perfume.imagem %}{{ perfume.imagem.url }}{% else %}/static/img/sem-imagem.png{% endif %}"
                     data-precos='[
                         {% for p in perfume.precos.all %}
                             {"id":"{{ p.id }}","tamanho":"{{ p.tamanho }}","valor":"{{ p.valor }}"}{% if not forloop.last %},{% endif %}
