@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="pagina-interna">
+
+    <div class="container-quem">
+
+        <h1>Política de Privacidade</h1>
+
+        <h2>1. Coleta de Dados</h2>
+
+        <p>
+            Coletamos informações fornecidas diretamente pelo cliente, como:
+        </p>
+
+        <ul>
+            <li>Nome completo</li>
+            <li>E-mail</li>
+            <li>Telefone</li>
+            <li>Endereço de entrega</li>
+            <li>Dados necessários para pagamento (processados por intermediadores)</li>
+        </ul>
+
+        <p>
+            Os dados são coletados quando você realiza um cadastro, efetua uma compra,
+            entra em contato conosco ou navega em nosso site.
+        </p>
+
+        <p>
+            Também coletamos informações automaticamente, como:
+        </p>
+
+        <ul>
+            <li>Endereço IP</li>
+            <li>Dados de navegação</li>
+            <li>Cookies</li>
+        </ul>
+
+        <h2>2. Uso das Informações</h2>
+
+        <ul>
+            <li>Processar pedidos e entregas</li>
+            <li>Entrar em contato com o cliente</li>
+            <li>Melhorar a experiência no site</li>
+            <li>Enviar comunicações promocionais (quando autorizado)</li>
+        </ul>
+
+        <h2>3. Compartilhamento de Dados</h2>
+
+        <p>
+            Seus dados poderão ser compartilhados apenas quando necessário para a prestação dos serviços:
+        </p>
+
+        <ul>
+            <li>Gateways de pagamento e bancos</li>
+            <li>Transportadoras e Correios</li>
+            <li>Serviços de tecnologia e hospedagem</li>
+        </ul>
+
+        <h2>4. Cookies</h2>
+
+        <p>
+            Utilizamos cookies para melhorar a navegação e oferecer uma experiência personalizada.
+        </p>
+
+        <h2>5. Segurança dos Dados</h2>
+
+        <p>
+            Adotamos medidas para proteger seus dados contra acessos não autorizados.
+        </p>
+
+        <h2>6. Direitos do Usuário</h2>
+
+        <ul>
+            <li>Solicitar acesso aos dados</li>
+            <li>Corrigir informações</li>
+            <li>Solicitar exclusão</li>
+        </ul>
+
+        <h2>7. Produtos Comercializados</h2>
+
+        <p>
+            Comercializamos perfumes fracionados (decants), sem vínculo com as marcas fabricantes.
+        </p>
+
+        <h2>8. Alterações</h2>
+
+        <p>
+            Esta política pode ser atualizada a qualquer momento.
+        </p>
+
+        <h2>9. Contato</h2>
+
+        <p>
+            atendimento@fractionsparfums.com
+        </p>
+
+                <!-- ✅ BOTÃO -->
+        <a href="{% url 'home' %}" class="btn-home">
+                    Voltar para Home
+        </a>
+
+</div>
+
+{% endblock %}

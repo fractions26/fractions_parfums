@@ -1,0 +1,821 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="produto-container">
+
+<!-- ✅ IMAGEM COM THUMBNAILS -->
+<div class="produto-imagem">
+
+    <!-- ✅ COLUNA DE THUMBNAILS -->
+        <div class="thumb-coluna desktop-only">
+
+            {% if perfume.imagem %}
+            <img src="{{ perfume.imagem.url }}"
+                class="thumb ativa"
+                onclick="event.stopPropagation(); trocarImagem(0)">
+            {% endif %}
+
+            {% if perfume.imagem_descricao %}
+            <img src="{{ perfume.imagem_descricao.url }}"
+                class="thumb"
+                onclick="event.stopPropagation(); trocarImagem(1)">
+            {% endif %}
+
+        </div> <!-- ✅ AQUI FALTAVA -->
+
+        <!-- ✅ IMAGEM PRINCIPAL -->
+        <div class="image-wrapper">
+
+        {% if perfume.imagem %}
+        <img src="{{ perfume.imagem.url }}"
+            class="product-slider-image produto-img ativa"
+            alt="{{ perfume.nome }} - Perfume Importado"
+            loading="lazy">
+        {% endif %}
+
+        {% if perfume.imagem_descricao %}
+        <img src="{{ perfume.imagem_descricao.url }}"
+             class="product-slider-image produto-img"
+             alt="Descrição">
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+    <!-- ✅ INFO -->
+    <div class="produto-info">
+
+        <div class="breadcrumb">
+            Início > {{ perfume.categoria.nome }} > {{ perfume.nome }}
+        </div>
+
+        <h1 class="produto-titulo">{{ perfume.nome }}</h1>
+
+        <div class="produto-avaliacao">
+            <span class="nota">4.4 de 5</span>
+            <span class="stars">★★★★☆</span>
+            <span class="qtd-avaliacao">(40)</span>
+            <span class="link-avaliacao">Clique e veja!</span>
+        </div>
+
+        {% with preco=perfume.precos.first %}
+            {% if preco %}
+
+            {% comment %} 👉 opcional: cálculo de desconto fixo (exemplo 5%) {% endcomment %}
+            {% with desconto=5 %}
+
+            <div class="produto-preco" id="precoPrincipal">
+                R$ {{ preco.valor }}
+                <span class="desconto">{{ desconto }}% OFF</span>
+            </div>
+
+            {% endwith %}
+            
+            {% endif %}
+        {% endwith %}
+
+            <div class="produto-beneficios">
+
+                <p class="parcelamento">
+                    💳 3x de R$ 14,97 sem juros
+                </p>
+
+                <p class="pix">
+                    💰 5% de desconto pagando com Pix
+                </p>
+
+                <a href="{% url 'detalhes_pagamento' perfume.id %}" class="ver-detalhes">
+                    Ver mais detalhes
+                </a>
+
+            </div>
+
+        <div class="box-tamanho">
+            <label>Volume</label>
+
+            <select class="select-tamanho" id="selectTamanho">
+                {% for preco in perfume.precos.all %}
+                    <option value="{{ preco.id }}" data-preco="{{ preco.valor }}">
+                        {{ preco.tamanho }} - R$ {{ preco.valor }}
+
+                        {% if "2" in preco.tamanho %}
+                            - Aprox. 30 borrifadas
+                        {% elif "5" in preco.tamanho %}
+                            - Aprox. 75 borrifadas
+                        {% elif "10" in preco.tamanho %}
+                            - Aprox. 150 borrifadas
+                        {% endif %}
+
+                    </option>
+                {% endfor %}
+            </select>
+
+        </div>
+
+
+            <!-- ===================== -->
+            <!-- ✅ BLOCO DE COMPRA -->
+            <!-- ===================== -->
+            <div class="compra-wrapper">
+
+                <div class="compra-box">
+                    <div class="qtd-box">
+                        <button type="button" onclick="diminuirQtd()">-</button>
+                        <span id="qtdValor">1</span>
+                        <button type="button" onclick="aumentarQtd()">+</button>
+                    </div>
+
+
+                    <button class="btn-comprar-principal" onclick="adicionarCarrinho()">
+                        COMPRAR
+                    </button>
+                </div>
+
+                <div class="compra-beneficios">
+                    <p><span class="check-icon">✓</span> Produto 100% original</p>
+                    <p><span class="check-icon">✓</span> Entrega para todo o Brasil</p>
+                </div>
+
+            </div>
+
+            <!-- ===================== -->
+            <!-- ✅ FRETE / CEP -->
+            <!-- ===================== -->
+            <div class="frete-box">
+
+                <p class="frete-texto">
+                    🚚 Frete grátis a partir de R$198,00
+                </p>
+
+                <div class="cep-box">
+                    <input type="text" placeholder="Seu CEP">
+                    <button type="button" onclick="calcularFrete()">CALCULAR</button>
+                </div>
+
+                <a href="https://buscacepinter.correios.com.br/app/localidade_logradouro/index.php"
+                target="_blank"
+                class="link-cep">
+                    Não sei meu CEP
+                </a>
+
+                <p class="devolucao-aviso">
+                    ✅ Devolução grátis por 7 dias, consulte condições
+                </p>
+
+                <!-- ✅ LISTA FIXA -->
+                <div class="frete-resultado">
+                    <div class="frete-list"></div>
+                </div>
+            </div>
+
+
+            {% if perfume.imagem_descricao %}
+                <div class="descricao-imagem mobile-only">
+                    <img src="{{ perfume.imagem_descricao.url }}" 
+                        class="img-desc"
+                        onclick="abrirZoomDescricao(this.src)">
+                </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ✅ MODAL COMPLETO -->
+<div id="modalImagem" class="modal-img">
+
+    <div class="modal-topo">
+        <span id="indicadorModal">1 / 2</span>
+        <span class="fechar" onclick="fecharImagem()">✕</span>
+    </div>
+
+    <span class="seta esquerda" onclick="trocarModal(-1)">❮</span>
+
+    <img id="imgExpandida">
+
+    <span class="seta direita" onclick="trocarModal(1)">❯</span>
+
+    </div> <!-- produto-container -->
+
+
+    <!-- ✅ MODAL ZOOM DESCRIÇÃO (NOVO) -->
+    <div id="modalZoomDescricao" class="modal-zoom-desc">
+
+        <span class="fechar-zoom" onclick="fecharZoomDescricao()">✕</span>
+
+        <img id="imgZoomDescricao">
+
+    </div>
+
+<!-- ✅ SCRIPT FINAL -->
+<script>
+
+// ✅ CALCULO FRETE INTELIGENTE (DECANTS + REGIÃO)
+function calcularFrete() {
+
+    const cep = document.querySelector(".cep-box input").value.trim();
+    const lista = document.querySelector(".frete-list");
+
+    if (!cep || cep.length < 8) {
+        lista.innerHTML = "<div class='frete-msg'>Digite um CEP válido</div>";
+        return;
+    }
+
+    lista.innerHTML = "<div class='frete-msg'>Calculando frete...</div>";
+
+    fetch(`/checkout/frete/?cep=${cep}`)
+        .then(res => res.json())
+        .then(data => {
+
+            let fretes = data.filter(f => !f.error);
+
+            if (!fretes.length) {
+                lista.innerHTML = "<div class='frete-msg'>Nenhuma opção disponível</div>";
+                return;
+            }
+
+            // ===============================
+            // ✅ DETECTA REGIÃO (pela média de prazo)
+            // ===============================
+            const mediaPrazo = fretes.reduce((acc, f) => acc + f.delivery_time, 0) / fretes.length;
+
+            let resultado = [];
+
+            if (mediaPrazo > 10) {
+                // 📍 REGIÃO DISTANTE (NORTE / EX: MANAUS)
+
+                resultado = fretes
+                    .filter(f => f.delivery_time <= 20)        // remove absurdos
+                    .sort((a, b) => a.price - b.price);
+
+                // 🔥 prioriza Jadlog se existir
+                const jadlog = resultado.filter(f => f.company.name === "Jadlog");
+
+                if (jadlog.length >= 2) {
+                    resultado = jadlog.slice(0, 2);
+                } else {
+                    resultado = resultado.slice(0, 2);
+                }
+
+            } else {
+                // 📍 REGIÃO NORMAL (SUL/SUDESTE)
+
+                resultado = fretes
+                    .filter(f => f.delivery_time <= 10)
+                    .sort((a, b) => a.price - b.price)
+                    .slice(0, 3);
+            }
+
+            lista.innerHTML = "";
+
+            resultado.forEach((f, index) => {
+
+                const item = document.createElement("div");
+                item.className = "frete-item";
+
+                if (index === 0) item.classList.add("melhor");
+
+                const logo = document.createElement("img");
+                logo.src = f.company.picture;
+                logo.className = "frete-logo";
+
+                const nome = document.createElement("strong");
+                nome.textContent = f.name;
+
+                const preco = document.createElement("span");
+                preco.textContent = "R$ " + parseFloat(f.price).toFixed(2);
+
+                const prazo = document.createElement("span");
+                prazo.textContent = f.delivery_time + " dias";
+
+                const top = document.createElement("div");
+                top.className = "frete-top";
+                top.appendChild(logo);
+                top.appendChild(nome);
+
+                const detalhes = document.createElement("div");
+                detalhes.className = "frete-detalhes";
+                detalhes.appendChild(preco);
+                detalhes.appendChild(prazo);
+
+                item.appendChild(top);
+                item.appendChild(detalhes);
+
+                // ✅ BADGES
+                const badge = document.createElement("small");
+
+                if (index === 0) {
+                    badge.className = "badge";
+                    badge.textContent = "Melhor custo";
+                } else {
+                    badge.className = "badge secundario";
+                    badge.textContent = "Alternativa";
+                }
+
+                item.appendChild(badge);
+
+                lista.appendChild(item);
+            });
+
+        })
+        .catch(() => {
+            lista.innerHTML = "<div class='frete-msg'>Erro ao calcular frete</div>";
+        });
+}
+    
+document.addEventListener("DOMContentLoaded", function () {
+
+    window.imagens = document.querySelectorAll('.produto-img');
+    window.indicador = document.getElementById('indicador');
+    window.indicadorModal = document.getElementById('indicadorModal');
+
+    window.index = 0;
+
+    let startX = 0;
+    let moved = false;
+
+    // ✅ ZOOM + PAN
+    window.scale = 1;
+    let startDistance = 0;
+    let isZooming = false;
+
+    let posX = 0;
+    let posY = 0;
+    let startMoveX = 0;
+    let startMoveY = 0;
+    let isDragging = false;
+
+    const modalImg = document.getElementById("imgExpandida");
+
+    // ✅ DISTÂNCIA ENTRE DOIS DEDOS
+    function getDistance(touches) {
+        const dx = touches[0].clientX - touches[1].clientX;
+        const dy = touches[0].clientY - touches[1].clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function atualizar(novoIndex) {
+        imagens[index].classList.remove('ativa');
+        index = novoIndex;
+        imagens[index].classList.add('ativa');
+
+        if (indicador) {
+            indicador.innerText = (index + 1) + ' / ' + imagens.length;
+        }
+
+        if (indicadorModal) {
+            indicadorModal.innerText = (index + 1) + ' / ' + imagens.length;
+        }
+    }
+
+    // =======================
+    // ✅ SWIPE + CLICK IMAGEM
+    // =======================
+    imagens.forEach((img, i) => {
+
+        img.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            moved = false;
+        });
+
+        img.addEventListener('touchmove', () => {
+            moved = true;
+        });
+
+        img.addEventListener('touchend', (e) => {
+
+            let endX = e.changedTouches[0].clientX;
+            let diff = startX - endX;
+
+            if (scale > 1) return;
+
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    atualizar((index + 1) % imagens.length);
+                } else {
+                    atualizar((index - 1 + imagens.length) % imagens.length);
+                }
+            } else if (!moved) {
+                abrirImagem(i);
+            }
+
+        });
+
+        // ✅ NÃO abre modal no clique simples
+        img.addEventListener('click', function (e) {
+
+            // ✅ evita conflito com swipe
+            if (!moved) {
+                abrirImagem(i);
+            }
+
+        });
+
+    }); // ✅ FECHAMENTO CORRETO
+
+    // =======================
+    // ✅ ZOOM MODAL (FORA DO LOOP)
+    // =======================
+
+    modalImg.addEventListener("wheel", (e) => {
+
+        e.preventDefault();
+
+        let zoomSpeed = 0.1;
+
+        if (e.deltaY < 0) {
+            scale += zoomSpeed;
+        } else {
+            scale -= zoomSpeed;
+        }
+
+        scale = Math.min(Math.max(1, scale), 3);
+
+        modalImg.style.transform =
+            `scale(${scale}) translate(${posX}px, ${posY}px)`;
+
+    });
+
+    modalImg.addEventListener("touchstart", (e) => {
+
+        if (e.touches.length === 2) {
+            isZooming = true;
+            startDistance = getDistance(e.touches);
+        }
+
+        if (scale > 1 && e.touches.length === 1) {
+            isDragging = true;
+
+            startMoveX = e.touches[0].clientX - posX;
+            startMoveY = e.touches[0].clientY - posY;
+        }
+
+    });
+
+    modalImg.addEventListener("touchmove", (e) => {
+
+        if (e.touches.length === 2 && isZooming) {
+
+            let newDistance = getDistance(e.touches);
+            let zoom = newDistance / startDistance;
+
+            scale = Math.min(Math.max(1, zoom), 3);
+
+            modalImg.style.transform =
+                `scale(${scale}) translate(${posX}px, ${posY}px)`;
+        }
+
+        if (isDragging && scale > 1 && e.touches.length === 1) {
+
+            posX = e.touches[0].clientX - startMoveX;
+            posY = e.touches[0].clientY - startMoveY;
+
+            modalImg.style.transform =
+                `scale(${scale}) translate(${posX}px, ${posY}px)`;
+        }
+
+    });
+
+    modalImg.addEventListener("touchend", () => {
+
+        if (scale <= 1) {
+            resetZoom();
+        }
+
+        isZooming = false;
+        isDragging = false;
+    });
+
+    function resetZoom() {
+        scale = 1;
+        posX = 0;
+        posY = 0;
+        modalImg.style.transform = "scale(1) translate(0px,0px)";
+    }
+
+});
+
+// =======================
+// ✅ MODAL PRINCIPAL
+// =======================
+
+function abrirImagem(i) {
+
+    index = i;
+
+    const modal = document.getElementById("modalImagem");
+    const img = document.getElementById("imgExpandida");
+
+    document.body.classList.add("modal-aberto");
+
+    resetZoomModal();
+
+    img.onload = function () {
+        modal.classList.add("active");
+    };
+
+    img.src = document.querySelectorAll('.produto-img')[index].src;
+
+    indicadorModal.innerText = (index + 1) + ' / ' + document.querySelectorAll('.produto-img').length;
+}
+
+function trocarModal(dir) {
+
+    let imagens = document.querySelectorAll('.produto-img');
+    let img = document.getElementById("imgExpandida");
+
+    img.style.opacity = "0";
+
+    setTimeout(() => {
+
+        index = (index + dir + imagens.length) % imagens.length;
+        img.src = imagens[index].src;
+
+        indicadorModal.innerText = (index + 1) + ' / ' + imagens.length;
+
+        img.style.opacity = "1";
+
+    }, 150);
+}
+
+function fecharImagem() {
+
+    document.getElementById("modalImagem").classList.remove("active");
+    document.body.classList.remove("modal-aberto");
+
+    resetZoomModal();
+}
+
+function resetZoomModal() {
+
+    const img = document.getElementById("imgExpandida");
+
+    scale = 1;
+    posX = 0;
+    posY = 0;
+
+    img.style.transform = "scale(1) translate(0px,0px)";
+}
+
+// =======================
+// ✅ TROCA DE IMAGEM (THUMB)
+// =======================
+
+function trocarImagem(newIndex) {
+
+    const imagens = document.querySelectorAll('.produto-img');
+    const thumbs = document.querySelectorAll('.thumb');
+
+    imagens.forEach(img => img.classList.remove('ativa'));
+    thumbs.forEach(t => t.classList.remove('ativa'));
+
+    imagens[newIndex].classList.add('ativa');
+    thumbs[newIndex].classList.add('ativa');
+
+    index = newIndex;
+}
+
+// =======================
+// ✅ MODAL DESCRIÇÃO
+// =======================
+
+let zoomScale = 1;
+let zoomPosX = 0;
+let zoomPosY = 0;
+let zoomStartX = 0;
+let zoomStartY = 0;
+let zoomDragging = false;
+let zoomStartDistance = 0;
+
+function abrirZoomDescricao(src) {
+    const modal = document.getElementById("modalZoomDescricao");
+    const img = document.getElementById("imgZoomDescricao");
+
+    zoomScale = 1;
+    zoomPosX = 0;
+    zoomPosY = 0;
+
+    img.style.transform = "scale(1) translate(0,0)";
+    img.src = src;
+
+    modal.classList.add("active");
+}
+
+function fecharZoomDescricao() {
+    document.getElementById("modalZoomDescricao").classList.remove("active");
+}
+
+const zoomImg = document.getElementById("imgZoomDescricao");
+
+zoomImg.addEventListener("touchstart", (e) => {
+
+    if (e.touches.length === 2) {
+        zoomStartDistance = Math.sqrt(
+            Math.pow(e.touches[0].clientX - e.touches[1].clientX, 2) +
+            Math.pow(e.touches[0].clientY - e.touches[1].clientY, 2)
+        );
+    }
+
+    if (zoomScale > 1 && e.touches.length === 1) {
+        zoomDragging = true;
+        zoomStartX = e.touches[0].clientX - zoomPosX;
+        zoomStartY = e.touches[0].clientY - zoomPosY;
+    }
+});
+
+zoomImg.addEventListener("touchmove", (e) => {
+
+    if (e.touches.length === 2) {
+
+        let newDistance = Math.sqrt(
+            Math.pow(e.touches[0].clientX - e.touches[1].clientX, 2) +
+            Math.pow(e.touches[0].clientY - e.touches[1].clientY, 2)
+        );
+
+        let zoom = newDistance / zoomStartDistance;
+
+        zoomScale = Math.min(Math.max(1, zoom), 3);
+
+        zoomImg.style.transform =
+            `scale(${zoomScale}) translate(${zoomPosX}px, ${zoomPosY}px)`;
+    }
+
+    if (zoomDragging && zoomScale > 1 && e.touches.length === 1) {
+
+        zoomPosX = e.touches[0].clientX - zoomStartX;
+        zoomPosY = e.touches[0].clientY - zoomStartY;
+
+        zoomImg.style.transform =
+            `scale(${zoomScale}) translate(${zoomPosX}px, ${zoomPosY}px)`;
+    }
+});
+
+zoomImg.addEventListener("touchend", () => {
+    zoomDragging = false;
+});
+
+zoomImg.addEventListener("wheel", (e) => {
+
+    e.preventDefault();
+
+    let zoomSpeed = 0.1;
+
+    if (e.deltaY < 0) {
+        zoomScale += zoomSpeed;
+    } else {
+        zoomScale -= zoomSpeed;
+    }
+
+    zoomScale = Math.min(Math.max(1, zoomScale), 3);
+
+    zoomImg.style.transform =
+        `scale(${zoomScale}) translate(${zoomPosX}px, ${zoomPosY}px)`;
+});
+
+// =======================
+// ✅ ATUALIZA PREÇO POR VOLUME
+// =======================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const selectTamanho = document.getElementById("selectTamanho");
+    const precoPrincipal = document.getElementById("precoPrincipal");
+
+    function atualizarPreco() {
+        const option = selectTamanho.options[selectTamanho.selectedIndex];
+        const preco = option.getAttribute("data-preco");
+
+        const precoFormatado = parseFloat(preco).toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+
+        precoPrincipal.innerHTML = `
+        ${precoFormatado}
+        <span class="desconto">5% OFF</span>
+    `;
+
+    }
+
+    // ✅ Quando trocar o volume
+    selectTamanho.addEventListener("change", atualizarPreco);
+
+    // ✅ Ao carregar a página
+    atualizarPreco();
+});
+
+// =======================
+// ✅ ADICIONAR AO CARRINHO
+// =======================
+
+function adicionarCarrinho() {
+
+    const select = document.getElementById("selectTamanho");
+    const preco_id = select.value;
+
+    const perfume_id = "{{ perfume.id }}";
+    const quantidade = quantidadeAtual;
+
+    fetch("/carrinho/adicionar/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": getCookie('csrftoken')
+        },
+
+        // ✅ CORRIGIDO
+        body: `perfume_id=${perfume_id}&preco_id=${preco_id}&quantidade=${quantidade}`
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        if(data.success){
+
+            // ✅ ATUALIZA BADGE DIRETO
+            const badges = document.querySelectorAll(".cart-badge");
+
+            badges.forEach(badge => {
+                if (data.quantidade_total > 0) {
+                    badge.innerText = data.quantidade_total;
+                    badge.style.display = "flex";
+                } else {
+                    badge.innerText = "";
+                    badge.style.display = "none";
+                }
+            });
+
+            // ✅ toast
+            mostrarToastProduto(data);
+
+            // ✅ UX botão
+            const btn = document.querySelector(".btn-comprar-principal");
+            btn.innerText = "ADICIONADO ✓";
+
+            setTimeout(() => {
+                btn.innerText = "COMPRAR";
+            }, 1200);
+
+        } else {
+            console.log("❌ resposta inesperada:", data);
+        }
+
+    })
+    .catch(error => {
+        console.error("❌ erro no fetch:", error);
+    });
+}
+
+// ✅ CSRF TOKEN (necessário para POST no Django)
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+
+            if (cookie.startsWith(name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// =======================
+// ✅ CONTROLE DE QUANTIDADE
+// =======================
+
+let quantidadeAtual = 1;
+
+function atualizarQtdTela() {
+    document.getElementById("qtdValor").innerText = quantidadeAtual;
+}
+
+function aumentarQtd() {
+    quantidadeAtual++;
+    atualizarQtdTela();
+}
+
+function atualizarQtdTela() {
+    document.getElementById("qtdValor").innerText = quantidadeAtual;
+
+    const btnMais = document.querySelector(".qtd-box button:last-child");
+
+    if (quantidadeAtual >= 10) {
+        btnMais.disabled = true;
+    } else {
+        btnMais.disabled = false;
+    }
+}
+
+
+</script>
+
+{% endblock %}

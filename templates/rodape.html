@@ -1,0 +1,97 @@
+{% load static %}
+
+<div class="footer-mobile">
+
+    <!-- ✅ LINHAS DE LINKS -->
+    <div class="footer-links">
+
+        <!-- MENU -->
+        <div class="footer-col">
+            <h4>Menu Principal</h4>
+            <a href="{% url 'home' %}">Início</a>
+            <a href="{% url 'contato' %}">Contato</a>
+            <a href="{% url 'lista_categoria' 'masculinos' %}">Decants Masculinos</a>
+            <a href="{% url 'lista_categoria' 'femininos' %}">Decants Femininos</a>
+        </div>
+
+        <!-- INFO -->
+        <div class="footer-col">
+            <h4>Informações</h4>
+            <a href="{% url 'perguntas_frequentes' %}">Perfguntas Frequentes</a>
+            <a href="{% url 'trocas_devolucao' %}">Trocas e Devoluções</a>
+            <a href="{% url 'politica_privacidade' %}">Política de Privacidade</a>
+            <a href="{% url 'quem_somos' %}">Quem Somos?</a>
+        </div>
+
+    </div>
+
+    <!-- ✅ CONTATO -->
+    <div class="footer-contact">
+        <h4>Entre em contato</h4>
+
+        <p>
+            <i class="fa-brands fa-whatsapp"></i>
+            +55 (41) 9999-9999
+        </p>
+
+        <p>
+            <i class="fa-regular fa-envelope"></i>
+            atendimento@seudominio.com.br
+        </p>
+
+        <p class="footer-horario">
+            <i class="fa-solid fa-clock"></i>
+            <span>
+                Atendimento<br>
+                Segunda a sexta, das 09h às 18h
+            </span>
+        </p>
+    </div>
+
+    <!-- ✅ REDES -->
+    <div class="footer-social">
+        <h4>Redes Sociais</h4>
+
+        <div class="social-icons">
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-facebook-f"></i>
+        </div>
+    </div>
+
+</div>
+
+<!-- ✅ ✅ BLOCO EXTRA (NOVO - ISOLADO) -->
+<div class="footer-extra">
+
+    <!-- ✅ MEIOS DE PAGAMENTO -->
+    <div class="footer-pagamento">
+        <h4>Meios de pagamento</h4>
+
+        <div class="pagamento-icons">
+            <img src="{% static 'images/pagamento/visa.png' %}" alt="Visa">
+            <img src="{% static 'images/pagamento/mastercard.png' %}" alt="Mastercard">
+            <img src="{% static 'images/pagamento/pix.png' %}" alt="Pix">
+            <img src="{% static 'images/pagamento/boleto.png' %}" alt="Boleto">
+        </div>
+    </div>
+
+    <!-- ✅ FAIXA FINAL -->
+    <div class="footer-bottom">
+
+        <div class="footer-copy">
+            © 2026 Fractions Parfums - CNPJ: 55.555.555/0005-55. Todos os direitos reservados.
+        </div>
+
+        <div class="footer-dev">
+            <span>Criado por:</span>
+            <img src="{% static 'images/logo-horizontal.webp' %}" alt="Fractions Parfums">
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ✅ WHATSAPP FLOAT -->
+<a href="#" class="whatsapp-float">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>

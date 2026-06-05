@@ -1,0 +1,697 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="titulo-categoria">
+    {{ categoria.nome }}
+</h2>
+
+<div class="container-produtos">
+
+<!-- ✅ SIDEBAR -->
+<aside class="sidebar-filtros desktop-only">
+
+    <form method="get">
+
+            <h3>Categorias</h3>
+            
+            <ul class="lista-categorias">
+            
+            <li>
+            <label>
+            <input
+            type="radio"
+            name="categoria"
+            onchange="window.location.href='{% url 'lista_categoria' 'masculinos' %}'"
+            {% if categoria.slug == 'masculinos' %}checked{% endif %}
+            >
+                        Masculinos
+            </label>
+            </li>
+            
+                <li>
+            <label>
+            <input
+            type="radio"
+            name="categoria"
+            onchange="window.location.href='{% url 'lista_categoria' 'femininos' %}'"
+            {% if categoria.slug == 'femininos' %}checked{% endif %}
+            >
+                        Femininos
+            </label>
+            </li>
+            
+            </ul>
+
+        <div class="filtro-bloco">
+            <h4>Destaques</h4>
+
+            <label>
+                <input type="checkbox" name="destaque" value="mais_vendidos"
+                {% if destaques_selecionados and 'mais_vendidos' in destaques_selecionados %}checked{% endif %}>
+                Mais vendidos
+            </label>
+
+            <label>
+                <input type="checkbox" name="destaque" value="novidades"
+                {% if destaques_selecionados and 'novidades' in destaques_selecionados %}checked{% endif %}>
+                Novidades
+            </label>
+        </div>
+
+<!-- ✅ MARCAS -->
+<div class="accordion">
+ 
+    <div class="accordion-header" onclick="toggleAccordion(this)">
+    <span>Marcas</span>
+    <span class="icon">+</span>
+    </div>
+ 
+    <div class="accordion-body">
+ 
+        {% for marca in marcas %}
+        <label>
+        <input
+        type="checkbox"
+        name="marca"
+        value="{{ marca }}"
+        {% if marca in marcas_selecionadas %}checked{% endif %}
+>
+        {{ marca }}
+        </label>
+        {% endfor %}
+ 
+        </div>
+
+    </div>
+
+        <button type="submit" class="btn-filtrar">
+            Filtrar
+        </button>
+
+        <!-- ✅ filtro preço desktop (mantido como está) -->
+        <div class="filtro-preco">
+            <h4>Preço R$</h4>
+
+            <div class="preco-campos">
+
+                <div class="campo">
+                    <label>De</label>
+                    <input type="number" name="preco_min" step="0.01"
+                        value="{{ request.GET.preco_min|default:'' }}">
+                </div>
+
+                <div class="campo">
+                    <label>Até</label>
+                    <input type="number" name="preco_max" step="0.01"
+                        value="{{ request.GET.preco_max|default:'' }}">
+                </div>
+
+                <button type="submit" class="btn-preco">→</button>
+
+            </div>
+        </div>
+
+    </form>
+</aside>
+
+
+<!-- ✅ ÁREA DIREITA -->
+<div class="conteudo-produtos">
+
+    <!-- ✅ MOBILE: FILTRAR + ORDENAR -->
+    <div class="barra-mobile-filtros mobile-only">
+
+        <button class="btn-mobile" onclick="abrirFiltros()">
+            Filtrar
+        </button>
+
+        <form method="get" class="form-ordenar-mobile">
+
+            {% for marca in marcas_selecionadas %}
+                <input type="hidden" name="marca" value="{{ marca }}">
+            {% endfor %}
+
+            {% for destaque in destaques_selecionados %}
+                <input type="hidden" name="destaque" value="{{ destaque }}">
+            {% endfor %}
+
+            {% if request.GET.preco_min %}
+                <input type="hidden" name="preco_min" value="{{ request.GET.preco_min }}">
+            {% endif %}
+
+            {% if request.GET.preco_max %}
+                <input type="hidden" name="preco_max" value="{{ request.GET.preco_max }}">
+            {% endif %}
+
+            <select name="ordenar" onchange="this.form.submit()" class="select-mobile">
+
+                <option value="">Ordenar</option>
+
+                <option value="mais_vendidos"
+                    {% if request.GET.ordenar == 'mais_vendidos' %}selected{% endif %}>
+                    Mais vendidos
+                </option>
+
+                <option value="preco_asc"
+                    {% if request.GET.ordenar == 'preco_asc' %}selected{% endif %}>
+                    Menor preço
+                </option>
+
+                <option value="preco_desc"
+                    {% if request.GET.ordenar == 'preco_desc' %}selected{% endif %}>
+                    Maior preço
+                </option>
+
+                <option value="az"
+                    {% if request.GET.ordenar == 'az' %}selected{% endif %}>
+                    A - Z
+                </option>
+
+                <option value="za"
+                    {% if request.GET.ordenar == 'za' %}selected{% endif %}>
+                    Z - A
+                </option>
+
+            </select>
+
+        </form>
+
+    </div>
+
+
+    <!-- ✅ MENU DE ORDENAÇÃO DESKTOP -->
+    <div class="ordenacao-container desktop-only">
+        <form method="get">
+
+            {% for marca in marcas_selecionadas %}
+                <input type="hidden" name="marca" value="{{ marca }}">
+            {% endfor %}
+
+            {% for destaque in destaques_selecionados %}
+                <input type="hidden" name="destaque" value="{{ destaque }}">
+            {% endfor %}
+
+            <select name="ordenar" onchange="this.form.submit()" class="select-ordenar">
+
+                <option value="">Ordenar por</option>
+
+                <option value="mais_vendidos"
+                    {% if request.GET.ordenar == 'mais_vendidos' %}selected{% endif %}>
+                    Mais vendidos
+                </option>
+
+                <option value="preco_asc"
+                    {% if request.GET.ordenar == 'preco_asc' %}selected{% endif %}>
+                    Preço: menor ao maior
+                </option>
+
+                <option value="preco_desc"
+                    {% if request.GET.ordenar == 'preco_desc' %}selected{% endif %}>
+                    Preço: maior ao menor
+                </option>
+
+                <option value="az"
+                    {% if request.GET.ordenar == 'az' %}selected{% endif %}>
+                    A - Z
+                </option>
+
+                <option value="za"
+                    {% if request.GET.ordenar == 'za' %}selected{% endif %}>
+                    Z - A
+                </option>
+
+            </select>
+
+        </form>
+    </div>
+
+
+<!-- ✅ PRODUTOS -->
+<div class="grid">
+
+    {% for perfume in perfumes %}
+    <div class="card-wrapper">
+
+        <div class="card">
+
+            <!-- ✅ IMAGEM -->
+            <div class="img-box">
+                <a href="/produtos/{{ perfume.slug }}/">
+                    {% if perfume.imagem %}
+                        <img src="{{ perfume.imagem.url }}" alt="{{ perfume.nome }}">
+                    {% endif %}
+                </a>
+            </div>
+
+            <!-- ✅ NOME -->
+            <h3>{{ perfume.nome }}</h3>
+
+            <!-- ✅ AVALIAÇÃO -->
+            <div class="avaliacao-home">
+                <span class="stars">★★★★☆</span>
+                <span class="qtd">(21)</span>
+            </div>
+
+            <!-- ✅ PREÇO -->
+            {% with preco=perfume.precos.first %}
+
+                {% if preco %}
+
+                    <div class="preco" data-preco="{{ preco.valor }}">
+                        R$ {{ preco.valor|floatformat:2 }}
+                        <span class="desconto">5% OFF</span>
+                    </div>
+
+                    <p class="parcelado">
+                        <strong>3x</strong> de <br>
+                        <strong class="valor-parcela">
+                            R$ --
+                        </strong>
+                        sem juros
+                    </p>
+
+                {% endif %}
+
+            {% endwith %}
+
+
+            <!-- ✅ BOTÕES -->
+            <div class="card-actions">
+
+                <button 
+                    type="button"
+                    class="btn-acao comprar"
+                    onclick="abrirModalCompra(this)"
+                    data-id="{{ perfume.id }}"
+                    data-nome="{{ perfume.nome }}"
+                    data-img="{{ perfume.imagem.url }}"
+                    data-precos='[
+                        {% for p in perfume.precos.all %}
+                            {"id":"{{ p.id }}","tamanho":"{{ p.tamanho }}","valor":"{{ p.valor }}"}{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    ]'
+                >
+                    COMPRAR
+                </button>
+
+                <a href="/produtos/{{ perfume.slug }}/" class="btn-acao ver">
+                    VER
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+    {% endfor %}
+
+</div><!-- ✅ FECHA GRID -->
+
+<!-- 🔥🔥🔥 CORREÇÃO CRÍTICA AQUI -->
+</div><!-- ✅ FECHA conteudo-produtos -->
+</div><!-- ✅ FECHA container-produtos -->
+
+
+<!-- ✅ DRAWER FILTROS (AGORA FORA DO LAYOUT) -->
+<div id="drawer-filtros" class="drawer-filtros">
+
+    <div class="drawer-header">
+        <button type="button" onclick="fecharFiltros()" class="btn-close">
+            ✕
+        </button>
+        <span>Filtros</span>
+    </div>
+
+<form method="get" class="drawer-body">
+ 
+    <!-- ✅ CATEGORIAS -->
+    <div class="filtro-bloco-mobile">
+    
+            <h4>Categorias</h4>
+    
+            <label>
+    <input
+                    type="radio"
+                    name="categoria"
+                    value="masculinos"
+                    {% if request.GET.categoria == 'masculinos' %}
+                    checked
+                    {% endif %}
+    >
+                Masculinos
+    </label>
+    
+            <label>
+    <input
+                    type="radio"
+                    name="categoria"
+                    value="femininos"
+                    {% if request.GET.categoria == 'femininos' %}
+                    checked
+                    {% endif %}
+    >
+                Femininos
+    </label>
+    
+        </div>
+    
+        <!-- ✅ DESTAQUES -->
+    <div class="filtro-bloco-mobile">
+    
+            <h4>Destaques</h4>
+    
+            <label>
+    <input
+                    type="checkbox"
+                    name="destaque"
+                    value="mais_vendidos"
+                    {% if destaques_selecionados and 'mais_vendidos' in destaques_selecionados %}
+                    checked
+                    {% endif %}
+    >
+                Mais vendidos
+    </label>
+    
+            <label>
+    <input
+                    type="checkbox"
+                    name="destaque"
+                    value="novidades"
+                    {% if destaques_selecionados and 'novidades' in destaques_selecionados %}
+                    checked
+                    {% endif %}
+    >
+                Novidades
+    </label>
+    
+        </div>
+    
+    <!-- ✅ MARCAS (AGORA COM ACCORDION) -->
+    <div class="accordion">
+
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Marcas</span>
+            <span class="icon">+</span>
+        </div>
+
+        <div class="accordion-body">
+
+            {% for marca in marcas %}
+            <label>
+                <input
+                    type="checkbox"
+                    name="marca"
+                    value="{{ marca }}"
+                    {% if marca in marcas_selecionadas %}
+                    checked
+                    {% endif %}
+                >
+                {{ marca }}
+            </label>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    
+        <!-- ✅ PREÇO -->
+    <div class="filtro-preco-mobile">
+    
+    <h4>Preço R$</h4>
+    
+    <div class="preco-linha">
+    
+    <div class="campo-mini">
+    <label>De</label>
+        <input
+        type="number"
+            name="preco_min"
+        value="{{ request.GET.preco_min|default:'' }}"
+    >
+    </div>
+    
+    <div class="campo-mini">
+    <label>Até</label>
+        <input
+        type="number"
+        name="preco_max"
+        value="{{ request.GET.preco_max|default:'' }}"
+    >
+    </div>
+    
+        </div>
+    
+    </div>
+ 
+    <!-- ✅ MANTÉM ORDENAÇÃO ATUAL -->
+    {% if request.GET.ordenar %}
+<input type="hidden" name="ordenar" value="{{ request.GET.ordenar }}">
+    {% endif %}
+ 
+    <button type="submit" class="btn-filtrar-mobile">
+        Filtrar
+</button>
+ 
+</form>
+ 
+</div>
+
+<!-- ✅ MODAL COMPRA RÁPIDA -->
+<div id="modalCompra" class="modal-compra">
+
+    <div class="modal-content">
+
+        <button type="button" class="btn-close-modal" onclick="fecharModalCompra()">
+            ✕
+        </button>
+
+        <img id="modalImagem" class="modal-img-product" alt="Produto">
+
+        <h2 id="modalNome"></h2>
+
+        <div class="modal-select-box">
+            <label>Tamanho</label>
+            <select id="modalSelect"></select>
+        </div>
+
+        <div class="modal-qtd">
+            <button type="button" onclick="alterarQtdModal(-1)">−</button>
+            <span id="modalQtd">1</span>
+            <button type="button" onclick="alterarQtdModal(1)">+</button>
+        </div>
+
+        <button class="btn-modal-comprar" onclick="confirmarCompra()">
+            COMPRAR
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+// =======================
+// ✅ DRAWER
+// =======================
+function abrirFiltros() {
+    document.getElementById("drawer-filtros").classList.add("ativo");
+}
+
+function fecharFiltros() {
+    document.getElementById("drawer-filtros").classList.remove("ativo");
+}
+
+function toggleAccordion(header) {
+
+    const accordion = header.parentElement;
+    const body = accordion.querySelector('.accordion-body');
+    const icon = header.querySelector('.icon');
+
+    if (!body) return;
+
+    body.classList.toggle('ativo');
+
+    if (icon) {
+        icon.textContent = body.classList.contains('ativo') ? '−' : '+';
+    }
+}
+// =======================
+// ✅ VARIÁVEIS
+// =======================
+let produtoSelecionado = null;
+let qtdModal = 1;
+
+// =======================
+// ✅ ABRIR MODAL
+// =======================
+function abrirModalCompra(btn) {
+
+    qtdModal = 1;
+    document.getElementById("modalQtd").innerText = "1";
+
+    const data = JSON.parse(btn.getAttribute("data-precos"));
+
+    produtoSelecionado = {
+        id: btn.getAttribute("data-id"),
+        nome: btn.getAttribute("data-nome"),
+        img: btn.getAttribute("data-img"),
+        precos: data
+    };
+
+    document.getElementById("modalNome").innerText = produtoSelecionado.nome;
+    document.getElementById("modalImagem").src = produtoSelecionado.img;
+
+    const select = document.getElementById("modalSelect");
+    select.innerHTML = "";
+
+    produtoSelecionado.precos.forEach(p => {
+        let option = document.createElement("option");
+        option.value = p.id;
+        option.innerText = `${p.tamanho} - R$ ${p.valor}`;
+        select.appendChild(option);
+    });
+
+    document.getElementById("modalCompra").classList.add("active");
+}
+
+// =======================
+// ✅ FECHAR MODAL
+// =======================
+function fecharModalCompra() {
+    document.getElementById("modalCompra").classList.remove("active");
+}
+
+// =======================
+// ✅ QTD
+// =======================
+function alterarQtdModal(delta) {
+
+    qtdModal += delta;
+
+    if (qtdModal < 1) qtdModal = 1;
+    if (qtdModal > 10) qtdModal = 10;
+
+    document.getElementById("modalQtd").innerText = qtdModal;
+}
+
+// =======================
+// ✅ RECARREGAR DRAWER
+// =======================
+function atualizarCarrinhoDrawer(){
+
+    const conteudo = document.getElementById("drawerConteudo");
+
+    if(!conteudo) return;
+
+    fetch("/carrinho/drawer/")
+    .then(res => res.text())
+    .then(html => {
+
+        conteudo.innerHTML = html;
+
+        atualizarBadge();
+    })
+    .catch(() => {});
+}
+
+
+function confirmarCompra() {
+
+    const preco_id = document.getElementById("modalSelect").value;
+
+    fetch("/carrinho/adicionar/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": getCSRF()
+        },
+
+        body: `perfume_id=${produtoSelecionado.id}&preco_id=${preco_id}&quantidade=${qtdModal}`
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        if(data.success){
+
+            // ✅ fecha o modal
+            fecharModalCompra();
+
+            // ✅ ATUALIZA BADGE DIRETO (SEM FETCH)
+            const badges = document.querySelectorAll(".cart-badge");
+
+            badges.forEach(badge => {
+                if (data.quantidade_total > 0) {
+                    badge.innerText = data.quantidade_total;
+                    badge.style.display = "flex";
+                } else {
+                    badge.innerText = "";
+                    badge.style.display = "none";
+                }
+            });
+
+            // ✅ log de conferência
+            console.log("✅ Badge atualizada para:", data.quantidade_total);
+
+            // ✅ toast
+            mostrarToastProduto(data);
+
+        } else {
+            console.log("❌ resposta inesperada:", data);
+        }
+
+    })
+    .catch(error => {
+        console.error("❌ ERRO NO FETCH:", error);
+    });
+}
+
+
+// =======================
+// ✅ CSRF
+// =======================
+function getCSRF() {
+    let cookies = document.cookie.split(';');
+
+    for (let c of cookies) {
+        c = c.trim();
+        if (c.startsWith('csrftoken=')) {
+            return decodeURIComponent(c.split('=')[1]);
+        }
+    }
+
+    return null;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    document.querySelectorAll(".preco").forEach(function (bloco) {
+
+        let precoTexto = bloco.getAttribute("data-preco");
+
+        if (!precoTexto) return;
+
+        let preco = parseFloat(precoTexto);
+
+        if (isNaN(preco)) return;
+
+        let parcela = (preco / 3).toFixed(2);
+
+        let card = bloco.closest(".card");
+
+        if (!card) return;
+
+        let parcelaEl = card.querySelector(".valor-parcela");
+
+        if (parcelaEl) {
+            parcelaEl.innerText = "R$ " + parcela.replace(".", ",");
+        }
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

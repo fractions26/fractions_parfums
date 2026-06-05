@@ -1,0 +1,533 @@
+.footer-mobile {
+    background: #e5e5e5;
+    padding: 20px 20px;
+
+    width: 100%;
+    overflow-x: hidden;   /* ✅ trava qualquer escape */
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* LINKS */
+.footer-links {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.footer-col h4 {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    font-family: "Montserrat", Sans-serif;
+    color: #555;
+}
+
+.footer-col a {
+    font-size: 13px;
+    color: #555;
+    text-decoration: none;
+    font-family: "Montserrat", Sans-serif;
+    display: block;
+    line-height: 20px; /* 🔥 espaçamento elegante */
+
+}
+
+/* CONTATO */
+.footer-contact h4,
+.footer-social h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    font-family: "Montserrat", Sans-serif;
+    color: #555;
+}
+
+.footer-contact p {
+    font-size: 13px;
+    color: #555;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* REDES */
+.social-icons {
+    display: flex;
+    gap: 12px;
+}
+
+.social-icons i {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+    background: #555;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+}
+
+/* WHATSAPP */
+.whatsapp-float {
+    position: fixed;
+    bottom: 95px;
+    right: 15px;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+    background: #25d366;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 20px;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+/* ===================== */
+/* ✅ RODAPE DESKTOP */
+/* ===================== */
+@media (min-width: 1024px) {
+
+    .footer-mobile {
+        width: 100%;
+        background: #e5e5e5;
+
+        padding: 50px 120px;
+
+        display: grid;
+        grid-template-columns: 2.2fr 1.8fr 1.2fr 1fr;
+
+        gap: 100px;
+        align-items: start;
+    }
+
+    .footer-links {
+        display: flex;
+        flex-wrap: wrap; 
+        gap: 80px;
+    }
+
+    .footer-col {
+        gap: 10px;
+        max-width: 48%;
+    }
+
+    .footer-col h4 {
+        white-space: nowrap; /* ✅ só no desktop */
+        margin-bottom: 10px;
+    }
+
+    .footer-col a {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .footer-contact {
+        margin-top: 4px;
+    }
+
+    .footer-contact p {
+        line-height: 22px;
+    }
+
+    .footer-social {
+        margin-top: 1px;
+    }
+
+}
+
+/* ✅ MOBILE (FORA DO DESKTOP) */
+@media (max-width: 768px) {
+
+    .footer-col h4 {
+        white-space: normal; /* ✅ AGORA FUNCIONA */
+    }
+.footer-links {
+    flex-wrap: wrap;   /* ✅ ESSENCIAL (faltava aqui) */
+}
+
+
+}
+
+/* ✅ HORÁRIO AJUSTADO */
+.footer-horario {
+    align-items: flex-start;
+}
+
+.footer-horario span {
+    display: block;
+    line-height: 18px;
+}
+
+/* ===================== */
+/* ✅ BLOCO EXTRA AJUSTADO */
+/* ===================== */
+.footer-extra {
+    width: 100%;
+    background: #e5e5e5;
+    padding: 5px 0;
+}
+
+/* ✅ PAGAMENTO */
+.footer-pagamento {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    padding: 30px 0 50px 120px;
+
+    background: #e5e5e5;
+    font-family: "Montserrat", Sans-serif;
+    font-size: 19px;
+}
+
+.footer-pagamento h4 {
+    margin: 0;
+    font-size: 15px;
+    color: #555;
+    white-space: nowrap;
+}
+
+/* ✅ ÍCONES */
+.pagamento-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+.pagamento-icons img {
+    height: 35px;
+    opacity: 0.9;
+}
+
+/* ===================== */
+/* ✅ FAIXA FINAL */
+/* ===================== */
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 120px 30px;
+
+    border-top: 1px solid #ccc;
+
+    background-color: #333;
+    font-size: 12px;
+    color: #f5f5f5;
+
+    font-family: "Montserrat", Sans-serif;
+}
+
+/* ✅ TEXTO */
+.footer-copy {
+    line-height: 16px;
+}
+
+/* ✅ CRIADO POR */
+.footer-dev {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    background: #333;
+    padding: 6px 10px;
+    border-radius: 4px;
+
+    margin-right: 20px;
+}
+
+/* ✅ LOGO DESKTOP */
+.footer-dev img {
+    height: 60px;   /* 🎯 grande e visível no desktop */
+
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+
+    display: block;
+}
+
+
+/* ===================== */
+/* ✅ MOBILE */
+/* ===================== */
+@media (max-width: 768px) {
+
+    .footer-extra {
+        padding: 10px 0px;
+    }
+
+    /* ✅ PAGAMENTO */
+    .footer-pagamento {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    .footer-pagamento h4 {
+        font-size: 16px;
+    }
+
+    /* ✅ ÍCONES GRID */
+    .pagamento-icons {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+
+        justify-items: center;
+
+    }
+
+    .pagamento-icons img {
+        height: 32px;
+    }
+
+    /* ✅ BLOCO FINAL */
+    .footer-bottom {
+        width: 100%;
+        padding: 15px 10px;
+
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .footer-copy {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    /* ✅ CRIADO POR MOBILE */
+    .footer-dev {
+        margin: 0;
+        justify-content: center;
+    }
+
+    /* ✅ LOGO MOBILE (MENOR MAS VISÍVEL) */
+    .footer-dev img {
+        height: 60px;   /* 🔥 reduzido, mas ainda bem visível */
+    }
+
+}
+
+
+/* ===================== */
+/* ✅ PAGINA QUEM SOMOS */
+/* ===================== */
+
+.pagina-interna {
+    background: #f0f4f8;
+    padding: 60px 20px;
+}
+
+/* ✅ CONTAINER PRINCIPAL */
+.container-quem {
+    max-width: 900px;
+    margin: 0 auto;
+
+    background: #f2f5f7;
+    padding: 40px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+
+    font-family: "Montserrat", sans-serif;
+
+    transition: 0.3s ease;
+}
+
+/* ✅ HOVER SUAVE (desktop) */
+.container-quem:hover {
+    transform: translateY(-3px);
+}
+
+/* ✅ TITULO */
+.container-quem h1 {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 28px;
+}
+
+/* ✅ TEXTO */
+.container-quem p {
+    color: #555;
+    line-height: 26px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-family: "Montserrat", Sans-serif;
+}
+
+/* ===================== */
+/* ✅ BOTÃO OPCIONAL */
+/* ===================== */
+.btn-home {
+    display: inline-block;
+
+    margin-top: 12px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    color: #777;
+
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+/* ✅ HOVER SUAVE */
+.btn-home:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+/* ===================== */
+/* ✅ MOBILE */
+/* ===================== */
+@media (max-width: 768px) {
+
+    .pagina-interna {
+        padding: 30px 15px;
+    }
+
+    .container-quem {
+        padding: 25px 20px;
+        border-radius: 10px;
+    }
+
+    .container-quem h1 {
+        font-size: 22px;
+        line-height: 28px;
+    }
+
+    .container-quem p {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .btn-voltar {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+    }
+}
+
+/* ===================== */
+/* ✅ DESKTOP GRANDE (refino) */
+/* ===================== */
+@media (min-width: 1200px) {
+
+    .container-quem {
+        max-width: 1100px;
+        padding: 40px;
+    }
+
+    .container-quem h1 {
+        font-size: 32px;
+    }
+
+    .container-quem p {
+        font-size: 14px;
+        line-height: 28px;
+    }
+}
+
+
+/* ===================== */
+/* ✅ POLÍTICA (ESTILO CLEAN) */
+/* ===================== */
+
+.container-quem {
+    font-size: 14px; /* 🔥 diminui tudo */
+    line-height: 22px;
+}
+
+/* ✅ TÍTULO PRINCIPAL */
+.container-quem h1 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* ✅ SUBTÍTULOS */
+.container-quem h2 {
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 8px;
+
+    color: #222;
+    font-weight: 600;
+}
+
+/* ✅ TEXTOS */
+.container-quem p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* ✅ LISTAS */
+.container-quem ul {
+    margin: 8px 0 15px;
+    padding-left: 18px;
+}
+
+.container-quem li {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #444;
+}
+
+/* ✅ DIMINUI ESPAÇAMENTO GLOBAL */
+.container-quem {
+    padding: 30px;
+}
+
+/* ===================== */
+/* ✅ MOBILE AJUSTE */
+/* ===================== */
+
+@media (max-width: 768px) {
+
+    .container-quem {
+        padding: 20px;
+        font-size: 13px;
+    }
+
+    .container-quem h1 {
+        font-size: 18px;
+    }
+
+    .container-quem h2 {
+        font-size: 14px;
+    }
+
+    .container-quem p,
+    .container-quem li {
+        font-size: 13px;
+    }
+}

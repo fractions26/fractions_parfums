@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="pagina-interna">
+
+    <div class="container-quem">
+
+        <h1>Trocas e Devoluções</h1>
+
+        <p>
+            Na <strong>Fractions Parfums</strong>, a sua satisfação é a nossa prioridade. 
+            Caso não esteja de acordo com o produto recebido, você poderá solicitar troca 
+            ou devolução conforme as condições abaixo:
+        </p>
+
+        <h2>1. Envio</h2>
+        <p>
+            Todos os pedidos são enviados via Correios ou transportadora, conforme a opção 
+            escolhida no momento da compra. O prazo de entrega passa a contar a partir da 
+            confirmação de postagem.
+        </p>
+
+        <h2>2. Responsabilidade do Destinatário</h2>
+        <p>
+            É de responsabilidade do cliente acompanhar o rastreamento do pedido e garantir 
+            que haja alguém disponível para recebimento no endereço informado, ou realizar 
+            a retirada na agência indicada quando necessário.
+        </p>
+
+        <h2>3. Encomendas não entregues ou dados incorretos</h2>
+
+        <p>O pedido poderá retornar ao remetente nos seguintes casos:</p>
+
+        <ul>
+            <li>Endereço incorreto ou incompleto</li>
+            <li>Destinatário ausente</li>
+            <li>Objeto não retirado na agência</li>
+        </ul>
+
+        <p>Nessas situações:</p>
+
+        <ul>
+            <li>O valor do frete não será reembolsado</li>
+            <li>Para reenvio, será necessário o pagamento de um novo frete</li>
+        </ul>
+
+        <h2>4. Cancelamento e Reembolso</h2>
+        <p>
+            Caso o cliente opte por não receber o pedido novamente, será devolvido apenas o valor 
+            dos produtos, descontando os custos de frete já utilizados no envio.
+        </p>
+
+        <h2>5. Produto com avaria ou embalagem violada</h2>
+
+        <p>
+            Ao receber o pedido, verifique as condições da embalagem no ato da entrega.
+        </p>
+
+        <ul>
+            <li>Se a embalagem estiver violada ou danificada, recuse o recebimento</li>
+            <li>Entre em contato imediatamente conosco</li>
+        </ul>
+
+        <p>
+            Caso o problema seja identificado após o recebimento, será necessário o envio de um vídeo 
+            contínuo da abertura da embalagem (sem cortes), para análise.
+        </p>
+
+        <p>
+            Produtos com avaria confirmada ou itens faltantes poderão ser reembolsados ou substituídos.
+        </p>
+
+        <h2>6. Troca por arrependimento ou insatisfação</h2>
+
+        <p>
+            De acordo com o Código de Defesa do Consumidor, você poderá solicitar troca ou devolução 
+            em até <strong>7 dias corridos</strong> após o recebimento do pedido.
+        </p>
+
+        <p>Para que a solicitação seja aceita, o produto deve estar:</p>
+
+        <ul>
+            <li>Sem uso</li>
+            <li>Com a embalagem original preservada</li>
+        </ul>
+
+        <p>
+            Para iniciar a solicitação, entre em contato conosco:
+        </p>
+
+        <p>
+            <strong>E-mail:</strong> suporte@seudominio.com<br>
+            <strong>WhatsApp:</strong> (41) 99999-9999
+        </p>
+
+        <h2>7. Devolução e reembolso</h2>
+
+        <p>
+            Após a solicitação ser aprovada, você receberá as instruções para envio do produto.
+        </p>
+
+        <p>
+            Assim que o item for recebido e analisado, o reembolso será processado conforme o meio 
+            de pagamento utilizado na compra.
+        </p>
+
+        <h2>8. Observação sobre os produtos</h2>
+
+        <p>
+            A Fractions Parfums comercializa perfumes fracionados (decants), preparados a partir 
+            de fragrâncias originais adquiridas legalmente.
+        </p>
+
+        <p>
+            Não possuímos vínculo, afiliação ou autorização oficial das marcas fabricantes. 
+            Todas as marcas citadas pertencem aos seus respectivos proprietários.
+        </p>
+
+        <p style="margin-top:20px; font-size:0.9rem; color:#666;">
+            Última atualização: Junho de 2026
+        </p>
+
+                <!-- ✅ BOTÃO -->
+        <a href="{% url 'home' %}" class="btn-home">
+                    Voltar para Home
+        </a>
+
+</div>
+
+{% endblock %}

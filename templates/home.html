@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% if request.resolver_match.url_name == 'home' %}
+
+<!-- ========================================= -->
+<!-- ✅ CARROSSEL DESKTOP -->
+<!-- ========================================= -->
+<div class="banner-carousel desktop-only">
+
+    <div class="carousel-track">
+
+        <div class="slide">
+            <img src="{% static 'images/banner-desktop.webp' %}" alt="Banner 1" loading="lazy">
+        </div>
+
+        <div class="slide">
+            <img src="{% static 'images/banner2-desktop.webp' %}" alt="Banner 2" loading="lazy">
+        </div>
+
+    </div>
+
+    <div class="carousel-dots"></div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- ✅ BANNER INFORMATIVO -->
+<!-- ========================================= -->
+<div class="banner-info-desktop desktop-only">
+
+    <div class="info-item-desktop">
+        <div class="icon-box">🚚</div>
+        <div class="info-text">
+            <span class="info-destaque">FRETE GRÁTIS!</span>
+            <p>Nas compras acima de R$250</p>
+        </div>
+    </div>
+
+    <div class="info-item-desktop">
+        <div class="icon-box">💳</div>
+        <div class="info-text">
+            <span class="info-destaque">PARCELE SEM JUROS!</span>
+            <p>Em até 3x sem juros</p>
+        </div>
+    </div>
+
+    <div class="info-item-desktop">
+        <div class="icon-box">%</div>
+        <div class="info-text">
+            <span class="info-destaque">DESCONTO NO PIX!</span>
+            <p>Ganhe 5% pagando via Pix</p>
+        </div>
+    </div>
+
+    <div class="info-item-desktop">
+        <div class="icon-box">🛡️</div>
+        <div class="info-text">
+            <span class="info-destaque">SITE SEGURO!</span>
+            <p>Seus dados estão protegidos</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- ✅ TICKER MARCAS -->
+<!-- ========================================= -->
+<div id="brand-ticker" class="desktop-only">
+    <div class="ticker-track">
+
+        <span>Dior</span>
+        <span>Prada</span>
+        <span>YSL</span>
+        <span>Armani</span>
+        <span>Calvin Klein</span>
+
+        <!-- duplicado -->
+        <span>Dior</span>
+        <span>Prada</span>
+        <span>YSL</span>
+        <span>Armani</span>
+        <span>Calvin Klein</span>
+
+    </div>
+</div>
+
+{% endif %}
+
+<!-- ========================================= -->
+<!-- ✅ CATEGORIAS -->
+<!-- ========================================= -->
+<div class="categorias-banner">
+
+    <a href="{% url 'lista_categoria' 'masculinos' %}">
+        <img src="{% static 'images/banner-masculinos.webp' %}" alt="Masculinos">
+    </a>
+
+    <a href="{% url 'lista_categoria' 'femininos' %}">
+        <img src="{% static 'images/banner-femininos.webp' %}" alt="Femininos">
+    </a>
+
+</div>
+
+
+<!-- ========================================= -->
+<!-- ✅ PRODUTOS -->
+<!-- ========================================= -->
+<div class="grid">
+
+    {% for produto in produtos %}
+    <div class="card">
+
+        <div class="img-box">
+            <a href="{% url 'detalhe_produto' produto.slug %}">
+                {% if produto.imagem %}
+                    <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                {% endif %}
+            </a>
+        </div>
+
+        <h3>{{ produto.nome }}</h3>
+
+        {% for preco in produto.precos.all|slice:":1" %}
+            <p class="preco">R$ {{ preco.valor }}</p>
+        {% endfor %}
+
+        <p class="parcelado">3x sem juros</p>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+<!-- ========================================= -->
+<!-- ✅ PRODUTOS -->
+<!-- ========================================= -->
+<div class="grid">
+
+    {% for produto in produtos %}
+    <div class="card">
+
+        <div class="img-box">
+            <a href="{% url 'detalhe_produto' produto.slug %}">
+                {% if produto.imagem %}
+                    <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+                {% endif %}
+            </a>
+        </div>
+
+        <h3>{{ produto.nome }}</h3>
+
+        {% for preco in produto.precos.all|slice:":1" %}
+            <p class="preco">R$ {{ preco.valor }}</p>
+        {% endfor %}
+
+        <p class="parcelado">3x sem juros</p>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+<!-- ========================================= -->
+<!-- ✅ SCRIPT CARROSSEL -->
+<!-- ========================================= -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const carousels = document.querySelectorAll(".banner-carousel");
+
+    carousels.forEach(carousel => {
+
+        const track = carousel.querySelector(".carousel-track");
+        const slides = carousel.querySelectorAll(".slide");
+        const dotsContainer = carousel.querySelector(".carousel-dots");
+
+        if (!track || slides.length === 0) return;
+
+        let index = 0;
+
+        slides.forEach((_, i) => {
+            const dot = document.createElement("span");
+
+            if (i === 0) dot.classList.add("active");
+
+            dot.addEventListener("click", () => {
+                index = i;
+                updateCarousel();
+            });
+
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = dotsContainer.querySelectorAll("span");
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${index * 100}%)`;
+
+            dots.forEach(dot => dot.classList.remove("active"));
+            dots[index].classList.add("active");
+        }
+
+        setInterval(() => {
+            index = (index + 1) % slides.length;
+            updateCarousel();
+        }, 4000);
+
+    });
+
+});
+</script>
+
+{% endblock %}

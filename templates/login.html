@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="conta-form">
+
+    <h2>Iniciar sessão</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="msg-success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Senha</label>
+            <input type="password" name="senha" required>
+        </div>
+
+        <button type="submit" class="btn-criar-conta">
+            ENTRAR
+        </button>
+    </form>
+
+</div>
+
+{% endblock %}

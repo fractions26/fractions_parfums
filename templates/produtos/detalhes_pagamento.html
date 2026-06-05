@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="pagamento-wrapper">
+
+    <div class="pagamento-container">
+
+        <!-- ✅ BOTÃO FECHAR -->
+        <button class="btn-close-pagamento" onclick="window.history.back()">✕</button>
+
+        <!-- ✅ TÍTULO -->
+        <h2 class="titulo-pagamento">Meios de pagamento</h2>
+
+        <p class="subtitulo-pagamento">
+            Total em 1x: <strong>R$ {{ preco.valor|floatformat:2 }}</strong>
+        </p>
+
+        <!-- ✅ PIX -->
+        <div class="pix-box">
+            💰 5% de desconto pagando com Pix
+        </div>
+
+        <!-- ✅ CARTÃO -->
+        <h4>Cartões de crédito</h4>
+
+        <div class="tabela-parcelas">
+
+            {% for p in parcelas %}
+                <div class="linha-parcela">
+
+                    <span>
+                        {{ p.vezes }}x de R$ {{ p.parcela }}
+                        {% if p.vezes <= 3 %}
+                            <small class="sem-juros">sem juros</small>
+                        {% endif %}
+                    </span>
+
+                    <span>
+                        Total R$ {{ preco.valor|floatformat:2 }}
+                    </span>
+
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <!-- ✅ BANDEIRAS -->
+        <h4 class="titulo-cartoes">Cartões aceitos</h4>
+        
+        <div class="pagamento-icons pagamento-detalhes">
+            <img src="{% static 'images/pagamento/visa.png' %}" alt="Visa">
+            <img src="{% static 'images/pagamento/mastercard.png' %}" alt="Mastercard">
+            <img src="{% static 'images/pagamento/pix.png' %}" alt="Pix">
+            <img src="{% static 'images/pagamento/boleto.png' %}" alt="Boleto">
+        </div>
+        
+        <!-- ✅ BOLETO -->
+        <h4>Boleto</h4>
+        <p class="boleto-box">
+            Total: <strong>R$ {{ preco.valor|floatformat:2 }}</strong>
+        </p>
+        
+        {% comment %} <!-- ✅ PIX DETALHADO -->
+        <h4>Pix</h4>
+        <div class="pix-box">
+            💰 5% de desconto pagando com Pix <br>
+        <strong>R$ {{ preco.valor|floatformat:2 }}</strong>
+        </div>
+         {% endcomment %}
+        <!-- ✅ VOLTAR -->
+        <a href="/produtos/{{ perfume.slug }}/" class="voltar">
+            Voltar ao produto
+        </a>
+        
+        </div>
+        
+        </div>
+        
+        {% endblock %}

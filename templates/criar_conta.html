@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- ✅ CSS ESPECÍFICO -->
+<link rel="stylesheet" href="{% static 'css/criar_conta.css' %}">
+
+        <div class="conta-header">
+
+            <p>
+
+            <h2>Criar uma conta</h2>
+
+            </p>
+
+        </div>
+
+        <!-- ✅ FORM -->
+        <div class="conta-form">
+
+
+        <!-- ✅ MENSAGENS -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="msg-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Nome completo</label>
+                <input type="text" name="nome" placeholder="ex.: Maria Perez" required>
+            </div>
+
+            <div class="form-group">
+                <label>E-mail</label>
+                <input type="email" name="email" placeholder="ex.: seuemail@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label>Telefone (opcional)</label>
+                <input type="text" name="telefone" placeholder="ex.: 11971923030">
+            </div>
+
+            <div class="form-group">
+                <label>Senha</label>
+                <div class="input-password">
+                    <input type="password" name="senha" id="senha" required>
+                    <i class="fa-regular fa-eye" onclick="toggleSenha('senha', this)"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Confirmar senha</label>
+                <div class="input-password">
+                    <input type="password" name="confirmar" id="confirmar" required>
+                    <i class="fa-regular fa-eye" onclick="toggleSenha('confirmar', this)"></i>
+                </div>
+            </div>
+
+             <div class="g-recaptcha" data-sitekey="{{ RECAPTCHA_SITE_KEY }}"></div>
+
+
+            <button type="submit" class="btn-criar-conta">
+                CRIAR UMA CONTA
+            </button>
+        </form>
+
+        <!-- ✅ LOGIN -->
+        <p class="login-link">
+            Já possui uma conta?
+            <a href="#">Iniciar sessão</a>
+        </p>
+
+    </div>
+
+</div>
+
+<!-- ✅ SCRIPT CAPTCHA -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
+<!-- ✅ MOSTRAR/OCULTAR SENHA -->
+<script>
+function toggleSenha(id, icon){
+
+    const input = document.getElementById(id);
+
+    if(input.type === "password"){
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
+</script>
+
+{% endblock %}
+

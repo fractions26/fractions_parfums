@@ -1,0 +1,115 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/carrinho.css' %}">
+    {% if user.is_authenticated %}
+    
+        </div>
+    {% endif %}
+
+    {% if itens %}
+    
+    <div class="carrinho-grid">
+
+        <!-- ✅ LISTA DE ITENS -->
+        <div class="carrinho-itens">
+
+            {% for item in itens %}
+            <div class="item" data-id="{{ item.id }}">
+
+                <img src="{{ item.perfume.imagem.url }}" class="item-img">
+
+                <div class="item-dados">
+                    <h2>{{ item.perfume.nome }}</h2>
+                    <p class="item-variacao">{{ item.tamanho }}</p>
+                    <p class="item-preco">R$ {{ item.preco|floatformat:2 }}</p>
+                </div>
+
+                <div class="item-final">
+
+                    <div class="qtd">
+                        <button onclick="alterarQtd(this, -1)">−</button>
+                        <span class="qtd-value">{{ item.quantidade }}</span>
+                        <button onclick="alterarQtd(this, 1)">+</button>
+                    </div>
+
+                    <strong class="subtotal">
+                        R$ {{ item.preco|floatformat:2 }}
+                    </strong>
+
+                </div>
+
+                <button class="remover" onclick="removerItem(this)">✕</button>
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="resumo">
+
+            <div class="linha">
+                <span>Subtotal (sem frete):</span>
+                <strong id="totalValor">R$ {{ total|floatformat:2 }}</strong>
+            </div>
+
+            <!-- ✅ FRETE -->
+            <div class="linha">
+                <span>Frete:</span>
+                <strong id="valorFrete">-</strong>
+            </div>
+
+            <!-- ✅ TOTAL FINAL -->
+            <div class="linha total-final" id="linhaTotalFrete"
+                style="display: none; flex-direction: column; align-items: flex-end;">
+
+                <!-- ✅ linha principal -->
+                <div style="display: flex; justify-content: space-between; width: 100%;">
+                    <span>Total com frete:</span>
+                    <strong id="totalComFrete">R$ {{ total|floatformat:2 }}</strong>
+                </div>
+
+                <!-- ✅ parcelamento -->
+                <small id="parcelamentoFrete" class="parcelamento-texto">
+                    Ou até 3x de R$ - sem juros
+                </small>
+
+            </div>
+
+
+            <!-- ✅ BOX CEP -->
+            <div class="frete-box">
+
+                <p class="frete-titulo">Calcular frete</p>
+
+                <div class="cep-bloco">
+                    <input type="text" id="cepCarrinho" placeholder="Digite seu CEP">
+
+                    <button type="button" onclick="calcularFreteCarrinho()">
+                        OK
+                    </button>
+                </div>
+
+                <a href="https://buscacepinter.correios.com.br/app/localidade_logradouro/index.php"
+                target="_blank"
+                class="link-cep">
+                    Não sei meu CEP
+                </a>
+
+                <!-- ✅ LISTA DE FRETES (NOVA) -->
+                <div id="listaFretes" class="lista-fretes"></div>
+
+            </div>
+
+            <button class="btn-finalizar">
+                FINALIZAR COMPRA
+            </button>
+
+    </div>
+
+    {% else %}
+
+        <p>Seu carrinho está vazio</p>
+
+    {% endif %}
+
+</div>

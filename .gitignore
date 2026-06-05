@@ -1,0 +1,22 @@
+# ambiente virtual
+venv/
+
+# variáveis sensíveis
+.env
+
+# python
+__pycache__/
+*.pyc
+
+# banco local
+db.sqlite3
+
+# arquivos de backup
+*.sql
+
+# media files (imagens)
+media/
+
+# sistema
+.DS_Store
+Thumbs.db

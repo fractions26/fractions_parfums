@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fractions Parfums - Decants</title>
+
+    {% load static %}
+
+    <!-- ✅ GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- ✅ ICONES -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+        
+    <!-- ✅ Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon.webp' %}?v=1">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.webp' %}?v=1">
+
+    <!-- ✅ CSS principal -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- ✅ CSS MOBILE -->
+    <link rel="stylesheet" href="{% static 'css/mobile.css' %}">
+
+    <!-- ✅ CSS RODAPE -->
+    <link rel="stylesheet" href="{% static 'css/rodape.css' %}">
+
+    <!-- ✅ CARRINHO -->
+    <link rel="stylesheet" href="{% static 'css/carrinho.css' %}">
+</head>
+
+<!-- ✅ CARRINHO DRAWER -->
+<div id="drawer-carrinho" class="drawer-carrinho">
+
+    <div class="drawer-header">
+
+        <div class="header-esquerda">
+            <h2>Carrinho de compras</h2>
+
+            {% if user.is_authenticated %}
+            <span class="usuario-inline">
+                <i class="fa-solid fa-user icon-usuario"></i>
+             <span>Olá, {{ user.first_name }}</span>
+            </span>
+
+            {% endif %}
+        </div>
+
+        <button onclick="fecharCarrinho()" class="btn-close-drawer">
+            ✕
+        </button>
+
+    </div>
+
+    <div class="drawer-body" id="drawerConteudo">
+        <p>Carregando...</p>
+    </div>
+
+</div>
+
+<!-- ✅ OVERLAY -->
+<div id="overlay-carrinho" class="overlay-carrinho" onclick="fecharCarrinho()"></div>
+
+<body>
+    {% csrf_token %}
+
+    <!-- ✅ MOBILE -->
+    {% include 'mobile.html' %}
+
+    <!-- ✅ HEADER DESKTOP -->
+<header>
+
+    <!-- ESQUERDA -->
+    <div class="header-left">
+        <div class="logo">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/logo-horizontal.webp' %}" alt="Fractions Parfums">
+            </a>
+        </div>
+    </div>
+
+    <!-- CENTRO BUSCA -->
+    <div class="header-center">
+
+        <form method="get" action="{% url 'lista_produtos' %}">
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    name="q"
+                    placeholder="Encontre seu Perfume..."
+                    value="{{ request.GET.q }}"
+                >
+
+                <button type="submit" class="search-button">
+                    <svg class="search-icon" viewBox="0 0 24 24">
+                        <path d="M10 2a8 8 0 105.29 14.29l4.71 4.7 1.41-1.41-4.7-4.71A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/>
+                    </svg>
+                </button>
+
+            </div>
+        </form>
+
+    </div>
+
+    <!-- DIREITA -->
+    <div class="header-right">
+
+<!-- ATENDIMENTO -->
+<div class="menu-item atendimento" onclick="toggleAtendimento(event)">
+    <i class="fa-solid fa-headset"></i>
+    <span>Atendimento</span>
+
+    <div class="box-atendimento" id="boxAtendimento">
+        <p>
+            <i class="fa-brands fa-whatsapp"></i>
+            +55 (41) 99999-9999
+        </p>
+        <p>
+            <i class="fa-regular fa-envelope"></i>
+            atendimento@fractionsparfums.com
+        </p>
+    </div>
+</div>
+
+<!-- CONTA -->
+<div class="menu-item conta" onclick="toggleConta(event)">
+ 
+    <i class="fa-regular fa-user"></i>
+ 
+            {% if user.is_authenticated %}
+        <span>Olá, {{ user.first_name }}</span>
+            {% else %}
+        <span>Minha conta</span>
+            {% endif %}
+        
+            <div class="box-conta" id="boxConta">
+        
+                <a href="{% url 'criar_conta' %}" class="link-conta">
+        <i class="fa-solid fa-user-plus"></i>
+        <span>Criar uma conta</span>
+        </a>
+        
+                {% if user.is_authenticated %}
+        
+                <a href="{% url 'logout' %}" class="link-conta">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Sair</span>
+        </a>
+        
+                {% else %}
+        
+                <a href="{% url 'login' %}" class="link-conta">
+        <i class="fa-solid fa-right-to-bracket"></i>
+        <span>Iniciar sessão</span>
+        </a>
+ 
+        {% endif %}
+ 
+    </div>
+ 
+</div>
+
+<!-- ✅ CARRINHO AGORA FORA -->
+<div class="menu-item cart" onclick="abrirCarrinho()">
+
+    <div class="cart-icon">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge">{{ cart_count|default:0 }}</span>
+    </div>
+
+    <span>Meu carrinho</span>
+
+</div>
+
+    </div>
+
+</header>
+
+    <!-- ✅ MENU DESKTOP -->
+    <nav class="menu">
+        <a href="/">Início</a>
+
+        <a href="{% url 'lista_categoria' 'masculinos' %}">
+            Masculinos
+        </a>
+
+        <a href="{% url 'lista_categoria' 'femininos' %}">
+            Femininos
+        </a>
+
+        <a href="{% url 'lista_categoria' 'arabes' %}">
+            Árabes
+        </a>
+
+        <a href="{% url 'lista_produtos' %}">
+            Mais Vendidos
+        </a>
+
+        <!-- ✅ MARCAS COM LISTA SIMPLES -->
+        <div class="marcas-dropdown">
+        
+            <a href="#">Marcas</a>
+        
+            <div class="dropdown-marcas">
+        
+                {% for marca in marcas_menu %}
+        <a href="{% url 'lista_produtos' %}?marca={{ marca|urlencode }}">
+            {{ marca }}
+            </a>
+        {% endfor %}
+        
+            </div>
+        
+        </div>
+        
+        <!-- ✅ AGORA CORRETO -->
+        <a href="{% url 'contato' %}">
+            Contato
+        </a>
+    </nav>
+
+    <!-- ✅ CONTEÚDO -->
+    {% block content %}{% endblock %}
+    
+    <!-- ✅ RODAPE -->
+{% include 'rodape.html' %}
+
+<!-- ✅ COOKIE BANNER -->
+<div id="cookie-banner" class="cookie-banner">
+    <span>
+        Ao navegar por este site você aceita o uso de cookies para agilizar a sua experiência de compra.
+    </span>
+    <button id="btn-cookie">ENTENDI</button>
+</div>
+
+<div id="toast-carrinho" class="mini-cart-toast">
+
+    <div class="toast-content">
+
+        <!-- ✅ TOPO -->
+        <div class="toast-top">
+
+            <img id="toast-img" class="toast-img">
+
+            <div class="toast-info">
+                <p id="toast-nome" class="toast-nome"></p>
+                <p id="toast-variacao" class="toast-variacao"></p>
+
+                <strong class="toast-status">
+                    Adicionado ao carrinho!
+                </strong>
+            </div>
+
+            <button class="toast-close" onclick="fecharToast()">✕</button>
+        </div>
+
+        <!-- ✅ TOTAL -->
+        <div class="toast-total">
+            <span id="toast-total-itens"></span>
+            <strong id="toast-total-preco"></strong>
+        </div>
+
+        <!-- ✅ BOTÃO -->
+        <button class="btn-ver-carrinho" onclick="abrirCarrinho()">
+            VER CARRINHO
+        </button>
+
+    </div>
+</div>
+
+<script>
+
+    
+
+// =======================
+// ✅ CSRF (ROBUSTO FINAL)
+// =======================
+function getCSRF() {
+    const match = document.cookie.match(/csrftoken=([^;]+)/);
+    return match ? match[1] : null;
+}
+
+
+// =======================
+// ✅ CONTROLE GLOBAL DO TOAST
+// =======================
+
+let toastTimer;
+
+function mostrarToastProduto(data){
+
+    const toast = document.getElementById("toast-carrinho");
+
+    if(!toast) return;
+
+    // ✅ DADOS
+    document.getElementById("toast-img").src = data.imagem;
+    document.getElementById("toast-nome").innerText = data.produto_nome;
+    document.getElementById("toast-variacao").innerText = data.tamanho;
+
+    document.getElementById("toast-total-itens").innerText =
+        `Total (${data.quantidade_total} itens):`;
+
+    document.getElementById("toast-total-preco").innerText =
+        `R$ ${data.total_formatado}`;
+
+    // ✅ EXIBE
+    toast.classList.add("ativo");
+
+    // ✅ limpa timer antigo
+    clearTimeout(toastTimer);
+
+    // ✅ tempo maior (10s)
+    toastTimer = setTimeout(() => {
+        toast.classList.remove("ativo");
+    }, 10000);
+
+    // ✅ pausa no hover (desktop)
+    toast.onmouseenter = () => clearTimeout(toastTimer);
+
+    toast.onmouseleave = () => {
+        toastTimer = setTimeout(() => {
+            toast.classList.remove("ativo");
+        }, 4000);
+    };
+}
+
+
+// =======================
+// ✅ FECHAR MANUAL (BOTÃO X)
+// =======================
+function fecharToast(){
+
+    const toast = document.getElementById("toast-carrinho");
+
+    if(!toast) return;
+
+    toast.classList.remove("ativo");
+
+    // ✅ cancela o timer
+    clearTimeout(toastTimer);
+}
+
+
+// =======================
+// ✅ ABRIR CARRINHO (AJAX)
+// =======================
+function abrirCarrinho(){
+
+    const drawer = document.getElementById("drawer-carrinho");
+    const overlay = document.getElementById("overlay-carrinho");
+    const conteudo = document.getElementById("drawerConteudo");
+
+    if(conteudo){
+        conteudo.innerHTML = "<p style='padding:10px'>Carregando...</p>";
+    }
+
+    fetch("/carrinho/drawer/")
+    .then(res => res.text())
+    .then(html => {
+
+        if(conteudo){
+            conteudo.innerHTML = html;
+        }
+
+        // ✅ RESTAURA FRETE APÓS CARREGAR CARRINHO
+        restaurarFreteCarrinho();
+
+        atualizarBadge();
+
+        drawer.classList.add("ativo");
+        overlay.classList.add("ativo");
+        document.body.style.overflow = "hidden";
+    })
+    .catch(() => {
+
+        if(conteudo){
+            conteudo.innerHTML = "<p>Erro ao carregar carrinho</p>";
+        }
+
+        drawer.classList.add("ativo");
+        overlay.classList.add("ativo");
+        document.body.style.overflow = "hidden";
+    });
+}
+
+
+// =======================
+// ✅ FECHAR CARRINHO
+// =======================
+function fecharCarrinho(){
+
+    const drawer = document.getElementById("drawer-carrinho");
+    const overlay = document.getElementById("overlay-carrinho");
+
+    drawer.classList.remove("ativo");
+    overlay.classList.remove("ativo");
+
+    document.body.style.overflow = "auto";
+}
+
+
+// =======================
+// ✅ ESC
+// =======================
+document.addEventListener("keydown", function(e){
+    if(e.key === "Escape"){
+        fecharCarrinho();
+    }
+});
+
+
+// =======================
+// ✅ ALTERAR QUANTIDADE (CORRIGIDO FINAL)
+// =======================
+function alterarQtd(btn, delta){
+
+    const itemDiv = btn.closest(".item");
+    if(!itemDiv) return;
+
+    const qtdSpan = itemDiv.querySelector(".qtd-value");
+
+    let qtd = parseInt(qtdSpan.innerText);
+    qtd += delta;
+
+    // ✅ LIMITE FRONT (UX)
+    if(qtd < 1) qtd = 1;
+    if(qtd > 10) qtd = 10;
+
+    qtdSpan.innerText = qtd;
+
+    // ✅ CALCULA SUBTOTAL (visual imediato)
+    const precoTexto = itemDiv.querySelector(".item-preco").innerText;
+
+    const preco = parseFloat(
+        precoTexto.replace("R$", "").replace(",", ".")
+    );
+
+    const subtotal = preco * qtd;
+
+    const subtotalEl = itemDiv.querySelector(".subtotal");
+
+    if(subtotalEl){
+        subtotalEl.innerText = "R$ " + subtotal.toFixed(2);
+    }
+
+    // ✅ ATUALIZA BACKEND (PADRÃO GLOBAL)
+    postData("/carrinho/atualizar/",
+        `item_id=${itemDiv.dataset.id}&quantidade=${qtd}`
+    )
+    .then(res => res.json())
+    .then(data => {
+
+        if(!data || !data.success) return;
+
+        // ✅ GARANTE VALOR REAL DO BACKEND
+        if(data.quantidade_item !== undefined){
+            qtdSpan.innerText = data.quantidade_item;
+
+            const subtotalReal = preco * data.quantidade_item;
+
+            if(subtotalEl){
+                subtotalEl.innerText = "R$ " + subtotalReal.toFixed(2);
+            }
+        }
+
+        // ✅ TOTAL GERAL
+        const total = document.getElementById("totalValor");
+        const totalFinal = document.getElementById("totalValorFinal");
+
+        if(total){
+            total.innerText = "R$ " + data.total.toFixed(2);
+        }
+
+        if(totalFinal){
+            totalFinal.innerText = "R$ " + data.total.toFixed(2);
+        }
+
+        // ✅ BADGE
+        atualizarBadge();
+
+    })
+    .catch(err => {
+        console.error("❌ Erro ao atualizar item:", err);
+    });
+
+}
+
+
+// =======================
+// ✅ REMOVER ITEM (CORRIGIDO + CSRF FIX)
+// =======================
+function removerItem(btn){
+
+    const itemDiv = btn.closest(".item");
+    if(!itemDiv) return;
+
+    // ✅ pega a quantidade antes de remover
+    const qtdElemento = itemDiv.querySelector(".qtd-value");
+    const qtdRemovida = parseInt(qtdElemento.innerText) || 1;
+
+    fetch("/carrinho/remover/", {
+        method: "POST",
+        credentials: "same-origin", // 🔥 ESSENCIAL (FIX 403)
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": getCSRF()
+        },
+        body: `item_id=${itemDiv.dataset.id}`
+    })
+    .then(res => {
+
+        if(!res.ok){
+            console.error("❌ Erro HTTP:", res.status);
+            return null;
+        }
+
+        return res.json();
+    })
+    .then(data => {
+
+        if(!data || !data.success) return;
+
+        // ✅ animação UX
+        itemDiv.style.transition = "0.2s";
+        itemDiv.style.opacity = "0";
+        itemDiv.style.transform = "translateX(20px)";
+
+        setTimeout(() => {
+            itemDiv.remove();
+        }, 200);
+
+        // ✅ atualiza total
+        const total = document.getElementById("totalValor");
+        const totalFinal = document.getElementById("totalValorFinal");
+
+        if(total){
+            total.innerText = "R$ " + data.total.toFixed(2);
+        }
+
+        if(totalFinal){
+            totalFinal.innerText = "R$ " + data.total.toFixed(2);
+        }
+
+        // ✅ badge
+        decrementarBadge(qtdRemovida);
+
+        // ✅ se zerar carrinho
+        if(data.total === 0){
+            location.reload();
+        }
+
+    })
+    .catch(err => {
+        console.error("❌ Erro no removerItem:", err);
+    });
+}
+
+
+function atualizarCarrinhoDrawer(){
+
+    const conteudo = document.getElementById("drawerConteudo");
+
+    if(!conteudo) return;
+
+    fetch("/carrinho/drawer/")
+    .then(res => res.text())
+    .then(html => {
+
+        conteudo.innerHTML = html;
+
+        atualizarBadge();
+    })
+    .catch(() => {});
+}
+
+function decrementarBadge(qtdRemovida = 1){
+
+    const badges = document.querySelectorAll(".cart-badge");
+
+    badges.forEach(badge => {
+
+        let atual = parseInt(badge.innerText) || 0;
+
+        let novo = atual - qtdRemovida;
+
+        if(novo > 0){
+            badge.innerText = novo;
+            badge.style.display = "flex";
+        } else {
+            badge.innerText = "";
+            badge.style.display = "none";
+        }
+
+    });
+}
+
+// =======================
+// ✅ POST GLOBAL (ANTI 403)
+// =======================
+function postData(url, body){
+
+    const csrf = getCSRF();
+
+    if (!csrf){
+        console.warn("❌ CSRF não encontrado → recarregando");
+        location.reload();
+        return;
+    }
+
+    return fetch(url, {
+        method: "POST",
+        credentials: "same-origin", // 🔥 resolve 403
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": csrf
+        },
+        body: body
+    });
+}
+
+// =======================
+// ✅ ATENDIMENTO HEADER
+// =======================
+
+function toggleAtendimento(event){
+
+    event.stopPropagation();
+
+    const box = document.getElementById("boxAtendimento");
+    if(!box) return;
+
+    const aberto = box.classList.contains("ativo");
+
+    fecharTodosDropdowns();
+
+    if(!aberto){
+        box.classList.add("ativo");
+    }
+}
+
+// =======================
+// ✅ CONTA
+// =======================
+function toggleConta(event){
+
+    event.stopPropagation();
+
+    const box = document.getElementById("boxConta");
+    if(!box) return;
+
+    const aberto = box.classList.contains("ativo");
+
+    fecharTodosDropdowns();
+
+    if(!aberto){
+        box.classList.add("ativo");
+    }
+}
+
+// =======================
+// ✅ FECHAR TODOS DROPDOWNS
+// =======================
+function fecharTodosDropdowns(){
+    const dropdowns = document.querySelectorAll(
+        "#boxAtendimento, #boxConta"
+    );
+
+    dropdowns.forEach(el => {
+        el.classList.remove("ativo");
+        el.style.display = "";
+    });
+}
+
+// =======================
+// ✅ FECHAR AO CLICAR FORA
+// =======================
+document.addEventListener("click", function(event){
+
+    const atendimento = document.querySelector(".menu-item.atendimento");
+    const conta = document.querySelector(".menu-item.conta");
+
+    if(
+        (atendimento && atendimento.contains(event.target)) ||
+        (conta && conta.contains(event.target))
+    ){
+        return;
+    }
+
+    fecharTodosDropdowns();
+});
+
+
+// =======================
+// ✅ ATUALIZAR BADGE (CARRINHO)
+// =======================
+function atualizarBadge(){
+
+    fetch("/carrinho/quantidade/")
+    .then(res => res.json())
+    .then(data => {
+
+        const badges = document.querySelectorAll(".cart-badge");
+
+        if(!badges.length) return;
+
+        badges.forEach(badge => {
+            if(data.quantidade > 0){
+                badge.innerText = data.quantidade;
+                badge.style.display = "flex";
+            } else {
+                badge.innerText = "";
+                badge.style.display = "none";
+            }
+        });
+
+        console.log("🛒 Badge sincronizada:", data.quantidade);
+
+    })
+    .catch(() => {
+        console.log("Erro ao atualizar badge");
+    });
+}
+
+
+// =======================
+// ✅ INIT GLOBAL (COOKIE + CARRINHO)
+// =======================
+document.addEventListener("DOMContentLoaded", function () {
+
+    const banner = document.getElementById("cookie-banner");
+    const btn = document.getElementById("btn-cookie");
+
+    // ✅ COOKIE
+    if (banner && localStorage.getItem("cookieAccepted")) {
+        banner.style.display = "none";
+    }
+
+    if (btn) {
+        btn.addEventListener("click", function () {
+            localStorage.setItem("cookieAccepted", "true");
+            banner.style.display = "none";
+        });
+    }
+
+    // ✅ SEMPRE atualiza carrinho
+    atualizarBadge();
+});
+
+// =======================
+// ✅ CALCULAR FRETE CARRINHO
+// =======================
+
+function calcularFreteCarrinho() {
+
+    const cep = document.getElementById("cepCarrinho").value.trim();
+    const lista = document.getElementById("listaFretes");
+
+    if (!cep || cep.length < 8) {
+        alert("Digite um CEP válido");
+        return;
+    }
+
+    localStorage.setItem("cep_carrinho", cep);
+
+    lista.innerHTML = "Calculando frete...";
+
+    fetch(`/checkout/frete/?cep=${cep}`)
+        .then(res => res.json())
+        .then(data => {
+
+            let fretes = data.filter(f => !f.error);
+
+            if (!fretes.length) {
+                lista.innerHTML = "Nenhuma opção disponível";
+                return;
+            }
+
+            // ✅ ordena por preço
+            fretes.sort((a, b) => a.price - b.price);
+
+            // ✅ pega top 3
+            fretes = fretes.slice(0, 3);
+
+            lista.innerHTML = "";
+
+            fretes.forEach((f, index) => {
+
+                const div = document.createElement("label");
+                div.className = "frete-option";
+
+                if (index === 0) div.classList.add("melhor");
+
+                const radio = document.createElement("input");
+                radio.type = "radio";
+                radio.name = "frete";
+
+                if (index === 0) radio.checked = true;
+
+                const preco = parseFloat(f.price);
+
+                // ✅ QUANDO TROCAR FRETE
+                radio.addEventListener("change", () => {
+
+                    aplicarFreteCarrinho(preco, cep);
+
+                    // ✅ SALVA FRETE ESCOLHIDO
+                    localStorage.setItem("frete_valor", preco);
+                    localStorage.setItem("frete_nome", f.name);
+                    localStorage.setItem("frete_prazo", f.delivery_time);
+                });
+
+                const left = document.createElement("div");
+                left.className = "frete-left";
+
+                const img = document.createElement("img");
+                img.src = f.company.picture;
+
+                const nome = document.createElement("span");
+                nome.innerText = f.name;
+
+                left.appendChild(radio);
+                left.appendChild(img);
+                left.appendChild(nome);
+
+                const right = document.createElement("div");
+                right.className = "frete-info";
+
+                right.innerHTML = `
+                    <strong>R$ ${preco.toFixed(2)}</strong><br>
+                    ${f.delivery_time} dias
+                `;
+
+                div.appendChild(left);
+                div.appendChild(right);
+
+                lista.appendChild(div);
+
+                // ✅ aplica o primeiro automaticamente
+                if (index === 0) {
+                    aplicarFreteCarrinho(preco, cep);
+                }
+            });
+
+        })
+        .catch(() => {
+            lista.innerHTML = "Erro ao calcular frete";
+        });
+}
+
+
+function aplicarFreteCarrinho(frete, cep) {
+
+    const subtotalEl = document.getElementById("totalValor");
+    const freteEl = document.getElementById("valorFrete");
+    const totalEl = document.getElementById("totalComFrete");
+    const linhaTotal = document.getElementById("linhaTotalFrete");
+    const parcelamentoEl = document.getElementById("parcelamentoFrete");
+
+    if (!subtotalEl) return;
+
+    let subtotal = parseFloat(
+        subtotalEl.innerText.replace("R$", "").replace(",", ".")
+    );
+
+    const cepPrefix = cep.substring(0, 2);
+
+    let limiteGratis = 199;
+
+    const norteNordeste = [
+        "60","61","62","63","64","65","66","67","68","69",
+        "50","51","52","53","54","55","56","57","58","59"
+    ];
+
+    if (norteNordeste.includes(cepPrefix)) {
+        limiteGratis = 300;
+    }
+
+    let freteFinal = frete;
+    let textoFrete = `R$ ${frete.toFixed(2)}`;
+
+    if (subtotal >= limiteGratis) {
+        freteFinal = 0;
+        textoFrete = "GRÁTIS 🚚";
+    }
+
+    let totalFinal = subtotal + freteFinal;
+
+    // ✅ atualiza valores
+    if (freteEl) freteEl.innerText = textoFrete;
+    if (totalEl) totalEl.innerText = "R$ " + totalFinal.toFixed(2);
+
+    // ✅ mostra total
+    if (linhaTotal) {
+        linhaTotal.style.display = "flex";
+    }
+
+    // ✅ SALVA FRETE (🔥 AGORA PERSISTE)
+    localStorage.setItem("frete_valor", frete);
+    localStorage.setItem("frete_total", totalFinal);
+    localStorage.setItem("frete_cep", cep);
+
+    // ✅ PARCELAMENTO (🔥 CORRIGIDO)
+    if (parcelamentoEl) {
+        const parcela = totalFinal / 3;
+        parcelamentoEl.innerText =
+            "Ou até 3x de R$ " + parcela.toFixed(2) + " sem juros";
+    }
+}
+
+function restaurarFreteCarrinho() {
+
+    const cepSalvo = localStorage.getItem("cep_carrinho");
+    const freteSalvo = localStorage.getItem("frete_valor");
+
+    const input = document.getElementById("cepCarrinho");
+
+    // ✅ restaura CEP
+    if (cepSalvo && input) {
+        input.value = cepSalvo;
+    }
+
+    // ✅ recalcula fretes
+    if (cepSalvo) {
+        calcularFreteCarrinho();
+    }
+
+    // ✅ reaplica frete após montar DOM
+    if (cepSalvo && freteSalvo) {
+
+        let tentativas = 0;
+
+        const intervalo = setInterval(() => {
+
+            const linhaTotal = document.getElementById("linhaTotalFrete");
+
+            if (linhaTotal) {
+
+                aplicarFreteCarrinho(parseFloat(freteSalvo), cepSalvo);
+
+                clearInterval(intervalo);
+            }
+
+            tentativas++;
+
+            if (tentativas > 10) {
+                clearInterval(intervalo);
+            }
+
+        }, 200);
+    }
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,467 @@
+{% load static %}
+
+<div class="mobile-only">
+
+        <!-- HEADER MOBILE -->
+        <header class="header-mobile">
+
+            <!-- ESQUERDA -->
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+            <!-- CENTRO -->
+            <div class="logo">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'images/logo-horizontal.webp' %}" alt="Fractions Parfums">
+                </a>
+            </div>
+
+            <div class="header-right">
+                <div class="menu-item cart" onclick="abrirCarrinho()">
+
+                    <!-- ✅ ÍCONE (ESTAVA FALTANDO!) -->
+                    <i class="fa-solid fa-cart-shopping"></i>
+
+                    <!-- ✅ BADGE DINÂMICO -->
+                    <span class="cart-badge">
+                        {{ cart_count|default:0 }}
+                    </span>
+
+                </div>
+            </div>
+
+        </header>
+
+
+<!-- ✅ BUSCA MOBILE -->
+    <div class="search-mobile">
+
+        <form method="get" action="{% url 'lista_produtos' %}" style="width: 100%; position: relative; display: flex; justify-content: center;">
+
+            <input
+                type="text"
+                name="q"
+                placeholder="O que você está buscando?"
+                value="{{ request.GET.q }}"
+            >
+
+            <button type="submit" class="search-button">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                    <circle cx="11" cy="11" r="7" stroke="#6d7e91" stroke-width="2" fill="none"/>
+                    <line x1="16" y1="16" x2="21" y2="21" stroke="#003771" stroke-width="2"/>
+                </svg>
+            </button>
+
+        </form>
+
+    </div>
+
+<!-- ✅ CARROSSEL -->
+    
+{% if request.resolver_match.url_name == 'home' %}
+
+    <div class="banner-carousel">
+
+        <div class="carousel-track">
+
+            <div class="slide">
+                <img src="{% static 'images/banner-mobile.webp' %}" alt="Banner Fractions 1">
+            </div>
+
+            <div class="slide">
+                <img src="{% static 'images/banner2-mobile.webp' %}" alt="Banner Fractions 2">
+            </div>
+
+            <div class="slide">
+                <img src="{% static 'images/banner3-mobile.webp' %}" alt="Banner Fractions 3">
+            </div>
+
+        </div>
+
+        <div class="carousel-dots"></div>
+
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- ✅ TICKER MARCAS MOBILE -->
+    <!-- ===================== -->
+    <div id="brand-ticker">
+
+        <div class="ticker-track">
+
+            <span>Jean Paul Gaultier</span>
+            <span>Prada</span>
+            <span>Dior</span>
+            <span>YSL</span>
+            <span>Paco Rabanne</span>
+
+            <span>Armani</span>
+            <span>Carolina Herrera</span>
+            <span>Lancôme</span>
+            <span>Lattafa</span>
+            <span>Calvin Klein</span>
+
+            <!-- duplicado p/ loop infinito -->
+            <span>Jean Paul Gaultier</span>
+            <span>Prada</span>
+            <span>Dior</span>
+            <span>YSL</span>
+            <span>Paco Rabanne</span>
+
+            <span>Armani</span>
+            <span>Carolina Herrera</span>
+            <span>Lancôme</span>
+            <span>Lattafa</span>
+            <span>Calvin Klein</span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ✅ BANNER INFORMATIVO -->
+    <div class="banner-info">
+
+        <div class="info-item active">
+            <div class="info-content">
+                <div class="icon-box">🚚</div>
+                <div class="info-text">
+                    <span class="info-destaque">FRETE GRÁTIS</span>
+                    <p>Nas compras acima de R$250</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <div class="info-content">
+                <div class="icon-box">💳</div>
+                <div class="info-text">
+                    <span class="info-destaque">PARCELE EM ATÉ 3X</span>
+                    <p>Sem Juros</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <div class="info-content">
+                <div class="icon-box">⚡</div>
+                <div class="info-text">
+                    <span class="info-destaque">ENVIO RÁPIDO</span>
+                    <p>Para todo Brasil</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-dots"></div>
+
+    </div>
+
+{% endif %}
+
+    <!-- MENU LATERAL -->
+    <nav class="menu-mobile" id="menuMobile">
+
+        <!-- FAIXA SUPERIOR -->
+        <div class="menu-topbar">
+            <!-- INSTAGRAM FACETRUCK-->
+            <span>
+                <svg viewBox="0 0 28 28" width="28" height="28">
+                    <defs>
+                        <linearGradient id="igFix" x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#833ab4"/>
+                            <stop offset="40%" stop-color="#fd1d1d"/>
+                            <stop offset="70%" stop-color="#f56040"/>
+                            <stop offset="100%" stop-color="#f77737"/>
+                        </linearGradient>
+                    </defs>
+
+                    <rect x="0" y="0" width="28" height="28" rx="6" fill="white"/>
+                    <rect x="4" y="4" width="20" height="20" rx="5" fill="url(#igFix)"/>
+
+                    <circle cx="14" cy="14" r="4.5" fill="none" stroke="white" stroke-width="2"/>
+                    <circle cx="19" cy="9" r="1.2" fill="white"/>
+                </svg>
+            </span>
+
+            <!-- FACEBOOK -->
+            <span>
+                <i class="fa-brands fa-facebook-f"></i>
+            </span>
+
+        </div>
+
+        <!-- FECHAR -->
+        <div class="menu-header">
+            <span class="close-btn" onclick="toggleMenu()">✕</span>
+        </div>
+
+        <!-- MENU PRINCIPAL -->
+            <div id="menu-main">
+
+                <a href="/">Início</a>
+
+                <a href="javascript:void(0)" class="menu-link" onclick="openSubmenu('masculinos')">
+                    Masculinos
+                </a>
+
+                <a href="javascript:void(0)" class="menu-link" onclick="openSubmenu('femininos')">
+                    Femininos
+                </a>
+
+                <a href="javascript:void(0)" class="menu-link" onclick="openSubmenu('arabes')">
+                    Árabes
+                </a>
+
+                <a href="javascript:void(0)" class="menu-link" onclick="openSubmenu('marcas')">
+                    Marcas
+                </a>
+
+                <a href="/contato/">Contato</a>
+
+            </div>
+
+        <!-- SUBMENU MASCULINOS -->
+        <div id="submenu-masculinos" class="submenu-page">
+
+            <div class="submenu-header" onclick="backMenu()">Masculinos</div>
+
+            <a href="{% url 'lista_categoria' 'masculinos' %}">Ver todos</a>
+            {% comment %} <a href="#">Árabes</a>
+            <a href="#">Bvlgari</a>
+            <a href="#">Calvin Klein</a> {% endcomment %}
+
+        </div>
+
+        <!-- SUBMENU FEMININOS -->
+        <div id="submenu-femininos" class="submenu-page">
+
+            <div class="submenu-header" onclick="backMenu()">Femininos</div>
+
+            <a href="{% url 'lista_categoria' 'femininos' %}">Ver todos</a>
+            {% comment %} <a href="#">Carolina Herrera</a>
+            <a href="#">Chanel</a> {% endcomment %}
+
+        </div>
+
+                <!-- SUBMENU ÁRABES -->
+        <div id="submenu-arabes" class="submenu-page">
+
+            <div class="submenu-header" onclick="backMenu()">Árabes</div>
+
+            <a href="{% url 'lista_categoria' 'arabes' %}">Ver todos</a>
+
+        </div>
+
+        <!-- ✅ SUBMENU MARCAS -->
+        <div id="submenu-marcas" class="submenu-page">
+        
+            <div class="submenu-header" onclick="backMenu()">
+                Marcas
+        </div>
+        
+            <!-- ✅ lista dinâmica -->
+            {% for marca in marcas_menu %}
+        <a href="{% url 'lista_produtos' %}?marca={{ marca }}">
+                    {{ marca }}
+        </a>
+            {% endfor %}
+        
+        </div>
+
+
+        <!-- RODAPÉ -->
+        <div class="menu-footer">
+        
+            {% if user.is_authenticated %}
+        
+                <!-- USUÁRIO LOGADO -->
+        <div class="usuario-logado-mobile">
+        
+                    <div class="usuario-info">
+        
+                        <i class="fa-regular fa-user"></i>
+        
+                        <div class="usuario-dados">
+        
+                            <strong>
+                                Olá, {{ user.first_name }} {{ user.last_name }}!
+                    </strong>
+        
+                            <div class="usuario-links">
+                    <a href="#">Minha conta</a>
+                    <a href="{% url 'logout' %}">Sair</a>
+                    </div>
+        
+                        </div>
+        
+                    </div>
+        
+                </div>
+        
+            {% else %}
+        
+                <!-- USUÁRIO NÃO LOGADO -->
+        <a href="{% url 'criar_conta' %}" class="btn-conta criar">
+        <i class="fa-solid fa-user-plus"></i>
+                    Criar conta
+        </a>
+        
+                <a href="{% url 'login' %}" class="btn-conta login">
+        <i class="fa-solid fa-right-to-bracket"></i>
+                    Entrar
+        </a>
+        
+            {% endif %}
+        
+        </div>
+        
+        </nav>
+ 
+    <!-- OVERLAY -->
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+</div>
+
+
+<!-- SCRIPT -->
+<script>
+
+function toggleMenu() {
+    const menu = document.getElementById("menuMobile");
+    const overlay = document.getElementById("overlay");
+
+    menu.classList.toggle("active");
+    overlay.classList.toggle("active");
+
+    if (menu.classList.contains("active")) {
+        document.getElementById("menu-main").style.display = "block";
+
+        document.querySelectorAll(".submenu-page").forEach(el => {
+            el.style.display = "none";
+        });
+    }
+}
+
+function openSubmenu(tipo) {
+    document.getElementById("menu-main").style.display = "none";
+
+    document.querySelectorAll(".submenu-page").forEach(el => {
+        el.style.display = "none";
+    });
+
+    document.getElementById("submenu-" + tipo).style.display = "block";
+}
+
+function backMenu() {
+    document.getElementById("menu-main").style.display = "block";
+
+    document.querySelectorAll(".submenu-page").forEach(el => {
+        el.style.display = "none";
+    });
+}
+
+
+// ==========================
+// ✅ TUDO CENTRALIZADO AQUI
+// ==========================
+document.addEventListener("DOMContentLoaded", function () {
+
+    // ==========================
+    // ✅ CAROUSEL PRINCIPAL (LIMITADO A 3)
+    // ==========================
+    const track = document.querySelector(".carousel-track");
+    const slides = document.querySelectorAll(".slide");
+    const dotsContainer = document.querySelector(".carousel-dots");
+
+    if (track && slides.length > 0 && dotsContainer) {
+
+        let index = 0;
+
+        const maxSlides = Math.min(3, slides.length); // ✅ LIMITA A 3
+
+        dotsContainer.innerHTML = "";
+
+        const validSlides = [];
+
+        slides.forEach((slide, i) => {
+            if (i < maxSlides) {
+                validSlides.push(slide);
+            }
+        });
+
+        validSlides.forEach((_, i) => {
+
+            const dot = document.createElement("span");
+
+            if (i === 0) dot.classList.add("active");
+
+            dot.addEventListener("click", () => {
+                index = i;
+                updateCarousel();
+            });
+
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = dotsContainer.querySelectorAll("span");
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${index * 100}%)`;
+
+            dots.forEach(dot => dot.classList.remove("active"));
+            dots[index].classList.add("active");
+        }
+
+        setInterval(() => {
+            index = (index + 1) % maxSlides;
+            updateCarousel();
+        }, 5000);
+    }
+
+
+    // ==========================
+    // ✅ BANNER INFO (FRETE, PARCELAMENTO)
+    // ==========================
+    const infos = document.querySelectorAll(".info-item");
+    const dotsContainerInfo = document.querySelector(".info-dots");
+
+    if (infos.length > 0 && dotsContainerInfo) {
+
+        let indexInfo = 0;
+
+        dotsContainerInfo.innerHTML = "";
+
+        infos.forEach((_, i) => {
+
+            const dot = document.createElement("span");
+
+            if (i === 0) dot.classList.add("active");
+
+            dot.addEventListener("click", () => {
+                indexInfo = i;
+                updateInfo();
+            });
+
+            dotsContainerInfo.appendChild(dot);
+        });
+
+        const dotsInfo = dotsContainerInfo.querySelectorAll("span");
+
+        function updateInfo() {
+            infos.forEach(item => item.classList.remove("active"));
+            dotsInfo.forEach(dot => dot.classList.remove("active"));
+
+            infos[indexInfo].classList.add("active");
+            dotsInfo[indexInfo].classList.add("active");
+        }
+
+        setInterval(() => {
+            indexInfo = (indexInfo + 1) % infos.length;
+            updateInfo();
+        }, 5000);
+    }
+
+});
+
+</script>
+
