@@ -12,34 +12,44 @@
         <div class="thumb-coluna desktop-only">
 
             {% if perfume.imagem %}
-            <img src="{{ perfume.get_imagem_url }}"
+            <img 
+                src="{% static perfume.imagem.name %}"
                 class="thumb ativa"
-                onclick="event.stopPropagation(); trocarImagem(0)">
+                onclick="event.stopPropagation(); trocarImagem(0)"
+            >
             {% endif %}
 
+
             {% if perfume.imagem_descricao %}
-            <img src="{{ perfume.get_imagem_descricao_url }}"
+            <img 
+                src="{% static perfume.imagem_descricao.name %}"
                 class="thumb"
-                onclick="event.stopPropagation(); trocarImagem(1)">
+                onclick="event.stopPropagation(); trocarImagem(1)"
+            >
             {% endif %}
+
 
         </div> <!-- ✅ AQUI FALTAVA -->
 
         <!-- ✅ IMAGEM PRINCIPAL -->
         <div class="image-wrapper">
 
-        {% if perfume.imagem %}
-        <img src="{{ perfume.get_imagem_url }}"
-            class="product-slider-image produto-img ativa"
-            alt="{{ perfume.nome }} - Perfume Importado"
-            loading="lazy">
-        {% endif %}
+            {% if perfume.imagem %}
+            <img 
+                src="{% static perfume.imagem.name %}"
+                class="product-slider-image produto-img ativa"
+                alt="{{ perfume.nome }} - Perfume Importado"
+                loading="lazy"
+            >
+            {% endif %}
 
-        {% if perfume.imagem_descricao %}
-        <img src="{{ perfume.get_imagem_descricao_url }}"
-             class="product-slider-image produto-img"
-             alt="Descrição">
-        {% endif %}
+            {% if perfume.imagem_descricao %}
+            <img 
+                src="{% static perfume.imagem_descricao.name %}"
+                class="product-slider-image produto-img"
+                alt="Descrição"
+            >
+            {% endif %}
 
     </div>
 
@@ -172,13 +182,14 @@
                 </div>
             </div>
 
-
             {% if perfume.imagem_descricao %}
-                <div class="descricao-imagem mobile-only">
-                    <img src="{{ perfume.get_imagem_descricao_url }}" 
-                        class="img-desc"
-                        onclick="abrirZoomDescricao(this.src)">
-                </div>
+            <div class="descricao-imagem mobile-only">
+                <img 
+                    src="{% static perfume.imagem_descricao.name %}"
+                    class="img-desc"
+                    onclick="abrirZoomDescricao(this.src)"
+                >
+            </div>
             {% endif %}
 
         </div>
