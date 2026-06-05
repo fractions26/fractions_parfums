@@ -587,7 +587,7 @@
     }
 
     .product-slider-image {
-        max-height: 80vh;   /* ✅ cresce baseado na tela */
+        max-height: 70vh;   /* ✅ cresce baseado na tela */
         max-width: 100%;
 
         width: auto;
