@@ -6,20 +6,12 @@
     .menu-topbar {
         background: linear-gradient(45deg, #888, #555, #e9b9a1);
         padding: 10px 15px;
-    }
 
-    /* ===================== */
-/* ✅ FACEBOOK NO TOPO */
-/* ===================== */
-
-.menu-topbar {
-    background: linear-gradient(45deg, #955dbb, #f11818, #e9b9a1);
-    padding: 10px 15px;
-
-    display: flex;
-    align-items: center;   /* ✅ ALINHA NA MESMA ALTURA */
-    gap: 12px;             /* ✅ espaço correto entre ícones */
+        display: flex;
+        align-items: center;   /* ✅ ALINHA NA MESMA ALTURA */
+        gap: 12px;             /* ✅ espaço correto entre ícones */
 }
+
 
 /* Facebook container */
 .menu-topbar span:last-child {
