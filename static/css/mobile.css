@@ -835,6 +835,7 @@
     display: flex;
     width: 100%;
     gap: 8px;
+    align-items: center; /* ✅ melhora alinhamento no mobile */
 }
 
 
@@ -844,44 +845,35 @@
 }
 
 
-
-.cep-box input {
-    flex: 1;
-    height: 38px; /* ✅ maior área de toque */
-    font-size: 16px; /* ✅ evita zoom no iOS */
-    padding: 0 80px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    outline: none;
-}
-
-
-
 .cep-box button {
-    height: 39px;
-    padding: 0 18px;
+    height: 44px;
+    padding: 0 16px;
     border: none;
     border-radius: 10px;
-    background: #6f42c1;
-    color: white;
-    font-weight: 550;
+    background: #6f42c1; /* ✅ desktop padrão */
+    color: #fff;
+    font-weight: 600;
     cursor: pointer;
+    white-space: nowrap;
 }
 
+.cep-box input {
+    flex: 1;              /* ✅ controla largura corretamente */
+    min-width: 0;         /* ✅ evita bug no flex (ESSENCIAL) */
+    height: 44px;         /* ✅ área ideal de toque */
+    font-size: 16px;      /* ✅ evita zoom iOS */
+    padding: 0 12px;      /* ✅ espaçamento correto */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+/* ✅ MOBILE */
 @media (max-width: 768px) {
 
-    .cep-box {
-        flex-direction:inherit; /* separa input e botão */
-    }
-
-    .cep-box input {
-        width: 100%;
-    }
-
     .cep-box button {
-        width: 100%;
-        background: #000; /* fundo escuro */
-        color: #fff;      /* texto branco */
+        width: auto;          /* ✅ mantém lado a lado */
+        background: #000;     /* ✅ preto só no mobile */
+        color: #fff;
         font-weight: 600;
     }
 
