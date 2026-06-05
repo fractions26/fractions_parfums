@@ -4,9 +4,6 @@ from .models import Carrinho
 # ✅ Marcas
 from apps.produtos.models import Perfume
 
-from django.db import ProgrammingError
-from django.db.utils import OperationalError
-
 
 def carrinho_quantidade(request):
 
@@ -26,20 +23,14 @@ def carrinho_quantidade(request):
     }
 
 
-# ✅ MENU DE MARCAS
+# ✅ NOVO - MENU DE MARCAS
 def marcas_menu(request):
 
-    try:
-        marcas = (
-            Perfume.objects.values_list('marca', flat=True)
-            .exclude(marca__isnull=True)
-            .exclude(marca__exact='')
-            .distinct()
-            .order_by('marca')
-        )
-
-    except (ProgrammingError, OperationalError):
-        marcas = []
+    marcas = Perfume.objects.values_list('marca', flat=True)\
+        .exclude(marca__isnull=True)\
+        .exclude(marca__exact='')\
+        .distinct()\
+        .order_by('marca')
 
     return {
         "marcas_menu": marcas
