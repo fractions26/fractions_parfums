@@ -14,82 +14,77 @@ MAX_QTD = 10
 # =========================
 def adicionar_carrinho(request):
     if request.method == 'POST':
-
-        perfume_id = request.POST.get('perfume_id')
-        preco_id = request.POST.get('preco_id')
-
         try:
+            perfume_id = request.POST.get('perfume_id')
+            preco_id = request.POST.get('preco_id')
+
             quantidade = int(request.POST.get('quantidade', 1))
-        except:
-            quantidade = 1
 
-        perfume = get_object_or_404(Perfume, id=perfume_id)
-        preco_obj = get_object_or_404(
-            Preco,
-            id=preco_id,
-            perfume=perfume   # 🔥 GARANTE RELAÇÃO CORRETA
-        )
-
-
-        # ✅ AGORA USA FUNÇÃO CENTRAL
-        carrinho = get_carrinho(request)
-
-        item = Item.objects.filter(
-            carrinho=carrinho,
-            perfume=perfume,
-            preco_obj=preco_obj
-        ).first()
-
-        limitado = False
-
-        if item:
-            nova_qtd = item.quantidade + quantidade
-
-            if nova_qtd > MAX_QTD:
-                nova_qtd = MAX_QTD
-                limitado = True
-
-            item.quantidade = nova_qtd
-            item.save()
-
-        else:
-            if quantidade > MAX_QTD:
-                quantidade = MAX_QTD
-                limitado = True
-
-            item = Item.objects.create(
-                carrinho=carrinho,
-                perfume=perfume,
-                preco_obj=preco_obj,
-                tamanho=preco_obj.tamanho,
-                preco=preco_obj.valor,
-                quantidade=quantidade
+            perfume = get_object_or_404(Perfume, id=perfume_id)
+            preco_obj = get_object_or_404(
+                Preco,
+                id=preco_id,
+                perfume=perfume
             )
 
-        # ✅ recalcular
-        itens = carrinho.itens.all()
-        quantidade_total = sum(i.quantidade for i in itens)
-        total = sum(i.preco * i.quantidade for i in itens)
+            carrinho = get_carrinho(request)
 
-        total_formatado = (
-            f"{total:,.2f}"
-            .replace(",", "X")
-            .replace(".", ",")
-            .replace("X", ".")
-        )
+            item = Item.objects.filter(
+                carrinho=carrinho,
+                perfume=perfume,
+                preco_obj=preco_obj
+            ).first()
 
-        return JsonResponse({
-            "success": True,
-            "produto_nome": perfume.nome,
-            "tamanho": preco_obj.tamanho,
-            "imagem": perfume.imagem.url,
-            "quantidade_total": quantidade_total,
-            "total": float(total),
-            "total_formatado": total_formatado,
-            "produto_preco": float(preco_obj.valor),
-            "quantidade_adicionada": quantidade,
-            "limitado": limitado
-        })
+            limitado = False
+
+            if item:
+                nova_qtd = item.quantidade + quantidade
+
+                if nova_qtd > MAX_QTD:
+                    nova_qtd = MAX_QTD
+                    limitado = True
+
+                item.quantidade = nova_qtd
+                item.save()
+
+            else:
+                if quantidade > MAX_QTD:
+                    quantidade = MAX_QTD
+                    limitado = True
+
+                item = Item.objects.create(
+                    carrinho=carrinho,
+                    perfume=perfume,
+                    preco_obj=preco_obj,
+                    tamanho=preco_obj.tamanho,
+                    preco=preco_obj.valor,
+                    quantidade=quantidade
+                )
+
+            itens = carrinho.itens.all()
+
+            quantidade_total = sum(i.quantidade for i in itens)
+            total = sum(float(i.preco) * i.quantidade for i in itens)
+
+            return JsonResponse({
+                "success": True,
+                "produto_nome": perfume.nome,
+                "tamanho": preco_obj.tamanho,
+                "imagem": perfume.imagem.url if perfume.imagem else "",
+                "quantidade_total": quantidade_total,
+                "total": total,
+                "produto_preco": float(preco_obj.valor),
+                "quantidade_adicionada": quantidade,
+                "limitado": limitado
+            })
+
+        except Exception as e:
+            print("ERRO CARRINHO:", str(e))
+
+            return JsonResponse({
+                "success": False,
+                "erro": str(e)
+            }, status=500)
 
     return JsonResponse({"success": False})
 
