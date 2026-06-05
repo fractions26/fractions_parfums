@@ -830,10 +830,13 @@
     font-weight: 600;
 }
 
+
 .cep-box {
     display: flex;
-    margin-top: 10px;
+    width: 100%;
+    gap: 8px;
 }
+
 
 
 .cep-box > * {
@@ -841,31 +844,47 @@
 }
 
 
+
 .cep-box input {
     flex: 1;
-
-    padding: 12px;
-    font-size: 14px;
-
-    border: 1px solid #7a8275;
-    border-right: none;             /* ✅ conecta com botão */
-
-    border-radius: 10px 0 0 10px;
-
+    height: 48px; /* ✅ maior área de toque */
+    font-size: 16px; /* ✅ evita zoom no iOS */
+    padding: 0 14px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
     outline: none;
 }
 
+
+
 .cep-box button {
-    padding: 12px 16px;
-
-    font-size: 13px;
+    height: 48px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 10px;
+    background: #6f42c1;
+    color: white;
     font-weight: 600;
+    cursor: pointer;
+}
 
-    border: 1px solid #7a8275;
+@media (max-width: 768px) {
 
-    border-radius: 0 10px 10px 0;
+    .cep-box {
+        flex-direction: column; /* separa input e botão */
+    }
 
-    background: #fff;
+    .cep-box input {
+        width: 100%;
+    }
+
+    .cep-box button {
+        width: 100%;
+        background: #000; /* fundo escuro */
+        color: #fff;      /* texto branco */
+        font-weight: 600;
+    }
+
 }
 
 

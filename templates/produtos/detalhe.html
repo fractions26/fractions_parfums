@@ -162,9 +162,16 @@
                 </p>
 
                 <div class="cep-box">
-                    <input type="text" placeholder="Seu CEP">
+                    <input 
+                        type="tel"
+                        inputmode="numeric"
+                        placeholder="Digite seu CEP"
+                        maxlength="9"
+                        id="cepInput"
+                    >
                     <button type="button" onclick="calcularFrete()">CALCULAR</button>
                 </div>
+
 
                 <a href="https://buscacepinter.correios.com.br/app/localidade_logradouro/index.php"
                 target="_blank"
@@ -226,6 +233,18 @@
 
 <!-- ✅ SCRIPT FINAL -->
 <script>
+
+const cepInput = document.getElementById("cepInput");
+
+cepInput.addEventListener("input", (e) => {
+    let valor = e.target.value.replace(/\D/g, "");
+
+    if (valor.length > 5) {
+        valor = valor.slice(0, 5) + "-" + valor.slice(5, 8);
+    }
+
+    e.target.value = valor;
+});
 
 // ✅ CALCULO FRETE INTELIGENTE (DECANTS + REGIÃO)
 function calcularFrete() {
