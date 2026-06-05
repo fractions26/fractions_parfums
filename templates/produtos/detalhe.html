@@ -11,14 +11,14 @@
     <!-- ✅ COLUNA DE THUMBNAILS -->
         <div class="thumb-coluna desktop-only">
 
-            {% if perfume.get_imagem %}
-            <img src="{{ perfume.get_imagem.url }}"
+            {% if perfume.imagem %}
+            <img src="{{ perfume.get_imagem_url }}"
                 class="thumb ativa"
                 onclick="event.stopPropagation(); trocarImagem(0)">
             {% endif %}
 
             {% if perfume.get_imagem_descricao %}
-            <img src="{{ perfume.get_imagem_descricao.url }}"
+            <img src="{{ perfume.get_imagem_descricao_url }}"
                 class="thumb"
                 onclick="event.stopPropagation(); trocarImagem(1)">
             {% endif %}
@@ -28,15 +28,15 @@
         <!-- ✅ IMAGEM PRINCIPAL -->
         <div class="image-wrapper">
 
-        {% if perfume.get_imagem %}
-        <img src="{{ perfume.get_imagem.url }}"
+        {% if perfume.imagem %}
+        <img src="{{ perfume.get_imagem_url }}"
             class="product-slider-image produto-img ativa"
             alt="{{ perfume.nome }} - Perfume Importado"
             loading="lazy">
         {% endif %}
 
         {% if perfume.get_imagem_descricao %}
-        <img src="{{ perfume.get_imagem_descricao.url }}"
+        <img src="{{ perfume.get_imagem_descricao_url }}"
              class="product-slider-image produto-img"
              alt="Descrição">
         {% endif %}
@@ -175,7 +175,7 @@
 
             {% if perfume.get_imagem_descricao %}
                 <div class="descricao-imagem mobile-only">
-                    <img src="{{ perfume.get_imagem_descricao.url }}" 
+                    <img src="{{ perfume.get_imagem_descricao_url }}" 
                         class="img-desc"
                         onclick="abrirZoomDescricao(this.src)">
                 </div>
