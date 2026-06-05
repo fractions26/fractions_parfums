@@ -15,7 +15,7 @@ db.sqlite3
 *.sql
 
 # media files (imagens)
-media/
+# media/  ✅ (comentado)
 
 # sistema
 .DS_Store

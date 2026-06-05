@@ -1,12 +1,6 @@
 from django.contrib import admin
-from .models import Categoria, Perfume, Preco
-
-
-# ✅ CATEGORIA
-@admin.register(Categoria)
-class CategoriaAdmin(admin.ModelAdmin):
-    list_display = ("nome", "slug")
-    prepopulated_fields = {"slug": ("nome",)}
+from django.utils.html import format_html
+from .models import Perfume, Categoria, Preco
 
 
 # ✅ INLINE DE PREÇO
@@ -19,7 +13,8 @@ class PrecoInline(admin.TabularInline):
 @admin.register(Perfume)
 class PerfumeAdmin(admin.ModelAdmin):
 
-    list_display = ("nome", "marca", "mostrar_categorias")
+    # ✅ LISTAGEM
+    list_display = ("nome", "marca", "mostrar_categorias", "imagem_preview")
 
     list_filter = ("categorias",)
 
@@ -27,10 +22,12 @@ class PerfumeAdmin(admin.ModelAdmin):
 
     prepopulated_fields = {"slug": ("nome",)}
 
+    # ✅ INLINE PREÇO
     inlines = [PrecoInline]
 
     filter_horizontal = ("categorias",)
 
+    # ✅ ORDEM DOS CAMPOS NO FORM
     fields = (
         "nome",
         "marca",
@@ -38,19 +35,29 @@ class PerfumeAdmin(admin.ModelAdmin):
         "categorias",
 
         "imagem",
-        "imagem_mobile",
+        "imagem_preview",
 
+        "imagem_mobile",
         "imagem_descricao",
         "imagem_descricao_mobile",
     )
 
+    # ✅ CAMPOS SOMENTE LEITURA
+    readonly_fields = ("imagem_preview",)
+
+    # ✅ MOSTRAR CATEGORIAS NA LISTA
     def mostrar_categorias(self, obj):
         return ", ".join([c.nome for c in obj.categorias.all()])
 
     mostrar_categorias.short_description = "Categorias"
 
+    # ✅ PREVIEW DA IMAGEM
+    def imagem_preview(self, obj):
+        if obj.imagem:
+            return format_html(
+                '<img src="{}" style="max-width: 120px; border-radius: 8px;" />',
+                obj.imagem.url
+            )
+        return "Sem imagem"
 
-# ✅ PREÇO
-@admin.register(Preco)
-class PrecoAdmin(admin.ModelAdmin):
-    list_display = ("perfume", "tamanho", "valor")
+    imagem_preview.short_description = "Preview"
