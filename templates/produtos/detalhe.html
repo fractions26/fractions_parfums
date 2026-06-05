@@ -12,13 +12,13 @@
         <div class="thumb-coluna desktop-only">
 
             {% if perfume.imagem %}
-            <img src="{{ perfume.get_imagem_url }}">
+            <img src="{{ perfume.imagem.url }}"
                 class="thumb ativa"
                 onclick="event.stopPropagation(); trocarImagem(0)">
             {% endif %}
 
             {% if perfume.imagem_descricao %}
-            <img src="{{ perfume.get_imagem_descricao_url }}">
+            <img src="{{ perfume.imagem_descricao.url }}"
                 class="thumb"
                 onclick="event.stopPropagation(); trocarImagem(1)">
             {% endif %}
@@ -29,14 +29,14 @@
         <div class="image-wrapper">
 
         {% if perfume.imagem %}
-        <img src="{{ perfume.get_imagem_url }}"
+        <img src="{{ perfume.imagem.url }}"
             class="product-slider-image produto-img ativa"
             alt="{{ perfume.nome }} - Perfume Importado"
             loading="lazy">
         {% endif %}
 
         {% if perfume.imagem_descricao %}
-        <img src="{{ perfume.get_imagem_descricao_url }}">
+        <img src="{{ perfume.imagem_descricao.url }}"
              class="product-slider-image produto-img"
              alt="Descrição">
         {% endif %}
