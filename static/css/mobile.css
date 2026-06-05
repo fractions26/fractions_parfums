@@ -847,9 +847,9 @@
 
 .cep-box input {
     flex: 1;
-    height: 48px; /* ✅ maior área de toque */
+    height: 38px; /* ✅ maior área de toque */
     font-size: 16px; /* ✅ evita zoom no iOS */
-    padding: 0 70px;
+    padding: 0 80px;
     border: 1px solid #ccc;
     border-radius: 10px;
     outline: none;
