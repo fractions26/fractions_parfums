@@ -849,7 +849,7 @@
     flex: 1;
     height: 48px; /* ✅ maior área de toque */
     font-size: 16px; /* ✅ evita zoom no iOS */
-    padding: 0 14px;
+    padding: 0 70px;
     border: 1px solid #ccc;
     border-radius: 10px;
     outline: none;
@@ -858,20 +858,20 @@
 
 
 .cep-box button {
-    height: 48px;
+    height: 39px;
     padding: 0 18px;
     border: none;
     border-radius: 10px;
     background: #6f42c1;
     color: white;
-    font-weight: 600;
+    font-weight: 550;
     cursor: pointer;
 }
 
 @media (max-width: 768px) {
 
     .cep-box {
-        flex-direction: column; /* separa input e botão */
+        flex-direction:inherit; /* separa input e botão */
     }
 
     .cep-box input {
