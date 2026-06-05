@@ -1,24 +1,24 @@
-from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+import traceback
 
 from .models import Item
 from .utils import get_carrinho
-
 from apps.produtos.models import Perfume, Preco
 
 MAX_QTD = 10
 
 
-# =========================
-# ✅ ADICIONAR AO CARRINHO
-# =========================
 def adicionar_carrinho(request):
     if request.method == 'POST':
         try:
             perfume_id = request.POST.get('perfume_id')
             preco_id = request.POST.get('preco_id')
 
-            quantidade = int(request.POST.get('quantidade', 1))
+            try:
+                quantidade = int(request.POST.get('quantidade', 1))
+            except:
+                quantidade = 1
 
             perfume = get_object_or_404(Perfume, id=perfume_id)
             preco_obj = get_object_or_404(
@@ -46,7 +46,6 @@ def adicionar_carrinho(request):
 
                 item.quantidade = nova_qtd
                 item.save()
-
             else:
                 if quantidade > MAX_QTD:
                     quantidade = MAX_QTD
@@ -61,16 +60,25 @@ def adicionar_carrinho(request):
                     quantidade=quantidade
                 )
 
+            # ✅ Recalcular totais
             itens = carrinho.itens.all()
 
             quantidade_total = sum(i.quantidade for i in itens)
             total = sum(float(i.preco) * i.quantidade for i in itens)
 
+            # ✅ TRATAMENTO DA IMAGEM (CORREÇÃO DEFINITIVA)
+            imagem_url = ""
+            if perfume.imagem:
+                try:
+                    imagem_url = perfume.imagem.url
+                except Exception:
+                    imagem_url = str(perfume.imagem)
+
             return JsonResponse({
                 "success": True,
                 "produto_nome": perfume.nome,
                 "tamanho": preco_obj.tamanho,
-                "imagem": perfume.imagem.url if perfume.imagem else "",
+                "imagem": imagem_url,
                 "quantidade_total": quantidade_total,
                 "total": total,
                 "produto_preco": float(preco_obj.valor),
@@ -79,14 +87,15 @@ def adicionar_carrinho(request):
             })
 
         except Exception as e:
-            print("ERRO CARRINHO:", str(e))
+            print("🚨 ERRO CARRINHO:", str(e))
+            traceback.print_exc()
 
             return JsonResponse({
                 "success": False,
                 "erro": str(e)
             }, status=500)
 
-    return JsonResponse({"success": False})
+    return JsonResponse({"success": False}, status=400)
 
 
 # =========================
