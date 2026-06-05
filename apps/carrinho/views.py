@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 import traceback
-
+from django.shortcuts import render
 from .models import Item
 from .utils import get_carrinho
 from apps.produtos.models import Perfume, Preco
@@ -37,6 +37,7 @@ def adicionar_carrinho(request):
 
             limitado = False
 
+            # ✅ ATUALIZA OU CRIA ITEM
             if item:
                 nova_qtd = item.quantidade + quantidade
 
@@ -46,6 +47,7 @@ def adicionar_carrinho(request):
 
                 item.quantidade = nova_qtd
                 item.save()
+
             else:
                 if quantidade > MAX_QTD:
                     quantidade = MAX_QTD
@@ -56,17 +58,25 @@ def adicionar_carrinho(request):
                     perfume=perfume,
                     preco_obj=preco_obj,
                     tamanho=preco_obj.tamanho,
-                    preco=preco_obj.valor,
+                    preco=float(preco_obj.valor),  # ✅ correção importante
                     quantidade=quantidade
                 )
 
-            # ✅ Recalcular totais
+            # ✅ RECALCULAR CARRINHO
             itens = carrinho.itens.all()
 
             quantidade_total = sum(i.quantidade for i in itens)
             total = sum(float(i.preco) * i.quantidade for i in itens)
 
-            # ✅ TRATAMENTO DA IMAGEM (CORREÇÃO DEFINITIVA)
+            # ✅ FORMATAÇÃO (resolve "R$ undefined")
+            total_formatado = (
+                f"{total:,.2f}"
+                .replace(",", "X")
+                .replace(".", ",")
+                .replace("X", ".")
+            )
+
+            # ✅ TRATAMENTO SEGURO DE IMAGEM (resolve string/url)
             imagem_url = ""
             if perfume.imagem:
                 try:
@@ -74,6 +84,7 @@ def adicionar_carrinho(request):
                 except Exception:
                     imagem_url = str(perfume.imagem)
 
+            # ✅ RESPOSTA FINAL
             return JsonResponse({
                 "success": True,
                 "produto_nome": perfume.nome,
@@ -81,6 +92,7 @@ def adicionar_carrinho(request):
                 "imagem": imagem_url,
                 "quantidade_total": quantidade_total,
                 "total": total,
+                "total_formatado": total_formatado,
                 "produto_preco": float(preco_obj.valor),
                 "quantidade_adicionada": quantidade,
                 "limitado": limitado
@@ -96,6 +108,7 @@ def adicionar_carrinho(request):
             }, status=500)
 
     return JsonResponse({"success": False}, status=400)
+
 
 
 # =========================
