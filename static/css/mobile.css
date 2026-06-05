@@ -558,18 +558,16 @@
 
     .produto-imagem {
         position: relative;
-        height: 420px;
-
+        height: auto;
         display: flex;
-        flex-direction: column; /* ✅ mobile empilha */
-
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-
         background: #fdffff;
     }
 
 }
+
 
 /* ✅ separador AQUI */
 .produto-info {

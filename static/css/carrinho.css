@@ -1281,8 +1281,8 @@
 /* ✅ FRETE SELECIONADO */
 /* =============================== */
 .frete-option.melhor {
-    border: 2px solid #00a650;
-    background: #f4fbf7;
+    border: 2px solid #f4fbf7;
+    background: #fafafa;
 }
 
 /* =============================== */
