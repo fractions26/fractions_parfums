@@ -79,13 +79,31 @@ def lista_categoria(request, slug):
     })
 
 
-# ✅ LISTA GERAL
+# ✅ LISTA POR CATEGORIA
 @ensure_csrf_cookie
-def lista_produtos(request):
-    perfumes = Perfume.objects.all().annotate(
+def lista_categoria(request, slug):
+
+    from django.db.models import Q, Min
+    from django.shortcuts import get_object_or_404, render
+
+    # ✅ PRIORIDADE: categoria via filtro (GET)
+    categoria_param = request.GET.get("categoria")
+
+    if categoria_param:
+        categoria = get_object_or_404(Categoria, slug=categoria_param)
+    else:
+        categoria = get_object_or_404(Categoria, slug=slug)
+
+    # ✅ QUERY BASE (UMA VEZ SÓ)
+    perfumes = Perfume.objects.filter(
+        categorias__in=[categoria]
+    ).annotate(
         menor_preco=Min('precos__valor')
     )
 
+    # ======================
+    # ✅ FILTROS
+    # ======================
     marcas = request.GET.getlist('marca')
     destaques = request.GET.getlist('destaque')
     ordenar = request.GET.get('ordenar')
@@ -114,7 +132,9 @@ def lista_produtos(request):
     if 'novidades' in destaques:
         perfumes = perfumes.order_by('-id')
 
+    # ======================
     # ✅ ORDENAÇÃO
+    # ======================
     if ordenar == 'mais_vendidos':
         perfumes = perfumes.order_by('-id')
     elif ordenar == 'preco_asc':
@@ -128,16 +148,26 @@ def lista_produtos(request):
 
     perfumes = perfumes.distinct()
 
-    # ✅ 🔥 CALCULO PARCELAMENTO (MESMA REGRA)
+    # ======================
+    # ✅ PARCELAMENTO
+    # ======================
     for perfume in perfumes:
         preco = perfume.precos.first()
         if preco:
             preco.parcela_3x = round(preco.valor / 3, 2)
 
-    marcas_lista = Perfume.objects.values_list('marca', flat=True).distinct()
+    # ======================
+    # ✅ LISTA DE MARCAS
+    # ======================
+    marcas_lista = Perfume.objects.values_list(
+        'marca', flat=True
+    ).distinct()
 
+    # ======================
+    # ✅ RENDER FINAL
+    # ======================
     return render(request, 'produtos/lista.html', {
-        'categoria': {'nome': 'Todos os produtos'},
+        'categoria': categoria,
         'perfumes': perfumes,
         'marcas': marcas_lista,
         'marcas_selecionadas': marcas,

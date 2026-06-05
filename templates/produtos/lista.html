@@ -17,29 +17,29 @@
             
             <ul class="lista-categorias">
             
-            <li>
-            <label>
-            <input
-            type="radio"
-            name="categoria"
-            onchange="window.location.href='{% url 'lista_categoria' 'masculinos' %}'"
-            {% if categoria.slug == 'masculinos' %}checked{% endif %}
-            >
-                        Masculinos
-            </label>
-            </li>
-            
                 <li>
-            <label>
-            <input
-            type="radio"
-            name="categoria"
-            onchange="window.location.href='{% url 'lista_categoria' 'femininos' %}'"
-            {% if categoria.slug == 'femininos' %}checked{% endif %}
-            >
-                        Femininos
-            </label>
-            </li>
+                <label>
+                <input
+                    type="radio"
+                    name="categoria"
+                    value="masculinos"
+                    {% if categoria.slug == 'masculinos' %}checked{% endif %}
+                >
+                    Masculinos
+                </label>
+                </li>
+                            
+                <li>
+                <label>
+                <input
+                    type="radio"
+                    name="categoria"
+                    value="femininos"
+                    {% if categoria.slug == 'femininos' %}checked{% endif %}
+                >
+                    Femininos
+                </label>
+                </li>
             
             </ul>
 
@@ -332,26 +332,22 @@
             <h4>Categorias</h4>
     
             <label>
-    <input
-                    type="radio"
-                    name="categoria"
-                    value="masculinos"
-                    {% if request.GET.categoria == 'masculinos' %}
-                    checked
-                    {% endif %}
-    >
+            <input
+                type="radio"
+                name="categoria"
+                value="masculinos"
+                {% if categoria.slug == 'masculinos' %}checked{% endif %}
+            >
                 Masculinos
     </label>
     
             <label>
-    <input
-                    type="radio"
-                    name="categoria"
-                    value="femininos"
-                    {% if request.GET.categoria == 'femininos' %}
-                    checked
-                    {% endif %}
-    >
+            <input
+                type="radio"
+                name="categoria"
+                value="femininos"
+                {% if categoria.slug == 'femininos' %}checked{% endif %}
+            >
                 Femininos
     </label>
     
