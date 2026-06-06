@@ -212,6 +212,7 @@ def criar_conta(request):
             messages.error(request, "❌ E-mail já cadastrado.")
             return redirect('criar_conta')
 
+
         # ✅ CRIAR USUÁRIO
         user = User.objects.create_user(
             username=email,
@@ -220,6 +221,13 @@ def criar_conta(request):
             first_name=first_name,
             last_name=last_name
         )
+
+        # ✅ SALVAR TELEFONE NO PERFIL
+        telefone = request.POST.get('telefone')
+
+        user.perfil.telefone = telefone
+        user.perfil.save()
+
 
         # ✅ EMAIL DE BOAS-VINDAS
         try:
