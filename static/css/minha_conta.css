@@ -20,8 +20,8 @@
 }
 
 .conta-topo h1{
-    font-size:42px;
-    font-weight:700;
+    font-size:27px;
+    font-weight:600;
     color:#111;
     margin:0;
     letter-spacing:-1px;
@@ -81,7 +81,7 @@
 .box-header h3{
     margin:0;
 
-    font-size:24px;
+    font-size:20px;
     font-weight:700;
 
     color:#111;
@@ -145,7 +145,7 @@
 
 .dados-usuario p strong{
     display:inline;
-    font-size:15px;
+    font-size:13px;
 }
 
 /* ========================================= */
@@ -153,7 +153,7 @@
 /* ========================================= */
 
 .titulo-pedidos{
-    font-size:34px;
+    font-size:24px;
     font-weight:700;
 
     margin-bottom:25px;
@@ -246,11 +246,11 @@
 
     text-decoration:none;
 
-    height:54px;
+    height:44px;
 
     padding:0 26px;
 
-    border-radius:16px;
+    border-radius:10px;
 
     font-weight:700;
     font-size:15px;
@@ -377,7 +377,7 @@
     }
 
     .pedido-card strong{
-        font-size:22px;
+        font-size:17px;
     }
 
     .pedido-info{
@@ -397,7 +397,7 @@
     }
 
     .form-conta input{
-        height:54px;
+        height:48px;
         border-radius:14px;
     }
 
