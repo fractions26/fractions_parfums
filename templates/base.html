@@ -375,21 +375,16 @@ function abrirCarrinho(){
         overlay.classList.add("ativo");
         document.body.style.overflow = "hidden";
     })
-    .catch(() => {
+        .catch(() => {
 
-        if(conteudo){
-            conteudo.innerHTML = `
-                <div class="carrinho-vazio">
-                    <h2>🛒</h2>
-                    <p>Vazio</p>
-                </div>
-            `;
-        }
+            if(conteudo){
+                conteudo.innerHTML = "<p>Vazio</p>";
+            }
 
-        drawer.classList.add("ativo");
-        overlay.classList.add("ativo");
-        document.body.style.overflow = "hidden";
-    });
+            drawer.classList.add("ativo");
+            overlay.classList.add("ativo");
+            document.body.style.overflow = "hidden";
+        });
 
 // =======================
 // ✅ FECHAR CARRINHO
