@@ -2,7 +2,7 @@ import os
 from PIL import Image
 
 # 🔥 CAMINHO DA SUA PASTA
-PASTA = r"C:\Users\G0012073\OneDrive - Telefonica\Documents\fractions_parfums\fractions_parfums\media\perfumes\descricao"
+PASTA = r"C:\Users\wwwdl\OneDrive\Documentos\fractions_parfums\static\perfumes\descricao"
 
 # ✅ QUALIDADE (80-85 ideal)
 QUALIDADE = 85
@@ -14,7 +14,7 @@ def converter_png_para_webp():
     erros = 0
 
     for arquivo in os.listdir(PASTA):
-        if arquivo.lower().endswith(".jfif"):
+        if arquivo.lower().endswith(".png"):
 
             total += 1
 
