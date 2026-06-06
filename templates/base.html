@@ -316,7 +316,7 @@ function mostrarToastProduto(data){
     // ✅ tempo maior (10s)
     toastTimer = setTimeout(() => {
         toast.classList.remove("ativo");
-    }, 10000);
+    }, 5000);
 
     // ✅ pausa no hover (desktop)
     toast.onmouseenter = () => clearTimeout(toastTimer);
@@ -448,7 +448,8 @@ function alterarQtd(btn, delta){
     }
 
     // ✅ ATUALIZA BACKEND (PADRÃO GLOBAL)
-    postData("/carrinho/atualizar/",
+    postData(
+        "/carrinho/atualizar/",
         `item_id=${itemDiv.dataset.id}&quantidade=${qtd}`
     )
     .then(res => res.json())
@@ -458,12 +459,14 @@ function alterarQtd(btn, delta){
 
         // ✅ GARANTE VALOR REAL DO BACKEND
         if(data.quantidade_item !== undefined){
+
             qtdSpan.innerText = data.quantidade_item;
 
             const subtotalReal = preco * data.quantidade_item;
 
             if(subtotalEl){
-                subtotalEl.innerText = "R$ " + subtotalReal.toFixed(2);
+                subtotalEl.innerText =
+                    "R$ " + subtotalReal.toFixed(2);
             }
         }
 
@@ -472,19 +475,40 @@ function alterarQtd(btn, delta){
         const totalFinal = document.getElementById("totalValorFinal");
 
         if(total){
-            total.innerText = "R$ " + data.total.toFixed(2);
+            total.innerText =
+                "R$ " + data.total.toFixed(2);
         }
 
         if(totalFinal){
-            totalFinal.innerText = "R$ " + data.total.toFixed(2);
+            totalFinal.innerText =
+                "R$ " + data.total.toFixed(2);
         }
 
         // ✅ BADGE
         atualizarBadge();
 
+        // ✅ RECALCULA TOTAL COM FRETE
+        const freteSalvo =
+            localStorage.getItem("frete_valor");
+
+        const cepSalvo =
+            localStorage.getItem("cep_carrinho");
+
+        if (freteSalvo && cepSalvo) {
+
+            aplicarFreteCarrinho(
+                parseFloat(freteSalvo),
+                cepSalvo
+            );
+
+        }
+
     })
     .catch(err => {
-        console.error("❌ Erro ao atualizar item:", err);
+        console.error(
+            "❌ Erro ao atualizar item:",
+            err
+        );
     });
 
 }
