@@ -1,46 +1,41 @@
-{% load static %}
+        {% load static %}
 
-<link rel="stylesheet" href="{% static 'css/carrinho.css' %}">
+        <link rel="stylesheet" href="{% static 'css/carrinho.css' %}">
 
-    {% if user.is_authenticated %}
-    
-        </div>
-    {% endif %}
+        {% if not user.is_authenticated %}
 
-    {% if itens %}
+        <div class="carrinho-auth-box">
 
-    {% if not user.is_authenticated %}
+            <div class="carrinho-auth-texto">
+                <strong>Faça login para continuar</strong>
+                <span>Acompanhe pedidos e finalize mais rápido</span>
+            </div>
 
-    <div class="carrinho-auth-box">
+            <div class="carrinho-auth-acoes">
 
-        <div class="carrinho-auth-texto">
-            <strong>Faça login para continuar</strong>
-            <span>Acompanhe pedidos e finalize mais rápido</span>
-        </div>
+                <a href="{% url 'criar_conta' %}"
+                class="btn-carrinho-auth criar">
 
-        <div class="carrinho-auth-acoes">
+                    <i class="fa-solid fa-user-plus"></i>
+                    Criar conta
+                </a>
 
-            <a href="{% url 'criar_conta' %}"
-            class="btn-carrinho-auth criar">
+                <a href="{% url 'login' %}"
+                class="btn-carrinho-auth entrar">
 
-                <i class="fa-solid fa-user-plus"></i>
-                Criar conta
-            </a>
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    Entrar
+                </a>
 
-            <a href="{% url 'login' %}"
-            class="btn-carrinho-auth entrar">
-
-                <i class="fa-solid fa-right-to-bracket"></i>
-                Entrar
-            </a>
+            </div>
 
         </div>
 
-    </div>
+        {% endif %}
 
-    {% endif %}
-    
-    <div class="carrinho-grid">
+        {% if itens %}
+
+        <div class="carrinho-grid">
 
         <!-- ✅ LISTA DE ITENS -->
         <div class="carrinho-itens">
