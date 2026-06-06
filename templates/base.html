@@ -354,6 +354,7 @@ function abrirCarrinho(){
     const overlay = document.getElementById("overlay-carrinho");
     const conteudo = document.getElementById("drawerConteudo");
 
+    // ✅ loading
     if(conteudo){
         conteudo.innerHTML = "<p style='padding:10px'>Carregando...</p>";
     }
@@ -362,29 +363,53 @@ function abrirCarrinho(){
     .then(res => res.text())
     .then(html => {
 
-        if(conteudo){
+        // ✅ se vier vazio
+        if(!html || html.trim() === ""){
+
+            conteudo.innerHTML = `
+                <div class="carrinho-vazio">
+                    <h2>🛒</h2>
+                    <p>Vazio</p>
+                </div>
+            `;
+
+        } else {
+
             conteudo.innerHTML = html;
         }
 
-        // ✅ RESTAURA FRETE APÓS CARREGAR CARRINHO
+        // ✅ restaura frete
         restaurarFreteCarrinho();
 
+        // ✅ atualiza badge
         atualizarBadge();
+
+        // ✅ abre drawer
+        drawer.classList.add("ativo");
+        overlay.classList.add("ativo");
+
+        document.body.style.overflow = "hidden";
+    })
+    .catch(() => {
+
+        // ✅ erro fallback
+        if(conteudo){
+
+            conteudo.innerHTML = `
+                <div class="carrinho-vazio">
+                    <h2>🛒</h2>
+                    <p>Vazio</p>
+                </div>
+            `;
+        }
 
         drawer.classList.add("ativo");
         overlay.classList.add("ativo");
+
         document.body.style.overflow = "hidden";
-    })
-        .catch(() => {
+    });
 
-            if(conteudo){
-                conteudo.innerHTML = "<p>Vazio</p>";
-            }
-
-            drawer.classList.add("ativo");
-            overlay.classList.add("ativo");
-            document.body.style.overflow = "hidden";
-        });
+}
 
 // =======================
 // ✅ FECHAR CARRINHO
