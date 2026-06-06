@@ -129,7 +129,7 @@
 .dados-usuario strong{
     display:block;
 
-    font-size:20px;
+    font-size:18px;
     color:#111;
 
     margin-bottom:14px;
@@ -189,7 +189,7 @@
 }
 
 .pedido-card strong{
-    font-size:26px;
+    font-size:18px;
     color:#111;
 }
 
@@ -201,7 +201,7 @@
 
 .pedido-info span{
     color:#555;
-    font-size:15px;
+    font-size:13px;
 }
 
 .btn-visualizar{
@@ -365,7 +365,7 @@
     }
 
     .box-header h3{
-        font-size:22px;
+        font-size:18px;
     }
 
     .pedido-card{
