@@ -1418,3 +1418,110 @@
     color:#00a650;
     margin-top: 4px;
 }
+
+
+/* ===================================== */
+/* ✅ LOGIN / CRIAR CONTA NO CARRINHO */
+/* ===================================== */
+
+.carrinho-auth-box{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    margin-bottom:15px;
+    padding:12px;
+
+    background:#f8f9fb;
+
+    border:1px solid #eceff3;
+    border-radius:14px;
+}
+
+/* ✅ TEXTO */
+.carrinho-auth-texto{
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+}
+
+.carrinho-auth-texto strong{
+    font-size:14px;
+    color:#1f2224;
+    margin-bottom:2px;
+}
+
+.carrinho-auth-texto span{
+    font-size:12px;
+    color:#6b7f8a;
+}
+
+/* ✅ BOTÕES */
+.carrinho-auth-acoes{
+    display:flex;
+    gap:8px;
+}
+
+/* BASE */
+.btn-carrinho-auth{
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+
+    padding:10px 14px;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+    font-size:12px;
+    font-weight:600;
+
+    transition:0.2s ease;
+
+    white-space:nowrap;
+}
+
+/* ✅ CRIAR CONTA */
+.btn-carrinho-auth.criar{
+    background:#141618;
+    color:#fff;
+}
+
+/* ✅ ENTRAR */
+.btn-carrinho-auth.entrar{
+    background:#fff;
+    color:#141618;
+
+    border:1px solid #d8dde3;
+}
+
+/* ✅ HOVER */
+.btn-carrinho-auth:hover{
+    transform:translateY(-1px);
+}
+
+/* ===================================== */
+/* ✅ MOBILE */
+/* ===================================== */
+
+@media (max-width:768px){
+
+    .carrinho-auth-box{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .carrinho-auth-acoes{
+        width:100%;
+    }
+
+    .btn-carrinho-auth{
+        flex:1;
+    }
+
+}
