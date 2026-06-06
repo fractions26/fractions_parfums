@@ -22,6 +22,14 @@ class PerfilUsuario(models.Model):
         null=True
     )
 
+    # ✅ IDENTIFICAÇÃO ENDEREÇO
+    alias = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+
+    # ✅ ENDEREÇO
     endereco = models.CharField(
         max_length=255,
         blank=True,
@@ -30,6 +38,12 @@ class PerfilUsuario(models.Model):
 
     numero = models.CharField(
         max_length=20,
+        blank=True,
+        null=True
+    )
+
+    complemento = models.CharField(
+        max_length=255,
         blank=True,
         null=True
     )
@@ -56,6 +70,13 @@ class PerfilUsuario(models.Model):
         max_length=20,
         blank=True,
         null=True
+    )
+
+    pais = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        default='Brasil'
     )
 
     def __str__(self):
