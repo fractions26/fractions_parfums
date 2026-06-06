@@ -378,15 +378,18 @@ function abrirCarrinho(){
     .catch(() => {
 
         if(conteudo){
-            conteudo.innerHTML = "<p>Erro ao carregar carrinho</p>";
+            conteudo.innerHTML = `
+                <div class="carrinho-vazio">
+                    <h2>🛒</h2>
+                    <p>Vazio</p>
+                </div>
+            `;
         }
 
         drawer.classList.add("ativo");
         overlay.classList.add("ativo");
         document.body.style.overflow = "hidden";
     });
-}
-
 
 // =======================
 // ✅ FECHAR CARRINHO
