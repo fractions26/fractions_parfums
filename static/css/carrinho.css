@@ -398,6 +398,13 @@
     }
 }
 
+@media (min-width: 769px) {
+    .drawer-carrinho {
+        width: 90%;
+        max-width: 550px;
+    }
+}
+
 
 /* ativo */
 .drawer-carrinho.ativo {
