@@ -1,5 +1,18 @@
 from django.urls import path
-from .views import home, contato, criar_conta, login_usuario, logout_usuario, quem_somos, politica_privacidade, trocas_devolucao, perguntas_frequentes, minha_conta
+from .views import (
+    home,
+    contato,
+    criar_conta,
+    login_usuario,
+    logout_usuario,
+    quem_somos,
+    politica_privacidade,
+    trocas_devolucao,
+    perguntas_frequentes,
+    minha_conta,
+    editar_dados,
+    editar_endereco,
+)
 
 urlpatterns = [
     path('', home, name='home'),
@@ -19,3 +32,15 @@ urlpatterns = [
     path('perguntas-frequentes/', perguntas_frequentes, name='perguntas_frequentes'),
 
 ]
+
+    path(
+        'editar-dados/',
+        editar_dados,
+        name='editar_dados'
+    ),
+
+    path(
+        'editar-endereco/',
+        editar_endereco,
+        name='editar_endereco'
+    ),

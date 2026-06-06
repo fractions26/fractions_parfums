@@ -307,3 +307,70 @@ def trocas_devolucao(request):
 def perguntas_frequentes(request):
     return render(request, 'perguntas_frequentes.html')
 
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+
+# =====================================
+# ✅ EDITAR DADOS
+# =====================================
+@login_required
+def editar_dados(request):
+
+    perfil = request.user.perfil
+
+    if request.method == 'POST':
+
+        request.user.first_name = request.POST.get('first_name')
+        request.user.last_name = request.POST.get('last_name')
+
+        perfil.telefone = request.POST.get('telefone')
+        perfil.cpf = request.POST.get('cpf')
+
+        request.user.save()
+        perfil.save()
+
+        messages.success(
+            request,
+            'Dados atualizados com sucesso!'
+        )
+
+        return redirect('minha_conta')
+
+    return render(
+        request,
+        'usuarios/editar_dados.html'
+    )
+
+
+# =====================================
+# ✅ EDITAR ENDEREÇO
+# =====================================
+@login_required
+def editar_endereco(request):
+
+    perfil = request.user.perfil
+
+    if request.method == 'POST':
+
+        perfil.endereco = request.POST.get('endereco')
+        perfil.numero = request.POST.get('numero')
+        perfil.bairro = request.POST.get('bairro')
+        perfil.cidade = request.POST.get('cidade')
+        perfil.estado = request.POST.get('estado')
+        perfil.cep = request.POST.get('cep')
+
+        perfil.save()
+
+        messages.success(
+            request,
+            'Endereço atualizado!'
+        )
+
+        return redirect('minha_conta')
+
+    return render(
+        request,
+        'usuarios/editar_endereco.html'
+    )
+

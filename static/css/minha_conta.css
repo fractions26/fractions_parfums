@@ -107,10 +107,10 @@
 
     text-decoration:none;
 
-    padding:14px 20px;
+    padding:10px 10px;
     border-radius:12px;
 
-    font-weight:600;
+    font-weight:400;
 }
 
 @media (max-width:768px){
@@ -133,4 +133,38 @@
         font-size:20px;
     }
 
+}
+
+.form-conta{
+    max-width:700px;
+    margin:auto;
+
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.form-conta input{
+    height:54px;
+    padding:0 16px;
+
+    border:1px solid #dcdcdc;
+    border-radius:12px;
+
+    font-size:15px;
+}
+
+.btn-salvar-conta{
+    height:54px;
+
+    background:#111;
+    color:#fff;
+
+    border:none;
+    border-radius:12px;
+
+    font-weight:600;
+    font-size:15px;
+
+    cursor:pointer;
 }
