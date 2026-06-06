@@ -43,36 +43,63 @@ def lista_categoria(request, slug):
     preco_max = request.GET.get('preco_max')
     busca = request.GET.get('q')
 
+    # ✅ NOVO FILTRO GÊNERO (ÁRABES)
+    genero = request.GET.get('genero')
+
+    if genero == 'masculino':
+        perfumes = perfumes.filter(
+            categorias__slug='masculinos'
+        )
+
+    elif genero == 'feminino':
+        perfumes = perfumes.filter(
+            categorias__slug='femininos'
+        )
+
+    # ✅ BUSCA
     if busca:
         perfumes = perfumes.filter(
             Q(nome__icontains=busca) |
             Q(marca__icontains=busca)
         )
 
+    # ✅ MARCAS
     if marcas:
         query = Q()
+
         for marca in marcas:
             query |= Q(marca__icontains=marca.strip())
+
         perfumes = perfumes.filter(query)
 
+    # ✅ PREÇO
     if preco_min:
-        perfumes = perfumes.filter(menor_preco__gte=preco_min)
+        perfumes = perfumes.filter(
+            menor_preco__gte=preco_min
+        )
 
     if preco_max:
-        perfumes = perfumes.filter(menor_preco__lte=preco_max)
+        perfumes = perfumes.filter(
+            menor_preco__lte=preco_max
+        )
 
+    # ✅ DESTAQUES
     if 'novidades' in destaques:
         perfumes = perfumes.order_by('-id')
 
     # ✅ ORDENAÇÃO
     if ordenar == 'mais_vendidos':
         perfumes = perfumes.order_by('-id')
+
     elif ordenar == 'preco_asc':
         perfumes = perfumes.order_by('menor_preco')
+
     elif ordenar == 'preco_desc':
         perfumes = perfumes.order_by('-menor_preco')
+
     elif ordenar == 'az':
         perfumes = perfumes.order_by('nome')
+
     elif ordenar == 'za':
         perfumes = perfumes.order_by('-nome')
 
@@ -80,12 +107,19 @@ def lista_categoria(request, slug):
 
     # ✅ PARCELAMENTO
     for perfume in perfumes:
-        preco = perfume.precos.first()
-        if preco:
-            preco.parcela_3x = round(preco.valor / 3, 2)
 
+        preco = perfume.precos.first()
+
+        if preco:
+            preco.parcela_3x = round(
+                preco.valor / 3,
+                2
+            )
+
+    # ✅ LISTA DE MARCAS
     marcas_lista = Perfume.objects.values_list(
-        'marca', flat=True
+        'marca',
+        flat=True
     ).distinct()
 
     return render(request, 'produtos/lista.html', {
@@ -95,7 +129,6 @@ def lista_categoria(request, slug):
         'marcas_selecionadas': marcas,
         'destaques_selecionados': destaques,
     })
-
 
 # =========================
 # ✅ LISTA GERAL
