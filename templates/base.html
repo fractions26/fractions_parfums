@@ -515,7 +515,7 @@ function alterarQtd(btn, delta){
 
 
 // =======================
-// ✅ REMOVER ITEM (CORRIGIDO + CSRF FIX)
+// ✅ REMOVER ITEM (CORRIGIDO + FRETE DINÂMICO)
 // =======================
 function removerItem(btn){
 
@@ -557,7 +557,7 @@ function removerItem(btn){
             itemDiv.remove();
         }, 200);
 
-        // ✅ atualiza total
+        // ✅ atualiza subtotal
         const total = document.getElementById("totalValor");
         const totalFinal = document.getElementById("totalValorFinal");
 
@@ -571,6 +571,22 @@ function removerItem(btn){
 
         // ✅ badge
         decrementarBadge(qtdRemovida);
+
+        // ✅ RECALCULA TOTAL COM FRETE
+        const freteSalvo =
+            localStorage.getItem("frete_valor");
+
+        const cepSalvo =
+            localStorage.getItem("cep_carrinho");
+
+        if (freteSalvo && cepSalvo) {
+
+            aplicarFreteCarrinho(
+                parseFloat(freteSalvo),
+                cepSalvo
+            );
+
+        }
 
         // ✅ se zerar carrinho
         if(data.total === 0){
