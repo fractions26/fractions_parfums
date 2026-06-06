@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% static 'css/minha_conta.css' %}
+
+<div class="minha-conta-page">
+
+    <div class="conta-topo">
+
+        <p class="breadcrumb">
+            Início > Minha Conta > Editar Endereço
+        </p>
+
+        <h1>
+            Endereço
+        </h1>
+
+    </div>
+
+    <form method="post" class="form-conta">
+
+        {% csrf_token %}
+
+        <input
+            type="text"
+            name="endereco"
+            placeholder="Endereço"
+            value="{{ user.perfil.endereco|default:'' }}"
+        >
+
+        <input
+            type="text"
+            name="numero"
+            placeholder="Número"
+            value="{{ user.perfil.numero|default:'' }}"
+        >
+
+        <input
+            type="text"
+            name="bairro"
+            placeholder="Bairro"
+            value="{{ user.perfil.bairro|default:'' }}"
+        >
+
+        <input
+            type="text"
+            name="cidade"
+            placeholder="Cidade"
+            value="{{ user.perfil.cidade|default:'' }}"
+        >
+
+        <input
+            type="text"
+            name="estado"
+            placeholder="Estado"
+            value="{{ user.perfil.estado|default:'' }}"
+        >
+
+        <input
+            type="text"
+            name="cep"
+            placeholder="CEP"
+            value="{{ user.perfil.cep|default:'' }}"
+        >
+
+        <button type="submit" class="btn-salvar-conta">
+            Salvar endereço
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

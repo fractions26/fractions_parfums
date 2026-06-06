@@ -1,170 +1,409 @@
 .minha-conta-page{
     max-width:1200px;
-    margin:auto;
-    padding:40px 20px;
+    margin:40px auto 80px;
+    padding:0 20px;
 }
+
+/* ========================================= */
+/* ✅ TOPO */
+/* ========================================= */
 
 .conta-topo{
     text-align:center;
-    margin-bottom:40px;
+    margin-bottom:45px;
 }
 
 .breadcrumb{
-    color:#777;
+    color:#8a8a8a;
     font-size:14px;
+    margin-bottom:10px;
 }
 
 .conta-topo h1{
     font-size:42px;
-    margin-top:10px;
+    font-weight:700;
+    color:#111;
+    margin:0;
+    letter-spacing:-1px;
 }
+
+/* ========================================= */
+/* ✅ GRID */
+/* ========================================= */
 
 .conta-grid{
     display:grid;
-    grid-template-columns:350px 1fr;
+    grid-template-columns:380px 1fr;
     gap:30px;
+    align-items:start;
 }
+
+/* ========================================= */
+/* ✅ BOXES */
+/* ========================================= */
 
 .box-conta-info{
     background:#fff;
-    border-radius:16px;
-    padding:25px;
-    margin-bottom:20px;
+    border-radius:22px;
+    padding:28px;
 
-    box-shadow:0 3px 10px rgba(0,0,0,0.05);
+    margin-bottom:25px;
+
+    border:1px solid #efefef;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.04);
+
+    transition:0.3s ease;
 }
+
+.box-conta-info:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 14px 35px rgba(0,0,0,0.06);
+}
+
+/* ========================================= */
+/* ✅ HEADER BOX */
+/* ========================================= */
 
 .box-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
 
-    margin-bottom:20px;
+    gap:15px;
+
+    margin-bottom:22px;
 }
 
 .box-header h3{
     margin:0;
+
+    font-size:24px;
+    font-weight:700;
+
+    color:#111;
 }
+
+/* ========================================= */
+/* ✅ BOTÕES */
+/* ========================================= */
 
 .btn-conta{
     background:#111;
     color:#fff;
 
-    border:none;
-    padding:10px 18px;
+    text-decoration:none;
 
-    border-radius:10px;
+    border:none;
+    border-radius:14px;
+
+    height:46px;
+    min-width:110px;
+
+    padding:0 22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:14px;
+    font-weight:700;
+
     cursor:pointer;
 
-    font-weight:600;
+    transition:0.25s ease;
+}
+
+.btn-conta:hover{
+    background:#000;
+    transform:translateY(-1px);
+}
+
+/* ========================================= */
+/* ✅ DADOS USUÁRIO */
+/* ========================================= */
+
+.dados-usuario strong{
+    display:block;
+
+    font-size:20px;
+    color:#111;
+
+    margin-bottom:14px;
 }
 
 .dados-usuario p{
-    margin:8px 0;
+    margin:10px 0;
+
+    color:#444;
+    font-size:15px;
+    line-height:1.5;
 }
 
+.dados-usuario p strong{
+    display:inline;
+    font-size:15px;
+}
+
+/* ========================================= */
+/* ✅ PEDIDOS */
+/* ========================================= */
+
 .titulo-pedidos{
-    margin-bottom:20px;
+    font-size:34px;
+    font-weight:700;
+
+    margin-bottom:25px;
+
+    color:#111;
 }
 
 .pedido-card{
-    background:#f4f4f4;
+    background:#f8f8f8;
 
-    border-radius:14px;
-    padding:20px;
+    border-radius:22px;
+
+    padding:24px 28px;
 
     display:flex;
     justify-content:space-between;
     align-items:center;
 
-    margin-bottom:15px;
+    margin-bottom:18px;
+
+    border:1px solid #ededed;
+
+    transition:0.3s ease;
+}
+
+.pedido-card:hover{
+    background:#fff;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,0.05);
 }
 
 .pedido-card strong{
-    font-size:24px;
+    font-size:26px;
+    color:#111;
 }
 
 .pedido-info{
     display:flex;
     align-items:center;
-    gap:15px;
+    gap:18px;
 }
 
-.pedido-info a{
-    color:#333;
-    font-size:18px;
+.pedido-info span{
+    color:#555;
+    font-size:15px;
 }
+
+.btn-visualizar{
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    border:1px solid #dcdcdc;
+
+    color:#111;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-decoration:none;
+
+    transition:0.25s ease;
+}
+
+.btn-visualizar:hover{
+    background:#111;
+    color:#fff;
+}
+
+/* ========================================= */
+/* ✅ SAIR */
+/* ========================================= */
 
 .btn-sair-conta{
-    margin-top:20px;
+    margin-top:25px;
 
     display:inline-flex;
     align-items:center;
-    gap:10px;
+    gap:12px;
 
     background:#111;
     color:#fff;
 
     text-decoration:none;
 
-    padding:10px 10px;
-    border-radius:12px;
+    height:54px;
 
-    font-weight:400;
+    padding:0 26px;
+
+    border-radius:16px;
+
+    font-weight:700;
+    font-size:15px;
+
+    transition:0.25s ease;
 }
 
-@media (max-width:768px){
+.btn-sair-conta:hover{
+    background:#000;
+    transform:translateY(-1px);
+}
+
+/* ========================================= */
+/* ✅ FORMULÁRIOS */
+/* ========================================= */
+
+.form-conta{
+    max-width:720px;
+    margin:auto;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:18px;
+}
+
+.form-conta input{
+    height:58px;
+
+    border:1px solid #dcdcdc;
+    border-radius:16px;
+
+    padding:0 18px;
+
+    background:#fff;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:0.25s ease;
+}
+
+.form-conta input:focus{
+    border-color:#111;
+
+    box-shadow:
+    0 0 0 4px rgba(0,0,0,0.05);
+}
+
+.btn-salvar-conta{
+    height:58px;
+
+    border:none;
+    border-radius:16px;
+
+    background:#111;
+    color:#fff;
+
+    font-size:15px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:0.25s ease;
+}
+
+.btn-salvar-conta:hover{
+    background:#000;
+    transform:translateY(-1px);
+}
+
+/* ========================================= */
+/* ✅ MOBILE */
+/* ========================================= */
+
+@media (max-width: 900px){
 
     .conta-grid{
         grid-template-columns:1fr;
+        gap:20px;
+    }
+
+    .titulo-pedidos{
+        font-size:30px;
+    }
+
+}
+
+@media (max-width: 768px){
+
+    .minha-conta-page{
+        margin:25px auto 60px;
+        padding:0 14px;
+    }
+
+    .conta-topo{
+        margin-bottom:28px;
     }
 
     .conta-topo h1{
         font-size:32px;
     }
 
+    .box-conta-info{
+        border-radius:18px;
+        padding:22px;
+    }
+
+    .box-header{
+        align-items:flex-start;
+    }
+
+    .box-header h3{
+        font-size:22px;
+    }
+
     .pedido-card{
         flex-direction:column;
         align-items:flex-start;
-        gap:10px;
+        gap:16px;
+
+        padding:22px;
     }
 
     .pedido-card strong{
-        font-size:20px;
+        font-size:22px;
     }
 
-}
+    .pedido-info{
+        width:100%;
+        justify-content:space-between;
+    }
 
-.form-conta{
-    max-width:700px;
-    margin:auto;
+    .btn-conta{
+        min-width:95px;
+        height:42px;
+        font-size:13px;
+    }
 
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-}
+    .btn-sair-conta{
+        width:100%;
+        justify-content:center;
+    }
 
-.form-conta input{
-    height:54px;
-    padding:0 16px;
+    .form-conta input{
+        height:54px;
+        border-radius:14px;
+    }
 
-    border:1px solid #dcdcdc;
-    border-radius:12px;
+    .btn-salvar-conta{
+        height:54px;
+        border-radius:14px;
+    }
 
-    font-size:15px;
-}
-
-.btn-salvar-conta{
-    height:54px;
-
-    background:#111;
-    color:#fff;
-
-    border:none;
-    border-radius:12px;
-
-    font-weight:600;
-    font-size:15px;
-
-    cursor:pointer;
 }

@@ -31,7 +31,7 @@ urlpatterns = [
     path('trocas-devolucoes/', trocas_devolucao, name='trocas_devolucao'),
     path('perguntas-frequentes/', perguntas_frequentes, name='perguntas_frequentes'),
 
-]
+
 
     path(
         'editar-dados/',
@@ -43,4 +43,7 @@ urlpatterns = [
         'editar-endereco/',
         editar_endereco,
         name='editar_endereco'
-    ),
+
+   ),
+
+]

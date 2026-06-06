@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% static 'css/minha_conta.css' %}
+
+<div class="minha-conta-page">
+
+    <div class="conta-topo">
+
+        <p class="breadcrumb">
+            Início > Minha Conta > Editar Dados
+        </p>
+
+        <h1>
+            Meus dados
+        </h1>
+
+    </div>
+
+    <form method="post" class="form-conta">
+
+        {% csrf_token %}
+
+        <input
+            type="text"
+            name="first_name"
+            placeholder="Nome"
+            value="{{ user.first_name }}"
+        >
+
+        <input
+            type="text"
+            name="last_name"
+            placeholder="Sobrenome"
+            value="{{ user.last_name }}"
+        >
+
+        <input
+            type="text"
+            name="telefone"
+            placeholder="Telefone"
+            value="{{ user.perfil.telefone|default:'' }}"
+        >
+
+        <input
+            type="text"
+            name="cpf"
+            placeholder="CPF"
+            value="{{ user.perfil.cpf|default:'' }}"
+        >
+
+        <button type="submit" class="btn-salvar-conta">
+            Salvar alterações
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}
