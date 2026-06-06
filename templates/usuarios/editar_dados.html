@@ -23,34 +23,67 @@
 
         {% csrf_token %}
 
-        <input
-            type="text"
-            name="first_name"
-            placeholder="Nome"
-            value="{{ user.first_name }}"
-        >
+        <!-- ✅ NOME -->
+        <div class="form-group">
 
-        <input
-            type="text"
-            name="last_name"
-            placeholder="Sobrenome"
-            value="{{ user.last_name }}"
-        >
+            <label>
+                Nome
+            </label>
 
-        <input
-            type="text"
-            name="telefone"
-            placeholder="Telefone"
-            value="{{ user.perfil.telefone|default:'' }}"
-        >
+            <input
+                type="text"
+                name="first_name"
+                value="{{ user.first_name }}"
+            >
 
-        <input
-            type="text"
-            name="cpf"
-            placeholder="CPF"
-            value="{{ user.perfil.cpf|default:'' }}"
-        >
+        </div>
 
+        <!-- ✅ SOBRENOME -->
+        <div class="form-group">
+
+            <label>
+                Sobrenome
+            </label>
+
+            <input
+                type="text"
+                name="last_name"
+                value="{{ user.last_name }}"
+            >
+
+        </div>
+
+        <!-- ✅ TELEFONE -->
+        <div class="form-group">
+
+            <label>
+                Telefone
+            </label>
+
+            <input
+                type="text"
+                name="telefone"
+                value="{{ user.perfil.telefone|default:'' }}"
+            >
+
+        </div>
+
+        <!-- ✅ CPF -->
+        <div class="form-group">
+
+            <label>
+                CPF
+            </label>
+
+            <input
+                type="text"
+                name="cpf"
+                value="{{ user.perfil.cpf|default:'' }}"
+            >
+
+        </div>
+
+        <!-- ✅ BOTÃO -->
         <button type="submit" class="btn-salvar-conta">
             Salvar alterações
         </button>

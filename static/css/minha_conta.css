@@ -100,7 +100,7 @@
     border:none;
     border-radius:14px;
 
-    height:46px;
+    height:36px;
     min-width:110px;
 
     padding:0 22px;
@@ -246,9 +246,9 @@
 
     text-decoration:none;
 
-    height:44px;
+    height:38px;
 
-    padding:0 26px;
+    padding:0 20px;
 
     border-radius:10px;
 
@@ -278,7 +278,7 @@
 }
 
 .form-conta input{
-    height:58px;
+    height:50px;
 
     border:1px solid #dcdcdc;
     border-radius:16px;

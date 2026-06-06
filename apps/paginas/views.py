@@ -10,7 +10,8 @@ from apps.carrinho.models import Carrinho, Item
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
-
+import re
+import re
 from apps.carrinho.models import Carrinho, Item
 
 # ✅ 🔥 VINCULAR CARRINHO AO USUÁRIO (COM MIGRAÇÃO DE ITENS)
@@ -321,10 +322,14 @@ def editar_dados(request):
 
     if request.method == 'POST':
 
-        request.user.first_name = request.POST.get('first_name')
-        request.user.last_name = request.POST.get('last_name')
+        request.user.first_name = normalizar_texto(
+        request.POST.get('first_name')
+    )
+        request.user.last_name = normalizar_texto(
+        request.POST.get('last_name')
+    )
 
-        perfil.telefone = request.POST.get('telefone')
+        perfil.telefone = request.POST.get('telefone').strip()
         perfil.cpf = request.POST.get('cpf')
 
         request.user.save()
@@ -353,25 +358,53 @@ def editar_endereco(request):
 
     if request.method == 'POST':
 
-        perfil.alias = request.POST.get('alias')
+        # ✅ NORMALIZA TEXTO
+        perfil.alias = normalizar_texto(
+            request.POST.get('alias')
+        )
 
-        perfil.endereco = request.POST.get('endereco')
+        perfil.endereco = normalizar_texto(
+            request.POST.get('endereco')
+        )
 
-        perfil.numero = request.POST.get('numero')
+        perfil.numero = request.POST.get(
+            'numero',
+            ''
+        ).strip()
 
-        perfil.complemento = request.POST.get('complemento')
+        perfil.complemento = normalizar_texto(
+            request.POST.get('complemento')
+        )
 
-        perfil.bairro = request.POST.get('bairro')
+        perfil.bairro = normalizar_texto(
+            request.POST.get('bairro')
+        )
 
-        perfil.cidade = request.POST.get('cidade')
+        perfil.cidade = normalizar_texto(
+            request.POST.get('cidade')
+        )
 
-        perfil.estado = request.POST.get('estado')
+        perfil.estado = request.POST.get(
+            'estado',
+            ''
+        ).strip()
 
-        perfil.cep = request.POST.get('cep')
+        perfil.pais = normalizar_texto(
+            request.POST.get('pais')
+        )
 
-        perfil.pais = request.POST.get('pais')
+        # ✅ SOMENTE NÚMEROS
+        perfil.cep = re.sub(
+            r'\D',
+            '',
+            request.POST.get('cep', '')
+        )
 
-        perfil.telefone = request.POST.get('telefone')
+        perfil.telefone = re.sub(
+            r'\D',
+            '',
+            request.POST.get('telefone', '')
+        )
 
         perfil.save()
 
@@ -386,4 +419,19 @@ def editar_endereco(request):
         request,
         'usuarios/editar_endereco.html'
     )
+    
+    # =====================================
+# ✅ NORMALIZAR TEXTO
+# =====================================
+
+def normalizar_texto(texto):
+
+    if not texto:
+        return ''
+
+    texto = texto.strip()
+
+    texto = re.sub(r'\s+', ' ', texto)
+
+    return texto.title()
 
