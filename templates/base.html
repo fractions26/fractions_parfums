@@ -125,43 +125,50 @@
     </div>
 </div>
 
-<!-- CONTA -->
-<div class="menu-item conta" onclick="toggleConta(event)">
- 
-    <i class="fa-regular fa-user"></i>
- 
-            {% if user.is_authenticated %}
-        <span>Olá, {{ user.first_name }}</span>
-            {% else %}
-        <span>Minha conta</span>
-            {% endif %}
-        
-            <div class="box-conta" id="boxConta">
-        
-                <a href="{% url 'criar_conta' %}" class="link-conta">
-        <i class="fa-solid fa-user-plus"></i>
-        <span>Criar uma conta</span>
-        </a>
-        
-                {% if user.is_authenticated %}
-        
-                <a href="{% url 'logout' %}" class="link-conta">
-        <i class="fa-solid fa-right-from-bracket"></i>
-        <span>Sair</span>
-        </a>
-        
-                {% else %}
-        
-                <a href="{% url 'login' %}" class="link-conta">
-        <i class="fa-solid fa-right-to-bracket"></i>
-        <span>Iniciar sessão</span>
-        </a>
- 
+    <!-- CONTA -->
+    <div class="menu-item conta" onclick="toggleConta(event)">
+
+        <i class="fa-regular fa-user"></i>
+
+        {% if user.is_authenticated %}
+            <span>Olá, {{ user.first_name }}</span>
+        {% else %}
+            <span>Minha conta</span>
         {% endif %}
- 
+
+        <div class="box-conta" id="boxConta">
+
+            {% if user.is_authenticated %}
+
+                <!-- ✅ LOGADO -->
+                <a href="#" class="link-conta">
+                    <i class="fa-regular fa-user"></i>
+                    <span>Minha conta</span>
+                </a>
+
+                <a href="{% url 'logout' %}" class="link-conta">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Sair</span>
+                </a>
+
+            {% else %}
+
+                <!-- ✅ DESLOGADO -->
+                <a href="{% url 'criar_conta' %}" class="link-conta">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <span>Criar conta</span>
+                </a>
+
+                <a href="{% url 'login' %}" class="link-conta">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <span>Entrar</span>
+                </a>
+
+            {% endif %}
+
+        </div>
+
     </div>
- 
-</div>
 
 <!-- ✅ CARRINHO AGORA FORA -->
 <div class="menu-item cart" onclick="abrirCarrinho()">
