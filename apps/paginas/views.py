@@ -353,12 +353,25 @@ def editar_endereco(request):
 
     if request.method == 'POST':
 
+        perfil.alias = request.POST.get('alias')
+
         perfil.endereco = request.POST.get('endereco')
+
         perfil.numero = request.POST.get('numero')
+
+        perfil.complemento = request.POST.get('complemento')
+
         perfil.bairro = request.POST.get('bairro')
+
         perfil.cidade = request.POST.get('cidade')
+
         perfil.estado = request.POST.get('estado')
+
         perfil.cep = request.POST.get('cep')
+
+        perfil.pais = request.POST.get('pais')
+
+        perfil.telefone = request.POST.get('telefone')
 
         perfil.save()
 
