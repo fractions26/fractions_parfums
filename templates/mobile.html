@@ -363,9 +363,16 @@
                                 Olá, {{ user.first_name }} {{ user.last_name }}!
                     </strong>
         
-                            <div class="usuario-links">
-                    <a href="#">Minha conta</a>
-                    <a href="{% url 'logout' %}">Sair</a>
+                    <div class="usuario-links">
+
+                        <a href="{% url 'minha_conta' %}">
+                            Minha conta
+                        </a>
+
+                        <a href="{% url 'logout' %}">
+                            Sair
+                        </a>
+
                     </div>
         
                         </div>
