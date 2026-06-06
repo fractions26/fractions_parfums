@@ -276,35 +276,55 @@
 
             </div>
 
-        <!-- SUBMENU MASCULINOS -->
-        <div id="submenu-masculinos" class="submenu-page">
+<!-- SUBMENU MASCULINOS -->
+<div id="submenu-masculinos" class="submenu-page">
 
-            <div class="submenu-header" onclick="backMenu()">Masculinos</div>
+    <div class="submenu-header" onclick="backMenu()">
+        Masculinos
+    </div>
 
-            <a href="{% url 'lista_categoria' 'masculinos' %}">Ver todos</a>
-            {% comment %} <a href="#">Árabes</a>
-            <a href="#">Bvlgari</a>
-            <a href="#">Calvin Klein</a> {% endcomment %}
+    <!-- ✅ VER TODOS -->
+    <a href="{% url 'lista_categoria' 'masculinos' %}">
+        Ver todos
+    </a>
 
-        </div>
+    <!-- ✅ ÁRABES MASCULINOS -->
+    <a href="{% url 'lista_categoria' 'arabes' %}?genero=masculino">
+        Árabes
+    </a>
+
+</div>
 
         <!-- SUBMENU FEMININOS -->
         <div id="submenu-femininos" class="submenu-page">
 
-            <div class="submenu-header" onclick="backMenu()">Femininos</div>
+            <div class="submenu-header" onclick="backMenu()">
+                Femininos
+            </div>
 
-            <a href="{% url 'lista_categoria' 'femininos' %}">Ver todos</a>
-            {% comment %} <a href="#">Carolina Herrera</a>
-            <a href="#">Chanel</a> {% endcomment %}
+            <!-- ✅ VER TODOS -->
+            <a href="{% url 'lista_categoria' 'femininos' %}">
+                Ver todos
+            </a>
+
+            <!-- ✅ ÁRABES FEMININOS -->
+            <a href="{% url 'lista_categoria' 'arabes' %}?genero=feminino">
+                Árabes
+            </a>
 
         </div>
 
-                <!-- SUBMENU ÁRABES -->
+        <!-- SUBMENU ÁRABES -->
         <div id="submenu-arabes" class="submenu-page">
 
-            <div class="submenu-header" onclick="backMenu()">Árabes</div>
+            <div class="submenu-header" onclick="backMenu()">
+                Árabes
+            </div>
 
-            <a href="{% url 'lista_categoria' 'arabes' %}">Ver todos</a>
+            <!-- ✅ TODOS ÁRABES -->
+            <a href="{% url 'lista_categoria' 'arabes' %}">
+                Ver todos
+            </a>
 
         </div>
 
