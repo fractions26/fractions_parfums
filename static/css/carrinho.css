@@ -595,11 +595,6 @@
 
 @media (max-width: 768px) {
 
-    /* ✅ container sem espaço lateral estranho */
-    .drawer-body {
-        padding: 10px;
-    }
-
     .carrinho-container {
         padding: 10px;
     }
