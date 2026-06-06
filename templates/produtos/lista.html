@@ -15,33 +15,48 @@
 
             <h3>Categorias</h3>
             
-            <ul class="lista-categorias">
-            
-                <li>
+        <ul class="lista-categorias">
+
+            <!-- ✅ MASCULINOS -->
+            <li>
                 <label>
-                <input
-                    type="radio"
-                    name="categoria"
-                    value="masculinos"
-                    {% if categoria.slug == 'masculinos' %}checked{% endif %}
-                >
+                    <input
+                        type="radio"
+                        name="categoria"
+                        value="masculinos"
+                        {% if categoria.slug == 'masculinos' %}checked{% endif %}
+                    >
                     Masculinos
                 </label>
-                </li>
-                            
-                <li>
+            </li>
+
+            <!-- ✅ FEMININOS -->
+            <li>
                 <label>
-                <input
-                    type="radio"
-                    name="categoria"
-                    value="femininos"
-                    {% if categoria.slug == 'femininos' %}checked{% endif %}
-                >
+                    <input
+                        type="radio"
+                        name="categoria"
+                        value="femininos"
+                        {% if categoria.slug == 'femininos' %}checked{% endif %}
+                    >
                     Femininos
                 </label>
-                </li>
-            
-            </ul>
+            </li>
+
+            <!-- ✅ ÁRABES -->
+            <li>
+                <label>
+                    <input
+                        type="radio"
+                        name="categoria"
+                        value="arabes"
+                        {% if categoria.slug == 'arabes' %}checked{% endif %}
+                    >
+                    Árabes
+                </label>
+            </li>
+
+        </ul>
 
         <div class="filtro-bloco">
             <h4>Destaques</h4>
@@ -307,51 +322,64 @@
     </div>
     {% endfor %}
 
-</div><!-- ✅ FECHA GRID -->
+    </div><!-- ✅ FECHA GRID -->
 
-<!-- 🔥🔥🔥 CORREÇÃO CRÍTICA AQUI -->
-</div><!-- ✅ FECHA conteudo-produtos -->
-</div><!-- ✅ FECHA container-produtos -->
+    <!-- 🔥🔥🔥 CORREÇÃO CRÍTICA AQUI -->
+    </div><!-- ✅ FECHA conteudo-produtos -->
+    </div><!-- ✅ FECHA container-produtos -->
 
 
-<!-- ✅ DRAWER FILTROS (AGORA FORA DO LAYOUT) -->
-<div id="drawer-filtros" class="drawer-filtros">
+    <!-- ✅ DRAWER FILTROS (AGORA FORA DO LAYOUT) -->
+    <div id="drawer-filtros" class="drawer-filtros">
 
-    <div class="drawer-header">
-        <button type="button" onclick="fecharFiltros()" class="btn-close">
-            ✕
-        </button>
-        <span>Filtros</span>
-    </div>
+        <div class="drawer-header">
+            <button type="button" onclick="fecharFiltros()" class="btn-close">
+                ✕
+            </button>
+            <span>Filtros</span>
+        </div>
 
-<form method="get" class="drawer-body">
+    <form method="get" class="drawer-body">
  
     <!-- ✅ CATEGORIAS -->
     <div class="filtro-bloco-mobile">
-    
-            <h4>Categorias</h4>
-    
-            <label>
+
+        <h4>Categorias</h4>
+
+        <!-- ✅ MASCULINOS -->
+        <label>
             <input
                 type="radio"
                 name="categoria"
                 value="masculinos"
                 {% if categoria.slug == 'masculinos' %}checked{% endif %}
             >
-                Masculinos
-    </label>
-    
-            <label>
+            Masculinos
+        </label>
+
+        <!-- ✅ FEMININOS -->
+        <label>
             <input
                 type="radio"
                 name="categoria"
                 value="femininos"
                 {% if categoria.slug == 'femininos' %}checked{% endif %}
             >
-                Femininos
-    </label>
-    
-        </div>
+            Femininos
+        </label>
+
+        <!-- ✅ ÁRABES -->
+        <label>
+            <input
+                type="radio"
+                name="categoria"
+                value="arabes"
+                {% if categoria.slug == 'arabes' %}checked{% endif %}
+            >
+            Árabes
+        </label>
+
+    </div>
     
         <!-- ✅ DESTAQUES -->
     <div class="filtro-bloco-mobile">
