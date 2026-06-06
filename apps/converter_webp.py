@@ -14,7 +14,7 @@ def converter_png_para_webp():
     erros = 0
 
     for arquivo in os.listdir(PASTA):
-        if arquivo.lower().endswith(".png"):
+        if arquivo.lower().endswith((".jpg", ".jpeg", ".png")):
 
             total += 1
 
