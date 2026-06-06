@@ -9,7 +9,7 @@ from apps.carrinho.models import Carrinho
 from apps.carrinho.models import Carrinho, Item
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-
+from django.contrib.auth.decorators import login_required
 
 from apps.carrinho.models import Carrinho, Item
 
@@ -270,6 +270,13 @@ def login_usuario(request):
 
     return render(request, 'login.html')
 
+# =====================================
+# ✅ MINHA CONTA
+# =====================================
+@login_required
+def minha_conta(request):
+
+    return render(request, 'usuarios/minha_conta.html')
 
 # ✅ LOGOUT
 def logout_usuario(request):

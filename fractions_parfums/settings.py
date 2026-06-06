@@ -33,6 +33,11 @@ CSRF_COOKIE_SECURE = not DEBUG
 # ✅ PROTEÇÃO CLICKJACKING
 X_FRAME_OPTIONS = 'DENY'
 
+CSRF_TRUSTED_ORIGINS = config(
+    'CSRF_TRUSTED_ORIGINS',
+    default=''
+).split(',')
+
 # ✅ HSTS
 SECURE_HSTS_SECONDS = 31536000 if not DEBUG else 0
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
@@ -74,7 +79,7 @@ INSTALLED_APPS = [
     'apps.produtos.apps.ProdutosConfig',
     'apps.carrinho.apps.CarrinhoConfig',
     'apps.entrega',
-    'apps.paginas',
+    'apps.paginas.apps.PaginasConfig',
 
     'mathfilters',
 ]

@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/minha_conta.css' %}">
+
+<div class="minha-conta-page">
+
+    <!-- ✅ TOPO -->
+    <div class="conta-topo">
+
+        <p class="breadcrumb">
+            Início > Minha Conta
+        </p>
+
+        <h1>
+            Minha conta
+        </h1>
+
+    </div>
+
+    <!-- ✅ GRID -->
+    <div class="conta-grid">
+
+        <!-- ✅ ESQUERDA -->
+        <div class="conta-left">
+
+            <!-- ✅ DADOS PESSOAIS -->
+            <div class="box-conta-info">
+
+                <div class="box-header">
+
+                    <h3>
+                        Dados pessoais
+                    </h3>
+
+                    <button class="btn-conta">
+                        Editar
+                    </button>
+
+                </div>
+
+                <div class="dados-usuario">
+
+                    <strong>
+                        {{ user.first_name }} {{ user.last_name }}
+                    </strong>
+
+                    <p>
+                        {{ user.email }}
+                    </p>
+
+                    <p>
+                        <strong>CPF:</strong>
+                        {{ user.perfil.cpf|default:'' }}
+                    </p>
+
+                    <p>
+                        <strong>Telefone:</strong>
+                        {{ user.perfil.telefone|default:'' }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- ✅ ENDEREÇOS -->
+            <div class="box-conta-info">
+
+                <div class="box-header">
+
+                    <h3>
+                        Meus endereços
+                    </h3>
+
+                    <button class="btn-conta">
+                        Editar
+                    </button>
+
+                </div>
+
+                <div class="dados-usuario">
+
+                    {% if user.perfil.endereco %}
+
+                        <p>
+                            {{ user.perfil.endereco }},
+                            {{ user.perfil.numero }}
+                        </p>
+
+                        <p>
+                            {{ user.perfil.bairro }}
+                        </p>
+
+                        <p>
+                            {{ user.perfil.cidade }} -
+                            {{ user.perfil.estado }}
+                        </p>
+
+                        <p>
+                            CEP:
+                            {{ user.perfil.cep }}
+                        </p>
+
+                    {% else %}
+
+                        <p>
+                            Nenhum endereço cadastrado
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ✅ DIREITA -->
+        <div class="conta-right">
+
+            <h2 class="titulo-pedidos">
+                Minhas compras
+            </h2>
+
+            <!-- ✅ PEDIDO MOCK -->
+            <div class="pedido-card">
+
+                <div>
+
+                    <strong>
+                        Pedido: #44243
+                    </strong>
+
+                </div>
+
+                <div class="pedido-info">
+
+                    <span>
+                        03/05/2026
+                    </span>
+
+                    <a href="#" class="btn-visualizar">
+                        <i class="fa-regular fa-eye"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- ✅ PEDIDO MOCK -->
+            <div class="pedido-card">
+
+                <div>
+
+                    <strong>
+                        Pedido: #32860
+                    </strong>
+
+                </div>
+
+                <div class="pedido-info">
+
+                    <span>
+                        31/01/2026
+                    </span>
+
+                    <a href="#" class="btn-visualizar">
+                        <i class="fa-regular fa-eye"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- ✅ SAIR -->
+            <a href="{% url 'logout' %}" class="btn-sair-conta">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Sair da conta
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
