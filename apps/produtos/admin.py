@@ -20,7 +20,7 @@ class CategoriaAdmin(admin.ModelAdmin):
 @admin.register(Perfume)
 class PerfumeAdmin(admin.ModelAdmin):
 
-    list_display = ("nome", "marca", "mostrar_categorias", "imagem_preview")
+    list_display = ("nome", "marca", ""estoque_ml",mostrar_categorias", "imagem_preview")
 
     list_filter = ("categorias",)
 
@@ -37,7 +37,13 @@ class PerfumeAdmin(admin.ModelAdmin):
         "nome",
         "marca",
         "slug",
+
+        # ✅ NOVOS
+        "estoque_ml",
+        "ativo",
+
         "categorias",
+
         "imagem",
         "imagem_preview",
         "imagem_descricao",
