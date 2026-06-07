@@ -32,24 +32,60 @@
         </header>
 
 
-<!-- ✅ BUSCA MOBILE -->
+    <!-- ✅ BUSCA MOBILE -->
     <div class="search-mobile">
 
-        <form method="get" action="{% url 'lista_produtos' %}" style="width: 100%; position: relative; display: flex; justify-content: center;">
+        <form
+            method="get"
+            action="{% url 'lista_produtos' %}"
+            style="
+                width: 100%;
+                position: relative;
+                display: flex;
+                justify-content: center;
+            "
+        >
 
             <input
                 type="text"
                 name="q"
                 placeholder="O que você está buscando?"
                 value="{{ request.GET.q }}"
+                autocomplete="off"
+                id="mobile-search-input"
             >
 
             <button type="submit" class="search-button">
+
                 <svg viewBox="0 0 24 24" width="20" height="20">
-                    <circle cx="11" cy="11" r="7" stroke="#6d7e91" stroke-width="2" fill="none"/>
-                    <line x1="16" y1="16" x2="21" y2="21" stroke="#003771" stroke-width="2"/>
+
+                    <circle
+                        cx="11"
+                        cy="11"
+                        r="7"
+                        stroke="#6d7e91"
+                        stroke-width="2"
+                        fill="none"
+                    />
+
+                    <line
+                        x1="16"
+                        y1="16"
+                        x2="21"
+                        y2="21"
+                        stroke="#003771"
+                        stroke-width="2"
+                    />
+
                 </svg>
+
             </button>
+
+            <!-- ✅ RESULTADOS AJAX MOBILE -->
+            <div
+                id="mobile-search-results"
+                class="search-results mobile-search-results"
+            ></div>
 
         </form>
 
@@ -545,6 +581,104 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+
+// ==========================
+// ✅ BUSCA AJAX MOBILE
+// ==========================
+const mobileInputBusca = document.getElementById(
+    'mobile-search-input'
+);
+
+const mobileResultadosBusca = document.getElementById(
+    'mobile-search-results'
+);
+
+if(mobileInputBusca && mobileResultadosBusca){
+
+    mobileInputBusca.addEventListener(
+        'input',
+        async function(){
+
+            const q = this.value.trim();
+
+            if(q.length < 2){
+
+                mobileResultadosBusca.style.display = 'none';
+
+                return;
+            }
+
+            try{
+
+                const response = await fetch(
+                    `/produtos/busca/ajax/?q=${encodeURIComponent(q)}`
+                );
+
+                const data = await response.json();
+
+                mobileResultadosBusca.innerHTML = '';
+
+                if(!data.resultados.length){
+
+                    mobileResultadosBusca.style.display = 'none';
+
+                    return;
+                }
+
+                data.resultados.forEach(item => {
+
+                    mobileResultadosBusca.innerHTML += `
+
+                        <a
+                            href="/produtos/detalhe/${item.slug}/"
+                            class="search-item"
+                        >
+
+                            <img src="${item.imagem}">
+
+                            <div class="search-info">
+
+                                <strong>
+                                    ${item.nome}
+                                </strong>
+
+                                <span>
+                                    R$ ${item.preco}
+                                </span>
+
+                            </div>
+
+                        </a>
+                    `;
+                });
+
+                mobileResultadosBusca.innerHTML += `
+
+                    <a
+                        href="/produtos/?q=${encodeURIComponent(q)}"
+                        class="search-ver-todos"
+                    >
+                        VER TODOS OS RESULTADOS
+                    </a>
+                `;
+
+                mobileResultadosBusca.style.display = 'block';
+
+            } catch(e){
+
+                console.log('Erro busca mobile ajax');
+            }
+        }
+    );
+
+    document.addEventListener('click', function(e){
+
+        if(!e.target.closest('.search-mobile')){
+
+            mobileResultadosBusca.style.display = 'none';
+        }
+    });
+}
 
 </script>
 

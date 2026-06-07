@@ -85,6 +85,7 @@
     <div class="header-center">
 
         <form method="get" action="{% url 'lista_produtos' %}">
+            
             <div class="search-box">
 
                 <input
@@ -92,15 +93,27 @@
                     name="q"
                     placeholder="Encontre seu Perfume..."
                     value="{{ request.GET.q }}"
+                    autocomplete="off"
                 >
 
                 <button type="submit" class="search-button">
+
                     <svg class="search-icon" viewBox="0 0 24 24">
+
                         <path d="M10 2a8 8 0 105.29 14.29l4.71 4.7 1.41-1.41-4.7-4.71A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/>
+
                     </svg>
+
                 </button>
 
+                <!-- ✅ RESULTADOS AJAX -->
+                <div
+                    id="search-results"
+                    class="search-results"
+                ></div>
+
             </div>
+
         </form>
 
     </div>

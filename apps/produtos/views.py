@@ -3,7 +3,7 @@ from django.db.models import Q, Min
 from .models import Perfume, Categoria
 from django.views.decorators.csrf import ensure_csrf_cookie
 from decimal import Decimal
-
+from django.http import JsonResponse
 
 # =========================
 # ✅ DETALHE DO PRODUTO
@@ -490,4 +490,51 @@ def detalhes_pagamento(request, perfume_id):
         'perfume': perfume,
         'preco': preco,
         'parcelas': parcelas
+    })
+    
+
+# =========================
+# ✅ BUSCA AJAX
+# =========================
+def busca_ajax(request):
+
+    q = request.GET.get("q", "").strip()
+
+    resultados = []
+
+    if q:
+
+        perfumes = Perfume.objects.filter(
+
+            Q(nome__icontains=q) |
+            Q(marca__icontains=q)
+
+        ).distinct()[:6]
+
+        for perfume in perfumes:
+
+            preco = perfume.precos.first()
+
+            resultados.append({
+
+                'nome': perfume.nome,
+
+                'slug': perfume.slug,
+
+                'imagem': (
+                    perfume.imagem.url
+                    if perfume.imagem
+                    else ''
+                ),
+
+                'preco': (
+                    str(preco.valor)
+                    if preco
+                    else '0.00'
+                )
+
+            })
+
+    return JsonResponse({
+        'resultados': resultados
     })

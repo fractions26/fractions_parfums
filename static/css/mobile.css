@@ -517,6 +517,120 @@
     justify-content: center;
 }
 
+/* =========================
+✅ SEARCH AJAX MOBILE
+========================= */
+
+.mobile-search-results{
+
+    position: absolute;
+
+    top: 52px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 97%;
+    max-width: 500px;
+
+    background: #fff;
+
+    border-radius: 16px;
+
+    box-shadow: 0 12px 35px rgba(0,0,0,0.14);
+
+    overflow: hidden;
+
+    z-index: 999999;
+
+    display: none;
+
+    max-height: 420px;
+
+    overflow-y: auto;
+}
+
+/* ITEM */
+.mobile-search-results .search-item{
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px 14px;
+
+    text-decoration: none;
+
+    color: #111;
+
+    border-bottom: 1px solid #f2f2f2;
+
+    background: #fff;
+}
+
+/* IMG */
+.mobile-search-results .search-item img{
+
+    width: 50px;
+
+    height: 50px;
+
+    object-fit: contain;
+
+    border-radius: 8px;
+}
+
+/* INFO */
+.mobile-search-results .search-info{
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+/* NOME */
+.mobile-search-results .search-info strong{
+
+    font-size: 13px;
+
+    line-height: 16px;
+}
+
+/* PREÇO */
+.mobile-search-results .search-info span{
+
+    font-size: 12px;
+
+    color: #666;
+
+    margin-top: 2px;
+}
+
+/* VER TODOS */
+.mobile-search-results .search-ver-todos{
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 14px;
+
+    background: #fafafa;
+
+    color: #111;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
 .search-button {
     position: absolute;
     right: 15px;

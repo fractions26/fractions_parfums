@@ -4,7 +4,8 @@ from .views import (
     detalhe_produto,
     lista_categoria,
     lista_produtos,
-    detalhes_pagamento
+    detalhes_pagamento,
+    busca_ajax
 )
 
 urlpatterns = [
@@ -35,5 +36,12 @@ urlpatterns = [
         'detalhe/<slug:slug>/',
         detalhe_produto,
         name='detalhe_produto'
+    ),
+    
+    # ✅ BUSCA AJAX
+    path(
+        'busca/ajax/',
+        busca_ajax,
+        name='busca_ajax'
     ),
 ]
