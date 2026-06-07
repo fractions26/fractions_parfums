@@ -21,7 +21,7 @@
         <span class="icon">+</span>
     </div>
 
-    <div class="accordion-body ativo">
+    <div class="accordion-body">
 
         <!-- ✅ MASCULINOS -->
         <label>
@@ -555,6 +555,37 @@ function toggleAccordion(header) {
         icon.textContent = body.classList.contains('ativo') ? '−' : '+';
     }
 }
+
+// =======================
+// ✅ ACCORDIONS AUTOMÁTICOS
+// =======================
+document.addEventListener("DOMContentLoaded", function () {
+
+    document.querySelectorAll(".accordion").forEach(acc => {
+
+        const body = acc.querySelector(".accordion-body");
+        const icon = acc.querySelector(".icon");
+
+        if (!body || !icon) return;
+
+        // ✅ verifica se existe item marcado
+        const checked = body.querySelector("input:checked");
+
+        // ✅ abre automaticamente
+        if (checked) {
+
+            body.classList.add("ativo");
+
+            icon.textContent = "−";
+
+        } else {
+
+            icon.textContent = "+";
+        }
+
+    });
+
+});
 // =======================
 // ✅ VARIÁVEIS
 // =======================
