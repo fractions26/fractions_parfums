@@ -465,35 +465,46 @@ document.addEventListener("keydown", function(e){
 function alterarQtd(btn, delta){
 
     const itemDiv = btn.closest(".item");
+
     if(!itemDiv) return;
 
-    const qtdSpan = itemDiv.querySelector(".qtd-value");
+    const qtdSpan =
+        itemDiv.querySelector(".qtd-value");
 
-    let qtd = parseInt(qtdSpan.innerText);
+    let qtd =
+        parseInt(qtdSpan.innerText);
+
     qtd += delta;
 
-    // ✅ LIMITE FRONT (UX)
+    // ✅ LIMITE FRONT
     if(qtd < 1) qtd = 1;
+
     if(qtd > 10) qtd = 10;
 
     qtdSpan.innerText = qtd;
 
-    // ✅ CALCULA SUBTOTAL (visual imediato)
-    const precoTexto = itemDiv.querySelector(".item-preco").innerText;
+    // ✅ CALCULA SUBTOTAL VISUAL
+    const precoTexto =
+        itemDiv.querySelector(".item-preco").innerText;
 
     const preco = parseFloat(
-        precoTexto.replace("R$", "").replace(",", ".")
+        precoTexto
+            .replace("R$", "")
+            .replace(",", ".")
     );
 
     const subtotal = preco * qtd;
 
-    const subtotalEl = itemDiv.querySelector(".subtotal");
+    const subtotalEl =
+        itemDiv.querySelector(".subtotal");
 
     if(subtotalEl){
-        subtotalEl.innerText = "R$ " + subtotal.toFixed(2);
+
+        subtotalEl.innerText =
+            "R$ " + subtotal.toFixed(2);
     }
 
-    // ✅ ATUALIZA BACKEND (PADRÃO GLOBAL)
+    // ✅ BACKEND
     postData(
         "/carrinho/atualizar/",
         `item_id=${itemDiv.dataset.id}&quantidade=${qtd}`
@@ -501,31 +512,48 @@ function alterarQtd(btn, delta){
     .then(res => res.json())
     .then(data => {
 
-        if(!data || !data.success) return;
+        // ✅ ESTOQUE INSUFICIENTE
+        if(!data.success){
 
-        // ✅ GARANTE VALOR REAL DO BACKEND
+            alert(data.erro);
+
+            // ✅ RESTAURA CARRINHO REAL
+            atualizarCarrinhoDrawer();
+
+            return;
+        }
+
+        // ✅ GARANTE VALOR REAL BACKEND
         if(data.quantidade_item !== undefined){
 
-            qtdSpan.innerText = data.quantidade_item;
+            qtdSpan.innerText =
+                data.quantidade_item;
 
-            const subtotalReal = preco * data.quantidade_item;
+            const subtotalReal =
+                preco * data.quantidade_item;
 
             if(subtotalEl){
+
                 subtotalEl.innerText =
                     "R$ " + subtotalReal.toFixed(2);
             }
         }
 
         // ✅ TOTAL GERAL
-        const total = document.getElementById("totalValor");
-        const totalFinal = document.getElementById("totalValorFinal");
+        const total =
+            document.getElementById("totalValor");
+
+        const totalFinal =
+            document.getElementById("totalValorFinal");
 
         if(total){
+
             total.innerText =
                 "R$ " + data.total.toFixed(2);
         }
 
         if(totalFinal){
+
             totalFinal.innerText =
                 "R$ " + data.total.toFixed(2);
         }
@@ -533,24 +561,24 @@ function alterarQtd(btn, delta){
         // ✅ BADGE
         atualizarBadge();
 
-        // ✅ RECALCULA TOTAL COM FRETE
+        // ✅ RECALCULA FRETE
         const freteSalvo =
             localStorage.getItem("frete_valor");
 
         const cepSalvo =
             localStorage.getItem("cep_carrinho");
 
-        if (freteSalvo && cepSalvo) {
+        if(freteSalvo && cepSalvo){
 
             aplicarFreteCarrinho(
                 parseFloat(freteSalvo),
                 cepSalvo
             );
-
         }
 
     })
     .catch(err => {
+
         console.error(
             "❌ Erro ao atualizar item:",
             err

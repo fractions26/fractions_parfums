@@ -401,39 +401,51 @@
             {% endwith %}
 
 
-            <!-- ✅ BOTÕES -->
-            <div class="card-actions">
+        <!-- ✅ BOTÕES -->
+        <div class="card-actions">
 
-                <button 
-                    type="button"
-                    class="btn-acao comprar"
-                    onclick="abrirModalCompra(this)"
-                    data-id="{{ perfume.id }}"
-                    data-nome="{{ perfume.nome }}"
-                    data-img="{% if perfume.imagem %}{% static perfume.imagem %}{% else %}{% static 'img/sem-imagem.png' %}{% endif %}"
-                    data-precos='[
-                        {% for p in perfume.precos.all %}
-                            {"id":"{{ p.id }}","tamanho":"{{ p.tamanho }}","valor":"{{ p.valor }}"}{% if not forloop.last %},{% endif %}
-                        {% endfor %}
-                    ]'
-                >
-                    COMPRAR
-                </button>
+            <button 
+                type="button"
+                class="btn-acao comprar"
+                onclick="abrirModalCompra(this)"
+                data-id="{{ perfume.id }}"
+                data-nome="{{ perfume.nome }}"
+                data-img="{% if perfume.imagem %}{% static perfume.imagem %}{% else %}{% static 'img/sem-imagem.png' %}{% endif %}"
 
-                <a href="{% url 'detalhe_produto' perfume.slug %}" class="btn-acao ver">
-                    VER
-                </a>
+                data-precos='[
 
-            </div>
+                    {% for p in perfume.precos.all %}
+
+                        {
+                            "id":"{{ p.id }}",
+                            "tamanho":"{{ p.tamanho }}",
+                            "valor":"{{ p.valor }}",
+                            "disponivel":"{{ p.unidades_disponiveis }}"
+                        }
+
+                        {% if not forloop.last %},{% endif %}
+
+                    {% endfor %}
+
+                ]'
+            >
+                COMPRAR
+            </button>
+
+            <a href="{% url 'detalhe_produto' perfume.slug %}" class="btn-acao ver">
+                VER
+            </a>
 
         </div>
 
-    </div>
-    {% endfor %}
+        </div>
 
-    </div><!-- ✅ FECHA GRID -->
+        </div>
+        {% endfor %}
 
-    <!-- 🔥🔥🔥 CORREÇÃO CRÍTICA AQUI -->
+        </div><!-- ✅ FECHA GRID -->
+
+        <!-- 🔥🔥🔥 CORREÇÃO CRÍTICA AQUI -->
     </div><!-- ✅ FECHA conteudo-produtos -->
     </div><!-- ✅ FECHA container-produtos -->
 
@@ -696,31 +708,143 @@ let qtdModal = 1;
 function abrirModalCompra(btn) {
 
     qtdModal = 1;
+
     document.getElementById("modalQtd").innerText = "1";
 
-    const data = JSON.parse(btn.getAttribute("data-precos"));
+    const data = JSON.parse(
+        btn.getAttribute("data-precos")
+    );
 
     produtoSelecionado = {
+
         id: btn.getAttribute("data-id"),
+
         nome: btn.getAttribute("data-nome"),
+
         img: btn.getAttribute("data-img"),
+
         precos: data
     };
 
-    document.getElementById("modalNome").innerText = produtoSelecionado.nome;
-    document.getElementById("modalImagem").src = produtoSelecionado.img;
+    document.getElementById(
+        "modalNome"
+    ).innerText = produtoSelecionado.nome;
 
-    const select = document.getElementById("modalSelect");
+    document.getElementById(
+        "modalImagem"
+    ).src = produtoSelecionado.img;
+
+    const select =
+        document.getElementById("modalSelect");
+
     select.innerHTML = "";
 
     produtoSelecionado.precos.forEach(p => {
-        let option = document.createElement("option");
+
+        let option =
+            document.createElement("option");
+
         option.value = p.id;
-        option.innerText = `${p.tamanho} - R$ ${p.valor}`;
+
+        option.setAttribute(
+            "data-disponivel",
+            p.disponivel
+        );
+
+        // ✅ TEXO NORMAL
+        if(parseInt(p.disponivel) > 0){
+
+            option.innerText =
+                `${p.tamanho} - R$ ${p.valor}`;
+
+        }
+
+        // ✅ ESGOTADO
+        else{
+
+            option.innerText =
+                `${p.tamanho} - ESGOTADO`;
+
+        }
+
         select.appendChild(option);
     });
 
-    document.getElementById("modalCompra").classList.add("active");
+    // ✅ BOTÃO COMPRAR
+    const btnComprar =
+        document.querySelector(
+            ".btn-modal-comprar"
+        );
+
+    // ✅ CONTROLE ESTOQUE
+    function atualizarEstoqueModal(){
+
+        const option =
+            select.options[
+                select.selectedIndex
+            ];
+
+        const disponivel =
+            parseInt(
+                option.getAttribute(
+                    "data-disponivel"
+                )
+            );
+
+        // ✅ SEM ESTOQUE
+        if(disponivel <= 0){
+
+            btnComprar.disabled = true;
+
+            btnComprar.innerText =
+                "INDISPONÍVEL";
+
+            btnComprar.style.opacity =
+                "0.6";
+
+            btnComprar.style.cursor =
+                "not-allowed";
+
+        }
+
+        // ✅ COM ESTOQUE
+        else{
+
+            btnComprar.disabled = false;
+
+            btnComprar.innerText =
+                "COMPRAR";
+
+            btnComprar.style.opacity =
+                "1";
+
+            btnComprar.style.cursor =
+                "pointer";
+
+            // ✅ AJUSTA QUANTIDADE
+            if(qtdModal > disponivel){
+
+                qtdModal = disponivel;
+
+                document.getElementById(
+                    "modalQtd"
+                ).innerText = qtdModal;
+            }
+        }
+    }
+
+    // ✅ TROCA VOLUME
+    select.addEventListener(
+        "change",
+        atualizarEstoqueModal
+    );
+
+    // ✅ INICIALIZA
+    atualizarEstoqueModal();
+
+    document.getElementById(
+        "modalCompra"
+    ).classList.add("active");
 }
 
 // =======================
@@ -731,18 +855,53 @@ function fecharModalCompra() {
 }
 
 // =======================
-// ✅ QTD
+// ✅ QTD MODAL
 // =======================
 function alterarQtdModal(delta) {
 
+    const select =
+        document.getElementById("modalSelect");
+
+    const option =
+        select.options[
+            select.selectedIndex
+        ];
+
+    const disponivel =
+        parseInt(
+            option.getAttribute(
+                "data-disponivel"
+            )
+        );
+
     qtdModal += delta;
 
-    if (qtdModal < 1) qtdModal = 1;
-    if (qtdModal > 10) qtdModal = 10;
+    // ✅ MÍNIMO
+    if (qtdModal < 1){
 
-    document.getElementById("modalQtd").innerText = qtdModal;
+        qtdModal = 1;
+    }
+
+    // ✅ LIMITE GLOBAL
+    if (qtdModal > 10){
+
+        qtdModal = 10;
+    }
+
+    // ✅ LIMITE ESTOQUE
+    if (qtdModal > disponivel){
+
+        qtdModal = disponivel;
+
+        alert(
+            `Máximo disponível: ${disponivel} unidade(s).`
+        );
+    }
+
+    document.getElementById(
+        "modalQtd"
+    ).innerText = qtdModal;
 }
-
 // =======================
 // ✅ RECARREGAR DRAWER
 // =======================

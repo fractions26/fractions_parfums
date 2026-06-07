@@ -11,17 +11,33 @@ MAX_QTD = 10
 
 
 def adicionar_carrinho(request):
+    
     if request.method == 'POST':
+
         try:
+
             perfume_id = request.POST.get('perfume_id')
+
             preco_id = request.POST.get('preco_id')
 
             try:
-                quantidade = int(request.POST.get('quantidade', 1))
+
+                quantidade = int(
+                    request.POST.get(
+                        'quantidade',
+                        1
+                    )
+                )
+
             except:
+
                 quantidade = 1
 
-            perfume = get_object_or_404(Perfume, id=perfume_id)
+            perfume = get_object_or_404(
+                Perfume,
+                id=perfume_id
+            )
+
             preco_obj = get_object_or_404(
                 Preco,
                 id=preco_id,
@@ -36,40 +52,96 @@ def adicionar_carrinho(request):
                 preco_obj=preco_obj
             ).first()
 
+            # ✅ EXTRAI ML DO TAMANHO
+            tamanho_ml = int(
+                ''.join(
+                    filter(
+                        str.isdigit,
+                        preco_obj.tamanho
+                    )
+                )
+            )
+
+            # ✅ QUANTIDADE ATUAL NO CARRINHO
+            qtd_existente = (
+                item.quantidade
+                if item
+                else 0
+            )
+
+            # ✅ NOVA QUANTIDADE
+            nova_qtd = (
+                qtd_existente + quantidade
+            )
+
+            # ✅ LIMITE PELO ESTOQUE
+            maximo_por_estoque = (
+                perfume.estoque_ml // tamanho_ml
+            )
+
+            # ✅ REGRA FINAL
+            # mantém proteção de no máximo 10 itens
+            maximo_permitido = min(
+                MAX_QTD,
+                maximo_por_estoque
+            )
+
+            # ✅ BLOQUEIA ULTRAPASSAR
+            if nova_qtd > maximo_permitido:
+
+                return JsonResponse({
+
+                    "success": False,
+
+                    "erro": (
+                        f"Estoque insuficiente. "
+                        f"Máximo disponível: "
+                        f"{maximo_permitido} unidade(s)."
+                    )
+
+                })
+
             limitado = False
 
-            # ✅ ATUALIZA OU CRIA ITEM
+            # ✅ ATUALIZA ITEM
             if item:
-                nova_qtd = item.quantidade + quantidade
-
-                if nova_qtd > MAX_QTD:
-                    nova_qtd = MAX_QTD
-                    limitado = True
 
                 item.quantidade = nova_qtd
+
                 item.save()
 
+            # ✅ CRIA ITEM
             else:
-                if quantidade > MAX_QTD:
-                    quantidade = MAX_QTD
-                    limitado = True
 
                 item = Item.objects.create(
+
                     carrinho=carrinho,
+
                     perfume=perfume,
+
                     preco_obj=preco_obj,
+
                     tamanho=preco_obj.tamanho,
-                    preco=float(preco_obj.valor),  # ✅ correção importante
+
+                    preco=float(preco_obj.valor),
+
                     quantidade=quantidade
                 )
 
             # ✅ RECALCULAR CARRINHO
             itens = carrinho.itens.all()
 
-            quantidade_total = sum(i.quantidade for i in itens)
-            total = sum(float(i.preco) * i.quantidade for i in itens)
+            quantidade_total = sum(
+                i.quantidade
+                for i in itens
+            )
 
-            # ✅ FORMATAÇÃO (resolve "R$ undefined")
+            total = sum(
+                float(i.preco) * i.quantidade
+                for i in itens
+            )
+
+            # ✅ FORMATA TOTAL
             total_formatado = (
                 f"{total:,.2f}"
                 .replace(",", "X")
@@ -77,45 +149,63 @@ def adicionar_carrinho(request):
                 .replace("X", ".")
             )
 
-            # ✅ TRATAMENTO SEGURO DE IMAGEM (resolve string/url)
-
+            # ✅ IMAGEM
             imagem_url = ""
 
             if perfume.imagem:
-                try:
-                    # caso seja ImageField
-                    imagem_url = perfume.imagem.url
-                except Exception:
-                    # ✅ CASO STRING (SEU CASO REAL)
-                    imagem_url = static(perfume.imagem)
 
+                try:
+
+                    imagem_url = perfume.imagem.url
+
+                except Exception:
+
+                    imagem_url = static(
+                        perfume.imagem
+                    )
 
             # ✅ RESPOSTA FINAL
             return JsonResponse({
+
                 "success": True,
+
                 "produto_nome": perfume.nome,
+
                 "tamanho": preco_obj.tamanho,
+
                 "imagem": imagem_url,
+
                 "quantidade_total": quantidade_total,
+
                 "total": total,
+
                 "total_formatado": total_formatado,
+
                 "produto_preco": float(preco_obj.valor),
+
                 "quantidade_adicionada": quantidade,
+
                 "limitado": limitado
+
             })
 
         except Exception as e:
+
             print("🚨 ERRO CARRINHO:", str(e))
+
             traceback.print_exc()
 
             return JsonResponse({
+
                 "success": False,
+
                 "erro": str(e)
+
             }, status=500)
 
-    return JsonResponse({"success": False}, status=400)
-
-
+    return JsonResponse({
+        "success": False
+    }, status=400)
 
 # =========================
 # ✅ VER CARRINHO
@@ -137,52 +227,125 @@ def ver_carrinho(request):
 # ✅ ATUALIZAR ITEM
 # =========================
 def atualizar_item(request):
+
     if request.method == "POST":
 
         item_id = request.POST.get("item_id")
 
         try:
-            quantidade = int(request.POST.get("quantidade"))
+
+            quantidade = int(
+                request.POST.get("quantidade")
+            )
+
         except:
+
             quantidade = 1
 
-        item = get_object_or_404(Item, id=item_id)
+        item = get_object_or_404(
+            Item,
+            id=item_id
+        )
+
         carrinho = item.carrinho
+
+        perfume = item.perfume
+
+        # ✅ EXTRAI ML DO TAMANHO
+        tamanho_ml = int(
+            ''.join(
+                filter(
+                    str.isdigit,
+                    item.tamanho
+                )
+            )
+        )
+
+        # ✅ LIMITE PELO ESTOQUE
+        maximo_por_estoque = (
+            perfume.estoque_ml // tamanho_ml
+        )
+
+        # ✅ REGRA FINAL
+        maximo_permitido = min(
+            MAX_QTD,
+            maximo_por_estoque
+        )
 
         if quantidade > 0:
 
-            if quantidade > MAX_QTD:
-                quantidade = MAX_QTD
+            # ✅ BLOQUEIA LIMITE
+            if quantidade > maximo_permitido:
+
+                return JsonResponse({
+
+                    "success": False,
+
+                    "erro": (
+                        f"Estoque insuficiente. "
+                        f"Máximo disponível: "
+                        f"{maximo_permitido} unidade(s)."
+                    )
+
+                })
 
             item.quantidade = quantidade
+
             item.save()
 
         else:
+
             item.delete()
 
             itens = carrinho.itens.all()
-            total = sum(i.preco * i.quantidade for i in itens)
-            quantidade_total = sum(i.quantidade for i in itens)
+
+            total = sum(
+                i.preco * i.quantidade
+                for i in itens
+            )
+
+            quantidade_total = sum(
+                i.quantidade
+                for i in itens
+            )
 
             return JsonResponse({
+
                 "success": True,
+
                 "removido": True,
+
                 "total": float(total),
+
                 "quantidade_total": quantidade_total
+
             })
 
         itens = carrinho.itens.all()
-        total = sum(i.preco * i.quantidade for i in itens)
-        quantidade_total = sum(i.quantidade for i in itens)
+
+        total = sum(
+            i.preco * i.quantidade
+            for i in itens
+        )
+
+        quantidade_total = sum(
+            i.quantidade
+            for i in itens
+        )
 
         return JsonResponse({
+
             "success": True,
+
             "total": float(total),
+
             "quantidade_total": quantidade_total
+
         })
 
-    return JsonResponse({"success": False})
-
+    return JsonResponse({
+        "success": False
+    })
 
 # =========================
 # ✅ REMOVER ITEM
