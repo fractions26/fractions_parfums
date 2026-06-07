@@ -825,9 +825,11 @@ body.modal-aberto {
     .banner-carousel {
         max-width: 1300px;
         width: 100%;
+
         margin: 20px auto;
 
         height: 500px;
+
         overflow: hidden;
         border-radius: 12px;
 
@@ -837,6 +839,7 @@ body.modal-aberto {
     .carousel-track {
         display: flex;
         height: 100%;
+
         transition: transform 0.4s ease;
     }
 
@@ -849,9 +852,29 @@ body.modal-aberto {
     .slide img {
         width: 100%;
         height: 100%;
+
         object-fit: cover;
+
         display: block;
     }
+
+}
+
+/* =============================== */
+/* ✅ TABLET LANDSCAPE */
+/* =============================== */
+@media (min-width: 769px) and (max-width: 1100px) {
+
+    .banner-carousel {
+        height: auto; /* ✅ permite adaptar */
+        max-height: 420px;
+    }
+
+    .slide img {
+        height: auto;
+        object-fit: contain; /* ✅ NÃO corta */
+    }
+
 }
 
 .avaliacao-home {
