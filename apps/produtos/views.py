@@ -521,8 +521,9 @@ def busca_ajax(request):
 
                 'slug': perfume.slug,
 
+                # ✅ CORRIGIDO
                 'imagem': (
-                    perfume.imagem.url
+                    perfume.get_imagem_url()
                     if perfume.imagem
                     else ''
                 ),
