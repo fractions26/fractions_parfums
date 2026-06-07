@@ -104,27 +104,45 @@
 
             </div>
 
-        <div class="box-tamanho">
-            <label>Volume</label>
+            <div class="box-tamanho">
 
-            <select class="select-tamanho" id="selectTamanho">
-                {% for preco in perfume.precos.all %}
-                    <option value="{{ preco.id }}" data-preco="{{ preco.valor }}">
-                        {{ preco.tamanho }} - R$ {{ preco.valor }}
+                <label>Volume</label>
 
-                        {% if "2" in preco.tamanho %}
-                            - Aprox. 30 borrifadas
-                        {% elif "5" in preco.tamanho %}
-                            - Aprox. 75 borrifadas
-                        {% elif "10" in preco.tamanho %}
-                            - Aprox. 150 borrifadas
-                        {% endif %}
+                <select class="select-tamanho" id="selectTamanho">
 
-                    </option>
-                {% endfor %}
-            </select>
+                    {% for preco in perfume.precos.all %}
 
-        </div>
+                        <option
+                            value="{{ preco.id }}"
+                            data-preco="{{ preco.valor }}"
+                            data-disponivel="{{ preco.unidades_disponiveis }}"
+                        >
+
+                            {{ preco.tamanho }} - R$ {{ preco.valor }}
+
+                            {% if "2" in preco.tamanho %}
+                                - Aprox. 30 borrifadas
+
+                            {% elif "5" in preco.tamanho %}
+                                - Aprox. 75 borrifadas
+
+                            {% elif "10" in preco.tamanho %}
+                                - Aprox. 150 borrifadas
+                            {% endif %}
+
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+                <!-- ✅ ALERTA ESTOQUE -->
+                <div
+                    id="alertaEstoque"
+                    class="alerta-estoque"
+                ></div>
+
+            </div>
 
 
             <!-- ===================== -->
@@ -714,30 +732,89 @@ zoomImg.addEventListener("wheel", (e) => {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const selectTamanho = document.getElementById("selectTamanho");
-    const precoPrincipal = document.getElementById("precoPrincipal");
+    const selectTamanho =
+        document.getElementById("selectTamanho");
+
+    const precoPrincipal =
+        document.getElementById("precoPrincipal");
 
     function atualizarPreco() {
-        const option = selectTamanho.options[selectTamanho.selectedIndex];
-        const preco = option.getAttribute("data-preco");
 
-        const precoFormatado = parseFloat(preco).toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        });
+        const option =
+            selectTamanho.options[
+                selectTamanho.selectedIndex
+            ];
+
+        const preco =
+            option.getAttribute("data-preco");
+
+        const disponivel =
+            parseInt(
+                option.getAttribute(
+                    "data-disponivel"
+                )
+            );
+
+        const alerta =
+            document.getElementById(
+                "alertaEstoque"
+            );
+
+        // ✅ PREÇO
+        const precoFormatado =
+            parseFloat(preco).toLocaleString(
+                "pt-BR",
+                {
+                    style: "currency",
+                    currency: "BRL"
+                }
+            );
 
         precoPrincipal.innerHTML = `
-        ${precoFormatado}
-        <span class="desconto">5% OFF</span>
-    `;
+            ${precoFormatado}
+            <span class="desconto">5% OFF</span>
+        `;
 
+        // ✅ ALERTA ESTOQUE
+        if(disponivel <= 0){
+
+            alerta.innerHTML =
+                "❌ Produto indisponível";
+
+            alerta.style.color = "#d32f2f";
+
+        }
+        else if(disponivel === 1){
+
+            alerta.innerHTML =
+                "⚠ Última unidade disponível";
+
+            alerta.style.color = "#ff9800";
+
+        }
+        else if(disponivel <= 4){
+
+            alerta.innerHTML =
+                `⚠ Últimas ${disponivel} unidades disponíveis`;
+
+            alerta.style.color = "#ff9800";
+
+        }
+        else{
+
+            alerta.innerHTML = "";
+        }
     }
 
     // ✅ Quando trocar o volume
-    selectTamanho.addEventListener("change", atualizarPreco);
+    selectTamanho.addEventListener(
+        "change",
+        atualizarPreco
+    );
 
     // ✅ Ao carregar a página
     atualizarPreco();
+
 });
 
 // =======================
