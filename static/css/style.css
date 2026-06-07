@@ -64,7 +64,7 @@ header {
 .header-right {
     display: flex;
     align-items: center;
-    gap: 35px; /* 🔥 mais respiro */
+    gap: 18px; /* 🔥 mais respiro */
 }
 
 /* ITEM */
@@ -967,7 +967,7 @@ body.modal-aberto {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: -15px;
+    margin-top: 0px;
 
     width: 100%;
     justify-self: center;
@@ -983,7 +983,7 @@ body.modal-aberto {
 .search-box input {
     width: 100%;
 
-    padding: 14px 50px 14px 20px; /* ✅ corrigido */
+    padding: 14px 90px 14px 20px; /* ✅ corrigido */
 
     border-radius: 25px;
     border: 1px solid #888;
