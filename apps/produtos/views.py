@@ -15,27 +15,10 @@ def detalhe_produto(request, slug):
         slug=slug
     )
 
-    # ✅ CALCULA ESTOQUE DISPONÍVEL
+    # ✅ TESTE
     for preco in perfume.precos.all():
 
-        try:
-
-            tamanho_ml = int(
-                preco.tamanho
-                .lower()
-                .replace("ml", "")
-                .strip()
-            )
-
-            preco.unidades_disponiveis = (
-                perfume.unidades_disponiveis(
-                    tamanho_ml
-                )
-            )
-
-        except:
-
-            preco.unidades_disponiveis = 0
+        preco.unidades_disponiveis = 99
 
     return render(
         request,
@@ -44,8 +27,6 @@ def detalhe_produto(request, slug):
             'perfume': perfume
         }
     )
-
-
 
 # =========================
 # ✅ LISTA POR CATEGORIA
