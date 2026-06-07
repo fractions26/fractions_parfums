@@ -76,10 +76,24 @@ def home(request):
 def contato(request):
 
     if request.method == "POST":
-        recaptcha_response = request.POST.get('g-recaptcha-response')
+
+        nome = request.POST.get('nome')
+        email = request.POST.get('email')
+        telefone = request.POST.get('telefone')
+        mensagem = request.POST.get('mensagem')
+
+        # ✅ reCAPTCHA
+        recaptcha_response = request.POST.get(
+            'g-recaptcha-response'
+        )
 
         if not recaptcha_response:
-            messages.error(request, "❌ Confirme que você não é um robô.")
+
+            messages.error(
+                request,
+                "❌ Confirme que você não é um robô."
+            )
+
             return redirect('contato')
 
         data = {
@@ -88,25 +102,83 @@ def contato(request):
         }
 
         try:
+
             r = requests.post(
                 'https://www.google.com/recaptcha/api/siteverify',
                 data=data,
                 timeout=5
             )
+
             result = r.json()
+
         except requests.exceptions.RequestException:
-            messages.error(request, "⚠️ Serviço de validação indisponível.")
+
+            messages.error(
+                request,
+                "⚠️ Serviço de validação indisponível."
+            )
+
             return redirect('contato')
 
-        if result.get('success'):
-            messages.success(request, "✔ Não sou um robô confirmado!")
-        else:
-            messages.error(request, "❌ Confirme que você não é um robô.")
+        # ✅ CAPTCHA INVÁLIDO
+        if not result.get('success'):
+
+            messages.error(
+                request,
+                "❌ Confirme que você não é um robô."
+            )
+
+            return redirect('contato')
+
+        # ✅ ENVIO EMAIL
+        try:
+
+            from django.core.mail import send_mail
+
+            assunto = 'Novo contato - Fractions Parfums'
+
+            corpo = f"""
+Novo contato recebido pelo site.
+
+Nome: {nome}
+
+Email: {email}
+
+Telefone: {telefone}
+
+Mensagem:
+{mensagem}
+"""
+
+            send_mail(
+                subject=assunto,
+                message=corpo,
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[settings.EMAIL_HOST_USER],
+                fail_silently=False,
+            )
+
+            messages.success(
+                request,
+                "✅ Mensagem enviada com sucesso!"
+            )
+
+        except Exception as e:
+
+            print("ERRO EMAIL:", e)
+
+            messages.error(
+                request,
+                "❌ Erro ao enviar mensagem."
+            )
 
         return redirect('contato')
 
     return render(request, 'contato.html', {
-        'RECAPTCHA_SITE_KEY': settings.RECAPTCHA_SITE_KEY
+
+        'RECAPTCHA_SITE_KEY':
+            settings.RECAPTCHA_SITE_KEY
+
     })
 
 def normalizar_nome(nome_completo):
