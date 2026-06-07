@@ -370,6 +370,9 @@ function fecharToast(){
 // =======================
 function abrirCarrinho(){
 
+    // ✅ FECHA TOAST AO ABRIR CARRINHO
+    fecharToast();
+
     const drawer = document.getElementById("drawer-carrinho");
     const overlay = document.getElementById("overlay-carrinho");
     const conteudo = document.getElementById("drawerConteudo");
