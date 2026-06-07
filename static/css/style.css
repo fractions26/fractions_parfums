@@ -1006,7 +1006,7 @@ body.modal-aberto {
 .search-box input {
     width: 100%;
 
-    padding: 14px 90px 14px 20px; /* ✅ corrigido */
+    padding: 14px 250px 14px 20px; /* ✅ corrigido */
 
     border-radius: 25px;
     border: 1px solid #888;
