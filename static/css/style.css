@@ -116,13 +116,38 @@ header {
 /* ===== MENU ===== */
 .menu {
     background: linear-gradient(90deg, #2a2a2a, #000000, #1c1c1c);
+
     display: flex;
     justify-content: center;
+    align-items: center;
+
     gap: 120px;
-    padding: 20px 0;
+
+    padding: 20px 15px;
+
     border-top: 1px solid #222;
     border-bottom: 1px solid #222;
+
     color: white;
+
+    flex-wrap: wrap; /* ✅ evita quebra feia */
+}
+
+/* =============================== */
+/* ✅ TABLET LANDSCAPE */
+/* =============================== */
+@media (min-width: 769px) and (max-width: 1100px) {
+
+    .menu {
+        gap: 45px;          /* ✅ reduz espaçamento exagerado */
+        padding: 16px 10px;
+    }
+
+    .menu a {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
 }
 
 .menu a {
@@ -957,11 +982,17 @@ body.modal-aberto {
 
 .search-box input {
     width: 100%;
-    padding: 14px 500px 14px 20px;
+
+    padding: 14px 50px 14px 20px; /* ✅ corrigido */
+
     border-radius: 25px;
     border: 1px solid #888;
+
     font-size: 14px;
+
+    box-sizing: border-box; /* ✅ proteção extra */
 }
+
 
 .search-icon {
     width: 25px;
