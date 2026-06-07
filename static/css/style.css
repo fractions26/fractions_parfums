@@ -1906,9 +1906,6 @@ body.modal-aberto {
     cursor: pointer;
 }
  
-.lista-categorias input[type="radio"] {
-    margin-right: 6px;
-}
 
 /* ✅ ISOLAMENTO DO DRAWER (CRÍTICO) */
 .drawer-filtros * {
