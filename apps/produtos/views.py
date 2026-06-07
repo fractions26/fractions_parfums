@@ -10,21 +10,48 @@ from django.http import JsonResponse
 # =========================
 def detalhe_produto(request, slug):
 
+    import re
+
     perfume = get_object_or_404(
         Perfume,
         slug=slug
     )
 
-    # ✅ TESTE
+    precos = []
+
     for preco in perfume.precos.all():
 
-        preco.unidades_disponiveis = 99
+        try:
+
+            numero = re.findall(
+                r'\d+',
+                preco.tamanho
+            )
+
+            if numero:
+
+                tamanho_ml = int(numero[0])
+
+                preco.unidades_disponiveis = (
+                    perfume.estoque_ml // tamanho_ml
+                )
+
+            else:
+
+                preco.unidades_disponiveis = 0
+
+        except:
+
+            preco.unidades_disponiveis = 0
+
+        precos.append(preco)
 
     return render(
         request,
         'produtos/detalhe.html',
         {
-            'perfume': perfume
+            'perfume': perfume,
+            'precos': precos,
         }
     )
 

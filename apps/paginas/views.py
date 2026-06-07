@@ -138,18 +138,18 @@ def contato(request):
             assunto = 'Novo contato - Fractions Parfums'
 
             corpo = f"""
-Novo contato recebido pelo site.
+            Novo contato recebido pelo site.
 
-Nome: {nome}
+            Nome: {nome}
 
-Email: {email}
+            Email: {email}
 
-Telefone: {telefone}
+            Telefone: {telefone}
 
-Mensagem:
+            Mensagem:
 
-{mensagem.replace(chr(10), chr(10) * 2)}
-"""
+            {mensagem.replace(chr(10), chr(10) * 2)}
+            """
 
             send_mail(
                 subject=assunto,
