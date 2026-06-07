@@ -147,7 +147,8 @@ Email: {email}
 Telefone: {telefone}
 
 Mensagem:
-{mensagem}
+
+{mensagem.replace(chr(10), chr(10) * 2)}
 """
 
             send_mail(

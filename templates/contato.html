@@ -27,14 +27,19 @@
     </div>
 
     <!-- ✅ DIREITA -->
-    <div class="contato-form">
-
-        <!-- ✅ mensagens -->
         {% if messages %}
             {% for message in messages %}
-                <div class="msg-ok">
+
+                <div class="
+                    {% if message.tags == 'success' %}
+                        msg-ok
+                    {% else %}
+                        msg-error
+                    {% endif %}
+                ">
                     {{ message }}
                 </div>
+
             {% endfor %}
         {% endif %}
 

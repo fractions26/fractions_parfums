@@ -2336,3 +2336,65 @@ body.modal-aberto {
     border: 4px solid #2563eb; /* azul elegante */
 
 }
+
+/* =========================
+✅ ALERTA CONTATO
+========================= */
+
+.msg-ok{
+
+    background: #e8fff1;
+
+    border: 1px solid #2bb673;
+
+    color: #146c43;
+
+    padding: 14px 16px;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    margin-bottom: 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    line-height: 1.5;
+}
+
+/* =========================
+✅ ALERTA ERRO CONTATO
+========================= */
+
+.msg-error{
+
+    background: #fff1f1;
+
+    border: 1px solid #e05252;
+
+    color: #a12626;
+
+    padding: 14px 16px;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    margin-bottom: 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    line-height: 1.5;
+}
