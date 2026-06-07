@@ -33,23 +33,38 @@ def lista_categoria(request, slug):
         menor_preco=Min('precos__valor')
     )
 
+# =========================
+# ✅ LISTA POR CATEGORIA
+# =========================
+@ensure_csrf_cookie
+def lista_categoria(request, slug):
+
+    categorias_param = request.GET.getlist("categoria")
+
+    # ✅ categoria visual
+    categoria = get_object_or_404(
+        Categoria,
+        slug=slug
+    )
+
+    perfumes = Perfume.objects.all().annotate(
+        menor_preco=Min('precos__valor')
+    )
+
     # =========================
-    # ✅ FILTRO CATEGORIAS
+    # ✅ NOVA REGRA CATEGORIAS
     # =========================
 
     if categorias_param:
 
         # ✅ Masculinos + Femininos
-        # retorna perfumes NÃO árabes
+        # mostra TODOS sem exceção
         if (
             'masculinos' in categorias_param and
-            'femininos' in categorias_param and
-            'arabes' not in categorias_param
+            'femininos' in categorias_param
         ):
 
-            perfumes = perfumes.exclude(
-                categorias__slug='arabes'
-            )
+            perfumes = perfumes.all()
 
         # ✅ Arabes + Masculinos
         elif (
@@ -87,8 +102,6 @@ def lista_categoria(request, slug):
 
             perfumes = perfumes.filter(
                 categorias__slug='masculinos'
-            ).exclude(
-                categorias__slug='arabes'
             )
 
         # ✅ Apenas Femininos
@@ -96,8 +109,6 @@ def lista_categoria(request, slug):
 
             perfumes = perfumes.filter(
                 categorias__slug='femininos'
-            ).exclude(
-                categorias__slug='arabes'
             )
 
     else:
@@ -124,7 +135,10 @@ def lista_categoria(request, slug):
 
     busca = request.GET.get('q')
 
+    # =========================
     # ✅ BUSCA
+    # =========================
+
     if busca:
 
         perfumes = perfumes.filter(
@@ -132,7 +146,10 @@ def lista_categoria(request, slug):
             Q(marca__icontains=busca)
         )
 
+    # =========================
     # ✅ MARCAS
+    # =========================
+
     if marcas:
 
         query = Q()
@@ -145,7 +162,10 @@ def lista_categoria(request, slug):
 
         perfumes = perfumes.filter(query)
 
+    # =========================
     # ✅ PREÇO
+    # =========================
+
     if preco_min:
 
         perfumes = perfumes.filter(
@@ -158,12 +178,18 @@ def lista_categoria(request, slug):
             menor_preco__lte=preco_max
         )
 
+    # =========================
     # ✅ DESTAQUES
+    # =========================
+
     if 'novidades' in destaques:
 
         perfumes = perfumes.order_by('-id')
 
+    # =========================
     # ✅ ORDENAÇÃO
+    # =========================
+
     if ordenar == 'mais_vendidos':
 
         perfumes = perfumes.order_by('-id')
@@ -186,7 +212,10 @@ def lista_categoria(request, slug):
 
     perfumes = perfumes.distinct()
 
+    # =========================
     # ✅ PARCELAMENTO
+    # =========================
+
     for perfume in perfumes:
 
         preco = perfume.precos.first()
@@ -198,7 +227,10 @@ def lista_categoria(request, slug):
                 2
             )
 
+    # =========================
     # ✅ MARCAS
+    # =========================
+
     marcas_lista = Perfume.objects.values_list(
         'marca',
         flat=True
@@ -230,6 +262,9 @@ def lista_produtos(request):
         menor_preco=Min('precos__valor')
     )
 
+    # ✅ NOVO
+    categorias_param = request.GET.getlist("categoria")
+
     marcas = request.GET.getlist('marca')
     destaques = request.GET.getlist('destaque')
     ordenar = request.GET.get('ordenar')
@@ -237,57 +272,180 @@ def lista_produtos(request):
     preco_max = request.GET.get('preco_max')
     busca = request.GET.get('q')
 
+    # =========================
+    # ✅ NOVA REGRA CATEGORIAS
+    # =========================
+
+    if categorias_param:
+
+        # ✅ Masculinos + Femininos
+        if (
+            'masculinos' in categorias_param and
+            'femininos' in categorias_param
+        ):
+
+            perfumes = perfumes.all()
+
+        # ✅ Arabes + Masculinos
+        elif (
+            'arabes' in categorias_param and
+            'masculinos' in categorias_param
+        ):
+
+            perfumes = perfumes.filter(
+                categorias__slug='arabes'
+            ).filter(
+                categorias__slug='masculinos'
+            )
+
+        # ✅ Arabes + Femininos
+        elif (
+            'arabes' in categorias_param and
+            'femininos' in categorias_param
+        ):
+
+            perfumes = perfumes.filter(
+                categorias__slug='arabes'
+            ).filter(
+                categorias__slug='femininos'
+            )
+
+        # ✅ Apenas Arabes
+        elif categorias_param == ['arabes']:
+
+            perfumes = perfumes.filter(
+                categorias__slug='arabes'
+            )
+
+        # ✅ Apenas Masculinos
+        elif categorias_param == ['masculinos']:
+
+            perfumes = perfumes.filter(
+                categorias__slug='masculinos'
+            )
+
+        # ✅ Apenas Femininos
+        elif categorias_param == ['femininos']:
+
+            perfumes = perfumes.filter(
+                categorias__slug='femininos'
+            )
+
+    # =========================
+    # ✅ BUSCA
+    # =========================
+
     if busca:
+
         perfumes = perfumes.filter(
             Q(nome__icontains=busca) |
             Q(marca__icontains=busca)
         )
 
+    # =========================
+    # ✅ MARCAS
+    # =========================
+
     if marcas:
+
         query = Q()
+
         for marca in marcas:
-            query |= Q(marca__icontains=marca.strip())
+
+            query |= Q(
+                marca__icontains=marca.strip()
+            )
+
         perfumes = perfumes.filter(query)
 
+    # =========================
+    # ✅ PREÇO
+    # =========================
+
     if preco_min:
-        perfumes = perfumes.filter(menor_preco__gte=preco_min)
+
+        perfumes = perfumes.filter(
+            menor_preco__gte=preco_min
+        )
 
     if preco_max:
-        perfumes = perfumes.filter(menor_preco__lte=preco_max)
+
+        perfumes = perfumes.filter(
+            menor_preco__lte=preco_max
+        )
+
+    # =========================
+    # ✅ DESTAQUES
+    # =========================
 
     if 'novidades' in destaques:
+
         perfumes = perfumes.order_by('-id')
 
+    # =========================
     # ✅ ORDENAÇÃO
+    # =========================
+
     if ordenar == 'mais_vendidos':
+
         perfumes = perfumes.order_by('-id')
+
     elif ordenar == 'preco_asc':
+
         perfumes = perfumes.order_by('menor_preco')
+
     elif ordenar == 'preco_desc':
+
         perfumes = perfumes.order_by('-menor_preco')
+
     elif ordenar == 'az':
+
         perfumes = perfumes.order_by('nome')
+
     elif ordenar == 'za':
+
         perfumes = perfumes.order_by('-nome')
 
     perfumes = perfumes.distinct()
 
+    # =========================
     # ✅ PARCELAMENTO
-    for perfume in perfumes:
-        preco = perfume.precos.first()
-        if preco:
-            preco.parcela_3x = round(preco.valor / 3, 2)
+    # =========================
 
+    for perfume in perfumes:
+
+        preco = perfume.precos.first()
+
+        if preco:
+
+            preco.parcela_3x = round(
+                preco.valor / 3,
+                2
+            )
+
+    # ✅ MARCAS
     marcas_lista = Perfume.objects.values_list(
-        'marca', flat=True
+        'marca',
+        flat=True
     ).distinct()
 
     return render(request, 'produtos/lista.html', {
-        'categoria': {'nome': 'Todos os produtos'},
+
+        'categoria': {
+            'nome': 'Todos os produtos'
+        },
+
         'perfumes': perfumes,
+
         'marcas': marcas_lista,
+
         'marcas_selecionadas': marcas,
+
         'destaques_selecionados': destaques,
+
+        # ✅ IMPORTANTE
+        'categorias_selecionadas': categorias_param,
+
     })
 
 
