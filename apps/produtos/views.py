@@ -111,14 +111,28 @@ def lista_categoria(request, slug):
                 categorias__slug='femininos'
             )
 
-    else:
+        else:
+            
+            # ✅ só aplica categoria da URL
+            # quando NÃO houver outros filtros
+            if not (
+                request.GET.getlist('marca') or
+                request.GET.getlist('destaque') or
+                request.GET.get('q') or
+                request.GET.get('preco_min') or
+                request.GET.get('preco_max')
+            ):
 
-        # ✅ fallback da URL
-        perfumes = perfumes.filter(
-            categorias__slug=slug
-        )
+                perfumes = perfumes.filter(
+                    categorias__slug=slug
+                )
 
-        categorias_param = [slug]
+                categorias_param = [slug]
+
+            else:
+
+                # ✅ evita ficar preso na categoria da URL
+                categorias_param = []
 
     # =========================
     # ✅ FILTROS
