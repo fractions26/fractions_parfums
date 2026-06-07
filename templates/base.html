@@ -1037,6 +1037,111 @@ function restaurarFreteCarrinho() {
     }
 }
 
+// =======================
+// ✅ BUSCA AJAX DESKTOP
+// =======================
+
+const desktopInputBusca = document.querySelector(
+    '.search-box input'
+);
+
+const desktopResultadosBusca = document.getElementById(
+    'search-results'
+);
+
+if(desktopInputBusca && desktopResultadosBusca){
+
+    desktopInputBusca.addEventListener(
+        'input',
+        async function(){
+
+            const q = this.value.trim();
+
+            if(q.length < 2){
+
+                desktopResultadosBusca.style.display = 'none';
+
+                return;
+            }
+
+            try{
+
+                const response = await fetch(
+                    `/produtos/busca/ajax/?q=${encodeURIComponent(q)}`
+                );
+
+                const data = await response.json();
+
+                desktopResultadosBusca.innerHTML = '';
+
+                if(!data.resultados.length){
+
+                    desktopResultadosBusca.style.display = 'none';
+
+                    return;
+                }
+
+                data.resultados.forEach(item => {
+
+                    desktopResultadosBusca.innerHTML += `
+
+                        <a
+                            href="/produtos/detalhe/${item.slug}/"
+                            class="search-item"
+                        >
+
+                            <img src="${item.imagem}">
+
+                            <div class="search-info">
+
+                                <strong>
+                                    ${item.nome}
+                                </strong>
+
+                                <span>
+                                    R$ ${item.preco}
+                                </span>
+
+                            </div>
+
+                        </a>
+                    `;
+                });
+
+                desktopResultadosBusca.innerHTML += `
+
+                    <a
+                        href="/produtos/?q=${encodeURIComponent(q)}"
+                        class="search-ver-todos"
+                    >
+                        VER TODOS OS RESULTADOS
+                    </a>
+                `;
+
+                desktopResultadosBusca.style.display = 'block';
+
+            } catch(e){
+
+                console.log('Erro busca desktop ajax');
+            }
+        }
+    );
+
+    document.addEventListener('click', function(e){
+
+        if(!e.target.closest('.search-box')){
+
+            desktopResultadosBusca.style.display = 'none';
+        }
+    });
+
+    window.addEventListener('scroll', () => {
+
+        desktopResultadosBusca.style.display = 'none';
+
+    });
+}
+
 </script>
 
 </body>
