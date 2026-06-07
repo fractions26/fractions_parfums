@@ -585,11 +585,12 @@ document.addEventListener("DOMContentLoaded", function () {
 // ==========================
 // ✅ BUSCA AJAX MOBILE
 // ==========================
-const mobileInputBusca = document.getElementById(
+
+let mobileInputBusca = document.getElementById(
     'mobile-search-input'
 );
 
-const mobileResultadosBusca = document.getElementById(
+let mobileResultadosBusca = document.getElementById(
     'mobile-search-results'
 );
 
@@ -620,7 +621,14 @@ if(mobileInputBusca && mobileResultadosBusca){
 
                 if(!data.resultados.length){
 
-                    mobileResultadosBusca.style.display = 'none';
+                    mobileResultadosBusca.innerHTML = `
+
+                        <div class="search-empty">
+                            Nenhum perfume encontrado
+                        </div>
+                    `;
+
+                    mobileResultadosBusca.style.display = 'block';
 
                     return;
                 }
@@ -666,11 +674,12 @@ if(mobileInputBusca && mobileResultadosBusca){
 
             } catch(e){
 
-                console.log('Erro busca mobile ajax');
+                console.log('Erro busca mobile ajax', e);
             }
         }
     );
 
+    // ✅ FECHA AO CLICAR FORA
     document.addEventListener('click', function(e){
 
         if(!e.target.closest('.search-mobile')){
@@ -678,11 +687,14 @@ if(mobileInputBusca && mobileResultadosBusca){
             mobileResultadosBusca.style.display = 'none';
         }
     });
-}
 
-const mobileResultadosBusca = document.getElementById(
-    'mobile-search-results'
-);
+    // ✅ FECHA AO ROLAR
+    window.addEventListener('scroll', () => {
+
+        mobileResultadosBusca.style.display = 'none';
+
+    });
+}
 
 </script>
 
