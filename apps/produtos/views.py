@@ -33,23 +33,17 @@ def lista_categoria(request, slug):
         menor_preco=Min('precos__valor')
     )
 
-# =========================
-# ✅ LISTA POR CATEGORIA
-# =========================
-@ensure_csrf_cookie
-def lista_categoria(request, slug):
+    # =========================
+    # ✅ CATEGORIA PADRÃO URL
+    # =========================
 
-    categorias_param = request.GET.getlist("categoria")
+    if not categorias_param:
 
-    # ✅ categoria visual
-    categoria = get_object_or_404(
-        Categoria,
-        slug=slug
-    )
+        perfumes = perfumes.filter(
+            categorias__slug=slug
+        )
 
-    perfumes = Perfume.objects.all().annotate(
-        menor_preco=Min('precos__valor')
-    )
+        categorias_param = [slug]
 
     # =========================
     # ✅ NOVA REGRA CATEGORIAS
