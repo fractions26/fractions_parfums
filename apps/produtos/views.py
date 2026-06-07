@@ -523,7 +523,7 @@ def busca_ajax(request):
 
                 # ✅ CORRIGIDO
                 'imagem': (
-                    perfume.get_imagem_url()
+                    f"/static/{perfume.imagem}"
                     if perfume.imagem
                     else ''
                 ),

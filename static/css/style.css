@@ -1016,6 +1016,29 @@ body.modal-aberto {
     box-sizing: border-box; /* ✅ proteção extra */
 }
 
+.search-results{
+
+    position: absolute;
+
+    top: 58px;
+
+    left: 0;
+
+    width: 100%;
+
+    background: #fff;
+
+    border-radius: 16px;
+
+    box-shadow: 0 12px 35px rgba(0,0,0,0.14);
+
+    overflow: hidden;
+
+    z-index: 9999999;
+
+    display: none;
+}
+
 
 .search-icon {
     width: 25px;
