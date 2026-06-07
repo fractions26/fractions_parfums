@@ -9,7 +9,7 @@ class PrecoInline(admin.TabularInline):
     extra = 1
 
 
-# ✅ CATEGORIA (FALTAVA ISSO ✅)
+# ✅ CATEGORIA
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
     list_display = ("nome", "slug")
@@ -20,9 +20,21 @@ class CategoriaAdmin(admin.ModelAdmin):
 @admin.register(Perfume)
 class PerfumeAdmin(admin.ModelAdmin):
 
-    list_display = ("nome", "marca", ""estoque_ml",mostrar_categorias", "imagem_preview")
+    # ✅ ADICIONADO ESTOQUE E ATIVO
+    list_display = (
+        "nome",
+        "marca",
+        "estoque_ml",
+        "ativo",
+        "mostrar_categorias",
+        "imagem_preview",
+    )
 
-    list_filter = ("categorias",)
+    # ✅ ADICIONADO FILTRO ATIVO
+    list_filter = (
+        "categorias",
+        "ativo",
+    )
 
     search_fields = ("nome", "marca")
 
@@ -32,18 +44,17 @@ class PerfumeAdmin(admin.ModelAdmin):
 
     filter_horizontal = ("categorias",)
 
-    # ✅ CAMPOS CORRETOS (SEM MOBILE)
+    # ✅ CAMPOS ADMIN
     fields = (
         "nome",
         "marca",
         "slug",
 
-        # ✅ NOVOS
+        # ✅ NOVOS CAMPOS
         "estoque_ml",
         "ativo",
 
         "categorias",
-
         "imagem",
         "imagem_preview",
         "imagem_descricao",
@@ -58,11 +69,14 @@ class PerfumeAdmin(admin.ModelAdmin):
 
     # ✅ PREVIEW AJUSTADO PARA CHARFIELD
     def imagem_preview(self, obj):
+
         if obj.imagem:
+
             return format_html(
                 '<img src="/media/{}" style="max-width: 120px; border-radius: 8px;" />',
                 obj.imagem
             )
+
         return "Sem imagem"
 
 
