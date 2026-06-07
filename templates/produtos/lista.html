@@ -13,12 +13,17 @@
 
     <form method="get">
 
-            <h3>Categorias</h3>
-            
-        <ul class="lista-categorias">
+        <!-- ✅ CATEGORIAS -->
+        <div class="accordion">
 
-            <!-- ✅ MASCULINOS -->
-            <li>
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>Categorias</span>
+                <span class="icon">+</span>
+            </div>
+
+            <div class="accordion-body">
+
+                <!-- ✅ MASCULINOS -->
                 <label>
                     <input
                         type="radio"
@@ -28,10 +33,8 @@
                     >
                     Masculinos
                 </label>
-            </li>
 
-            <!-- ✅ FEMININOS -->
-            <li>
+                <!-- ✅ FEMININOS -->
                 <label>
                     <input
                         type="radio"
@@ -41,10 +44,8 @@
                     >
                     Femininos
                 </label>
-            </li>
 
-            <!-- ✅ ÁRABES -->
-            <li>
+                <!-- ✅ ÁRABES -->
                 <label>
                     <input
                         type="radio"
@@ -54,24 +55,36 @@
                     >
                     Árabes
                 </label>
-            </li>
 
-        </ul>
+            </div>
 
+        </div>
+
+        <!-- ✅ DESTAQUES -->
         <div class="filtro-bloco">
+
             <h4>Destaques</h4>
 
             <label>
-                <input type="checkbox" name="destaque" value="mais_vendidos"
-                {% if destaques_selecionados and 'mais_vendidos' in destaques_selecionados %}checked{% endif %}>
+                <input
+                    type="checkbox"
+                    name="destaque"
+                    value="mais_vendidos"
+                    {% if destaques_selecionados and 'mais_vendidos' in destaques_selecionados %}checked{% endif %}
+                >
                 Mais vendidos
             </label>
 
             <label>
-                <input type="checkbox" name="destaque" value="novidades"
-                {% if destaques_selecionados and 'novidades' in destaques_selecionados %}checked{% endif %}>
+                <input
+                    type="checkbox"
+                    name="destaque"
+                    value="novidades"
+                    {% if destaques_selecionados and 'novidades' in destaques_selecionados %}checked{% endif %}
+                >
                 Novidades
             </label>
+
         </div>
 
 <!-- ✅ MARCAS -->
@@ -420,7 +433,7 @@
             <span class="icon">+</span>
         </div>
 
-        <div class="accordion-body">
+        <div class="accordion-body {% if request.GET.marca %}ativo{% endif %}">
 
             {% for marca in marcas %}
             <label>
