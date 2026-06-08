@@ -52,7 +52,7 @@ def adicionar_carrinho(request):
                 preco_obj=preco_obj
             ).first()
 
-            # ✅ EXTRAI ML DO TAMANHO
+            # ✅ ML DO TAMANHO SELECIONADO
             tamanho_ml = int(
                 ''.join(
                     filter(
@@ -62,32 +62,91 @@ def adicionar_carrinho(request):
                 )
             )
 
-            # ✅ QUANTIDADE ATUAL NO CARRINHO
+            # ✅ ITEM JÁ EXISTENTE
             qtd_existente = (
                 item.quantidade
                 if item
                 else 0
             )
 
-            # ✅ NOVA QUANTIDADE
+            # ✅ NOVA QTD DA MESMA VARIAÇÃO
             nova_qtd = (
                 qtd_existente + quantidade
             )
 
-            # ✅ LIMITE PELO ESTOQUE
-            maximo_por_estoque = (
-                perfume.estoque_ml // tamanho_ml
+            # ✅ REGRA GLOBAL
+            if nova_qtd > MAX_QTD:
+
+                return JsonResponse({
+
+                    "success": False,
+
+                    "erro": (
+                        f"Limite máximo de "
+                        f"{MAX_QTD} unidades "
+                        f"por volume."
+                    )
+
+                })
+
+            # =========================
+            # ✅ ML TOTAL NO CARRINHO
+            # =========================
+
+            ml_no_carrinho = 0
+
+            itens_perfume = Item.objects.filter(
+                carrinho=carrinho,
+                perfume=perfume
             )
 
-            # ✅ REGRA FINAL
-            # mantém proteção de no máximo 10 itens
-            maximo_permitido = min(
-                MAX_QTD,
-                maximo_por_estoque
+            for i in itens_perfume:
+
+                try:
+
+                    ml_item = int(
+                        ''.join(
+                            filter(
+                                str.isdigit,
+                                i.tamanho
+                            )
+                        )
+                    )
+
+                    ml_no_carrinho += (
+                        ml_item * i.quantidade
+                    )
+
+                except:
+
+                    pass
+
+            # ✅ REMOVE O ITEM ATUAL
+            # PARA EVITAR DUPLICAR
+            if item:
+
+                ml_no_carrinho -= (
+                    tamanho_ml * item.quantidade
+                )
+
+            # ✅ NOVO TOTAL ML
+            ml_total = (
+                ml_no_carrinho +
+                (tamanho_ml * nova_qtd)
             )
 
-            # ✅ BLOQUEIA ULTRAPASSAR
-            if nova_qtd > maximo_permitido:
+            # ✅ BLOQUEIA ESTOQUE TOTAL
+            if ml_total > perfume.estoque_ml:
+
+                ml_restante = (
+                    perfume.estoque_ml -
+                    ml_no_carrinho
+                )
+
+                maximo_permitido = max(
+                    0,
+                    ml_restante // tamanho_ml
+                )
 
                 return JsonResponse({
 
@@ -128,7 +187,10 @@ def adicionar_carrinho(request):
                     quantidade=quantidade
                 )
 
+            # =========================
             # ✅ RECALCULAR CARRINHO
+            # =========================
+
             itens = carrinho.itens.all()
 
             quantidade_total = sum(
@@ -141,7 +203,6 @@ def adicionar_carrinho(request):
                 for i in itens
             )
 
-            # ✅ FORMATA TOTAL
             total_formatado = (
                 f"{total:,.2f}"
                 .replace(",", "X")
@@ -149,7 +210,10 @@ def adicionar_carrinho(request):
                 .replace("X", ".")
             )
 
+            # =========================
             # ✅ IMAGEM
+            # =========================
+
             imagem_url = ""
 
             if perfume.imagem:
@@ -164,7 +228,10 @@ def adicionar_carrinho(request):
                         perfume.imagem
                     )
 
+            # =========================
             # ✅ RESPOSTA FINAL
+            # =========================
+
             return JsonResponse({
 
                 "success": True,
