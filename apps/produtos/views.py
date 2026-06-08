@@ -261,7 +261,7 @@ def lista_categoria(request, slug):
     perfumes = perfumes.distinct()
 
     # =========================
-    # ✅ PARCELAMENTO
+    # ✅ PARCELAMENTO + ESTOQUE
     # =========================
 
     for perfume in perfumes:
@@ -274,6 +274,28 @@ def lista_categoria(request, slug):
                 preco.valor / 3,
                 2
             )
+
+        # ✅ ESTOQUE POR VOLUME
+        for p in perfume.precos.all():
+
+            try:
+
+                tamanho_ml = int(
+                    ''.join(
+                        filter(
+                            str.isdigit,
+                            p.tamanho
+                        )
+                    )
+                )
+
+                p.unidades_disponiveis = (
+                    perfume.estoque_ml // tamanho_ml
+                )
+
+            except:
+
+                p.unidades_disponiveis = 0
 
     # =========================
     # ✅ MARCAS
