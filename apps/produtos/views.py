@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q, Min
-from .models import Perfume, Categoria
+from .models import Perfume, Categoria, Item
 from django.views.decorators.csrf import ensure_csrf_cookie
 from decimal import Decimal
 from django.http import JsonResponse
@@ -17,6 +17,54 @@ def detalhe_produto(request, slug):
         slug=slug
     )
 
+    # =========================
+    # ✅ ML RESERVADO NO CARRINHO
+    # =========================
+
+    ml_reservado = 0
+
+    carrinho_id = request.session.get(
+        "carrinho_id"
+    )
+
+    if carrinho_id:
+
+        itens = Item.objects.filter(
+            carrinho_id=carrinho_id,
+            perfume=perfume
+        )
+
+        for item in itens:
+
+            try:
+
+                tamanho_item = int(
+                    ''.join(
+                        filter(
+                            str.isdigit,
+                            item.tamanho
+                        )
+                    )
+                )
+
+                ml_reservado += (
+                    tamanho_item * item.quantidade
+                )
+
+            except:
+
+                pass
+
+    # ✅ ESTOQUE REAL RESTANTE
+    estoque_restante = max(
+        0,
+        perfume.estoque_ml - ml_reservado
+    )
+
+    # =========================
+    # ✅ PREÇOS
+    # =========================
+
     precos = []
 
     for preco in perfume.precos.all():
@@ -32,8 +80,9 @@ def detalhe_produto(request, slug):
 
                 tamanho_ml = int(numero[0])
 
+                # ✅ ESTOQUE REAL
                 preco.unidades_disponiveis = (
-                    perfume.estoque_ml // tamanho_ml
+                    estoque_restante // tamanho_ml
                 )
 
             else:
@@ -54,6 +103,7 @@ def detalhe_produto(request, slug):
             'precos': precos,
         }
     )
+
 
 # =========================
 # ✅ LISTA POR CATEGORIA
