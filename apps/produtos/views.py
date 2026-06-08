@@ -265,7 +265,7 @@ def lista_categoria(request, slug):
     # =========================
 
     for perfume in perfumes:
-
+        
         preco = perfume.precos.first()
 
         if preco:
@@ -275,7 +275,9 @@ def lista_categoria(request, slug):
                 2
             )
 
-        # ✅ ESTOQUE POR VOLUME
+        # ✅ NOVA LISTA DE PREÇOS TRATADOS
+        precos_tratados = []
+
         for p in perfume.precos.all():
 
             try:
@@ -296,6 +298,11 @@ def lista_categoria(request, slug):
             except:
 
                 p.unidades_disponiveis = 0
+
+            precos_tratados.append(p)
+
+        # ✅ SOBRESCREVE
+        perfume.precos_tratados = precos_tratados
 
     # =========================
     # ✅ MARCAS
