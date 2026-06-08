@@ -976,9 +976,15 @@ function confirmarCompra() {
             // ✅ toast
             mostrarToastProduto(data);
 
-        } else {
-            console.log("❌ resposta inesperada:", data);
-        }
+            } else {
+
+                alert("⚠ Estoque insuficiente");
+
+                console.log(
+                    "❌ resposta inesperada:",
+                    data
+                );
+            }
 
     })
     .catch(error => {

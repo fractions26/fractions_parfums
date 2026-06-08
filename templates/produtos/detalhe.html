@@ -918,7 +918,13 @@ function adicionarCarrinho() {
             }, 1200);
 
         } else {
-            console.log("❌ resposta inesperada:", data);
+
+            alert("⚠ Estoque insuficiente");
+
+            console.log(
+                "❌ resposta inesperada:",
+                data
+            );
         }
 
     })
