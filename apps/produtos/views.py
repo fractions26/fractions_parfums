@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q, Min
-from .models import Perfume, Categoria, Item
+from .models import Perfume, Categoria
+from apps.carrinho.models import Item
 from django.views.decorators.csrf import ensure_csrf_cookie
 from decimal import Decimal
 from django.http import JsonResponse
