@@ -901,19 +901,47 @@ function adicionarCarrinho() {
 
         } else {
 
-            alert("⚠ Estoque insuficiente");
+                    alert("⚠ Estoque insuficiente");
 
-            console.log(
-                "❌ resposta inesperada:",
-                data
-            );
+                    // ✅ ALERTA VISUAL
+                    const alerta =
+                        document.getElementById(
+                            "alertaEstoque"
+                        );
+
+                    alerta.innerHTML =
+                        "⚠ Estoque insuficiente";
+
+                    alerta.style.color =
+                        "#ff9800";
+
+                    // ✅ BLOQUEIA BOTÃO
+                    const btn =
+                        document.querySelector(
+                            ".btn-comprar-principal"
+                        );
+
+                    btn.disabled = true;
+
+                    btn.innerText =
+                        "INDISPONÍVEL";
+
+                    btn.style.opacity = "0.6";
+
+                    btn.style.cursor =
+                        "not-allowed";
+
+                    console.log(
+                        "❌ resposta inesperada:",
+                        data
+                    );
+                }
+
+            })
+            .catch(error => {
+                console.error("❌ erro no fetch:", error);
+            });
         }
-
-    })
-    .catch(error => {
-        console.error("❌ erro no fetch:", error);
-    });
-}
 
 // ✅ CSRF TOKEN (necessário para POST no Django)
 function getCookie(name) {
