@@ -955,7 +955,52 @@ function atualizarQtdTela() {
 }
 
 function aumentarQtd() {
+
+    const select =
+        document.getElementById("selectTamanho");
+
+    const option =
+        select.options[
+            select.selectedIndex
+        ];
+
+    const disponivel =
+        parseInt(
+            option.getAttribute(
+                "data-disponivel"
+            )
+        );
+
     quantidadeAtual++;
+
+    // ✅ MÁXIMO 10
+    if (quantidadeAtual > 10) {
+
+        quantidadeAtual = 10;
+    }
+
+    // ✅ MÁXIMO ESTOQUE
+    if (quantidadeAtual > disponivel) {
+
+        quantidadeAtual = disponivel;
+
+        alert(
+            `Máximo disponível: ${disponivel} unidade(s).`
+        );
+    }
+
+    atualizarQtdTela();
+}
+
+function diminuirQtd() {
+
+    quantidadeAtual--;
+
+    if (quantidadeAtual < 1) {
+
+        quantidadeAtual = 1;
+    }
+
     atualizarQtdTela();
 }
 
