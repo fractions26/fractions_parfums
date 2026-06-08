@@ -95,8 +95,8 @@ def adicionar_carrinho(request):
 
             ml_no_carrinho = 0
 
+            # ✅ TODOS OS CARRINHOS
             itens_perfume = Item.objects.filter(
-                carrinho=carrinho,
                 perfume=perfume
             )
 
@@ -334,8 +334,8 @@ def atualizar_item(request):
 
         ml_no_carrinho = 0
 
+        # ✅ TODOS OS CARRINHOS
         itens_perfume = Item.objects.filter(
-            carrinho=carrinho,
             perfume=perfume
         )
 

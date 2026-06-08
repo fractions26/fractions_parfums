@@ -19,42 +19,36 @@ def detalhe_produto(request, slug):
     )
 
     # =========================
-    # ✅ ML RESERVADO NO CARRINHO
+    # ✅ ML RESERVADO GLOBAL
     # =========================
 
     ml_reservado = 0
 
-    carrinho_id = request.session.get(
-        "carrinho_id"
+    # ✅ TODOS OS CARRINHOS
+    itens = Item.objects.filter(
+        perfume=perfume
     )
 
-    if carrinho_id:
+    for item in itens:
 
-        itens = Item.objects.filter(
-            carrinho_id=carrinho_id,
-            perfume=perfume
-        )
+        try:
 
-        for item in itens:
-
-            try:
-
-                tamanho_item = int(
-                    ''.join(
-                        filter(
-                            str.isdigit,
-                            item.tamanho
-                        )
+            tamanho_item = int(
+                ''.join(
+                    filter(
+                        str.isdigit,
+                        item.tamanho
                     )
                 )
+            )
 
-                ml_reservado += (
-                    tamanho_item * item.quantidade
-                )
+            ml_reservado += (
+                tamanho_item * item.quantidade
+            )
 
-            except:
+        except:
 
-                pass
+            pass
 
     # ✅ ESTOQUE REAL RESTANTE
     estoque_restante = max(
@@ -327,42 +321,36 @@ def lista_categoria(request, slug):
             )
 
         # =========================
-        # ✅ ML RESERVADO NO CARRINHO
+        # ✅ ML RESERVADO GLOBAL
         # =========================
 
         ml_reservado = 0
 
-        carrinho_id = request.session.get(
-            "carrinho_id"
+        # ✅ TODOS OS CARRINHOS
+        itens = Item.objects.filter(
+            perfume=perfume
         )
 
-        if carrinho_id:
+        for item in itens:
 
-            itens = Item.objects.filter(
-                carrinho_id=carrinho_id,
-                perfume=perfume
-            )
+            try:
 
-            for item in itens:
-
-                try:
-
-                    tamanho_item = int(
-                        ''.join(
-                            filter(
-                                str.isdigit,
-                                item.tamanho
-                            )
+                tamanho_item = int(
+                    ''.join(
+                        filter(
+                            str.isdigit,
+                            item.tamanho
                         )
                     )
+                )
 
-                    ml_reservado += (
-                        tamanho_item * item.quantidade
-                    )
+                ml_reservado += (
+                    tamanho_item * item.quantidade
+                )
 
-                except:
+            except:
 
-                    pass
+                pass
 
         # ✅ ESTOQUE REAL
         estoque_restante = max(
@@ -423,7 +411,6 @@ def lista_categoria(request, slug):
         'categorias_selecionadas': categorias_param,
 
     })
-
 # =========================
 # ✅ LISTA GERAL
 # =========================
@@ -595,43 +582,38 @@ def lista_produtos(request):
                 2
             )
 
+
         # =========================
-        # ✅ ML RESERVADO NO CARRINHO
+        # ✅ ML RESERVADO GLOBAL
         # =========================
 
         ml_reservado = 0
 
-        carrinho_id = request.session.get(
-            "carrinho_id"
+        # ✅ TODOS OS CARRINHOS
+        itens = Item.objects.filter(
+            perfume=perfume
         )
 
-        if carrinho_id:
+        for item in itens:
 
-            itens = Item.objects.filter(
-                carrinho_id=carrinho_id,
-                perfume=perfume
-            )
+            try:
 
-            for item in itens:
-
-                try:
-
-                    tamanho_item = int(
-                        ''.join(
-                            filter(
-                                str.isdigit,
-                                item.tamanho
-                            )
+                tamanho_item = int(
+                    ''.join(
+                        filter(
+                            str.isdigit,
+                            item.tamanho
                         )
                     )
+                )
 
-                    ml_reservado += (
-                        tamanho_item * item.quantidade
-                    )
+                ml_reservado += (
+                    tamanho_item * item.quantidade
+                )
 
-                except:
+            except:
 
-                    pass
+                pass
 
         # ✅ ESTOQUE REAL
         estoque_restante = max(
