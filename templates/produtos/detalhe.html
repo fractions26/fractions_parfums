@@ -800,29 +800,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 "not-allowed";
 
         }
-        else if(disponivel === 1){
-
-            alerta.innerHTML =
-                "⚠ Última unidade disponível";
-
-            alerta.style.color = "#d32f2f";
-
-            // ✅ REATIVA BOTÃO
-            btnComprar.disabled = false;
-
-            btnComprar.innerText =
-                "COMPRAR";
-
-            btnComprar.style.opacity = "1";
-
-            btnComprar.style.cursor =
-                "pointer";
-
-        }
         else if(disponivel <= 4){
 
             alerta.innerHTML =
-                `⚠ Últimas ${disponivel} unidades disponíveis`;
+                "⚠ Estoque insuficiente";
 
             alerta.style.color = "#ff9800";
 
@@ -853,18 +834,19 @@ document.addEventListener("DOMContentLoaded", function () {
             btnComprar.style.cursor =
                 "pointer";
         }
-    }
 
-    // ✅ Quando trocar volume
-    selectTamanho.addEventListener(
-        "change",
-        atualizarPreco
-    );
+        }
 
-    // ✅ Inicializa
-    atualizarPreco();
+        // ✅ Quando trocar volume
+        selectTamanho.addEventListener(
+            "change",
+            atualizarPreco
+        );
 
-});
+        // ✅ Inicializa
+        atualizarPreco();
+
+        });
 
 // =======================
 // ✅ ADICIONAR AO CARRINHO
