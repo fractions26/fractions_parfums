@@ -328,21 +328,77 @@ def atualizar_item(request):
             )
         )
 
-        # ✅ LIMITE PELO ESTOQUE
-        maximo_por_estoque = (
-            perfume.estoque_ml // tamanho_ml
+        # =========================
+        # ✅ ML TOTAL NO CARRINHO
+        # =========================
+
+        ml_no_carrinho = 0
+
+        itens_perfume = Item.objects.filter(
+            carrinho=carrinho,
+            perfume=perfume
         )
 
-        # ✅ REGRA FINAL
-        maximo_permitido = min(
-            MAX_QTD,
-            maximo_por_estoque
+        for i in itens_perfume:
+
+            try:
+
+                ml_item = int(
+                    ''.join(
+                        filter(
+                            str.isdigit,
+                            i.tamanho
+                        )
+                    )
+                )
+
+                ml_no_carrinho += (
+                    ml_item * i.quantidade
+                )
+
+            except:
+
+                pass
+
+        # ✅ REMOVE ITEM ATUAL
+        ml_no_carrinho -= (
+            tamanho_ml * item.quantidade
+        )
+
+        # ✅ NOVO TOTAL
+        ml_total = (
+            ml_no_carrinho +
+            (tamanho_ml * quantidade)
         )
 
         if quantidade > 0:
 
-            # ✅ BLOQUEIA LIMITE
-            if quantidade > maximo_permitido:
+            # ✅ LIMITE 10
+            if quantidade > MAX_QTD:
+
+                return JsonResponse({
+
+                    "success": False,
+
+                    "erro": (
+                        f"Limite máximo de "
+                        f"{MAX_QTD} unidades."
+                    )
+
+                })
+
+            # ✅ BLOQUEIA ESTOQUE TOTAL
+            if ml_total > perfume.estoque_ml:
+
+                ml_restante = (
+                    perfume.estoque_ml -
+                    ml_no_carrinho
+                )
+
+                maximo_permitido = max(
+                    0,
+                    ml_restante // tamanho_ml
+                )
 
                 return JsonResponse({
 

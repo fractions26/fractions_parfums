@@ -780,73 +780,54 @@ document.addEventListener("DOMContentLoaded", function () {
             <span class="desconto">5% OFF</span>
         `;
 
-        // ✅ ESTOQUE
-        if(disponivel <= 0){
+// ✅ ESTOQUE
+if(disponivel <= 0){
 
-            alerta.innerHTML =
-                "❌ Produto indisponível";
+    alerta.innerHTML =
+        "❌ Produto indisponível";
 
-            alerta.style.color = "#d32f2f";
+    alerta.style.color = "#d32f2f";
 
-            // ✅ BLOQUEIA BOTÃO
-            btnComprar.disabled = true;
+    // ✅ BLOQUEIA BOTÃO
+    btnComprar.disabled = true;
 
-            btnComprar.innerText =
-                "INDISPONÍVEL";
+    btnComprar.innerText =
+        "INDISPONÍVEL";
 
-            btnComprar.style.opacity = "0.6";
+    btnComprar.style.opacity = "0.6";
 
-            btnComprar.style.cursor =
-                "not-allowed";
+    btnComprar.style.cursor =
+        "not-allowed";
 
-        }
-        else if(disponivel <= 10){
+}
+else{
 
-            alerta.innerHTML =
-                "⚠ Estoque insuficiente";
+    alerta.innerHTML = "";
 
-            alerta.style.color = "#ff9800";
+    // ✅ REATIVA BOTÃO
+    btnComprar.disabled = false;
 
-            // ✅ REATIVA BOTÃO
-            btnComprar.disabled = false;
+    btnComprar.innerText =
+        "COMPRAR";
 
-            btnComprar.innerText =
-                "COMPRAR";
+    btnComprar.style.opacity = "1";
 
-            btnComprar.style.opacity = "1";
+    btnComprar.style.cursor =
+        "pointer";
+}
 
-            btnComprar.style.cursor =
-                "pointer";
+}
 
-        }
-        else{
+// ✅ Quando trocar volume
+selectTamanho.addEventListener(
+    "change",
+    atualizarPreco
+);
 
-            alerta.innerHTML = "";
+// ✅ Inicializa
+atualizarPreco();
 
-            // ✅ REATIVA BOTÃO
-            btnComprar.disabled = false;
-
-            btnComprar.innerText =
-                "COMPRAR";
-
-            btnComprar.style.opacity = "1";
-
-            btnComprar.style.cursor =
-                "pointer";
-        }
-
-        }
-
-        // ✅ Quando trocar volume
-        selectTamanho.addEventListener(
-            "change",
-            atualizarPreco
-        );
-
-        // ✅ Inicializa
-        atualizarPreco();
-
-        });
+});
 
 // =======================
 // ✅ ADICIONAR AO CARRINHO
@@ -901,7 +882,7 @@ function adicionarCarrinho() {
 
         } else {
 
-                    alert("⚠ Estoque insuficiente");
+                    alert("❌ Produto indisponível");
 
                     // ✅ ALERTA VISUAL
                     const alerta =
@@ -910,7 +891,7 @@ function adicionarCarrinho() {
                         );
 
                     alerta.innerHTML =
-                        "⚠ Estoque insuficiente";
+                        "❌ Produto indisponível";
 
                     alerta.style.color =
                         "#ff9800";

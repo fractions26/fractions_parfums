@@ -316,7 +316,7 @@ def lista_categoria(request, slug):
     # =========================
 
     for perfume in perfumes:
-        
+
         preco = perfume.precos.first()
 
         if preco:
@@ -326,7 +326,51 @@ def lista_categoria(request, slug):
                 2
             )
 
-        # ✅ NOVA LISTA DE PREÇOS TRATADOS
+        # =========================
+        # ✅ ML RESERVADO NO CARRINHO
+        # =========================
+
+        ml_reservado = 0
+
+        carrinho_id = request.session.get(
+            "carrinho_id"
+        )
+
+        if carrinho_id:
+
+            itens = Item.objects.filter(
+                carrinho_id=carrinho_id,
+                perfume=perfume
+            )
+
+            for item in itens:
+
+                try:
+
+                    tamanho_item = int(
+                        ''.join(
+                            filter(
+                                str.isdigit,
+                                item.tamanho
+                            )
+                        )
+                    )
+
+                    ml_reservado += (
+                        tamanho_item * item.quantidade
+                    )
+
+                except:
+
+                    pass
+
+        # ✅ ESTOQUE REAL
+        estoque_restante = max(
+            0,
+            perfume.estoque_ml - ml_reservado
+        )
+
+        # ✅ PREÇOS TRATADOS
         precos_tratados = []
 
         for p in perfume.precos.all():
@@ -343,7 +387,7 @@ def lista_categoria(request, slug):
                 )
 
                 p.unidades_disponiveis = (
-                    perfume.estoque_ml // tamanho_ml
+                    estoque_restante // tamanho_ml
                 )
 
             except:
@@ -537,7 +581,7 @@ def lista_produtos(request):
     perfumes = perfumes.distinct()
 
     # =========================
-    # ✅ PARCELAMENTO
+    # ✅ PARCELAMENTO + ESTOQUE
     # =========================
 
     for perfume in perfumes:
@@ -550,6 +594,79 @@ def lista_produtos(request):
                 preco.valor / 3,
                 2
             )
+
+        # =========================
+        # ✅ ML RESERVADO NO CARRINHO
+        # =========================
+
+        ml_reservado = 0
+
+        carrinho_id = request.session.get(
+            "carrinho_id"
+        )
+
+        if carrinho_id:
+
+            itens = Item.objects.filter(
+                carrinho_id=carrinho_id,
+                perfume=perfume
+            )
+
+            for item in itens:
+
+                try:
+
+                    tamanho_item = int(
+                        ''.join(
+                            filter(
+                                str.isdigit,
+                                item.tamanho
+                            )
+                        )
+                    )
+
+                    ml_reservado += (
+                        tamanho_item * item.quantidade
+                    )
+
+                except:
+
+                    pass
+
+        # ✅ ESTOQUE REAL
+        estoque_restante = max(
+            0,
+            perfume.estoque_ml - ml_reservado
+        )
+
+        # ✅ PREÇOS TRATADOS
+        precos_tratados = []
+
+        for p in perfume.precos.all():
+
+            try:
+
+                tamanho_ml = int(
+                    ''.join(
+                        filter(
+                            str.isdigit,
+                            p.tamanho
+                        )
+                    )
+                )
+
+                p.unidades_disponiveis = (
+                    estoque_restante // tamanho_ml
+                )
+
+            except:
+
+                p.unidades_disponiveis = 0
+
+            precos_tratados.append(p)
+
+        # ✅ SOBRESCREVE
+        perfume.precos_tratados = precos_tratados
 
     # ✅ MARCAS
     marcas_lista = Perfume.objects.values_list(
