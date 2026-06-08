@@ -418,17 +418,21 @@
 
                         {
                             "id":"{{ p.id }}",
-                            "tamanho":"{{ p.tamanho }}",
+
+                            "tamanho":"{{ p.tamanho }} | estoque: {{ p.unidades_disponiveis }}",
+
                             "valor":"{{ p.valor }}",
-                            "disponivel":"999"
+
+                            "disponivel":"{{ p.unidades_disponiveis }}"
                         }
 
                         {% if not forloop.last %},{% endif %}
 
                     {% endfor %}
 
-                ]'
-            >
+                    ]'
+                    >
+
                 COMPRAR
             </button>
 
