@@ -594,53 +594,91 @@ function alterarQtd(btn, delta){
 function removerItem(btn){
 
     const itemDiv = btn.closest(".item");
+
     if(!itemDiv) return;
 
     // ✅ pega a quantidade antes de remover
-    const qtdElemento = itemDiv.querySelector(".qtd-value");
-    const qtdRemovida = parseInt(qtdElemento.innerText) || 1;
+    const qtdElemento =
+        itemDiv.querySelector(".qtd-value");
+
+    const qtdRemovida =
+        parseInt(qtdElemento.innerText) || 1;
 
     fetch("/carrinho/remover/", {
+
         method: "POST",
-        credentials: "same-origin", // 🔥 ESSENCIAL (FIX 403)
+
+        credentials: "same-origin",
+
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "X-CSRFToken": getCSRF()
+
+            "Content-Type":
+                "application/x-www-form-urlencoded",
+
+            "X-CSRFToken":
+                getCSRF()
         },
+
         body: `item_id=${itemDiv.dataset.id}`
+
     })
+
     .then(res => {
 
         if(!res.ok){
-            console.error("❌ Erro HTTP:", res.status);
+
+            console.error(
+                "❌ Erro HTTP:",
+                res.status
+            );
+
             return null;
         }
 
         return res.json();
     })
+
     .then(data => {
 
         if(!data || !data.success) return;
 
+        // ✅ libera estoque imediatamente
+        const paginaProduto =
+            window.location.pathname.includes(
+                "/produtos/"
+            );
+
         // ✅ animação UX
         itemDiv.style.transition = "0.2s";
+
         itemDiv.style.opacity = "0";
-        itemDiv.style.transform = "translateX(20px)";
+
+        itemDiv.style.transform =
+            "translateX(20px)";
 
         setTimeout(() => {
+
             itemDiv.remove();
+
         }, 200);
 
         // ✅ atualiza subtotal
-        const total = document.getElementById("totalValor");
-        const totalFinal = document.getElementById("totalValorFinal");
+        const total =
+            document.getElementById("totalValor");
+
+        const totalFinal =
+            document.getElementById("totalValorFinal");
 
         if(total){
-            total.innerText = "R$ " + data.total.toFixed(2);
+
+            total.innerText =
+                "R$ " + data.total.toFixed(2);
         }
 
         if(totalFinal){
-            totalFinal.innerText = "R$ " + data.total.toFixed(2);
+
+            totalFinal.innerText =
+                "R$ " + data.total.toFixed(2);
         }
 
         // ✅ badge
@@ -659,17 +697,32 @@ function removerItem(btn){
                 parseFloat(freteSalvo),
                 cepSalvo
             );
+        }
 
+        // ✅ atualiza detalhe/lista automaticamente
+        if(paginaProduto){
+
+            setTimeout(() => {
+
+                location.reload();
+
+            }, 300);
         }
 
         // ✅ se zerar carrinho
         if(data.total === 0){
+
             location.reload();
         }
 
     })
+
     .catch(err => {
-        console.error("❌ Erro no removerItem:", err);
+
+        console.error(
+            "❌ Erro no removerItem:",
+            err
+        );
     });
 }
 
