@@ -419,7 +419,7 @@
                         {
                             "id":"{{ p.id }}",
 
-                            "tamanho":"{{ p.tamanho }} | estoque: {{ p.unidades_disponiveis }}",
+                            "tamanho":"{{ p.tamanho }}",
 
                             "valor":"{{ p.valor }}",
 
@@ -623,10 +623,19 @@
 
         <h2 id="modalNome"></h2>
 
-        <div class="modal-select-box">
-            <label>Tamanho</label>
-            <select id="modalSelect"></select>
-        </div>
+            <div class="modal-select-box">
+
+                <label>Tamanho</label>
+
+                <select id="modalSelect"></select>
+
+                <!-- ✅ ALERTA ESTOQUE -->
+                <div
+                    id="modalAlertaEstoque"
+                    class="alerta-estoque-modal"
+                ></div>
+
+            </div>
 
         <div class="modal-qtd">
             <button type="button" onclick="alterarQtdModal(-1)">−</button>
