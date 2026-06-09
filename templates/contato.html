@@ -40,7 +40,7 @@
             {% endfor %}
         {% endif %}
 
-        <form method="post">
+        <form method="POST" action="{% url 'contato' %}">
             {% csrf_token %}
 
             <label>Nome completo</label>
