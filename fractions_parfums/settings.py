@@ -80,6 +80,7 @@ INSTALLED_APPS = [
     'apps.carrinho.apps.CarrinhoConfig',
     'apps.entrega',
     'apps.pedidos.apps.PedidosConfig',
+    'apps.usuarios.apps.UsuariosConfig',
     'apps.pagamentos.apps.PagamentosConfig',
     'apps.paginas.apps.PaginasConfig',
 

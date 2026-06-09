@@ -20,6 +20,10 @@ urlpatterns = [
 
     # ✅ PAGAMENTOS
     path('pagamento/', include('apps.pagamentos.urls')),
+    
+    # ✅ USUARIOS
+    path('usuario/', include('apps.usuarios.urls')),
+    
 ]
 
 # ✅ MEDIA
