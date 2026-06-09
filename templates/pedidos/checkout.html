@@ -74,22 +74,29 @@
 
             {% else %}
 
-                <div class="checkout-alerta">
+            <div class="checkout-alerta">
 
-                    Nenhum endereço cadastrado.
+                <strong>
+                    Você ainda não possui endereço cadastrado.
+                </strong>
 
-                </div>
+                <p>
+                    Cadastre um endereço para visualizar
+                    as opções de entrega.
+                </p>
 
-                <a href="{% url 'editar_endereco' %}"
-                   class="btn-checkout-endereco">
+            </div>
 
-                    CADASTRAR ENDEREÇO
+            <a href="{% url 'editar_endereco' %}?next=/pedido/checkout/"
+            class="btn-checkout-endereco">
 
-                </a>
+                CADASTRAR ENDEREÇO
+
+            </a>
 
             {% endif %}
 
-        </div>
+            </div>
 
         <!-- ✅ FRETES -->
         {% if endereco_principal %}

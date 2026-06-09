@@ -5,11 +5,17 @@
 
 <div class="conta-form">
 
-    <h2>Iniciar sessão</h2>
+    <h2>
+        Iniciar sessão
+    </h2>
 
     {% if messages %}
         {% for message in messages %}
-            <div class="msg-success">{{ message }}</div>
+
+            <div class="msg-success">
+                {{ message }}
+            </div>
+
         {% endfor %}
     {% endif %}
 
@@ -24,20 +30,58 @@
         >
 
         <div class="form-group">
-            <label>E-mail</label>
-            <input type="email" name="email" required>
+
+            <label>
+                E-mail
+            </label>
+
+            <input
+                type="email"
+                name="email"
+                required
+            >
+
         </div>
 
         <div class="form-group">
-            <label>Senha</label>
-            <input type="password" name="senha" required>
+
+            <label>
+                Senha
+            </label>
+
+            <input
+                type="password"
+                name="senha"
+                required
+            >
+
         </div>
 
-        <button type="submit" class="btn-criar-conta">
+        <button
+            type="submit"
+            class="btn-criar-conta">
+
             ENTRAR
+
         </button>
 
     </form>
+
+    <!-- ✅ CRIAR CONTA -->
+    <div class="login-extra">
+
+        <p>
+            Ainda não tem conta?
+        </p>
+
+        <a href="{% url 'criar_conta' %}?next=/pedido/checkout/"
+           class="link-criar-conta">
+
+            Criar conta
+
+        </a>
+
+    </div>
 
 </div>
 
