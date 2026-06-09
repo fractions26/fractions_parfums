@@ -16,7 +16,7 @@ urlpatterns = [
     path('checkout/', include('apps.entrega.urls')),
 
     # ✅ PEDIDOS
-    path('', include('apps.pedidos.urls')),
+    path('pedido/', include('apps.pedidos.urls')),
 
     # ✅ PAGAMENTOS
     path('pagamento/', include('apps.pagamentos.urls')),
