@@ -128,15 +128,25 @@
                 <!-- ✅ LISTA DE FRETES (NOVA) -->
                 <div id="listaFretes" class="lista-fretes"></div>
 
-            </div>
+                </div>
 
-            <button class="btn-finalizar">
-                FINALIZAR COMPRA
-            </button>
+                <a href="{% url 'checkout' %}"
+                class="btn-finalizar">
 
-    </div>
+                    FINALIZAR COMPRA
 
-    {% else %}
+                </a>
+
+                </div>
+
+                {% else %}
+
+                    <p>Seu carrinho está vazio</p>
+
+                {% endif %}
+
+                </div>
+
 
         <p>Seu carrinho está vazio</p>
 

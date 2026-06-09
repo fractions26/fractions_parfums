@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Checkout</h1>
+
+<h2>Resumo do Pedido</h2>
+
+{% for item in itens %}
+
+<div>
+
+    <h3>{{ item.perfume.nome }}</h3>
+
+    <p>{{ item.tamanho }}</p>
+
+    <p>Qtd: {{ item.quantidade }}</p>
+
+    <p>R$ {{ item.preco }}</p>
+
+</div>
+
+{% endfor %}
+
+<hr>
+
+<h2>Total: R$ {{ total }}</h2>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <input type="text"
+           name="nome"
+           placeholder="Nome completo"
+           required>
+
+    <input type="email"
+           name="email"
+           placeholder="E-mail"
+           required>
+
+    <input type="text"
+           name="telefone"
+           placeholder="Telefone">
+
+    <input type="text"
+           name="cep"
+           placeholder="CEP"
+           required>
+
+    <input type="text"
+           name="endereco"
+           placeholder="Endereço"
+           required>
+
+    <input type="text"
+           name="numero"
+           placeholder="Número"
+           required>
+
+    <input type="text"
+           name="complemento"
+           placeholder="Complemento">
+
+    <input type="text"
+           name="cidade"
+           placeholder="Cidade"
+           required>
+
+    <input type="text"
+           name="estado"
+           placeholder="Estado"
+           required>
+
+    <button type="submit">
+
+        IR PARA PAGAMENTO
+
+    </button>
+
+</form>
+
+{% endblock %}
