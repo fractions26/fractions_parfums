@@ -255,3 +255,9 @@ EMAIL_HOST_PASSWORD = config(
 )
 
 DEFAULT_FROM_EMAIL = 'contato@fractions.com.br'
+
+# =========================
+# ✅ LOGIN
+# =========================
+
+LOGIN_URL = '/login/'

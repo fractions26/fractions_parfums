@@ -12,23 +12,27 @@
 
             <div class="carrinho-auth-acoes">
 
-                <a href="{% url 'criar_conta' %}"
+                <a href="{% url 'criar_conta' %}?next=/pedido/checkout/"
                 class="btn-carrinho-auth criar">
 
                     <i class="fa-solid fa-user-plus"></i>
+
                     Criar conta
+
                 </a>
 
-                <a href="{% url 'login' %}"
+                <a href="{% url 'login' %}?next=/pedido/checkout/"
                 class="btn-carrinho-auth entrar">
 
                     <i class="fa-solid fa-right-to-bracket"></i>
+
                     Entrar
+
                 </a>
 
             </div>
 
-        </div>
+            </div>
 
         {% endif %}
 

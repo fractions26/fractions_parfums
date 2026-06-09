@@ -14,7 +14,14 @@
     {% endif %}
 
     <form method="post">
+
         {% csrf_token %}
+
+        <input
+            type="hidden"
+            name="next"
+            value="{{ request.GET.next }}"
+        >
 
         <div class="form-group">
             <label>E-mail</label>
@@ -29,6 +36,7 @@
         <button type="submit" class="btn-criar-conta">
             ENTRAR
         </button>
+
     </form>
 
 </div>
