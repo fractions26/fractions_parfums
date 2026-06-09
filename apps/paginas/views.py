@@ -11,7 +11,7 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 import re
-import re
+from apps.usuarios.models import Endereco
 from apps.carrinho.models import Carrinho, Item
 
 # ✅ 🔥 VINCULAR CARRINHO AO USUÁRIO (COM MIGRAÇÃO DE ITENS)
@@ -358,7 +358,18 @@ def login_usuario(request):
 @login_required
 def minha_conta(request):
 
-    return render(request, 'usuarios/minha_conta.html')
+    endereco_principal = Endereco.objects.filter(
+        usuario=request.user,
+        principal=True
+    ).first()
+
+    return render(
+        request,
+        'usuarios/minha_conta.html',
+        {
+            'endereco_principal': endereco_principal
+        }
+    )
 
 # ✅ LOGOUT
 def logout_usuario(request):
@@ -427,59 +438,86 @@ def editar_dados(request):
 @login_required
 def editar_endereco(request):
 
-    perfil = request.user.perfil
+    endereco = Endereco.objects.filter(
+        usuario=request.user,
+        principal=True
+    ).first()
+
+    # ✅ cria endereço principal se não existir
+    if not endereco:
+
+        endereco = Endereco.objects.create(
+
+            usuario=request.user,
+
+            principal=True,
+
+            nome_destinatario=request.user.get_full_name(),
+
+            telefone='',
+
+            cpf='',
+
+            cep='',
+
+            endereco='',
+
+            numero='',
+
+            complemento='',
+
+            bairro='',
+
+            cidade='',
+
+            estado=''
+        )
 
     if request.method == 'POST':
 
-        # ✅ NORMALIZA TEXTO
-        perfil.alias = normalizar_texto(
+        endereco.nome_destinatario = normalizar_texto(
             request.POST.get('alias')
         )
 
-        perfil.endereco = normalizar_texto(
+        endereco.endereco = normalizar_texto(
             request.POST.get('endereco')
         )
 
-        perfil.numero = request.POST.get(
+        endereco.numero = request.POST.get(
             'numero',
             ''
         ).strip()
 
-        perfil.complemento = normalizar_texto(
+        endereco.complemento = normalizar_texto(
             request.POST.get('complemento')
         )
 
-        perfil.bairro = normalizar_texto(
+        endereco.bairro = normalizar_texto(
             request.POST.get('bairro')
         )
 
-        perfil.cidade = normalizar_texto(
+        endereco.cidade = normalizar_texto(
             request.POST.get('cidade')
         )
 
-        perfil.estado = request.POST.get(
+        endereco.estado = request.POST.get(
             'estado',
             ''
         ).strip()
 
-        perfil.pais = normalizar_texto(
-            request.POST.get('pais')
-        )
-
-        # ✅ SOMENTE NÚMEROS
-        perfil.cep = re.sub(
+        endereco.cep = re.sub(
             r'\D',
             '',
             request.POST.get('cep', '')
         )
 
-        perfil.telefone = re.sub(
+        endereco.telefone = re.sub(
             r'\D',
             '',
             request.POST.get('telefone', '')
         )
 
-        perfil.save()
+        endereco.save()
 
         messages.success(
             request,
@@ -490,7 +528,10 @@ def editar_endereco(request):
 
     return render(
         request,
-        'usuarios/editar_endereco.html'
+        'usuarios/editar_endereco.html',
+        {
+            'endereco': endereco
+        }
     )
     
     # =====================================

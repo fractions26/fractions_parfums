@@ -1,84 +1,398 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
-<h1>Checkout</h1>
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
 
-<h2>Resumo do Pedido</h2>
+<div class="checkout-page">
 
-{% for item in itens %}
+    <!-- ✅ ESQUERDA -->
+    <div class="checkout-left">
 
-<div>
+        <h1 class="checkout-title">
+            Checkout
+        </h1>
 
-    <h3>{{ item.perfume.nome }}</h3>
+        <!-- ✅ ENTREGA -->
+        <div class="checkout-box">
 
-    <p>{{ item.tamanho }}</p>
+            <div class="checkout-header">
 
-    <p>Qtd: {{ item.quantidade }}</p>
+                <h2>
+                    Entrega
+                </h2>
 
-    <p>R$ {{ item.preco }}</p>
+                <a href="{% url 'editar_endereco' %}"
+                   class="checkout-editar">
 
-</div>
+                    Alterar
 
-{% endfor %}
+                </a>
 
-<hr>
+            </div>
 
-<h2>Total: R$ {{ total }}</h2>
+            {% if endereco_principal %}
+
+                <div class="endereco-card">
+
+                    <strong>
+                        {{ user.first_name }} {{ user.last_name }}
+                    </strong>
+
+                    <p>
+                        {{ endereco_principal.endereco }},
+                        {{ endereco_principal.numero }}
+                    </p>
+
+                    {% if endereco_principal.complemento %}
+                    <p>
+                        {{ endereco_principal.complemento }}
+                    </p>
+                    {% endif %}
+
+                    <p>
+                        {{ endereco_principal.bairro }}
+                    </p>
+
+                    <p>
+                        {{ endereco_principal.cidade }} -
+                        {{ endereco_principal.estado }}
+                    </p>
+
+                    <p>
+                        CEP:
+                        {{ endereco_principal.cep }}
+                    </p>
+
+                    <p>
+                        Telefone:
+                        {{ endereco_principal.telefone }}
+                    </p>
+
+                </div>
+
+            {% else %}
+
+                <div class="checkout-alerta">
+
+                    Nenhum endereço cadastrado.
+
+                </div>
+
+                <a href="{% url 'editar_endereco' %}"
+                   class="btn-checkout-endereco">
+
+                    CADASTRAR ENDEREÇO
+
+                </a>
+
+            {% endif %}
+
+        </div>
+
+        <!-- ✅ FRETES -->
+        {% if endereco_principal %}
+
+        <div class="checkout-box">
+
+            <h2>
+                Frete
+            </h2>
+
+            <div id="fretesCheckout">
+
+                <p>
+                    Calculando opções de entrega...
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+<!-- ✅ BOTÃO -->
+{% if endereco_principal %}
 
 <form method="POST">
 
     {% csrf_token %}
 
-    <input type="text"
-           name="nome"
-           placeholder="Nome completo"
-           required>
+    <!-- ✅ FRETE HIDDEN -->
+    <input
+        type="hidden"
+        name="frete_valor"
+        id="freteValorInput"
+    >
 
-    <input type="email"
-           name="email"
-           placeholder="E-mail"
-           required>
+    <input
+        type="hidden"
+        name="frete_nome"
+        id="freteNomeInput"
+    >
 
-    <input type="text"
-           name="telefone"
-           placeholder="Telefone">
+    <input
+        type="hidden"
+        name="frete_prazo"
+        id="fretePrazoInput"
+    >
 
-    <input type="text"
-           name="cep"
-           placeholder="CEP"
-           required>
-
-    <input type="text"
-           name="endereco"
-           placeholder="Endereço"
-           required>
-
-    <input type="text"
-           name="numero"
-           placeholder="Número"
-           required>
-
-    <input type="text"
-           name="complemento"
-           placeholder="Complemento">
-
-    <input type="text"
-           name="cidade"
-           placeholder="Cidade"
-           required>
-
-    <input type="text"
-           name="estado"
-           placeholder="Estado"
-           required>
-
-    <button type="submit">
+    <button type="submit"
+            class="btn-finalizar-checkout">
 
         IR PARA PAGAMENTO
 
     </button>
 
 </form>
+
+{% endif %}
+
+</div>
+
+<!-- ✅ DIREITA -->
+<div class="checkout-right">
+
+    <div class="resumo-box">
+
+        <h2>
+            Resumo do Pedido
+        </h2>
+
+        {% for item in itens %}
+
+        <div class="item-resumo">
+
+            <div>
+
+                <strong>
+                    {{ item.perfume.nome }}
+                </strong>
+
+                <p>
+                    {{ item.tamanho }}
+                </p>
+
+                <p>
+                    Qtd: {{ item.quantidade }}
+                </p>
+
+            </div>
+
+            <strong>
+                R$ {{ item.preco }}
+            </strong>
+
+        </div>
+
+        {% endfor %}
+
+        <hr>
+
+        <!-- ✅ TOTAIS -->
+        <div class="totais-checkout">
+
+            <div class="linha-total">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong>
+                    R$ {{ total }}
+                </strong>
+
+            </div>
+
+            <div class="linha-total">
+
+                <span>
+                    Frete
+                </span>
+
+                <strong id="valorFreteCheckout">
+
+                    R$ 0,00
+
+                </strong>
+
+            </div>
+
+            <hr>
+
+            <div class="linha-total total-geral">
+
+                <span>
+                    Total
+                </span>
+
+                <strong id="totalCheckout">
+
+                    R$ {{ total }}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<script>
+
+function atualizarTotalFrete() {
+
+    const radios = document.querySelectorAll(
+        'input[name="frete"]'
+    )
+
+    const subtotal = parseFloat(
+        "{{ total }}"
+    )
+
+    radios.forEach(radio => {
+
+        radio.addEventListener('change', function() {
+
+            const frete = parseFloat(
+                this.value
+            )
+
+            const nome = this.dataset.nome
+
+            const prazo = this.dataset.prazo
+
+            const total = subtotal + frete
+
+            // ✅ atualiza valor frete
+            document.getElementById(
+                'valorFreteCheckout'
+            ).innerText = `R$ ${frete.toFixed(2)}`
+
+            // ✅ atualiza total
+            document.getElementById(
+                'totalCheckout'
+            ).innerText = `R$ ${total.toFixed(2)}`
+
+            // ✅ hidden inputs
+            document.getElementById(
+                'freteValorInput'
+            ).value = frete
+
+            document.getElementById(
+                'freteNomeInput'
+            ).value = nome
+
+            document.getElementById(
+                'fretePrazoInput'
+            ).value = prazo
+        })
+    })
+
+    // ✅ inicializa automaticamente
+    const primeiro = document.querySelector(
+        'input[name="frete"]:checked'
+    )
+
+    if (primeiro) {
+
+        primeiro.dispatchEvent(
+            new Event('change')
+        )
+    }
+}
+
+
+async function carregarFretesCheckout() {
+
+    const container = document.getElementById(
+        'fretesCheckout'
+    )
+
+    try {
+
+        const response = await fetch(
+            '/pedido/calcular-frete/'
+        )
+
+        const data = await response.json()
+
+        if (!data.success) {
+
+            container.innerHTML = `
+                <p>
+                    Erro ao calcular frete
+                </p>
+            `
+
+            return
+        }
+
+        const fretes = data.fretes
+
+        let html = ''
+
+        fretes.forEach((frete, index) => {
+
+            if (frete.error) {
+                return
+            }
+
+            html += `
+
+                <label class="frete-opcao">
+
+                    <input
+                        type="radio"
+                        name="frete"
+                        value="${frete.price}"
+                        data-nome="${frete.name}"
+                        data-prazo="${frete.delivery_time}"
+                        ${index === 0 ? 'checked' : ''}
+                    >
+
+                    <div>
+
+                        <strong>
+                            ${frete.name}
+                        </strong>
+
+                        <p>
+                            Prazo: ${frete.delivery_time} dias
+                        </p>
+
+                    </div>
+
+                    <strong>
+                        R$ ${frete.price}
+                    </strong>
+
+                </label>
+            `
+        })
+
+        container.innerHTML = html
+
+        // ✅ ativa total dinâmico
+        atualizarTotalFrete()
+
+    } catch (error) {
+
+        container.innerHTML = `
+            <p>
+                Falha ao carregar fretes
+            </p>
+        `
+    }
+}
+
+carregarFretesCheckout()
+
+</script>
 
 {% endblock %}

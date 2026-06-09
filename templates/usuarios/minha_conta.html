@@ -82,26 +82,26 @@
 
                 <div class="dados-usuario">
 
-                    {% if user.perfil.endereco %}
+                    {% if endereco_principal %}
 
-                        <p>
-                            {{ user.perfil.endereco }},
-                            {{ user.perfil.numero }}
-                        </p>
+                    <p>
+                        {{ endereco_principal.endereco }},
+                        {{ endereco_principal.numero }}
+                    </p>
 
-                        <p>
-                            {{ user.perfil.bairro }}
-                        </p>
+                    <p>
+                        {{ endereco_principal.bairro }}
+                    </p>
 
-                        <p>
-                            {{ user.perfil.cidade }} -
-                            {{ user.perfil.estado }}
-                        </p>
+                    <p>
+                        {{ endereco_principal.cidade }} -
+                        {{ endereco_principal.estado }}
+                    </p>
 
-                        <p>
-                            CEP:
-                            {{ user.perfil.cep }}
-                        </p>
+                    <p>
+                        CEP:
+                        {{ endereco_principal.cep }}
+                    </p>
 
                     {% else %}
 

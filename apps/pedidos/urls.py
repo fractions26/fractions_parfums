@@ -11,4 +11,10 @@ urlpatterns = [
         name='checkout'
     ),
 
+    path(
+        'calcular-frete/',
+        views.calcular_frete_checkout,
+        name='calcular_frete_checkout'
+    ),
+
 ]

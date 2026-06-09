@@ -41,6 +41,17 @@ class Pedido(models.Model):
         default=0
     )
 
+    # ✅ NOVOS CAMPOS FRETE
+    frete_nome = models.CharField(
+        max_length=255,
+        blank=True
+    )
+
+    frete_prazo = models.CharField(
+        max_length=100,
+        blank=True
+    )
+
     total = models.DecimalField(
         max_digits=10,
         decimal_places=2
@@ -52,7 +63,9 @@ class Pedido(models.Model):
         default='PENDENTE'
     )
 
-    nome = models.CharField(max_length=255)
+    nome = models.CharField(
+        max_length=255
+    )
 
     email = models.EmailField()
 
@@ -61,20 +74,30 @@ class Pedido(models.Model):
         blank=True
     )
 
-    cep = models.CharField(max_length=20)
+    cep = models.CharField(
+        max_length=20
+    )
 
-    endereco = models.CharField(max_length=255)
+    endereco = models.CharField(
+        max_length=255
+    )
 
-    numero = models.CharField(max_length=20)
+    numero = models.CharField(
+        max_length=20
+    )
 
     complemento = models.CharField(
         max_length=255,
         blank=True
     )
 
-    cidade = models.CharField(max_length=100)
+    cidade = models.CharField(
+        max_length=100
+    )
 
-    estado = models.CharField(max_length=2)
+    estado = models.CharField(
+        max_length=2
+    )
 
     criado_em = models.DateTimeField(
         auto_now_add=True
@@ -85,6 +108,7 @@ class Pedido(models.Model):
     )
 
     def __str__(self):
+
         return f'Pedido #{self.codigo}'
 
 
@@ -117,4 +141,5 @@ class ItemPedido(models.Model):
     )
 
     def __str__(self):
+
         return self.produto_nome

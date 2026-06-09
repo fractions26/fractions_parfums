@@ -33,7 +33,7 @@
             <input
                 type="text"
                 name="alias"
-                value="{{ user.perfil.alias|default:'' }}"
+                value="{{ endereco.nome_destinatario|default:'' }}"
             >
 
         </div>
@@ -48,7 +48,7 @@
             <input
                 type="text"
                 name="endereco"
-                value="{{ user.perfil.endereco|default:'' }}"
+                value="{{ endereco.endereco|default:'' }}"
             >
 
         </div>
@@ -63,7 +63,7 @@
             <input
                 type="text"
                 name="numero"
-                value="{{ user.perfil.numero|default:'' }}"
+                value="{{ endereco.numero|default:'' }}"
             >
 
         </div>
@@ -78,7 +78,7 @@
             <input
                 type="text"
                 name="complemento"
-                value="{{ user.perfil.complemento|default:'' }}"
+                value="{{ endereco.complemento|default:'' }}"
             >
 
         </div>
@@ -93,7 +93,7 @@
             <input
                 type="text"
                 name="bairro"
-                value="{{ user.perfil.bairro|default:'' }}"
+                value="{{ endereco.bairro|default:'' }}"
             >
 
         </div>
@@ -108,7 +108,7 @@
             <input
                 type="text"
                 name="cep"
-                value="{{ user.perfil.cep|default:'' }}"
+                value="{{ endereco.cep|default:'' }}"
             >
 
         </div>
@@ -123,7 +123,7 @@
             <input
                 type="text"
                 name="cidade"
-                value="{{ user.perfil.cidade|default:'' }}"
+                value="{{ endereco.cidade|default:'' }}"
             >
 
         </div>
@@ -139,33 +139,33 @@
 
                 <option value="">Selecione</option>
 
-                <option value="AC" {% if user.perfil.estado == 'AC' %}selected{% endif %}>Acre</option>
-                <option value="AL" {% if user.perfil.estado == 'AL' %}selected{% endif %}>Alagoas</option>
-                <option value="AP" {% if user.perfil.estado == 'AP' %}selected{% endif %}>Amapá</option>
-                <option value="AM" {% if user.perfil.estado == 'AM' %}selected{% endif %}>Amazonas</option>
-                <option value="BA" {% if user.perfil.estado == 'BA' %}selected{% endif %}>Bahia</option>
-                <option value="CE" {% if user.perfil.estado == 'CE' %}selected{% endif %}>Ceará</option>
-                <option value="DF" {% if user.perfil.estado == 'DF' %}selected{% endif %}>Distrito Federal</option>
-                <option value="ES" {% if user.perfil.estado == 'ES' %}selected{% endif %}>Espírito Santo</option>
-                <option value="GO" {% if user.perfil.estado == 'GO' %}selected{% endif %}>Goiás</option>
-                <option value="MA" {% if user.perfil.estado == 'MA' %}selected{% endif %}>Maranhão</option>
-                <option value="MT" {% if user.perfil.estado == 'MT' %}selected{% endif %}>Mato Grosso</option>
-                <option value="MS" {% if user.perfil.estado == 'MS' %}selected{% endif %}>Mato Grosso do Sul</option>
-                <option value="MG" {% if user.perfil.estado == 'MG' %}selected{% endif %}>Minas Gerais</option>
-                <option value="PA" {% if user.perfil.estado == 'PA' %}selected{% endif %}>Pará</option>
-                <option value="PB" {% if user.perfil.estado == 'PB' %}selected{% endif %}>Paraíba</option>
-                <option value="PR" {% if user.perfil.estado == 'PR' %}selected{% endif %}>Paraná</option>
-                <option value="PE" {% if user.perfil.estado == 'PE' %}selected{% endif %}>Pernambuco</option>
-                <option value="PI" {% if user.perfil.estado == 'PI' %}selected{% endif %}>Piauí</option>
-                <option value="RJ" {% if user.perfil.estado == 'RJ' %}selected{% endif %}>Rio de Janeiro</option>
-                <option value="RN" {% if user.perfil.estado == 'RN' %}selected{% endif %}>Rio Grande do Norte</option>
-                <option value="RS" {% if user.perfil.estado == 'RS' %}selected{% endif %}>Rio Grande do Sul</option>
-                <option value="RO" {% if user.perfil.estado == 'RO' %}selected{% endif %}>Rondônia</option>
-                <option value="RR" {% if user.perfil.estado == 'RR' %}selected{% endif %}>Roraima</option>
-                <option value="SC" {% if user.perfil.estado == 'SC' %}selected{% endif %}>Santa Catarina</option>
-                <option value="SP" {% if user.perfil.estado == 'SP' %}selected{% endif %}>São Paulo</option>
-                <option value="SE" {% if user.perfil.estado == 'SE' %}selected{% endif %}>Sergipe</option>
-                <option value="TO" {% if user.perfil.estado == 'TO' %}selected{% endif %}>Tocantins</option>
+                <option value="AC" {% if endereco.estado == 'AC' %}selected{% endif %}>Acre</option>
+                <option value="AL" {% if endereco.estado == 'AL' %}selected{% endif %}>Alagoas</option>
+                <option value="AP" {% if endereco.estado == 'AP' %}selected{% endif %}>Amapá</option>
+                <option value="AM" {% if endereco.estado == 'AM' %}selected{% endif %}>Amazonas</option>
+                <option value="BA" {% if endereco.estado == 'BA' %}selected{% endif %}>Bahia</option>
+                <option value="CE" {% if endereco.estado == 'CE' %}selected{% endif %}>Ceará</option>
+                <option value="DF" {% if endereco.estado == 'DF' %}selected{% endif %}>Distrito Federal</option>
+                <option value="ES" {% if endereco.estado == 'ES' %}selected{% endif %}>Espírito Santo</option>
+                <option value="GO" {% if endereco.estado == 'GO' %}selected{% endif %}>Goiás</option>
+                <option value="MA" {% if endereco.estado == 'MA' %}selected{% endif %}>Maranhão</option>
+                <option value="MT" {% if endereco.estado == 'MT' %}selected{% endif %}>Mato Grosso</option>
+                <option value="MS" {% if endereco.estado == 'MS' %}selected{% endif %}>Mato Grosso do Sul</option>
+                <option value="MG" {% if endereco.estado == 'MG' %}selected{% endif %}>Minas Gerais</option>
+                <option value="PA" {% if endereco.estado == 'PA' %}selected{% endif %}>Pará</option>
+                <option value="PB" {% if endereco.estado == 'PB' %}selected{% endif %}>Paraíba</option>
+                <option value="PR" {% if endereco.estado == 'PR' %}selected{% endif %}>Paraná</option>
+                <option value="PE" {% if endereco.estado == 'PE' %}selected{% endif %}>Pernambuco</option>
+                <option value="PI" {% if endereco.estado == 'PI' %}selected{% endif %}>Piauí</option>
+                <option value="RJ" {% if endereco.estado == 'RJ' %}selected{% endif %}>Rio de Janeiro</option>
+                <option value="RN" {% if endereco.estado == 'RN' %}selected{% endif %}>Rio Grande do Norte</option>
+                <option value="RS" {% if endereco.estado == 'RS' %}selected{% endif %}>Rio Grande do Sul</option>
+                <option value="RO" {% if endereco.estado == 'RO' %}selected{% endif %}>Rondônia</option>
+                <option value="RR" {% if endereco.estado == 'RR' %}selected{% endif %}>Roraima</option>
+                <option value="SC" {% if endereco.estado == 'SC' %}selected{% endif %}>Santa Catarina</option>
+                <option value="SP" {% if endereco.estado == 'SP' %}selected{% endif %}>São Paulo</option>
+                <option value="SE" {% if endereco.estado == 'SE' %}selected{% endif %}>Sergipe</option>
+                <option value="TO" {% if endereco.estado == 'TO' %}selected{% endif %}>Tocantins</option>
 
             </select>
 
@@ -198,7 +198,7 @@
             <input
                 type="text"
                 name="telefone"
-                value="{{ user.perfil.telefone|default:'' }}"
+                value="{{ endereco.telefone|default:'' }}"
             >
 
         </div>

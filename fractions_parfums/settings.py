@@ -64,6 +64,15 @@ RECAPTCHA_SECRET_KEY = config(
 )
 
 # =========================
+# ✅ MELHOR ENVIO
+# =========================
+
+MELHOR_ENVIO_TOKEN = config(
+    'MELHOR_ENVIO_TOKEN',
+    default=''
+)
+
+# =========================
 # ✅ APPS
 # =========================
 
