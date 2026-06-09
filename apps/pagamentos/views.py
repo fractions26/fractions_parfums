@@ -5,5 +5,5 @@ def pagamento(request):
 
     return render(
         request,
-        'pagamento.html'
+        'pagamentos/pagamento.html'
     )
