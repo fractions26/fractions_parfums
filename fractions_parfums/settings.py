@@ -241,4 +241,4 @@ EMAIL_HOST_PASSWORD = config(
     default=''
 )
 
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = 'contato@fractions.com.br'
