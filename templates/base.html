@@ -510,6 +510,7 @@ function alterarQtd(btn, delta){
         `item_id=${itemDiv.dataset.id}&quantidade=${qtd}`
     )
     .then(res => res.json())
+
     .then(data => {
 
         // ✅ ESTOQUE INSUFICIENTE
@@ -576,7 +577,32 @@ function alterarQtd(btn, delta){
             );
         }
 
+        // ✅ detecta páginas de produto/lista
+        const path =
+            window.location.pathname;
+
+        const paginaProduto =
+            path.includes("/produtos/") ||
+            path.includes("/detalhe/");
+
+// ✅ atualiza estoque visual automaticamente
+        if(paginaProduto){
+
+            // ✅ evita múltiplos reloads
+            if(!window.reloadEstoque){
+
+                window.reloadEstoque = true;
+
+                setTimeout(() => {
+
+                    location.reload();
+
+                }, 300);
+            }
+        }
+
     })
+
     .catch(err => {
 
         console.error(
@@ -586,7 +612,6 @@ function alterarQtd(btn, delta){
     });
 
 }
-
 
 // =======================
 // ✅ REMOVER ITEM (CORRIGIDO + FRETE DINÂMICO)
@@ -642,11 +667,13 @@ function removerItem(btn){
 
         if(!data || !data.success) return;
 
-        // ✅ libera estoque imediatamente
+        // ✅ detecta páginas de produto/lista
+        const path =
+            window.location.pathname;
+
         const paginaProduto =
-            window.location.pathname.includes(
-                "/produtos/"
-            );
+            path.includes("/produtos/") ||
+            path.includes("/detalhe/");
 
         // ✅ animação UX
         itemDiv.style.transition = "0.2s";
@@ -699,14 +726,20 @@ function removerItem(btn){
             );
         }
 
-        // ✅ atualiza detalhe/lista automaticamente
+// ✅ atualiza detalhe/lista automaticamente
         if(paginaProduto){
 
-            setTimeout(() => {
+            // ✅ evita múltiplos reloads
+            if(!window.reloadEstoque){
 
-                location.reload();
+                window.reloadEstoque = true;
 
-            }, 300);
+                setTimeout(() => {
+
+                    location.reload();
+
+                }, 300);
+            }
         }
 
         // ✅ se zerar carrinho

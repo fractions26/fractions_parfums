@@ -460,6 +460,8 @@ def atualizar_item(request):
 
             "success": True,
 
+            "quantidade_item": item.quantidade,
+
             "total": float(total),
 
             "quantidade_total": quantidade_total
