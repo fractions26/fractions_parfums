@@ -125,31 +125,22 @@
                     Não sei meu CEP
                 </a>
 
-                <!-- ✅ LISTA DE FRETES (NOVA) -->
-                <div id="listaFretes" class="lista-fretes"></div>
+            <!-- ✅ LISTA DE FRETES (NOVA) -->
+            <div id="listaFretes" class="lista-fretes"></div>
 
-                </div>
+            </div>
 
-                <a href="{% url 'checkout' %}"
-                class="btn-finalizar">
+            <a href="{% url 'checkout' %}"
+            class="btn-finalizar">
 
-                    FINALIZAR COMPRA
+                FINALIZAR COMPRA
 
-                </a>
+            </a>
 
-                </div>
+            </div>
 
-                {% else %}
+            {% else %}
 
-                    <p>Seu carrinho está vazio</p>
+                <p>Seu carrinho está vazio</p>
 
-                {% endif %}
-
-                </div>
-
-
-        <p>Seu carrinho está vazio</p>
-
-    {% endif %}
-
-</div>
+            {% endif %}

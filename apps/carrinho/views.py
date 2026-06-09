@@ -291,6 +291,30 @@ def ver_carrinho(request):
 
 
 # =========================
+# ✅ DRAWER CARRINHO
+# =========================
+def drawer_carrinho(request):
+
+    carrinho = get_carrinho(request)
+
+    itens = carrinho.itens.all()
+
+    total = sum(
+        item.preco * item.quantidade
+        for item in itens
+    )
+
+    return render(
+        request,
+        'partials/carrinho_drawer.html',
+        {
+            'itens': itens,
+            'total': total
+        }
+    )
+
+
+# =========================
 # ✅ ATUALIZAR ITEM
 # =========================
 def atualizar_item(request):
