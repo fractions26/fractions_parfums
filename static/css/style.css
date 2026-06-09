@@ -2511,7 +2511,7 @@ body.modal-aberto {
     font-size:15px;
 }
 
-.link-criar-conta{
+.conta-form .link-criar-conta{
 
     color:#111;
 
@@ -2522,7 +2522,7 @@ body.modal-aberto {
     transition:0.2s ease;
 }
 
-.link-criar-conta:hover{
+.conta-form .link-criar-conta:hover{
 
     opacity:0.7;
 }
