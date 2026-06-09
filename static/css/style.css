@@ -2485,17 +2485,11 @@ body.modal-aberto {
     color: #a12626;
 }
 
+/* ✅ LOGIN EXTRA FINAL */
+
 .login-extra{
 
     margin-top:28px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
 
     text-align:center;
 }
@@ -2509,28 +2503,26 @@ body.modal-aberto {
     font-size:15px;
 }
 
-.conta-form .link-criar-conta{
+.login-extra .link-criar-conta{
 
-    display:inline-flex;
+    display:block !important;
 
-    align-items:center;
+    width:100%;
 
-    justify-content:center;
+    text-align:center !important;
 
-    color:#111;
+    white-space:nowrap;
 
-    font-weight:700;
+    color:#111 !important;
+
+    font-weight:700 !important;
 
     font-size:15px;
 
-    text-decoration:none;
-
-    transition:0.2s ease;
+    text-decoration:none !important;
 }
 
-.conta-form .link-criar-conta:hover{
+.login-extra .link-criar-conta:hover{
 
     opacity:0.7;
-
-    text-decoration:none;
 }
