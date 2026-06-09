@@ -117,75 +117,71 @@
 
         </div>
 
-        <!-- ✅ DIREITA -->
-        <div class="conta-right">
+<!-- ✅ DIREITA -->
+<div class="conta-right">
 
-            <h2 class="titulo-pedidos">
-                Minhas compras
-            </h2>
+    <h2 class="titulo-pedidos">
+        Minhas compras
+    </h2>
 
-            <!-- ✅ PEDIDO MOCK -->
-            <div class="pedido-card">
+    {% for pedido in pedidos %}
 
-                <div>
+    <div class="pedido-card">
 
-                    <strong>
-                        Pedido: #44243
-                    </strong>
+        <div>
 
-                </div>
+            <strong>
+                Pedido: #{{ pedido.codigo }}
+            </strong>
 
-                <div class="pedido-info">
+        </div>
 
-                    <span>
-                        03/05/2026
-                    </span>
+        <div class="pedido-info">
 
-                    <a href="#" class="btn-visualizar">
-                        <i class="fa-regular fa-eye"></i>
-                    </a>
+            <span>
+                {{ pedido.criado_em|date:"d/m/Y" }}
+            </span>
 
-                </div>
+            <a href="{% url 'detalhe_pedido' pedido.codigo %}"
+            class="btn-visualizar">
 
-            </div>
-
-            <!-- ✅ PEDIDO MOCK -->
-            <div class="pedido-card">
-
-                <div>
-
-                    <strong>
-                        Pedido: #32860
-                    </strong>
-
-                </div>
-
-                <div class="pedido-info">
-
-                    <span>
-                        31/01/2026
-                    </span>
-
-                    <a href="#" class="btn-visualizar">
-                        <i class="fa-regular fa-eye"></i>
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- ✅ SAIR -->
-            <a href="{% url 'logout' %}" class="btn-sair-conta">
-
-                <i class="fa-solid fa-right-from-bracket"></i>
-
-                Sair da conta
+                <i class="fa-regular fa-eye"></i>
 
             </a>
 
         </div>
 
     </div>
+
+    {% empty %}
+
+    <div class="pedido-card">
+
+        <div>
+
+            <strong>
+                Nenhuma compra realizada ainda.
+            </strong>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+    <!-- ✅ SAIR -->
+    <a href="{% url 'logout' %}"
+       class="btn-sair-conta">
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        Sair da conta
+
+    </a>
+
+</div>
+
+</div>
 
 </div>
 

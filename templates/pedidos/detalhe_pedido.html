@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/minha_conta.css' %}">
+
+<div class="minha-conta-page">
+
+    <div class="conta-topo">
+
+        <p class="breadcrumb">
+            Minha Conta > Pedido #{{ pedido.codigo }}
+        </p>
+
+        <h1>
+            Pedido #{{ pedido.codigo }}
+        </h1>
+
+    </div>
+
+    <div class="conta-grid">
+
+        <!-- ✅ ESQUERDA -->
+        <div>
+
+            <div class="box-conta-info">
+
+                <div class="box-header">
+
+                    <h3>
+                        Entrega
+                    </h3>
+
+                </div>
+
+                <div class="dados-usuario">
+
+                    <strong>
+                        {{ pedido.nome }}
+                    </strong>
+
+                    <p>
+                        {{ pedido.endereco }},
+                        {{ pedido.numero }}
+                    </p>
+
+                    {% if pedido.complemento %}
+                    <p>
+                        {{ pedido.complemento }}
+                    </p>
+                    {% endif %}
+
+                    <p>
+                        {{ pedido.cidade }} -
+                        {{ pedido.estado }}
+                    </p>
+
+                    <p>
+                        CEP: {{ pedido.cep }}
+                    </p>
+
+                    <p>
+                        Telefone:
+                        {{ pedido.telefone }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="box-conta-info">
+
+                <div class="box-header">
+
+                    <h3>
+                        Frete
+                    </h3>
+
+                </div>
+
+                <div class="dados-usuario">
+
+                    <p>
+                        <strong>Transportadora:</strong>
+                        {{ pedido.frete_nome }}
+                    </p>
+
+                    <p>
+                        <strong>Prazo:</strong>
+                        {{ pedido.frete_prazo }} dias
+                    </p>
+
+                    <p>
+                        <strong>Valor:</strong>
+                        R$ {{ pedido.frete }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ✅ DIREITA -->
+        <div>
+
+            <h2 class="titulo-pedidos">
+                Itens do Pedido
+            </h2>
+
+            {% for item in pedido.itens.all %}
+
+            <div class="pedido-card">
+
+                <div>
+
+                    <strong>
+                        {{ item.produto_nome }}
+                    </strong>
+
+                    <p>
+                        {{ item.tamanho }}
+                    </p>
+
+                    <p>
+                        Quantidade:
+                        {{ item.quantidade }}
+                    </p>
+
+                </div>
+
+                <div class="pedido-info">
+
+                    <strong>
+                        R$ {{ item.subtotal }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+            <div class="box-conta-info">
+
+                <div class="dados-usuario">
+
+                    <p>
+                        <strong>Status:</strong>
+                        {{ pedido.status }}
+                    </p>
+
+                    <p>
+                        <strong>Subtotal:</strong>
+                        R$ {{ pedido.subtotal }}
+                    </p>
+
+                    <p>
+                        <strong>Frete:</strong>
+                        R$ {{ pedido.frete }}
+                    </p>
+
+                    <p>
+                        <strong>Total:</strong>
+                        R$ {{ pedido.total }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

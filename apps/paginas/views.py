@@ -13,6 +13,9 @@ from django.contrib.auth.decorators import login_required
 import re
 from apps.usuarios.models import Endereco
 from apps.carrinho.models import Carrinho, Item
+from apps.pedidos.models import Pedido
+
+
 
 # ✅ 🔥 VINCULAR CARRINHO AO USUÁRIO (COM MIGRAÇÃO DE ITENS)
 def vincular_carrinho_usuario(request, user):
@@ -355,6 +358,7 @@ def login_usuario(request):
 # =====================================
 # ✅ MINHA CONTA
 # =====================================
+
 @login_required
 def minha_conta(request):
 
@@ -363,14 +367,19 @@ def minha_conta(request):
         principal=True
     ).first()
 
+    pedidos = Pedido.objects.filter(
+        usuario=request.user
+    ).order_by('-criado_em')
+
     return render(
         request,
         'usuarios/minha_conta.html',
         {
-            'endereco_principal': endereco_principal
+            'endereco_principal': endereco_principal,
+            'pedidos': pedidos
         }
     )
-
+    
 # ✅ LOGOUT
 def logout_usuario(request):
     logout(request)
@@ -391,9 +400,6 @@ def trocas_devolucao(request):
 
 def perguntas_frequentes(request):
     return render(request, 'perguntas_frequentes.html')
-
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 
 
 # =====================================

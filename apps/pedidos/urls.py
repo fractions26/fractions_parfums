@@ -17,4 +17,10 @@ urlpatterns = [
         name='calcular_frete_checkout'
     ),
 
+    path(
+        'pedido/<str:codigo>/',
+        views.detalhe_pedido,
+        name='detalhe_pedido'
+    ),
+
 ]

@@ -233,3 +233,27 @@ def calcular_frete_checkout(request):
             'success': False,
             'erro': str(e)
         })
+        
+# =====================================
+# ✅ DETALHE PEDIDO
+# =====================================
+
+@login_required
+def detalhe_pedido(request, codigo):
+
+    pedido = Pedido.objects.filter(
+        usuario=request.user,
+        codigo=codigo
+    ).first()
+
+    if not pedido:
+
+        return redirect('minha_conta')
+
+    return render(
+        request,
+        'pedidos/detalhe_pedido.html',
+        {
+            'pedido': pedido
+        }
+    )
