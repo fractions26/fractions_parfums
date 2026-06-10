@@ -1548,3 +1548,47 @@
     }
 
 }
+
+/* ✅ BOTÃO FINALIZAR FINAL */
+
+a.btn-finalizar{
+
+    width:100% !important;
+
+    height:52px !important;
+
+    margin-top:24px !important;
+
+    display:flex !important;
+
+    align-items:center !important;
+
+    justify-content:center !important;
+
+    background:#111 !important;
+
+    color:#fff !important;
+
+    border:none !important;
+
+    border-radius:22px !important;
+
+    font-size:14px !important;
+
+    font-weight:600 !important;
+
+    letter-spacing:0.4px !important;
+
+    text-decoration:none !important;
+
+    cursor:pointer !important;
+
+    transition:0.2s ease !important;
+}
+
+a.btn-finalizar:hover{
+
+    background:#000 !important;
+
+    transform:translateY(-1px);
+}
