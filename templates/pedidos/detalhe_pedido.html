@@ -113,7 +113,15 @@
 
             <div class="pedido-card">
 
-                <div>
+                <!-- ✅ IMAGEM -->
+                <img
+                    src="{% if item.perfume and item.perfume.imagem %}{% static item.perfume.imagem %}{% else %}{% static 'img/sem-imagem.png' %}{% endif %}"
+                    class="pedido-img"
+                    alt="{{ item.produto_nome }}"
+                >
+
+                <!-- ✅ DADOS -->
+                <div class="pedido-dados">
 
                     <strong>
                         {{ item.produto_nome }}
@@ -124,12 +132,12 @@
                     </p>
 
                     <p>
-                        Quantidade:
-                        {{ item.quantidade }}
+                        Quantidade: {{ item.quantidade }}
                     </p>
 
                 </div>
 
+                <!-- ✅ PREÇO -->
                 <div class="pedido-info">
 
                     <strong>
@@ -147,7 +155,7 @@
                 <div class="dados-usuario">
 
                     <p>
-                        <strong>Status:</strong>
+                        <strong>Status Pagamento:</strong>
                         {{ pedido.status }}
                     </p>
 
@@ -156,14 +164,9 @@
                         R$ {{ pedido.subtotal }}
                     </p>
 
-                    <p>
-                        <strong>Frete:</strong>
-                        R$ {{ pedido.frete }}
-                    </p>
-
-                    <p>
-                        <strong>Total:</strong>
-                        R$ {{ pedido.total }}
+                    <p class="total-pedido">
+                        Total Pedido:
+                        <strong>R$ {{ pedido.total }}</strong>
                     </p>
 
                 </div>

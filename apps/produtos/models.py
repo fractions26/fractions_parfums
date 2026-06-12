@@ -52,16 +52,16 @@ class Perfume(models.Model):
     def get_imagem_url(self):
 
         if self.imagem:
-            return f"/media/{self.imagem}"
+            return f"/static/{self.imagem}"
 
         return ""
 
-    def get_imagem_descricao_url(self):
+        def get_imagem_descricao_url(self):
+            
+            if self.imagem_descricao:
+                return f"/static/{self.imagem_descricao}"
 
-        if self.imagem_descricao:
-            return f"/media/{self.imagem_descricao}"
-
-        return ""
+            return ""
 
     # ✅ verifica se possui estoque para determinado tamanho
     def disponivel_para(self, tamanho_ml):

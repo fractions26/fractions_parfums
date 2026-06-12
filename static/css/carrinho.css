@@ -75,13 +75,13 @@
 
 /* ===== INFO ===== */
 .item-dados h2 {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     color: #2f3e46;
 }
 
 .item-variacao {
-    font-size: 13px;
+    font-size: 14px;
     color: #7a8a94;
 }
 
@@ -208,7 +208,7 @@
     flex: 1;
     min-width: 0;         /* 🔥 CORREÇÃO PRINCIPAL do overflow */
 
-    padding: 12px;
+    padding: 16px;
     border: none;
     outline: none;
     background: #f7fafc;
@@ -223,14 +223,14 @@
 
     font-weight: 600;
     letter-spacing: 1px;
-    color: #444;
+    color: #111;
     cursor: pointer;
 }
 
 .cep-bloco input {
     height: 52px;       /* 🔥 aumenta altura */
-    padding: 0 10px;
-    font-size: 13px;
+    padding: 0 14px;
+    font-size: 18px;
 }
 
 .cep-bloco button {
@@ -496,7 +496,7 @@
 
 #totalValor {
     font-family: "Montserrat", sans-serif;
-    font-size: 14px;   /* ajuste como quiser */
+    font-size: 16px;   /* ajuste como quiser */
     font-weight: 700;
     color: #333;
 }
@@ -661,7 +661,7 @@
 
     /* ✅ RESUMO */
     .resumo {
-        margin-top: 15px;
+        margin-top: 3px;
         padding: 15px;
     }
 
@@ -679,7 +679,7 @@
     width: 100%;
     padding: 8px;
     border: none;
-    border-radius: 20px;
+    border-radius: 15px;
 
     background: #080808;
     color: white;
@@ -807,7 +807,7 @@
 .btn-modal-comprar {
     width: 100%;
     padding: 12px;
-    border-radius: 30px;
+    border-radius: 15px;
 
     background: linear-gradient(135deg, #4d5052, #101213);
     color: #fff;
@@ -915,7 +915,7 @@
     /* ✅ BOTÃO PRINCIPAL */
     .btn-modal-comprar {
         padding: 12px;
-        font-size: 14px;
+        font-size: 13px;
     }
 
     /* ✅ BOTÃO FECHAR */
@@ -1089,8 +1089,8 @@
     }
 
     .toast-nome {
-        font-size: 13px;
-        font-weight: 600;
+        font-size: 12px;
+        font-weight: 500;
         line-height: 1.3;
 
         display: -webkit-box;
@@ -1132,7 +1132,7 @@
         margin-top: 10px;
 
         padding: 10px;
-        font-size: 13px;
+        font-size: 12px;
 
         border-radius: 20px;
 
@@ -1297,7 +1297,7 @@
 
 /* LOGO */
 .frete-left img {
-    height: 16px;
+    height: 17px;
     width: auto;
 }
 
@@ -1348,14 +1348,14 @@
     padding: 6px 8px;
     border-radius: 6px;
     border: 1px solid #ccc;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .cep-bloco button {
     padding: 6px 35px;
     border-radius: 6px;
     border: none;
-    background: #444; /* roxo padrão que você usa */
+    background: #111; /* roxo padrão que você usa */
     color: white;
     font-size: 12px;
     cursor: pointer;
@@ -1382,7 +1382,7 @@
 
     margin-bottom: 6px;
 
-    font-size: 14px;
+    font-size: 16px;
     font-family: "Montserrat", sans-serif;
 
     color: #00a650;
@@ -1390,13 +1390,13 @@
 
 .total-final {
     font-weight: 700;
-    font-size: 22px;
+    font-size: 16px;
 }
 
 .parcelamento-texto {
-    font-size: 13px;
+    font-size: 12px;
     color:#00a650;
-    margin-top: 4px;
+    margin-top: 10px;
 }
 
 
@@ -1512,9 +1512,9 @@ a.btn-finalizar{
 
     width:100% !important;
 
-    height:52px !important;
+    height:42px !important;
 
-    margin-top:32px !important;
+    margin-top:15px !important;
 
     display:flex !important;
 
@@ -1528,9 +1528,9 @@ a.btn-finalizar{
 
     border:none !important;
 
-    border-radius:22px !important;
+    border-radius:15px !important;
 
-    font-size:14px !important;
+    font-size:13px !important;
 
     font-weight:600 !important;
 

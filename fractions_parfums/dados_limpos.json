@@ -1,0 +1,1790 @@
+[
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$1000000$jVJYz47QAND0HtvaS8Q2BP$aQR0fRpmNxH3KeU9385XLiAlOk+gfDKzCJt/vjUq0xo=",
+            "last_login": "2026-06-09T23:50:12.656Z",
+            "is_superuser": true,
+            "username": "fractions",
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2026-06-05T06:37:42Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "produtos.categoria",
+        "pk": 1,
+        "fields": {
+            "nome": "Masculinos",
+            "slug": "masculinos"
+        }
+    },
+    {
+        "model": "produtos.categoria",
+        "pk": 2,
+        "fields": {
+            "nome": "Femininos",
+            "slug": "femininos"
+        }
+    },
+    {
+        "model": "produtos.categoria",
+        "pk": 3,
+        "fields": {
+            "nome": "Arabes",
+            "slug": "arabes"
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 1,
+        "fields": {
+            "nome": "Versace - Versace Pour Homme (decant)",
+            "marca": "Versace",
+            "slug": "versace-pour-homme",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/versace-pour-homme.webp",
+            "imagem_descricao": "perfumes/descricao/resenha-versace-pour-homme.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 3,
+        "fields": {
+            "nome": "Dior - Sauvage Eau de Parfum (decant)",
+            "marca": "Dior",
+            "slug": "dior-sauvage-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/sauvage-dior-edp.webp",
+            "imagem_descricao": "perfumes/descricao/sauvage-edp-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 4,
+        "fields": {
+            "nome": "Chanel - Coco Mademoiselle Eau de Parfum (decant)",
+            "marca": "Chanel",
+            "slug": "chanel-coco-mademoiselle-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/coco-mademoiselle-edp-intense.webp",
+            "imagem_descricao": "perfumes/descricao/coco_mademoisele_edp_resenha.webp",
+            "categorias": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 5,
+        "fields": {
+            "nome": "Dolce & Gabanna - Light Blue Eau de Toilette (decant)",
+            "marca": "Dolce & Gabanna",
+            "slug": "dolce-gabanna-light-blue-eau-de-toilette-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/dg-light-blue-edt.webp",
+            "imagem_descricao": "perfumes/descricao/light-blue-fem-resenha.webp",
+            "categorias": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 6,
+        "fields": {
+            "nome": "Lattafa - Fakhar Rose Eau de Parfum (decant)",
+            "marca": "Lattafa",
+            "slug": "lattafa-fakhar-rose-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/fakharrose-edt.webp",
+            "imagem_descricao": "perfumes/descricao/fakhar-rose-fem-resenha.webp",
+            "categorias": [
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 7,
+        "fields": {
+            "nome": "Armaf - Club de Nuit Intense Men Eau de Toilette (decant)",
+            "marca": "Armaf",
+            "slug": "armaf-club-de-nuit-intense-men-eau-de-toilette-dec",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/club-de-nuit-intense-men.webp",
+            "imagem_descricao": "perfumes/descricao/club-nuit-intense-resenha.webp",
+            "categorias": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 8,
+        "fields": {
+            "nome": "Calvin Klein - Euphoria Eau de Parfum (decant)",
+            "marca": "Calvin Klein",
+            "slug": "calvin-klein-euphoria-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/euphoria-edp-fem.webp",
+            "imagem_descricao": "perfumes/descricao/euphoria-edp-fem-resenha.webp",
+            "categorias": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 9,
+        "fields": {
+            "nome": "Jean Paul Gaultier - Le Male Le Parfum (decant)",
+            "marca": "Jean Paul Gaultier",
+            "slug": "jean-paul-gaultier-le-male-le-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/le-male-le-parfum.webp",
+            "imagem_descricao": "perfumes/descricao/le-male-parfum-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 10,
+        "fields": {
+            "nome": "Ralph Lauren - Polo Blue Eau de Parfum (decant)",
+            "marca": "Ralph Lauren",
+            "slug": "ralph-lauren-polo-blue-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/polo-blue-edp-masc.webp",
+            "imagem_descricao": "perfumes/descricao/polo-blue-edp-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 11,
+        "fields": {
+            "nome": "Lattafa - Yara Eau de Parfum (decant)",
+            "marca": "Lattafa",
+            "slug": "lattafa-yara-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/yara-latafa-fem.webp",
+            "imagem_descricao": "perfumes/descricao/lattafa-yara-resenha.webp",
+            "categorias": [
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 12,
+        "fields": {
+            "nome": "Carolina Herrera - 212 Vip Black Eau de Parfum (decant)",
+            "marca": "Carolina Herrera",
+            "slug": "carolina-herrera-212-vip-black-eau-de-parfum-decan",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/212-vip-black-edp.webp",
+            "imagem_descricao": "perfumes/descricao/212-vip-black-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 13,
+        "fields": {
+            "nome": "Carolina Herrera - 212 VIP Rosé Eau de Parfum (decant)",
+            "marca": "Carolina Herrera",
+            "slug": "carolina-herrera-212-vip-rose-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/212-vip-rose-edp.webp",
+            "imagem_descricao": "perfumes/descricao/212-vip-rose-resenha.webp",
+            "categorias": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 14,
+        "fields": {
+            "nome": "Chanel - Allure Homme Edition Blanche (Decant)",
+            "marca": "Chanel",
+            "slug": "chanel-allure-homme-edition-blanche-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/allure-blanche-edt.webp",
+            "imagem_descricao": "perfumes/descricao/alure-blanche-edt-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 15,
+        "fields": {
+            "nome": "Chanel - Allure Homme Sport Eau de Toilette (decant)",
+            "marca": "Chanel",
+            "slug": "chanel-allure-homme-sport-eau-de-toilette-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/allure-homme-sport-edt.webp",
+            "imagem_descricao": "perfumes/descricao/alure-sport-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 16,
+        "fields": {
+            "nome": "Carolina Herrera - CH (decant)",
+            "marca": "Carolina Herrera",
+            "slug": "carolina-herrera-ch-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/ch-fem.webp",
+            "imagem_descricao": "perfumes/descricao/ch-fem-resenha.webp",
+            "categorias": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 17,
+        "fields": {
+            "nome": "Calvin Klein - CK One (decant)",
+            "marca": "Calvin Klein",
+            "slug": "calvin-klein-ck-one-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/ck-one-masc.webp",
+            "imagem_descricao": "perfumes/descricao/ck-one-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 18,
+        "fields": {
+            "nome": "Versace - Eros Parfum (decant)",
+            "marca": "Versace",
+            "slug": "versace-eros-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/versace-eros-edp.webp",
+            "imagem_descricao": "perfumes/descricao/eros-edp-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 19,
+        "fields": {
+            "nome": "Carolina Herrera - Good Girl Eau de Parfum (decant)",
+            "marca": "Carolina Herrera",
+            "slug": "carolina-herrera-good-girl-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/good-girl-carolina-herrera-edp.webp",
+            "imagem_descricao": "perfumes/descricao/good-girl-fem-edp-resenha.webp",
+            "categorias": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 20,
+        "fields": {
+            "nome": "Paco Rabanne - Invictus Eau de Toilette (decant)",
+            "marca": "Paco Rabanne",
+            "slug": "paco-rabanne-invictus-eau-de-toilette-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/invictus-edt.webp",
+            "imagem_descricao": "perfumes/descricao/invictus-edp-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 21,
+        "fields": {
+            "nome": "Issey Miyake - L'eau d'Issey Pour Homme (decant)",
+            "marca": "Issey Miyake",
+            "slug": "issey-miyake-leau-dissey-pour-homme-decant",
+            "estoque_ml": 20,
+            "ativo": true,
+            "imagem": "perfumes/leau-dissey-pour-homme-edt.webp",
+            "imagem_descricao": "perfumes/descricao/issey-ph-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 22,
+        "fields": {
+            "nome": "Paco Rabanne - 1 Million Eau de Parfum (decant)",
+            "marca": "Paco Rabanne",
+            "slug": "paco-rabanne-1-million-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/1-million-edp.webp",
+            "imagem_descricao": "perfumes/descricao/million-edp-masc-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 23,
+        "fields": {
+            "nome": "Prada Milano - Paradoxe Eau de Parfum (decant)",
+            "marca": "Prada Milano",
+            "slug": "prada-milano-paradoxe-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/prada-paradoxe-edp.webp",
+            "imagem_descricao": "perfumes/descricao/prada-paradoxe-resenha.webp",
+            "categorias": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 24,
+        "fields": {
+            "nome": "Chanel - Bleu de Chanel Eau de Toilette (decant)",
+            "marca": "Chanel",
+            "slug": "chanel-bleu-de-chanel-eau-de-toilette-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/bleu-edt.webp",
+            "imagem_descricao": "perfumes/descricao/resenha-bleu-chanel-edt.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 25,
+        "fields": {
+            "nome": "Jean Paul Gaultier - Scandal Eau de Parfum (decant)",
+            "marca": "Jean Paul Gaultier",
+            "slug": "jean-paul-gaultier-scandal-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/scandal-edp.webp",
+            "imagem_descricao": "perfumes/descricao/scandall-edp_resenha.webp",
+            "categorias": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 26,
+        "fields": {
+            "nome": "Rasasi - Hawas Black (decant)",
+            "marca": "Rasasi",
+            "slug": "rasasi-hawas-black-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/hawas-black.webp",
+            "imagem_descricao": "perfumes/descricao/hawas-black-resenha.webp",
+            "categorias": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 27,
+        "fields": {
+            "nome": "Afnan - 9 PM Rebel (decant)",
+            "marca": "Afnan",
+            "slug": "afnan-9-pm-rebel-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/9-pm-rebel.webp",
+            "imagem_descricao": "perfumes/descricao/9pm-rebel-resenha.webp",
+            "categorias": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 28,
+        "fields": {
+            "nome": "French Avenue - Liquid Brun (decant)",
+            "marca": "French Avenue",
+            "slug": "french-avenue-liquid-brun-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/liquid-brun.webp",
+            "imagem_descricao": "perfumes/descricao/avenue-liquid-brun-resenha.webp",
+            "categorias": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 29,
+        "fields": {
+            "nome": "Lattafa - Asad Eau de Parfum (decant)",
+            "marca": "Lattafa",
+            "slug": "lattafa-yara-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/asad-latafa-edp.webp",
+            "imagem_descricao": "perfumes/descricao/lattafa-asad-resenha.webp",
+            "categorias": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 30,
+        "fields": {
+            "nome": "Lattafa - Asad Bourboun Eau de Parfum (decant)",
+            "marca": "Lattafa",
+            "slug": "lattafa-asad-bourboun-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/asad-bourbon-edp.webp",
+            "imagem_descricao": "perfumes/descricao/lattafa-asad-bourbon-resenha.webp",
+            "categorias": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 31,
+        "fields": {
+            "nome": "Guerlain-homme-edt",
+            "marca": "Guerlain",
+            "slug": "guerlain-homme-edt",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/guerlain-homme.webp",
+            "imagem_descricao": "perfumes/descricao/guerlain-home-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 32,
+        "fields": {
+            "nome": "Armani code Ultimate",
+            "marca": "Giorgio Armani",
+            "slug": "armani-code-ultimate",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/code-ultimate.webp",
+            "imagem_descricao": "perfumes/descricao/code-ultimate-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 33,
+        "fields": {
+            "nome": "AL Wataniah - Sabah Al Ward Eau de Parfum (decant)",
+            "marca": "AL Wataniah",
+            "slug": "al-wataniah-sabah-al-ward-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/sabah-al-ward-edp.webp",
+            "imagem_descricao": "perfumes/descricao/al-sabah-resenha.webp",
+            "categorias": [
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 1,
+        "fields": {
+            "perfume": 1,
+            "tamanho": "2ml",
+            "valor": "22.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 2,
+        "fields": {
+            "perfume": 1,
+            "tamanho": "5ml",
+            "valor": "44.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 3,
+        "fields": {
+            "perfume": 1,
+            "tamanho": "10ml",
+            "valor": "79.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 7,
+        "fields": {
+            "perfume": 3,
+            "tamanho": "2ml",
+            "valor": "36.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 8,
+        "fields": {
+            "perfume": 3,
+            "tamanho": "5ml",
+            "valor": "69.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 9,
+        "fields": {
+            "perfume": 3,
+            "tamanho": "10ml",
+            "valor": "99.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 10,
+        "fields": {
+            "perfume": 4,
+            "tamanho": "2ml",
+            "valor": "38.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 11,
+        "fields": {
+            "perfume": 4,
+            "tamanho": "5ml",
+            "valor": "72.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 12,
+        "fields": {
+            "perfume": 4,
+            "tamanho": "10ml",
+            "valor": "102.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 13,
+        "fields": {
+            "perfume": 5,
+            "tamanho": "2ml",
+            "valor": "23.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 14,
+        "fields": {
+            "perfume": 5,
+            "tamanho": "5ml",
+            "valor": "53.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 15,
+        "fields": {
+            "perfume": 5,
+            "tamanho": "10ml",
+            "valor": "83.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 16,
+        "fields": {
+            "perfume": 6,
+            "tamanho": "2ml",
+            "valor": "19.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 17,
+        "fields": {
+            "perfume": 6,
+            "tamanho": "5ml",
+            "valor": "39.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 18,
+        "fields": {
+            "perfume": 6,
+            "tamanho": "10ml",
+            "valor": "89.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 19,
+        "fields": {
+            "perfume": 7,
+            "tamanho": "2ml",
+            "valor": "19.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 20,
+        "fields": {
+            "perfume": 7,
+            "tamanho": "5ml",
+            "valor": "39.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 21,
+        "fields": {
+            "perfume": 7,
+            "tamanho": "10ml",
+            "valor": "59.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 22,
+        "fields": {
+            "perfume": 8,
+            "tamanho": "2ml",
+            "valor": "19.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 23,
+        "fields": {
+            "perfume": 8,
+            "tamanho": "5ml",
+            "valor": "39.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 24,
+        "fields": {
+            "perfume": 8,
+            "tamanho": "10ml",
+            "valor": "59.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 25,
+        "fields": {
+            "perfume": 9,
+            "tamanho": "2ml",
+            "valor": "24.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 26,
+        "fields": {
+            "perfume": 9,
+            "tamanho": "5ml",
+            "valor": "48.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 27,
+        "fields": {
+            "perfume": 9,
+            "tamanho": "10ml",
+            "valor": "74.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 28,
+        "fields": {
+            "perfume": 10,
+            "tamanho": "2ml",
+            "valor": "24.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 29,
+        "fields": {
+            "perfume": 10,
+            "tamanho": "5ml",
+            "valor": "48.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 30,
+        "fields": {
+            "perfume": 10,
+            "tamanho": "10ml",
+            "valor": "74.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 31,
+        "fields": {
+            "perfume": 11,
+            "tamanho": "2ml",
+            "valor": "17.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 32,
+        "fields": {
+            "perfume": 11,
+            "tamanho": "5ml",
+            "valor": "33.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 33,
+        "fields": {
+            "perfume": 11,
+            "tamanho": "10ml",
+            "valor": "46.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 34,
+        "fields": {
+            "perfume": 12,
+            "tamanho": "2ml",
+            "valor": "23.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 35,
+        "fields": {
+            "perfume": 12,
+            "tamanho": "5ml",
+            "valor": "46.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 36,
+        "fields": {
+            "perfume": 12,
+            "tamanho": "10ml",
+            "valor": "68.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 37,
+        "fields": {
+            "perfume": 13,
+            "tamanho": "2ml",
+            "valor": "23.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 38,
+        "fields": {
+            "perfume": 13,
+            "tamanho": "5ml",
+            "valor": "46.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 39,
+        "fields": {
+            "perfume": 13,
+            "tamanho": "10ml",
+            "valor": "69.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 40,
+        "fields": {
+            "perfume": 14,
+            "tamanho": "2ml",
+            "valor": "44.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 41,
+        "fields": {
+            "perfume": 14,
+            "tamanho": "5ml",
+            "valor": "88.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 42,
+        "fields": {
+            "perfume": 14,
+            "tamanho": "10ml",
+            "valor": "179.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 43,
+        "fields": {
+            "perfume": 15,
+            "tamanho": "2ml",
+            "valor": "35.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 44,
+        "fields": {
+            "perfume": 15,
+            "tamanho": "5ml",
+            "valor": "69.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 45,
+        "fields": {
+            "perfume": 15,
+            "tamanho": "10ml",
+            "valor": "99.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 46,
+        "fields": {
+            "perfume": 16,
+            "tamanho": "2ml",
+            "valor": "29.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 47,
+        "fields": {
+            "perfume": 16,
+            "tamanho": "5ml",
+            "valor": "59.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 48,
+        "fields": {
+            "perfume": 16,
+            "tamanho": "10ml",
+            "valor": "89.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 49,
+        "fields": {
+            "perfume": 17,
+            "tamanho": "2ml",
+            "valor": "18.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 50,
+        "fields": {
+            "perfume": 17,
+            "tamanho": "5ml",
+            "valor": "36.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 51,
+        "fields": {
+            "perfume": 17,
+            "tamanho": "10ml",
+            "valor": "69.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 52,
+        "fields": {
+            "perfume": 18,
+            "tamanho": "2ml",
+            "valor": "29.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 53,
+        "fields": {
+            "perfume": 18,
+            "tamanho": "5ml",
+            "valor": "59.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 54,
+        "fields": {
+            "perfume": 18,
+            "tamanho": "10ml",
+            "valor": "89.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 55,
+        "fields": {
+            "perfume": 19,
+            "tamanho": "2ml",
+            "valor": "28.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 56,
+        "fields": {
+            "perfume": 19,
+            "tamanho": "5ml",
+            "valor": "58.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 57,
+        "fields": {
+            "perfume": 19,
+            "tamanho": "10ml",
+            "valor": "83.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 58,
+        "fields": {
+            "perfume": 20,
+            "tamanho": "2ml",
+            "valor": "22.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 59,
+        "fields": {
+            "perfume": 20,
+            "tamanho": "5ml",
+            "valor": "44.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 60,
+        "fields": {
+            "perfume": 20,
+            "tamanho": "10ml",
+            "valor": "65.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 61,
+        "fields": {
+            "perfume": 21,
+            "tamanho": "2ml",
+            "valor": "20.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 62,
+        "fields": {
+            "perfume": 21,
+            "tamanho": "5ml",
+            "valor": "40.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 63,
+        "fields": {
+            "perfume": 21,
+            "tamanho": "10ml",
+            "valor": "60.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 64,
+        "fields": {
+            "perfume": 22,
+            "tamanho": "2ml",
+            "valor": "24.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 65,
+        "fields": {
+            "perfume": 22,
+            "tamanho": "5ml",
+            "valor": "49.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 66,
+        "fields": {
+            "perfume": 22,
+            "tamanho": "10ml",
+            "valor": "74.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 67,
+        "fields": {
+            "perfume": 23,
+            "tamanho": "2ml",
+            "valor": "37.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 68,
+        "fields": {
+            "perfume": 23,
+            "tamanho": "5ml",
+            "valor": "74.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 69,
+        "fields": {
+            "perfume": 23,
+            "tamanho": "10ml",
+            "valor": "139.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 70,
+        "fields": {
+            "perfume": 24,
+            "tamanho": "2ml",
+            "valor": "39.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 71,
+        "fields": {
+            "perfume": 24,
+            "tamanho": "5ml",
+            "valor": "89.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 72,
+        "fields": {
+            "perfume": 24,
+            "tamanho": "10ml",
+            "valor": "174.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 73,
+        "fields": {
+            "perfume": 25,
+            "tamanho": "2ml",
+            "valor": "29.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 74,
+        "fields": {
+            "perfume": 25,
+            "tamanho": "5ml",
+            "valor": "59.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 75,
+        "fields": {
+            "perfume": 25,
+            "tamanho": "10ml",
+            "valor": "88.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 76,
+        "fields": {
+            "perfume": 26,
+            "tamanho": "2ml",
+            "valor": "24.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 77,
+        "fields": {
+            "perfume": 26,
+            "tamanho": "5ml",
+            "valor": "48.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 78,
+        "fields": {
+            "perfume": 26,
+            "tamanho": "10ml",
+            "valor": "73.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 79,
+        "fields": {
+            "perfume": 27,
+            "tamanho": "2ml",
+            "valor": "24.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 80,
+        "fields": {
+            "perfume": 27,
+            "tamanho": "5ml",
+            "valor": "48.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 81,
+        "fields": {
+            "perfume": 27,
+            "tamanho": "10ml",
+            "valor": "73.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 82,
+        "fields": {
+            "perfume": 28,
+            "tamanho": "2ml",
+            "valor": "24.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 83,
+        "fields": {
+            "perfume": 28,
+            "tamanho": "5ml",
+            "valor": "48.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 84,
+        "fields": {
+            "perfume": 28,
+            "tamanho": "10ml",
+            "valor": "73.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 85,
+        "fields": {
+            "perfume": 29,
+            "tamanho": "2ml",
+            "valor": "18.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 86,
+        "fields": {
+            "perfume": 29,
+            "tamanho": "5ml",
+            "valor": "37.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 87,
+        "fields": {
+            "perfume": 29,
+            "tamanho": "10ml",
+            "valor": "56.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 88,
+        "fields": {
+            "perfume": 30,
+            "tamanho": "2ml",
+            "valor": "23.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 89,
+        "fields": {
+            "perfume": 30,
+            "tamanho": "5ml",
+            "valor": "53.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 90,
+        "fields": {
+            "perfume": 30,
+            "tamanho": "10ml",
+            "valor": "75.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 91,
+        "fields": {
+            "perfume": 31,
+            "tamanho": "2ml",
+            "valor": "39.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 92,
+        "fields": {
+            "perfume": 31,
+            "tamanho": "5ml",
+            "valor": "78.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 93,
+        "fields": {
+            "perfume": 31,
+            "tamanho": "10ml",
+            "valor": "119.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 94,
+        "fields": {
+            "perfume": 32,
+            "tamanho": "2ml",
+            "valor": "25.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 95,
+        "fields": {
+            "perfume": 32,
+            "tamanho": "5ml",
+            "valor": "47.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 96,
+        "fields": {
+            "perfume": 32,
+            "tamanho": "10ml",
+            "valor": "73.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 97,
+        "fields": {
+            "perfume": 33,
+            "tamanho": "2ml",
+            "valor": "15.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 98,
+        "fields": {
+            "perfume": 33,
+            "tamanho": "5ml",
+            "valor": "31.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 99,
+        "fields": {
+            "perfume": 33,
+            "tamanho": "10ml",
+            "valor": "44.90"
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 196,
+        "fields": {
+            "session_key": "ceq6conhxxr27xlhsv6nqv3jbcwplsr0",
+            "usuario": 1
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 199,
+        "fields": {
+            "session_key": "dnwlmh0rp23jed7zzz8hdzo3ermkrbpo",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 203,
+        "fields": {
+            "session_key": "y0ww26h7n9zvd1aqpxq816fuk7gaucow",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 206,
+        "fields": {
+            "session_key": "zgp8u4d0bzqzqq5czdhb0pb36ls980bu",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 207,
+        "fields": {
+            "session_key": "cbqp1jl58sg0bnxkq36707w3q8krx2xr",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 208,
+        "fields": {
+            "session_key": "72boh6aa4vyehly1wukg30y5it5f1lrh",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 212,
+        "fields": {
+            "session_key": "0ksrbwb0u4b4938ioddgy3mnpb5ox7q3",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 213,
+        "fields": {
+            "session_key": "ebatbdedcdw828mw20scywuefc7l185s",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 223,
+        "fields": {
+            "session_key": "i3npjd1yrbs5v8r71ppzlk58w7ll3r2c",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 224,
+        "fields": {
+            "session_key": "y0kan0jpzzv8rycxllqbj6mhmcld6iyy",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 228,
+        "fields": {
+            "session_key": "z130m7gz07m1twxosb5j1czdzc37qwvc",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 231,
+        "fields": {
+            "session_key": "9t1xb8krayye68n1x02qmvdvnmlzns87",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 237,
+        "fields": {
+            "session_key": "epv5izymj4olzd4aap0settcqg3cfoke",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 238,
+        "fields": {
+            "session_key": "jaqf3xzq3f71wmgktprq6i06vl82x2ww",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 239,
+        "fields": {
+            "session_key": "ityngeoinojp88vgcj3q6jytsfb39al6",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 241,
+        "fields": {
+            "session_key": "thxpo18kc568ofig3p54fo401ft8pkpp",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 242,
+        "fields": {
+            "session_key": "90ym50arjcmgl3u6k85382dyiyloj86k",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 243,
+        "fields": {
+            "session_key": "j4wrod4l62b127l6kf3x5w7aieze1div",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 244,
+        "fields": {
+            "session_key": "a5qh9bpypk1ms8oj67hnn2f50wdcef1q",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 245,
+        "fields": {
+            "session_key": "0olv5kg4abrd5s99dahygl9f6g1etvjk",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 246,
+        "fields": {
+            "session_key": "2py15cu8pn2tu5nz38v3i3w7nfwidg4g",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 247,
+        "fields": {
+            "session_key": "3imss2d5j7ymgyf3iyot6ch1lvx73fgv",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 248,
+        "fields": {
+            "session_key": "v1es6zm772og8mtu060ouxd97a76gw9t",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 249,
+        "fields": {
+            "session_key": "rcot4wn7fui8wnxtf5cs1een6sot6po6",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 250,
+        "fields": {
+            "session_key": "bn45wqyhdja3665u4b5jgmbj7gbgxd56",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 251,
+        "fields": {
+            "session_key": "moqutd2vlok9zu5qmskbkq27u3bhec54",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 252,
+        "fields": {
+            "session_key": "kvk0w17h6p5lbaa9cljaa14updt29wtb",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 253,
+        "fields": {
+            "session_key": "gaa8yt1ttsw4r92bb4pv3rtnz2y3tx1l",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 254,
+        "fields": {
+            "session_key": "bu6lbh1tfpcm8bkvo4ozyirl8tlzg5br",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 255,
+        "fields": {
+            "session_key": "yd0bg4jf3hlgzpa5a6su86uzjdhqkd75",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 256,
+        "fields": {
+            "session_key": "dx97xc4o1101xwzfn6bu3h8vraxsr8yy",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 257,
+        "fields": {
+            "session_key": "vjrh6yk59wev3jgwc75dhzeotc15ajdq",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 258,
+        "fields": {
+            "session_key": "utujwyi36c6xn2txn3fh4hvdbk0ic181",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 259,
+        "fields": {
+            "session_key": "vkyfqieeh8d1wkcvwcqmwq35dls7tpjf",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 260,
+        "fields": {
+            "session_key": "gbas8vqmo6b6qvgbd4j2b7k13ky1bzcy",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 261,
+        "fields": {
+            "session_key": "n11pa4dlpajuv1eppjzpqiiwf38z1mq1",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.item",
+        "pk": 166,
+        "fields": {
+            "carrinho": 206,
+            "perfume": 21,
+            "preco_obj": 61,
+            "tamanho": "2ml",
+            "preco": "20.90",
+            "quantidade": 2
+        }
+    },
+    {
+        "model": "carrinho.item",
+        "pk": 172,
+        "fields": {
+            "carrinho": 242,
+            "perfume": 21,
+            "preco_obj": 61,
+            "tamanho": "2ml",
+            "preco": "20.90",
+            "quantidade": 1
+        }
+    },
+    {
+        "model": "carrinho.item",
+        "pk": 174,
+        "fields": {
+            "carrinho": 244,
+            "perfume": 21,
+            "preco_obj": 61,
+            "tamanho": "2ml",
+            "preco": "20.90",
+            "quantidade": 1
+        }
+    },
+    {
+        "model": "carrinho.item",
+        "pk": 175,
+        "fields": {
+            "carrinho": 245,
+            "perfume": 21,
+            "preco_obj": 61,
+            "tamanho": "2ml",
+            "preco": "20.90",
+            "quantidade": 1
+        }
+    },
+    {
+        "model": "carrinho.item",
+        "pk": 176,
+        "fields": {
+            "carrinho": 246,
+            "perfume": 21,
+            "preco_obj": 61,
+            "tamanho": "2ml",
+            "preco": "20.90",
+            "quantidade": 1
+        }
+    },
+    {
+        "model": "carrinho.item",
+        "pk": 177,
+        "fields": {
+            "carrinho": 243,
+            "perfume": 21,
+            "preco_obj": 61,
+            "tamanho": "2ml",
+            "preco": "20.90",
+            "quantidade": 1
+
+        }
+    }
+]

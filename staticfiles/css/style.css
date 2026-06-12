@@ -27,7 +27,7 @@ header {
     grid-template-columns: auto 1fr auto;
     align-items: center;
 
-    height: 150px;
+    height: 130px;
     padding: 0 25px;
 
     background: #ddd;
@@ -123,7 +123,7 @@ header {
 
     gap: 120px;
 
-    padding: 20px 15px;
+    padding: 15px 15px;
 
     border-top: 1px solid #222;
     border-bottom: 1px solid #222;
@@ -2483,4 +2483,47 @@ body.modal-aberto {
     border: 1px solid #e05252;
 
     color: #a12626;
+}
+
+/* ✅ LOGIN EXTRA FINAL */
+
+.login-extra{
+
+    margin-top:28px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+}
+
+.login-extra p{
+
+    margin:0 0 5px 0;
+
+    color:#666;
+    font-family: Arial, sans-serif;
+
+    font-size:15px;
+}
+
+.login-extra .link-criar-conta{
+
+    display:inline-block;
+
+    margin-top:4px;
+
+    color:#111;
+    font-family: Arial, sans-serif;
+    font-weight:700;
+
+    font-size:15px;
+
+    text-decoration:none;
+}
+
+.login-extra .link-criar-conta:hover{
+
+    opacity:0.7;
 }

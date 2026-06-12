@@ -23,6 +23,11 @@
 
         {% csrf_token %}
 
+        <!-- ✅ IMPORTANTE: mantém fluxo checkout -->
+        <input type="hidden" name="next" value="{% url 'checkout' %}">
+
+        
+
         <!-- ✅ ALIAS -->
         <div class="form-group">
 

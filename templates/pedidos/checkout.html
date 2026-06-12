@@ -10,9 +10,9 @@
     <!-- ✅ ESQUERDA -->
     <div class="checkout-left">
 
-        <h1 class="checkout-title">
-            Checkout
-        </h1>
+    {% comment %} <h1 class="checkout-title">
+        Finalizar Compra
+    </h1> {% endcomment %}
 
         <!-- ✅ ENTREGA -->
         <div class="checkout-box">
@@ -20,10 +20,10 @@
             <div class="checkout-header">
 
                 <h2>
-                    Entrega
+                    Endereço entrega
                 </h2>
 
-                <a href="{% url 'editar_endereco' %}?next=/pedido/checkout/"
+                <a href="{% url 'meus_enderecos' %}?next={% url 'checkout' %}"
                 class="checkout-editar">
 
                     Alterar
@@ -87,10 +87,10 @@
 
             </div>
 
-            <a href="{% url 'editar_endereco' %}?next=/pedido/checkout/"
+            <a href="{% url 'meus_enderecos' %}?next={% url 'checkout' %}"
             class="btn-checkout-endereco">
 
-                CADASTRAR ENDEREÇO
+                Cadastrar Endereço
 
             </a>
 
@@ -146,7 +146,10 @@
     >
 
     <button type="submit"
-            class="btn-finalizar-checkout">
+            class="btn-finalizar-checkout"
+            id="btnFinalizar"
+            disabled>
+
 
         IR PARA PAGAMENTO
 
@@ -171,7 +174,15 @@
 
         <div class="item-resumo">
 
-            <div>
+            <!-- ✅ IMAGEM -->
+            <img
+                src="{% if item.perfume.imagem %}{% static item.perfume.imagem %}{% else %}{% static 'img/sem-imagem.png' %}{% endif %}"
+                class="item-img"
+                alt="{{ item.perfume.nome }}"
+            >
+
+            <!-- ✅ DADOS -->
+            <div class="item-resumo-info">
 
                 <strong>
                     {{ item.perfume.nome }}
@@ -187,7 +198,8 @@
 
             </div>
 
-            <strong>
+            <!-- ✅ PREÇO -->
+            <strong class="item-resumo-preco">
                 R$ {{ item.preco }}
             </strong>
 
@@ -197,13 +209,14 @@
 
         <hr>
 
+
         <!-- ✅ TOTAIS -->
         <div class="totais-checkout">
 
             <div class="linha-total">
 
                 <span>
-                    Subtotal
+                    Subtotal:
                 </span>
 
                 <strong>
@@ -215,7 +228,7 @@
             <div class="linha-total">
 
                 <span>
-                    Frete
+                    Frete:
                 </span>
 
                 <strong id="valorFreteCheckout">
@@ -231,7 +244,7 @@
             <div class="linha-total total-geral">
 
                 <span>
-                    Total
+                    Total:
                 </span>
 
                 <strong id="totalCheckout">
@@ -252,154 +265,144 @@
 
 <script>
 
+// =====================================
+// ✅ ATUALIZA TOTAL FRETE
+// =====================================
 function atualizarTotalFrete() {
 
-    const radios = document.querySelectorAll(
-        'input[name="frete"]'
-    )
-
-    const subtotal = parseFloat(
-        "{{ total }}"
-    )
+    const radios = document.querySelectorAll('input[name="frete"]');
+    const subtotal = parseFloat("{{ total|floatformat:2 }}".replace(",", "."));
 
     radios.forEach(radio => {
 
         radio.addEventListener('change', function() {
 
-            const frete = parseFloat(
-                this.value
-            )
+            const frete = parseFloat(this.value);
+            const nome = this.dataset.nome;
+            const prazo = this.dataset.prazo;
 
-            const nome = this.dataset.nome
+            const total = subtotal + frete;
 
-            const prazo = this.dataset.prazo
+            document.getElementById('valorFreteCheckout').innerText =
+                `R$ ${frete.toFixed(2)}`;
 
-            const total = subtotal + frete
+            document.getElementById('totalCheckout').innerText =
+                `R$ ${total.toFixed(2)}`;
 
-            // ✅ atualiza valor frete
-            document.getElementById(
-                'valorFreteCheckout'
-            ).innerText = `R$ ${frete.toFixed(2)}`
+            document.getElementById('freteValorInput').value = frete;
+            document.getElementById('freteNomeInput').value = nome;
+            document.getElementById('fretePrazoInput').value = prazo;
 
-            // ✅ atualiza total
-            document.getElementById(
-                'totalCheckout'
-            ).innerText = `R$ ${total.toFixed(2)}`
+            document.getElementById('btnFinalizar').disabled = false;
+        });
+    });
 
-            // ✅ hidden inputs
-            document.getElementById(
-                'freteValorInput'
-            ).value = frete
+    // ✅ dispara change se já houver selecionado
+    const selecionado = document.querySelector('input[name="frete"]:checked');
 
-            document.getElementById(
-                'freteNomeInput'
-            ).value = nome
-
-            document.getElementById(
-                'fretePrazoInput'
-            ).value = prazo
-        })
-    })
-
-    // ✅ inicializa automaticamente
-    const primeiro = document.querySelector(
-        'input[name="frete"]:checked'
-    )
-
-    if (primeiro) {
-
-        primeiro.dispatchEvent(
-            new Event('change')
-        )
+    if (selecionado) {
+        selecionado.dispatchEvent(new Event('change'));
     }
 }
 
-
+// =====================================
+// ✅ CARREGA FRETES
+// =====================================
 async function carregarFretesCheckout() {
 
-    const container = document.getElementById(
-        'fretesCheckout'
-    )
+    const container = document.getElementById('fretesCheckout');
 
     try {
 
-        const response = await fetch(
-            '/pedido/calcular-frete/'
-        )
-
-        const data = await response.json()
+        const response = await fetch('/pedido/calcular-frete/');
+        const data = await response.json();
 
         if (!data.success) {
-
-            container.innerHTML = `
-                <p>
-                    Erro ao calcular frete
-                </p>
-            `
-
-            return
+            container.innerHTML = `<p>Erro ao calcular frete</p>`;
+            return;
         }
 
-        const fretes = data.fretes
-
-        let html = ''
+        const fretes = data.fretes;
+        let html = '';
 
         fretes.forEach((frete, index) => {
 
-            if (frete.error) {
-                return
-            }
+            if (frete.error) return;
+
+            const nome = (frete.name || '').replace(/["']/g, '');
+            const prazo = (frete.delivery_time || '').toString().replace(/["']/g, '');
+            const valor = parseFloat(frete.price || 0);
+            const imagem = frete.company?.picture || '';
+            const empresa = (frete.company?.name || '').replace(/["']/g, '');
+
+            const imgTag = imagem
+                ? `<img src="${encodeURI(imagem)}" alt="${empresa}">`
+                : '';
 
             html += `
+            <label class="frete-opcao ${index === 0 ? 'melhor' : ''}">
 
-                <label class="frete-opcao">
+                    <div class="frete-left">
 
-                    <input
-                        type="radio"
-                        name="frete"
-                        value="${frete.price}"
-                        data-nome="${frete.name}"
-                        data-prazo="${frete.delivery_time}"
-                        ${index === 0 ? 'checked' : ''}
-                    >
+                        <input
+                            type="radio"
+                            name="frete"
+                            value="${valor}"
+                            data-nome="${nome}"
+                            data-prazo="${prazo}"
+                        >
 
-                    <div>
+                        ${imgTag}
 
-                        <strong>
-                            ${frete.name}
-                        </strong>
-
-                        <p>
-                            Prazo: ${frete.delivery_time} dias
-                        </p>
+                        <span>${nome}</span>
 
                     </div>
 
-                    <strong>
-                        R$ ${frete.price}
-                    </strong>
+                    <div class="frete-info">
+
+                        <strong>R$ ${valor.toFixed(2)}</strong>
+                        <small>${prazo} dias</small>
+
+                    </div>
 
                 </label>
-            `
-        })
+            `;
+        });
 
-        container.innerHTML = html
+        container.innerHTML = html;
 
-        // ✅ ativa total dinâmico
-        atualizarTotalFrete()
+        // ✅ ativa eventos de total
+        atualizarTotalFrete();
+
+        // ✅ seleciona o primeiro automaticamente
+        const radios = document.querySelectorAll('input[name="frete"]');
+
+        if (radios.length > 0) {
+
+            radios[0].checked = true;
+            radios[0].dispatchEvent(new Event('change'));
+        }
 
     } catch (error) {
 
+        console.error('Erro frete:', error);
+
         container.innerHTML = `
-            <p>
-                Falha ao carregar fretes
-            </p>
-        `
+            <p>Falha ao carregar fretes</p>
+        `;
     }
 }
 
-carregarFretesCheckout()
+
+// =====================================
+// ✅ INICIALIZA
+// =====================================
+document.addEventListener('DOMContentLoaded', function () {
+    carregarFretesCheckout();
+});
 
 </script>
 
 {% endblock %}
+
+

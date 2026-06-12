@@ -20,11 +20,14 @@
 }
 
 .conta-topo h1{
-    font-size:27px;
+    font-size:18px;          /* ✅ menor e mais elegante */
     font-weight:600;
     color:#111;
     margin:0;
-    letter-spacing:-1px;
+    margin-top:18px; 
+    letter-spacing:-0.3px;   /* ✅ menos comprimido */
+
+    font-family:-apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* ========================================= */
@@ -49,7 +52,7 @@
 
     margin-bottom:25px;
 
-    border:1px solid #efefef;
+    border:1px solid #ccc;
 
     box-shadow:
     0 10px 30px rgba(0,0,0,0.04);
@@ -81,7 +84,7 @@
 .box-header h3{
     margin:0;
 
-    font-size:20px;
+    font-size:18px;
     font-weight:700;
 
     color:#111;
@@ -129,7 +132,7 @@
 .dados-usuario strong{
     display:block;
 
-    font-size:18px;
+    font-size:14px;
     color:#111;
 
     margin-bottom:14px;
@@ -138,81 +141,107 @@
 .dados-usuario p{
     margin:10px 0;
 
-    color:#444;
-    font-size:15px;
+    color:#111;
+    font-size:13px;
     line-height:1.5;
 }
 
 .dados-usuario p strong{
     display:inline;
-    font-size:13px;
 }
 
 /* ========================================= */
-/* ✅ PEDIDOS */
+/* ✅ PEDIDOS (AJUSTADO PRO SEU HTML) */
 /* ========================================= */
 
 .titulo-pedidos{
-    font-size:24px;
-    font-weight:700;
-
-    margin-bottom:25px;
-
+    font-size:16px;
+    font-weight:600;
+    margin-bottom:20px;
     color:#111;
 }
 
+
+/* ✅ CARD */
 .pedido-card{
-    background:#f8f8f8;
+    background:#fff;
 
-    border-radius:22px;
+    border-radius:16px;
 
-    padding:24px 28px;
+    padding:16px;
 
     display:flex;
-    justify-content:space-between;
     align-items:center;
 
-    margin-bottom:18px;
+    gap:14px;
 
-    border:1px solid #ededed;
+    margin-bottom:14px;
 
-    transition:0.3s ease;
+    border: 1px solid #ccc;
+
+    transition:0.25s ease;
 }
 
 .pedido-card:hover{
-    background:#fff;
-
     transform:translateY(-2px);
-
-    box-shadow:
-    0 10px 25px rgba(0,0,0,0.05);
+    box-shadow:0 8px 20px rgba(0,0,0,0.05);
 }
 
-.pedido-card strong{
-    font-size:18px;
+
+.pedido-img{
+    width:60px;
+    height:60px;
+
+    object-fit:contain;
+
+    border-radius:8px;
+
+    background:#fff;
+    padding:4px;
+
+    border:1px solid #eee;
+
+    flex-shrink:0;
+
+    display:block;
+
+    box-sizing:border-box; /* ✅ evita estourar */
+}
+
+
+/* ✅ DADOS */
+.pedido-dados{
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+}
+
+/* título */
+.pedido-dados strong{
+    font-size:14px;
+    font-weight:600;
     color:#111;
 }
 
-.pedido-info{
-    display:flex;
-    align-items:center;
-    gap:18px;
+/* infos */
+.pedido-dados span{
+    font-size:12px;
+    color:#666;
+    margin-top:2px;
 }
 
-.pedido-info span{
-    color:#555;
-    font-size:13px;
-}
 
+/* ✅ BOTÃO */
 .btn-visualizar{
-    width:42px;
-    height:42px;
+    width:36px;
+    height:36px;
 
-    border-radius:50%;
+    border-radius:10px;
 
-    background:#fff;
+    background:#f4f4f5;
 
-    border:1px solid #dcdcdc;
+    border:1px solid #e5e7eb;
 
     color:#111;
 
@@ -222,6 +251,8 @@
 
     text-decoration:none;
 
+    flex-shrink:0;
+
     transition:0.25s ease;
 }
 
@@ -229,6 +260,31 @@
     background:#111;
     color:#fff;
 }
+
+@media (max-width: 768px){
+
+    .pedido-card{
+        padding:14px;
+        gap:10px;
+    }
+
+    .pedido-img{
+        width:60px;
+        height:60px;
+    }
+
+    .pedido-dados strong{
+        font-size:13px;
+    }
+
+}
+
+.pedido-dados p{
+    font-size:13px;
+    color:#555;
+    margin-top:2px;
+}
+
 
 /* ========================================= */
 /* ✅ SAIR */
@@ -331,11 +387,11 @@
 
     .conta-grid{
         grid-template-columns:1fr;
-        gap:20px;
+        gap:6px;
     }
 
     .titulo-pedidos{
-        font-size:30px;
+        font-size:18px;
     }
 
 }
@@ -352,13 +408,16 @@
     }
 
     .conta-topo h1{
-        font-size:32px;
+        font-size:20px;       /* ✅ menor e proporcional */
+        margin-top:20px;      /* ✅ desce um pouco */
     }
+
 
     .box-conta-info{
         border-radius:18px;
-        padding:22px;
+        padding:16px;   /* ✅ MENOR */
     }
+
 
     .box-header{
         align-items:flex-start;
@@ -377,7 +436,7 @@
     }
 
     .pedido-card strong{
-        font-size:17px;
+        font-size:14px;
     }
 
     .pedido-info{
@@ -431,3 +490,123 @@
     box-shadow:
     0 0 0 4px rgba(0,0,0,0.05);
 }
+
+@media (max-width: 768px){
+
+    .conta-grid{
+        display:flex;
+        flex-direction:column;
+    }
+
+    /* ✅ DIREITA (Itens do Pedido) vem primeiro */
+    .conta-grid > div:nth-child(2){
+        order: 1;
+    }
+
+    /* ✅ ESQUERDA (Entrega + Frete) vem depois */
+    .conta-grid > div:nth-child(1){
+        order: 2;
+    }
+
+}
+
+@media (max-width: 768px){
+
+    .minha-conta-page{
+        margin:25px auto 60px;
+        padding:0 14px;
+    }
+
+    .conta-grid{
+        display:flex;
+        flex-direction:column;
+    }
+
+    /* ✅ ORDEM */
+    .conta-grid > div:nth-child(2){
+        order:1;
+    }
+
+    .conta-grid > div:nth-child(1){
+        order:2;
+    }
+
+    /* ✅ OCUPAR 100% */
+    .conta-grid > div{
+        width:100%;
+    }
+
+    .box-conta-info{
+        width:100%;
+        padding:14px;
+        border-radius:16px;
+        margin-bottom:7px;
+    }
+
+    /* ✅ TEXTO */
+    .dados-usuario p{
+        margin:4px 0;
+        font-size:13px;
+        line-height:1.4;
+    }
+
+    /* ✅ TÍTULO */
+    .box-header h3{
+        font-size:16px;
+        margin-bottom:6px;
+    }
+
+    /* ✅ CARD PEDIDO */
+    .pedido-card{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:12px;
+        padding:16px;
+    }
+
+    .pedido-card strong{
+        font-size:14px;
+    }
+
+}
+
+@media (max-width: 768px){
+
+    .minha-conta-page{
+        margin:20px auto 30px;  /* ✅ bem menor embaixo */
+    }
+
+}
+
+@media (max-width: 768px){
+
+    .total-pedido{
+        margin-top:12px;
+        padding-top:10px;
+
+        border-top:1px solid #ddd;
+        font-family: "Montserrat", sans-serif !important;
+        font-size:18px;
+        font-weight:900;
+
+        color:#000;
+    }
+
+}
+
+.total-pedido{
+    margin-top:14px;
+    padding-top:10px;
+
+    border-top:1px solid #ccc;
+
+    font-size:16px;
+    color:#555;
+}
+
+.total-pedido strong{
+    font-size:20px;       /* ✅ agora aparece */
+    font-weight:700;
+    color:#000;
+}
+

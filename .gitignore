@@ -17,6 +17,9 @@ db.sqlite3
 # media files (imagens)
 # media/  ✅ (comentado)
 
+# arquivos de produção gerados
+staticfiles/
+
 # sistema
 .DS_Store
 Thumbs.db

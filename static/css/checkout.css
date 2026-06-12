@@ -1,6 +1,6 @@
 .checkout-page {
 
-    max-width: 1400px;
+    max-width: 1300px;
 
     margin: 40px auto;
 
@@ -18,18 +18,21 @@
 .checkout-right {
 
     width: 100%;
+
+    align-self: start;   /* ✅ garante alinhamento correto do resumo */
 }
 
 
 .checkout-title {
 
-    font-size: 32px;
-
+    font-size: 28px;     /* ✅ levemente mais equilibrado */
     font-weight: 700;
 
-    margin-bottom: 25px;
+    margin-bottom: 20px; /* ✅ menos espaçamento exagerado */
 
     color: #111;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 
@@ -40,19 +43,75 @@
 
     background: #fff;
 
-    border-radius: 16px;
+    border-radius: 14px; /* ✅ mais moderno */
 
-    padding: 25px;
+    padding: 22px;       /* ✅ mais compacto */
+    border: 1px solid #e6ebf0;
 
-    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.04); /* ✅ mais suave */
 
-    border: 1px solid #e8ecf1;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.resumo-box {
+    color: #111;   /* ✅ tudo preto padrão */
+}
+
+.resumo-box .linha-total strong {
+    color: #00a650;   /* ✅ valores verdes */
+}
+
+.resumo-box .total-geral span {
+    font-weight: 700;
+    color: #111;
+}
+
+.resumo-box .total-geral strong {
+    color: #00a650;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+.resumo-box .linha-total.total-geral strong {
+    color: #00a650 !important;   /* ✅ força o verde */
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* ✅ SUBTOTAL + FRETE */
+.resumo-box .linha-total {
+    font-size: 13px;       /* ✅ menor */
+}
+
+.resumo-box .linha-total span {
+    font-size: 15px;
+    color: #111;
+}
+
+.resumo-box .linha-total strong {
+    font-size: 15px;
+    color: #00a650;
+    font-weight: 700;
+}
+
+/* ✅ TOTAL (DESTACADO) */
+.resumo-box .total-geral span {
+    font-size: 16px;       /* ✅ maior que os outros */
+    font-weight: 700;
+    color: #111;
+}
+
+.resumo-box .total-geral strong {
+    font-size: 18px;       /* ✅ maior */
+    font-weight: 700;
+    color: #00a650;
 }
 
 
 .checkout-box {
 
-    margin-bottom: 25px;
+    margin-bottom: 12px; /* ✅ alinhado com novo padrão */
 }
 
 
@@ -66,13 +125,14 @@
 
     align-items: center;
 
-    margin-bottom: 20px;
+    margin-bottom: 16px; /* ✅ mais compacto */
 }
 
 
 .checkout-header h2 {
 
-    font-size: 22px;
+    font-size: 16px;     /* ✅ menos pesado */
+    font-weight: 700;
 
     margin: 0;
 
@@ -98,27 +158,34 @@
 }
 
 
-/* ✅ ENDEREÇO */
+/* ✅ CONTAINER (opcional, melhora tipografia geral) */
+.endereco-card {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
 
+/* ✅ NOME */
 .endereco-card strong {
 
     display: block;
 
-    margin-bottom: 10px;
-
-    font-size: 18px;
+    font-size: 15px;       /* ✅ menor e mais elegante */
+    font-weight: 600;
 
     color: #111;
+
+    margin-bottom: 8px;   /* ✅ menos espaço */
 }
 
 
+/* ✅ LINHAS ENDEREÇO */
 .endereco-card p {
 
-    margin: 6px 0;
+    margin: 4px 0;        /* ✅ reduz espaçamento */
 
+    font-size: 13px;      /* ✅ mais compacto */
     color: #555;
 
-    line-height: 1.5;
+    line-height: 1.4;     /* ✅ mais ajustado */
 }
 
 
@@ -143,32 +210,23 @@
 /* ✅ BOTÃO CADASTRAR */
 
 .btn-checkout-endereco {
-
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
-    background: #7b2cbf;
-
+    background:#111;
     color: #fff;
-
     text-decoration: none;
-
-    padding: 14px 22px;
-
+    padding: 10px 12px;
     border-radius: 10px;
-
     font-weight: 600;
-
+    font-size: 13px;
     transition: 0.2s;
 }
 
 
 .btn-checkout-endereco:hover {
 
-    background: #6920a8;
+    background: #624c75;
 }
 
 
@@ -178,7 +236,7 @@
 
     width: 100%;
 
-    height: 58px;
+    height: 40px;
 
     border: none;
 
@@ -188,9 +246,9 @@
 
     color: #fff;
 
-    font-size: 16px;
+    font-size: 13px;
 
-    font-weight: 700;
+    font-weight: 600;
 
     cursor: pointer;
 
@@ -211,14 +269,15 @@
 .resumo-box {
 
     position: sticky;
-
+    margin-top: 0px;
     top: 120px;
+    font-size: 20px;
 }
 
 
 .resumo-box h2 {
 
-    font-size: 24px;
+    font-size: 18px;
 
     margin-bottom: 25px;
 
@@ -229,61 +288,66 @@
 /* ✅ ITEM RESUMO */
 
 .item-resumo {
-
     display: flex;
-
-    justify-content: space-between;
-
-    gap: 16px;
-
-    margin-bottom: 22px;
+    align-items: center;        /* ✅ centraliza vertical */
+    gap: 10px;
+    margin-bottom: 14px;
 }
 
+/* ✅ IMAGEM (igual carrinho) */
+.item-img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    flex-shrink: 0;             /* ✅ não deixa crescer */
+}
 
+/* ✅ BLOCO DE TEXTO */
+.item-resumo > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ✅ NOME */
 .item-resumo strong {
-
     color: #111;
+    font-size: 10.5px;
+    line-height: 1.3;
 }
 
-
+/* ✅ DETALHES */
 .item-resumo p {
-
-    margin: 4px 0;
-
+    margin: 2px 0;
     color: #666;
+    font-size: 10.5px;
+}
 
-    font-size: 14px;
+/* ✅ PREÇO */
+.item-resumo > strong {
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
 }
 
 
 /* ✅ TOTAL */
 
 .resumo-total {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     margin-top: 25px;
 }
 
-
 .resumo-total span {
-
     font-size: 18px;
-
     font-weight: 600;
-
     color: #111;
 }
 
-
 .resumo-total strong {
-
     font-size: 24px;
-
     color: #111;
 }
 
@@ -291,11 +355,8 @@
 /* ✅ HR */
 
 .resumo-box hr {
-
     border: none;
-
     border-top: 1px solid #e5e7eb;
-
     margin: 25px 0;
 }
 
@@ -324,7 +385,7 @@
 
         margin-top: 20px;
 
-        padding: 0 14px;
+        padding: 0 5px;
     }
 
     .checkout-title {
@@ -349,7 +410,7 @@
 
     .btn-finalizar-checkout {
 
-        height: 54px;
+        height: 44px;
     }
 }
 
@@ -365,9 +426,9 @@
 
     justify-content:space-between;
 
-    gap:18px;
+    gap:5px;
 
-    padding:18px 20px;
+    padding:6px 6px;
 
     border:1px solid #e5e7eb;
 
@@ -417,4 +478,90 @@
     color:#666;
 
     font-size:14px;
+}
+
+.checkout-box h2 {
+    font-size: 18px;   /* ✅ reduz tamanho */
+    margin-bottom: 12px;  /* ✅ aproxima do conteúdo */
+}
+
+
+.checkout-editar {
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 6px 12px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    color: #fafafa;
+    text-decoration: none;
+
+    background: #111;
+
+    border: 1px solid rgba(123, 44, 191, 0.15);
+
+    transition: 0.2s ease;
+}
+
+.checkout-editar:hover {
+
+    background: rgba(123, 44, 191, 0.15);
+
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+
+    .checkout-header {
+        position: relative;   /* ✅ base para posicionamento */
+    }
+
+    .checkout-editar {
+        position: absolute;
+
+        right: 0;        /* ✅ joga pra direita */
+        top: -5px;       /* ✅ sobe um pouco */
+
+        font-size: 12px;
+
+        padding: 4px 10px;   /* ✅ menor */
+    }
+}
+
+@media (max-width: 768px) {
+
+    .checkout-page {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* ✅ RESUMO PRIMEIRO */
+    .checkout-right {
+        order: 1;
+    }
+
+    /* ✅ ENTREGA DEPOIS */
+    .checkout-left {
+        order: 2;
+    }
+
+    /* ✅ AJUSTA ESPAÇO */
+    .resumo-box {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .checkout-page {
+        gap: 11px;   /* ✅ reduz o espaço entre blocos */
+    }
+
 }

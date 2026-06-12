@@ -113,11 +113,18 @@ class Pedido(models.Model):
 
 
 class ItemPedido(models.Model):
-
+    
     pedido = models.ForeignKey(
         Pedido,
         on_delete=models.CASCADE,
         related_name='itens'
+    )
+
+    perfume = models.ForeignKey(
+        'produtos.Perfume',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
     )
 
     produto_nome = models.CharField(
@@ -141,5 +148,4 @@ class ItemPedido(models.Model):
     )
 
     def __str__(self):
-
         return self.produto_nome

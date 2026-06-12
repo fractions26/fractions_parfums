@@ -110,40 +110,51 @@
             </div>
 
 
-            <!-- ✅ BOX CEP -->
-            <div class="frete-box">
+        <!-- ✅ BOX CEP -->
+        <div class="frete-box">
 
-                <p class="frete-titulo">Calcular frete</p>
+            <p class="frete-titulo">Calcular frete</p>
 
-                <div class="cep-bloco">
-                    <input type="text" id="cepCarrinho" placeholder="Digite seu CEP">
+            <div class="cep-bloco">
+                <input type="text" id="cepCarrinho" placeholder="Digite seu CEP">
 
-                    <button type="button" onclick="calcularFreteCarrinho()">
-                        OK
-                    </button>
-                </div>
+                <button type="button" onclick="calcularFreteCarrinho()">
+                    OK
+                </button>
+            </div>
 
-                <a href="https://buscacepinter.correios.com.br/app/localidade_logradouro/index.php"
-                target="_blank"
-                class="link-cep">
-                    Não sei meu CEP
-                </a>
+            <a href="https://buscacepinter.correios.com.br/app/localidade_logradouro/index.php"
+            target="_blank"
+            class="link-cep">
+                Não sei meu CEP
+            </a>
 
-                <div id="listaFretes" class="lista-fretes"></div>
+            <div id="listaFretes" class="lista-fretes"></div>
 
-                </div>
+        </div>
 
-                <a href="{% url 'checkout' %}"
-                class="btn-finalizar">
 
+            <!-- ✅ BOTÃO FINALIZAR -->
+            {% if user.is_authenticated %}
+
+                <a href="{% url 'checkout' %}" class="btn-finalizar">
                     FINALIZAR COMPRA
-
                 </a>
 
-                </div>
+            {% else %}
 
-                {% else %}
+                <a href="{% url 'login' %}?next=/checkout/" class="btn-finalizar">
+                    FINALIZAR COMPRA
+                </a>
 
-                    <p>Seu carrinho está vazio</p>
+            {% endif %}
 
-                {% endif %}
+
+        </div>
+
+        {% else %}
+
+            <p>Seu carrinho está vazio</p>
+
+        {% endif %}
+

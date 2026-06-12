@@ -121,6 +121,10 @@ def checkout(request):
 
                 pedido=pedido,
 
+                # ✅ RELAÇÃO COM O PRODUTO (ESSENCIAL)
+                perfume=item.perfume,
+
+                # ✅ DADOS SNAPSHOT
                 produto_nome=item.perfume.nome,
 
                 tamanho=item.tamanho,
@@ -129,10 +133,9 @@ def checkout(request):
 
                 preco=item.preco,
 
-                subtotal=(
-                    item.preco * item.quantidade
-                )
+                subtotal=(item.preco * item.quantidade)
             )
+
 
         # ✅ LIMPA CARRINHO
         itens.delete()
@@ -254,6 +257,7 @@ def detalhe_pedido(request, codigo):
         request,
         'pedidos/detalhe_pedido.html',
         {
-            'pedido': pedido
+            'pedido': pedido,
+            'itens': pedido.itens.select_related('perfume')
         }
     )

@@ -1,0 +1,4482 @@
+[
+    {
+        "model": "admin.logentry",
+        "pk": 1,
+        "fields": {
+            "action_time": "2026-06-05T07:28:51.957Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "1",
+            "object_repr": "Versace - Versace Pour Homme (Decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Nome\", \"Imagem\", \"Imagem descricao\"]}}, {\"added\": {\"name\": \"preco\", \"object\": \"Versace - Versace Pour Homme (Decant) - 2ml - R$ 22.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Versace - Versace Pour Homme (Decant) - 5ml - R$ 44.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Versace - Versace Pour Homme (Decant) - 10ml - R$ 79.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 2,
+        "fields": {
+            "action_time": "2026-06-05T08:24:55.823Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "2",
+            "object_repr": "Lattafa - Asad Eau de Parfum (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Lattafa - Asad Eau de Parfum (decant) - 2ml - R$ 18.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Lattafa - Asad Eau de Parfum (decant) - 5ml - R$ 35.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Lattafa - Asad Eau de Parfum (decant) - 10ml - R$ 47.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 3,
+        "fields": {
+            "action_time": "2026-06-05T08:26:36.571Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "2",
+            "object_repr": "Lattafa - Asad Eau de Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Imagem descricao\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 4,
+        "fields": {
+            "action_time": "2026-06-05T16:57:01.073Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "3",
+            "object_repr": "Dior - Sauvage Eau de Parfum (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Dior - Sauvage Eau de Parfum (decant) - 2ml - R$ 36.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Dior - Sauvage Eau de Parfum (decant) - 5ml - R$ 69.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Dior - Sauvage Eau de Parfum (decant) - 10ml - R$ 99.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 5,
+        "fields": {
+            "action_time": "2026-06-05T17:00:04.801Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "4",
+            "object_repr": "Chanel - Coco Mademoiselle Eau de Parfum (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Chanel - Coco Mademoiselle Eau de Parfum (decant) - 2ml - R$ 38.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Chanel - Coco Mademoiselle Eau de Parfum (decant) - 5ml - R$ 72.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Chanel - Coco Mademoiselle Eau de Parfum (decant) - 10ml - R$ 102.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 6,
+        "fields": {
+            "action_time": "2026-06-05T17:05:18.351Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "5",
+            "object_repr": "Dolce & Gabanna - Light Blue Eau de Toilette (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Dolce & Gabanna - Light Blue Eau de Toilette (decant) - 2ml - R$ 23.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Dolce & Gabanna - Light Blue Eau de Toilette (decant) - 5ml - R$ 53.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Dolce & Gabanna - Light Blue Eau de Toilette (decant) - 10ml - R$ 83.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 7,
+        "fields": {
+            "action_time": "2026-06-05T17:24:04.563Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "6",
+            "object_repr": "Lattafa - Fakhar Rose Eau de Parfum (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Lattafa - Fakhar Rose Eau de Parfum (decant) - 2ml - R$ 19.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Lattafa - Fakhar Rose Eau de Parfum (decant) - 5ml - R$ 39.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Lattafa - Fakhar Rose Eau de Parfum (decant) - 10ml - R$ 89.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 8,
+        "fields": {
+            "action_time": "2026-06-05T17:26:43.548Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "7",
+            "object_repr": "Armaf - Club de Nuit Intense Men Eau de Toilette (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Armaf - Club de Nuit Intense Men Eau de Toilette (decant) - 2ml - R$ 19.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Armaf - Club de Nuit Intense Men Eau de Toilette (decant) - 5ml - R$ 39.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Armaf - Club de Nuit Intense Men Eau de Toilette (decant) - 10ml - R$ 59.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 9,
+        "fields": {
+            "action_time": "2026-06-05T22:46:30.140Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "8",
+            "object_repr": "Calvin Klein - Euphoria Eau de Parfum (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Calvin Klein - Euphoria Eau de Parfum (decant) - 2ml - R$ 19.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Calvin Klein - Euphoria Eau de Parfum (decant) - 5ml - R$ 39.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Calvin Klein - Euphoria Eau de Parfum (decant) - 10ml - R$ 59.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 10,
+        "fields": {
+            "action_time": "2026-06-05T22:48:23.210Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "8",
+            "object_repr": "Calvin Klein - Euphoria Eau de Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Imagem\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 11,
+        "fields": {
+            "action_time": "2026-06-05T22:53:16.262Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "9",
+            "object_repr": "Jean Paul Gaultier - Le Male Le Parfum (Decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Jean Paul Gaultier - Le Male Le Parfum (Decant) - 2ml - R$ 24.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Jean Paul Gaultier - Le Male Le Parfum (Decant) - 5ml - R$ 48.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Jean Paul Gaultier - Le Male Le Parfum (Decant) - 10ml - R$ 74.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 12,
+        "fields": {
+            "action_time": "2026-06-05T23:15:55.022Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "10",
+            "object_repr": "Ralph Lauren - Polo Blue Eau de Parfum (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Ralph Lauren - Polo Blue Eau de Parfum (decant) - 2ml - R$ 24.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Ralph Lauren - Polo Blue Eau de Parfum (decant) - 5ml - R$ 48.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Ralph Lauren - Polo Blue Eau de Parfum (decant) - 10ml - R$ 74.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 13,
+        "fields": {
+            "action_time": "2026-06-06T17:32:36.608Z",
+            "user": 1,
+            "content_type": 4,
+            "object_id": "3",
+            "object_repr": "prigpaixao@hotmail.com",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 14,
+        "fields": {
+            "action_time": "2026-06-06T17:32:47.443Z",
+            "user": 1,
+            "content_type": 4,
+            "object_id": "2",
+            "object_repr": "www.dls14@gmail.com",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 15,
+        "fields": {
+            "action_time": "2026-06-06T17:32:58.956Z",
+            "user": 1,
+            "content_type": 4,
+            "object_id": "4",
+            "object_repr": "www.dls@hotmail.com",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 16,
+        "fields": {
+            "action_time": "2026-06-06T17:59:40.134Z",
+            "user": 1,
+            "content_type": 12,
+            "object_id": "1",
+            "object_repr": "Perfil - www.dls14@gmail.com",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 17,
+        "fields": {
+            "action_time": "2026-06-06T18:07:56.055Z",
+            "user": 1,
+            "content_type": 4,
+            "object_id": "5",
+            "object_repr": "www.dls14@gmail.com",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 18,
+        "fields": {
+            "action_time": "2026-06-06T18:08:16.068Z",
+            "user": 1,
+            "content_type": 4,
+            "object_id": "1",
+            "object_repr": "fractions",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Email address\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 19,
+        "fields": {
+            "action_time": "2026-06-06T20:42:26.351Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "11",
+            "object_repr": "Lattafa - Yara Eau de Parfum (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Lattafa - Yara Eau de Parfum (decant) - 2ml - R$ 14.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Lattafa - Yara Eau de Parfum (decant) - 5ml - R$ 28.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Lattafa - Yara Eau de Parfum (decant) - 10ml - R$ 44.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 20,
+        "fields": {
+            "action_time": "2026-06-06T20:45:53.062Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "11",
+            "object_repr": "Lattafa - Yara Eau de Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Imagem\", \"Imagem descricao\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 21,
+        "fields": {
+            "action_time": "2026-06-06T20:47:00.957Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "11",
+            "object_repr": "Lattafa - Yara Eau de Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Imagem\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 22,
+        "fields": {
+            "action_time": "2026-06-06T22:48:36.648Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "12",
+            "object_repr": "Carolina Herrera - 212 Vip Black Eau de Parfum (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Carolina Herrera - 212 Vip Black Eau de Parfum (decant) - 2ml - R$ 23.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Carolina Herrera - 212 Vip Black Eau de Parfum (decant) - 5ml - R$ 46.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Carolina Herrera - 212 Vip Black Eau de Parfum (decant) - 10ml - R$ 68.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 23,
+        "fields": {
+            "action_time": "2026-06-06T22:50:42.998Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "12",
+            "object_repr": "Carolina Herrera - 212 Vip Black Eau de Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Imagem\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 24,
+        "fields": {
+            "action_time": "2026-06-06T22:53:16.657Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "13",
+            "object_repr": "Carolina Herrera - 212 VIP Rosé Eau de Parfum (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Carolina Herrera - 212 VIP Ros\\u00e9 Eau de Parfum (decant) - 2ml - R$ 23.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Carolina Herrera - 212 VIP Ros\\u00e9 Eau de Parfum (decant) - 5ml - R$ 46.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Carolina Herrera - 212 VIP Ros\\u00e9 Eau de Parfum (decant) - 10ml - R$ 69.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 25,
+        "fields": {
+            "action_time": "2026-06-06T22:55:54.448Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "14",
+            "object_repr": "Chanel - Allure Homme Edition Blanche (Decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Chanel - Allure Homme Edition Blanche (Decant) - 2ml - R$ 44.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Chanel - Allure Homme Edition Blanche (Decant) - 5ml - R$ 88.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Chanel - Allure Homme Edition Blanche (Decant) - 10ml - R$ 179.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 26,
+        "fields": {
+            "action_time": "2026-06-06T22:58:21.476Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "15",
+            "object_repr": "Chanel - Allure Homme Sport Eau de Toilette (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Chanel - Allure Homme Sport Eau de Toilette (decant) - 2ml - R$ 35.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Chanel - Allure Homme Sport Eau de Toilette (decant) - 5ml - R$ 69.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Chanel - Allure Homme Sport Eau de Toilette (decant) - 10ml - R$ 99.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 27,
+        "fields": {
+            "action_time": "2026-06-06T23:02:30.255Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "2",
+            "object_repr": "Lattafa - Asad Eau de Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Imagem descricao\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 28,
+        "fields": {
+            "action_time": "2026-06-06T23:03:19.261Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "10",
+            "object_repr": "Ralph Lauren - Polo Blue Eau de Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Imagem descricao\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 29,
+        "fields": {
+            "action_time": "2026-06-06T23:23:33.751Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "16",
+            "object_repr": "Carolina Herrera - CH (Decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Carolina Herrera - CH (Decant) - 2ml - R$ 29.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Carolina Herrera - CH (Decant) - 5ml - R$ 59.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Carolina Herrera - CH (Decant) - 10ml - R$ 89.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 30,
+        "fields": {
+            "action_time": "2026-06-06T23:27:36.167Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "17",
+            "object_repr": "Calvin Klein - CK One (Decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Calvin Klein - CK One (Decant) - 2ml - R$ 18.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Calvin Klein - CK One (Decant) - 5ml - R$ 36.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Calvin Klein - CK One (Decant) - 10ml - R$ 69.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 31,
+        "fields": {
+            "action_time": "2026-06-06T23:28:09.667Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "17",
+            "object_repr": "Calvin Klein - CK One (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Nome\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 32,
+        "fields": {
+            "action_time": "2026-06-06T23:28:25.052Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "16",
+            "object_repr": "Carolina Herrera - CH (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Nome\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 33,
+        "fields": {
+            "action_time": "2026-06-06T23:28:38.148Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "9",
+            "object_repr": "Jean Paul Gaultier - Le Male Le Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Nome\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 34,
+        "fields": {
+            "action_time": "2026-06-06T23:28:59.667Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "1",
+            "object_repr": "Versace - Versace Pour Homme (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Nome\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 35,
+        "fields": {
+            "action_time": "2026-06-06T23:30:21.763Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "4",
+            "object_repr": "Chanel - Coco Mademoiselle Eau de Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Imagem descricao\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 36,
+        "fields": {
+            "action_time": "2026-06-06T23:32:47.854Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "18",
+            "object_repr": "Versace - Eros Parfum (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Versace - Eros Parfum (decant) - 2ml - R$ 29.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Versace - Eros Parfum (decant) - 5ml - R$ 59.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Versace - Eros Parfum (decant) - 10ml - R$ 89.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 37,
+        "fields": {
+            "action_time": "2026-06-06T23:34:01.552Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "8",
+            "object_repr": "Calvin Klein - Euphoria Eau de Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Imagem descricao\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 38,
+        "fields": {
+            "action_time": "2026-06-06T23:37:05.253Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "19",
+            "object_repr": "Carolina Herrera - Good Girl Eau de Parfum (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Carolina Herrera - Good Girl Eau de Parfum (decant) - 2ml - R$ 28.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Carolina Herrera - Good Girl Eau de Parfum (decant) - 5ml - R$ 58.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Carolina Herrera - Good Girl Eau de Parfum (decant) - 10ml - R$ 83.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 39,
+        "fields": {
+            "action_time": "2026-06-06T23:39:50.030Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "20",
+            "object_repr": "Paco Rabanne - Invictus Eau de Toilette (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Paco Rabanne - Invictus Eau de Toilette (decant) - 2ml - R$ 22.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Paco Rabanne - Invictus Eau de Toilette (decant) - 5ml - R$ 44.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Paco Rabanne - Invictus Eau de Toilette (decant) - 10ml - R$ 65.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 40,
+        "fields": {
+            "action_time": "2026-06-06T23:44:49.230Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "21",
+            "object_repr": "Issey Miyake - L'eau d'Issey Pour Homme (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Issey Miyake - L'eau d'Issey Pour Homme (decant) - 2ml - R$ 20.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Issey Miyake - L'eau d'Issey Pour Homme (decant) - 5ml - R$ 40.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Issey Miyake - L'eau d'Issey Pour Homme (decant) - 10ml - R$ 60.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 41,
+        "fields": {
+            "action_time": "2026-06-06T23:46:32.524Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "22",
+            "object_repr": "Paco Rabanne - 1 Million Eau de Parfum (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Paco Rabanne - 1 Million Eau de Parfum (decant) - 2ml - R$ 24.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Paco Rabanne - 1 Million Eau de Parfum (decant) - 5ml - R$ 49.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Paco Rabanne - 1 Million Eau de Parfum (decant) - 10ml - R$ 74.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 42,
+        "fields": {
+            "action_time": "2026-06-06T23:48:39.937Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "23",
+            "object_repr": "Prada Milano - Paradoxe Eau de Parfum (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Prada Milano - Paradoxe Eau de Parfum (decant) - 2ml - R$ 37.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Prada Milano - Paradoxe Eau de Parfum (decant) - 5ml - R$ 74.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Prada Milano - Paradoxe Eau de Parfum (decant) - 10ml - R$ 139.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 43,
+        "fields": {
+            "action_time": "2026-06-06T23:53:13.136Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "24",
+            "object_repr": "Chanel - Bleu de Chanel Eau de Toilette (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Chanel - Bleu de Chanel Eau de Toilette (decant) - 2ml - R$ 39.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Chanel - Bleu de Chanel Eau de Toilette (decant) - 5ml - R$ 89.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Chanel - Bleu de Chanel Eau de Toilette (decant) - 10ml - R$ 174.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 44,
+        "fields": {
+            "action_time": "2026-06-06T23:59:00.161Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "25",
+            "object_repr": "Jean Paul Gaultier - Scandal Eau de Parfum (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Jean Paul Gaultier - Scandal Eau de Parfum (decant) - 2ml - R$ 29.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Jean Paul Gaultier - Scandal Eau de Parfum (decant) - 5ml - R$ 59.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Jean Paul Gaultier - Scandal Eau de Parfum (decant) - 10ml - R$ 88.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 45,
+        "fields": {
+            "action_time": "2026-06-07T12:41:32.741Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "26",
+            "object_repr": "Rasasi - Hawas Black (Decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Rasasi - Hawas Black (Decant) - 2ml - R$ 24.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Rasasi - Hawas Black (Decant) - 5ml - R$ 48.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Rasasi - Hawas Black (Decant) - 10ml - R$ 73.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 46,
+        "fields": {
+            "action_time": "2026-06-07T12:43:43.661Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "26",
+            "object_repr": "Rasasi - Hawas Black (Decant)",
+            "action_flag": 2,
+            "change_message": "[]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 47,
+        "fields": {
+            "action_time": "2026-06-07T12:44:17.760Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "26",
+            "object_repr": "Rasasi - Hawas Black (Decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Categorias\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 48,
+        "fields": {
+            "action_time": "2026-06-07T12:44:51.955Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "26",
+            "object_repr": "Rasasi - Hawas Black (Decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Categorias\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 49,
+        "fields": {
+            "action_time": "2026-06-07T12:47:42.262Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "27",
+            "object_repr": "Afnan - 9 PM Rebel (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Afnan - 9 PM Rebel (decant) - 2ml - R$ 24.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Afnan - 9 PM Rebel (decant) - 5ml - R$ 48.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Afnan - 9 PM Rebel (decant) - 10ml - R$ 73.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 50,
+        "fields": {
+            "action_time": "2026-06-07T12:49:42.848Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "26",
+            "object_repr": "Rasasi - Hawas Black (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Nome\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 51,
+        "fields": {
+            "action_time": "2026-06-07T12:54:56.302Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "28",
+            "object_repr": "French Avenue - Liquid Brun (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"French Avenue - Liquid Brun (decant) - 2ml - R$ 24.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"French Avenue - Liquid Brun (decant) - 5ml - R$ 48.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"French Avenue - Liquid Brun (decant) - 10ml - R$ 73.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 52,
+        "fields": {
+            "action_time": "2026-06-07T12:56:45.079Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "29",
+            "object_repr": "Lattafa - Yara (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Lattafa - Yara (decant) - 2ml - R$ 19.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Lattafa - Yara (decant) - 5ml - R$ 38.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Lattafa - Yara (decant) - 10ml - R$ 58.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 53,
+        "fields": {
+            "action_time": "2026-06-07T12:58:19.349Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "2",
+            "object_repr": "Lattafa - Asad Eau de Parfum (decant)",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 54,
+        "fields": {
+            "action_time": "2026-06-07T12:58:43.102Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "29",
+            "object_repr": "Lattafa - Asad Eau de Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Nome\"]}}, {\"changed\": {\"name\": \"preco\", \"object\": \"Lattafa - Asad Eau de Parfum (decant) - 2ml - R$ 18.90\", \"fields\": [\"Valor\"]}}, {\"changed\": {\"name\": \"preco\", \"object\": \"Lattafa - Asad Eau de Parfum (decant) - 5ml - R$ 37.90\", \"fields\": [\"Valor\"]}}, {\"changed\": {\"name\": \"preco\", \"object\": \"Lattafa - Asad Eau de Parfum (decant) - 10ml - R$ 56.90\", \"fields\": [\"Valor\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 55,
+        "fields": {
+            "action_time": "2026-06-07T13:08:17.142Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "29",
+            "object_repr": "Lattafa - Asad Eau de Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Categorias\", \"Imagem\", \"Imagem descricao\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 56,
+        "fields": {
+            "action_time": "2026-06-07T13:09:08.381Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "11",
+            "object_repr": "Lattafa - Yara Eau de Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"name\": \"preco\", \"object\": \"Lattafa - Yara Eau de Parfum (decant) - 2ml - R$ 17.90\", \"fields\": [\"Valor\"]}}, {\"changed\": {\"name\": \"preco\", \"object\": \"Lattafa - Yara Eau de Parfum (decant) - 5ml - R$ 33.90\", \"fields\": [\"Valor\"]}}, {\"changed\": {\"name\": \"preco\", \"object\": \"Lattafa - Yara Eau de Parfum (decant) - 10ml - R$ 46.90\", \"fields\": [\"Valor\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 57,
+        "fields": {
+            "action_time": "2026-06-07T18:29:50.053Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "30",
+            "object_repr": "Lattafa - Asad Bourboun Eau de Parfum (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Lattafa - Asad Bourboun Eau de Parfum (decant) - 2ml - R$ 23.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Lattafa - Asad Bourboun Eau de Parfum (decant) - 5ml - R$ 53.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Lattafa - Asad Bourboun Eau de Parfum (decant) - 10ml - R$ 75.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 58,
+        "fields": {
+            "action_time": "2026-06-07T18:30:36.466Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "30",
+            "object_repr": "Lattafa - Asad Bourboun Eau de Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Imagem descricao\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 59,
+        "fields": {
+            "action_time": "2026-06-07T22:08:30.153Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "30",
+            "object_repr": "Lattafa - Asad Bourboun Eau de Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Imagem descricao\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 60,
+        "fields": {
+            "action_time": "2026-06-07T22:14:24.375Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "29",
+            "object_repr": "Lattafa - Asad Eau de Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Imagem descricao\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 61,
+        "fields": {
+            "action_time": "2026-06-07T22:15:33.471Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "30",
+            "object_repr": "Lattafa - Asad Bourboun Eau de Parfum (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Imagem descricao\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 62,
+        "fields": {
+            "action_time": "2026-06-07T22:19:07.844Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "31",
+            "object_repr": "Guerlain-homme-edt",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Guerlain-homme-edt - 2ml - R$ 39.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Guerlain-homme-edt - 5ml - R$ 78.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Guerlain-homme-edt - 10ml - R$ 119.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 63,
+        "fields": {
+            "action_time": "2026-06-07T23:12:00.684Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "21",
+            "object_repr": "Issey Miyake - L'eau d'Issey Pour Homme (decant)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Estoque total em ML\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 64,
+        "fields": {
+            "action_time": "2026-06-09T00:19:58.697Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "32",
+            "object_repr": "Armani code Ultimate",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"Armani code Ultimate - 2ml - R$ 25.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Armani code Ultimate - 5ml - R$ 47.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"Armani code Ultimate - 10ml - R$ 73.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 65,
+        "fields": {
+            "action_time": "2026-06-09T13:10:36.502Z",
+            "user": 1,
+            "content_type": 8,
+            "object_id": "33",
+            "object_repr": "AL Wataniah - Sabah Al Ward Eau de Parfum (decant)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"preco\", \"object\": \"AL Wataniah - Sabah Al Ward Eau de Parfum (decant) - 2ml - R$ 15.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"AL Wataniah - Sabah Al Ward Eau de Parfum (decant) - 5ml - R$ 31.90\"}}, {\"added\": {\"name\": \"preco\", \"object\": \"AL Wataniah - Sabah Al Ward Eau de Parfum (decant) - 10ml - R$ 44.90\"}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 66,
+        "fields": {
+            "action_time": "2026-06-09T23:30:00.668Z",
+            "user": 1,
+            "content_type": 14,
+            "object_id": "6",
+            "object_repr": "Pedido #4B98191B",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 67,
+        "fields": {
+            "action_time": "2026-06-09T23:30:14.534Z",
+            "user": 1,
+            "content_type": 14,
+            "object_id": "5",
+            "object_repr": "Pedido #1C981994",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 68,
+        "fields": {
+            "action_time": "2026-06-09T23:30:24.132Z",
+            "user": 1,
+            "content_type": 14,
+            "object_id": "4",
+            "object_repr": "Pedido #9CA2B858",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 69,
+        "fields": {
+            "action_time": "2026-06-09T23:30:35.054Z",
+            "user": 1,
+            "content_type": 14,
+            "object_id": "1",
+            "object_repr": "Pedido #3B14771F",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 70,
+        "fields": {
+            "action_time": "2026-06-09T23:30:41.371Z",
+            "user": 1,
+            "content_type": 14,
+            "object_id": "3",
+            "object_repr": "Pedido #23398B58",
+            "action_flag": 2,
+            "change_message": "[]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 71,
+        "fields": {
+            "action_time": "2026-06-09T23:30:53.542Z",
+            "user": 1,
+            "content_type": 14,
+            "object_id": "3",
+            "object_repr": "Pedido #23398B58",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 72,
+        "fields": {
+            "action_time": "2026-06-09T23:31:03.458Z",
+            "user": 1,
+            "content_type": 14,
+            "object_id": "2",
+            "object_repr": "Pedido #93FED4B2",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 73,
+        "fields": {
+            "action_time": "2026-06-09T23:31:19.679Z",
+            "user": 1,
+            "content_type": 4,
+            "object_id": "7",
+            "object_repr": "prigpaixao@gmail.com",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 74,
+        "fields": {
+            "action_time": "2026-06-09T23:31:29.064Z",
+            "user": 1,
+            "content_type": 4,
+            "object_id": "6",
+            "object_repr": "www.dls14@gmail.com",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 75,
+        "fields": {
+            "action_time": "2026-06-09T23:36:43.354Z",
+            "user": 1,
+            "content_type": 4,
+            "object_id": "8",
+            "object_repr": "www.dls14@gmail.com",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 1,
+        "fields": {
+            "name": "Can add log entry",
+            "content_type": 1,
+            "codename": "add_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 2,
+        "fields": {
+            "name": "Can change log entry",
+            "content_type": 1,
+            "codename": "change_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 3,
+        "fields": {
+            "name": "Can delete log entry",
+            "content_type": 1,
+            "codename": "delete_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 4,
+        "fields": {
+            "name": "Can view log entry",
+            "content_type": 1,
+            "codename": "view_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 5,
+        "fields": {
+            "name": "Can add permission",
+            "content_type": 2,
+            "codename": "add_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 6,
+        "fields": {
+            "name": "Can change permission",
+            "content_type": 2,
+            "codename": "change_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 7,
+        "fields": {
+            "name": "Can delete permission",
+            "content_type": 2,
+            "codename": "delete_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 8,
+        "fields": {
+            "name": "Can view permission",
+            "content_type": 2,
+            "codename": "view_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 9,
+        "fields": {
+            "name": "Can add group",
+            "content_type": 3,
+            "codename": "add_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 10,
+        "fields": {
+            "name": "Can change group",
+            "content_type": 3,
+            "codename": "change_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 11,
+        "fields": {
+            "name": "Can delete group",
+            "content_type": 3,
+            "codename": "delete_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 12,
+        "fields": {
+            "name": "Can view group",
+            "content_type": 3,
+            "codename": "view_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 13,
+        "fields": {
+            "name": "Can add user",
+            "content_type": 4,
+            "codename": "add_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 14,
+        "fields": {
+            "name": "Can change user",
+            "content_type": 4,
+            "codename": "change_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 15,
+        "fields": {
+            "name": "Can delete user",
+            "content_type": 4,
+            "codename": "delete_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 16,
+        "fields": {
+            "name": "Can view user",
+            "content_type": 4,
+            "codename": "view_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 17,
+        "fields": {
+            "name": "Can add content type",
+            "content_type": 5,
+            "codename": "add_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 18,
+        "fields": {
+            "name": "Can change content type",
+            "content_type": 5,
+            "codename": "change_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 19,
+        "fields": {
+            "name": "Can delete content type",
+            "content_type": 5,
+            "codename": "delete_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 20,
+        "fields": {
+            "name": "Can view content type",
+            "content_type": 5,
+            "codename": "view_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 21,
+        "fields": {
+            "name": "Can add session",
+            "content_type": 6,
+            "codename": "add_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 22,
+        "fields": {
+            "name": "Can change session",
+            "content_type": 6,
+            "codename": "change_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 23,
+        "fields": {
+            "name": "Can delete session",
+            "content_type": 6,
+            "codename": "delete_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 24,
+        "fields": {
+            "name": "Can view session",
+            "content_type": 6,
+            "codename": "view_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 25,
+        "fields": {
+            "name": "Can add categoria",
+            "content_type": 7,
+            "codename": "add_categoria"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 26,
+        "fields": {
+            "name": "Can change categoria",
+            "content_type": 7,
+            "codename": "change_categoria"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 27,
+        "fields": {
+            "name": "Can delete categoria",
+            "content_type": 7,
+            "codename": "delete_categoria"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 28,
+        "fields": {
+            "name": "Can view categoria",
+            "content_type": 7,
+            "codename": "view_categoria"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 29,
+        "fields": {
+            "name": "Can add perfume",
+            "content_type": 8,
+            "codename": "add_perfume"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 30,
+        "fields": {
+            "name": "Can change perfume",
+            "content_type": 8,
+            "codename": "change_perfume"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 31,
+        "fields": {
+            "name": "Can delete perfume",
+            "content_type": 8,
+            "codename": "delete_perfume"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 32,
+        "fields": {
+            "name": "Can view perfume",
+            "content_type": 8,
+            "codename": "view_perfume"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 33,
+        "fields": {
+            "name": "Can add preco",
+            "content_type": 9,
+            "codename": "add_preco"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 34,
+        "fields": {
+            "name": "Can change preco",
+            "content_type": 9,
+            "codename": "change_preco"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 35,
+        "fields": {
+            "name": "Can delete preco",
+            "content_type": 9,
+            "codename": "delete_preco"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 36,
+        "fields": {
+            "name": "Can view preco",
+            "content_type": 9,
+            "codename": "view_preco"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 37,
+        "fields": {
+            "name": "Can add carrinho",
+            "content_type": 10,
+            "codename": "add_carrinho"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 38,
+        "fields": {
+            "name": "Can change carrinho",
+            "content_type": 10,
+            "codename": "change_carrinho"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 39,
+        "fields": {
+            "name": "Can delete carrinho",
+            "content_type": 10,
+            "codename": "delete_carrinho"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 40,
+        "fields": {
+            "name": "Can view carrinho",
+            "content_type": 10,
+            "codename": "view_carrinho"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 41,
+        "fields": {
+            "name": "Can add item",
+            "content_type": 11,
+            "codename": "add_item"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 42,
+        "fields": {
+            "name": "Can change item",
+            "content_type": 11,
+            "codename": "change_item"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 43,
+        "fields": {
+            "name": "Can delete item",
+            "content_type": 11,
+            "codename": "delete_item"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 44,
+        "fields": {
+            "name": "Can view item",
+            "content_type": 11,
+            "codename": "view_item"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 45,
+        "fields": {
+            "name": "Can add perfil usuario",
+            "content_type": 12,
+            "codename": "add_perfilusuario"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 46,
+        "fields": {
+            "name": "Can change perfil usuario",
+            "content_type": 12,
+            "codename": "change_perfilusuario"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 47,
+        "fields": {
+            "name": "Can delete perfil usuario",
+            "content_type": 12,
+            "codename": "delete_perfilusuario"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 48,
+        "fields": {
+            "name": "Can view perfil usuario",
+            "content_type": 12,
+            "codename": "view_perfilusuario"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 49,
+        "fields": {
+            "name": "Can add item pedido",
+            "content_type": 13,
+            "codename": "add_itempedido"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 50,
+        "fields": {
+            "name": "Can change item pedido",
+            "content_type": 13,
+            "codename": "change_itempedido"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 51,
+        "fields": {
+            "name": "Can delete item pedido",
+            "content_type": 13,
+            "codename": "delete_itempedido"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 52,
+        "fields": {
+            "name": "Can view item pedido",
+            "content_type": 13,
+            "codename": "view_itempedido"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 53,
+        "fields": {
+            "name": "Can add pedido",
+            "content_type": 14,
+            "codename": "add_pedido"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 54,
+        "fields": {
+            "name": "Can change pedido",
+            "content_type": 14,
+            "codename": "change_pedido"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 55,
+        "fields": {
+            "name": "Can delete pedido",
+            "content_type": 14,
+            "codename": "delete_pedido"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 56,
+        "fields": {
+            "name": "Can view pedido",
+            "content_type": 14,
+            "codename": "view_pedido"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 57,
+        "fields": {
+            "name": "Can add Endereço",
+            "content_type": 15,
+            "codename": "add_endereco"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 58,
+        "fields": {
+            "name": "Can change Endereço",
+            "content_type": 15,
+            "codename": "change_endereco"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 59,
+        "fields": {
+            "name": "Can delete Endereço",
+            "content_type": 15,
+            "codename": "delete_endereco"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 60,
+        "fields": {
+            "name": "Can view Endereço",
+            "content_type": 15,
+            "codename": "view_endereco"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$1000000$jVJYz47QAND0HtvaS8Q2BP$aQR0fRpmNxH3KeU9385XLiAlOk+gfDKzCJt/vjUq0xo=",
+            "last_login": "2026-06-09T23:50:12.656Z",
+            "is_superuser": true,
+            "username": "fractions",
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2026-06-05T06:37:42Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 1,
+        "fields": {
+            "app_label": "admin",
+            "model": "logentry"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 2,
+        "fields": {
+            "app_label": "auth",
+            "model": "permission"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 3,
+        "fields": {
+            "app_label": "auth",
+            "model": "group"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 4,
+        "fields": {
+            "app_label": "auth",
+            "model": "user"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 5,
+        "fields": {
+            "app_label": "contenttypes",
+            "model": "contenttype"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 6,
+        "fields": {
+            "app_label": "sessions",
+            "model": "session"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 7,
+        "fields": {
+            "app_label": "produtos",
+            "model": "categoria"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 8,
+        "fields": {
+            "app_label": "produtos",
+            "model": "perfume"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 9,
+        "fields": {
+            "app_label": "produtos",
+            "model": "preco"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 10,
+        "fields": {
+            "app_label": "carrinho",
+            "model": "carrinho"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 11,
+        "fields": {
+            "app_label": "carrinho",
+            "model": "item"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 12,
+        "fields": {
+            "app_label": "paginas",
+            "model": "perfilusuario"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 13,
+        "fields": {
+            "app_label": "pedidos",
+            "model": "itempedido"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 14,
+        "fields": {
+            "app_label": "pedidos",
+            "model": "pedido"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 15,
+        "fields": {
+            "app_label": "usuarios",
+            "model": "endereco"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "0capa9idcr2txh5p3gulaynsn81509d8",
+        "fields": {
+            "session_data": "e30:1wW10Y:2E6Kkp0eyqygyIr50P_n0h7IbApJvIsYO2N6qL21WoM",
+            "expire_date": "2026-06-21T00:04:54.939Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "0fc0vh7uczbipb4ievwc1kjixldg4nug",
+        "fields": {
+            "session_data": "e30:1wVWpj:ZPQ3gNGQVgP94yMtAkz6as4OUur1gfM9LIaZbnCdmhU",
+            "expire_date": "2026-06-19T15:51:43.713Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "0jnn9gb97gy5dvvbqcvfo7e4uoufr7lj",
+        "fields": {
+            "session_data": "e30:1wVwWm:biZcDHw8lYdOEiOV7xWGL5fdf71hDj31h__Ov_DD-KE",
+            "expire_date": "2026-06-20T19:17:52.009Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "0ksrbwb0u4b4938ioddgy3mnpb5ox7q3",
+        "fields": {
+            "session_data": "e30:1wWzJ8:6pcmThhwomYUSkZUI7j7Au1yWBlAGbF2da4lrVQgeJg",
+            "expire_date": "2026-06-23T16:28:06.840Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "0olv5kg4abrd5s99dahygl9f6g1etvjk",
+        "fields": {
+            "session_data": "e30:1wX6hu:2n7m8m0Y2Wudbd3FExByVtGAlEj_R4_aYZ8bP_grKBc",
+            "expire_date": "2026-06-24T00:22:10.335Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "14gp990ga2jz9y56fe03i9dqvhyshid6",
+        "fields": {
+            "session_data": "e30:1wVeP3:g2XcXYUeMO0dCjcnFAoM1sKMtOlh1PLV2ELf7BEtsV4",
+            "expire_date": "2026-06-19T23:56:41.891Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "1ibfrkweikjovdgs9gd9ec40d2egbagi",
+        "fields": {
+            "session_data": "e30:1wVZD1:WVHERQKBwxqbVfrouCWxytfJaMb3jy7zAAOoIxQKUGo",
+            "expire_date": "2026-06-19T18:23:55.027Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "1lbfuk21nyj8j6kof7hnec35sil69cgh",
+        "fields": {
+            "session_data": "e30:1wVuPZ:5ExKpqrbs4r_ZZp4tV2zDkQmv1OnFEPaUGTGno92RUU",
+            "expire_date": "2026-06-20T17:02:17.481Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "1ottl342bqhflpryzk9o9gk9uqc7dcd6",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wW0vk:TRPa4zFZelGCO10OAMSRlHJW1OzMMSPA9632a0Hi4Eg",
+            "expire_date": "2026-06-20T23:59:56.929Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "271e8ueqlt0aj4vhfge6d2rxgody6at4",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wWWvP:iihDrXdN_HBahAAUa4w5jQyfT0rQ704OpA2hlxKk7Fk",
+            "expire_date": "2026-06-22T10:09:43.565Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "2g05hzqdumt9pneb0adhfju1wceajmhi",
+        "fields": {
+            "session_data": "e30:1wVh5P:AgvB6voPJRYMawWBgSrew9bALX4odlHQm91NkpOkLCs",
+            "expire_date": "2026-06-20T02:48:35.788Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "2nsb5gu6iwfwj3icez0naymyzuq8m6p7",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wWLUi:i1_IhgVR1HU5qq1_9WAAvdmFn7dRmTZ00_4z7InPXgw",
+            "expire_date": "2026-06-21T21:57:24.288Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "2py15cu8pn2tu5nz38v3i3w7nfwidg4g",
+        "fields": {
+            "session_data": "e30:1wX6sZ:krNaoux1Nv30hYzgSr3CBk3ETrF6ZlPWgGX6aUPyxB4",
+            "expire_date": "2026-06-24T00:33:11.725Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "30w7jad4zodqyt0ic0hpoe1vtd3pjvw9",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wVva2:Hjvt239o2DtXdWmroqPcO5apkECJTubUWgzXBk51rh8",
+            "expire_date": "2026-06-20T18:17:10.065Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "32ypf7y7tr2ca0q2e80e01rkkwzppfwb",
+        "fields": {
+            "session_data": "e30:1wVeSj:CYhU8kiJm93LxW0JslpayFeQ5VeVKTWnctVazJAneqI",
+            "expire_date": "2026-06-20T00:00:29.130Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "3h7kq1n675kei9kaogihx6qhtd4jsth7",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wWWe7:lEx4BoZMrW31D4rOgsW_ktB9GyGj47wN9VzXfnVGJ7Q",
+            "expire_date": "2026-06-22T09:51:51.845Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "3imss2d5j7ymgyf3iyot6ch1lvx73fgv",
+        "fields": {
+            "session_data": "e30:1wX990:Mz1u_0FQ-NJkyUf10MlP7Yo7fHdFf4YxSPqqthJMfjk",
+            "expire_date": "2026-06-24T02:58:18.341Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "41eel23tn502o6jx2777c5dtzt72il6s",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wWWl6:DJBj5cfoRURwvB1rzZBob053Ri3Y111Nct-2-qiTI3I",
+            "expire_date": "2026-06-22T09:59:04.328Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "4qrdgsdxl8mplcsupqtndrmrk9mwzwb1",
+        "fields": {
+            "session_data": ".eJxVjEEOgjAQRe_StWkoU-rUpXvOQGY6U4saSCisjHdXEha6_e-9_zIDbWsZtqrLMIq5mNacfjem9NBpB3Kn6TbbNE_rMrLdFXvQavtZ9Hk93L-DQrV8a4TgMoBmjB16Zu8UIuM5e42NYhBWINdJaDxmASFSyg4FYps6H9i8P-PmOEg:1wVWNr:FkEx_cyRs-sMLt2_M6WPOtksJ1TVKPssjZK_VZ_qR_M",
+            "expire_date": "2026-06-19T15:22:55.066Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "57xreufrelrwrhrsdhd2dheaz1hkt3ek",
+        "fields": {
+            "session_data": ".eJxVjEEOgjAQRe_StWkoU-rUpXvOQGY6U4saSCisjHdXEha6_e-9_zIDbWsZtqrLMIq5mNacfjem9NBpB3Kn6TbbNE_rMrLdFXvQavtZ9Hk93L-DQrV8a4TgMoBmjB16Zu8UIuM5e42NYhBWINdJaDxmASFSyg4FYps6H9i8P-PmOEg:1wVsIm:eD-2_je_02Sy_ySSAWb8etmEmofzFGMTBFgyTd5o1fw",
+            "expire_date": "2026-06-20T14:47:08.202Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "5f4960oai5usjmj4scou5h7a5m2biiu0",
+        "fields": {
+            "session_data": "e30:1wVcML:Um4wr6KFtxBR0GinN61c29lCVQ-yArsTtdtoFfH5COc",
+            "expire_date": "2026-06-19T21:45:45.758Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "5v0nsl3zchvrwvwdx66wxzi1fb1ks2oh",
+        "fields": {
+            "session_data": "e30:1wVgdo:PkK4_uvrsFjMCeYiy72miqGE7q9ATN-5LStIYQyTfDs",
+            "expire_date": "2026-06-20T02:20:04.920Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "5y5zbdiir8rapdm29nknefshqm3ejn9u",
+        "fields": {
+            "session_data": "e30:1wVWS8:rDyycv28rnr-kA9hLK1ojp2GpyTgn1O0CuRqO-_ZWgI",
+            "expire_date": "2026-06-19T15:27:20.185Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "60h64c0iorpiqz872jegfwhq7v3z8jbk",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wWWgx:CSQKdTjK0m2rjc37x1HLnkprj1ykcPVnj7M1gnli1DA",
+            "expire_date": "2026-06-22T09:54:47.328Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "6e38xgztcv2985t4uktxk2b4owwupwr4",
+        "fields": {
+            "session_data": "e30:1wVY3X:uV89i2Agy_A2eByVFT0iJ9yT-ALTzfRxyKhKwog7M-0",
+            "expire_date": "2026-06-19T17:10:03.989Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "6fwvby0upx8ucilk1v9fmpw65132u5fr",
+        "fields": {
+            "session_data": "e30:1wVelt:_D6VyQN6zmxUYKrY8xt6BzD0zKtVR31eTkHnRHdFp70",
+            "expire_date": "2026-06-20T00:20:17.163Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "6j0mgl1mxhtahp4v8lakbtjojfgkeh47",
+        "fields": {
+            "session_data": ".eJxVjDEOAiEQRe9CbQgDiGBp7xnIADOyaiBZdivj3XWTLbT9773_EhHXpcZ10BynIs4CxOF3S5gf1DZQ7thuXebelnlKclPkToe89kLPy-7-HVQc9VuTVRZyStZgLsUq1Kw9Eli2yWnD5kh4Ag5AKjMHD0TagQ_Ga1QBnHh_APo0N_I:1wX5t2:2ONDM-2YyRighD7ZeGRxuI0hAwEOVFTx7crxMw6G25Q",
+            "expire_date": "2026-06-23T23:29:36.186Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "6qv37z7wnx44p5m8q8m5pch1v1tka74o",
+        "fields": {
+            "session_data": ".eJxVjEEOwiAQRe_C2pDBoVBcuu8ZCDCDVA0kpV0Z765NutDtf-_9l_BhW4vfOi9-JnERWpx-txjSg-sO6B7qrcnU6rrMUe6KPGiXUyN-Xg_376CEXr51jI70iBkVG0WOHSk78JAAzm6EZDFnBksBU1bWEboAkZkJTARt0Ir3B_HcODs:1wVaZR:47ncZ7DH_x_36Jw3ImfefOLXarY1UQ76ZhP8bjRmQw4",
+            "expire_date": "2026-06-19T19:51:09.129Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "72boh6aa4vyehly1wukg30y5it5f1lrh",
+        "fields": {
+            "session_data": "e30:1wWvNu:MsG08jT07yKACQjVe5leAoj-meTsFHTKf7su092Zce8",
+            "expire_date": "2026-06-23T12:16:46.327Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "7rj7ggqfa6v2es17g1ulwxp8e7fbqe25",
+        "fields": {
+            "session_data": "e30:1wWBZH:ql9uR4ht0QEgj1hIYhgScNyLmo0ImXd0hMiV5qeXD8c",
+            "expire_date": "2026-06-21T11:21:27.339Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "7rov0tl17wgwtr7aev9og4k7iiuhqmdr",
+        "fields": {
+            "session_data": "e30:1wVfNW:lR7_7PmkKUfRae4kFUVJfJMxc1VcvGT_XrRokmrXnbA",
+            "expire_date": "2026-06-20T00:59:10.298Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "7xwupp2t41nurbd48umj1rhl14umxtbd",
+        "fields": {
+            "session_data": "e30:1wVbfa:WgvyurszzdbCNA4q_hdpWKYqwS39zsBXWBWvDIfdAuY",
+            "expire_date": "2026-06-19T21:01:34.490Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "84fegw1x4h71nhg5jaz2dntznl95o043",
+        "fields": {
+            "session_data": ".eJxVjDEOAiEQRe9CbQgDiGBp7xnIADOyaiBZdivj3XWTLbT9773_EhHXpcZ10BynIs4CxOF3S5gf1DZQ7thuXebelnlKclPkToe89kLPy-7-HVQc9VuTVRZyStZgLsUq1Kw9Eli2yWnD5kh4Ag5AKjMHD0TagQ_Ga1QBnHh_APo0N_I:1wVuhn:Q3a-_GdDjguJ-3YPlMOBj_4HxZiJpephsr-QO5U9Sb4",
+            "expire_date": "2026-06-20T17:21:07.536Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "87k6dkzbxm5905ubp824mwzewlj00fjf",
+        "fields": {
+            "session_data": "e30:1wVVGi:wbPAfS0VqGM653glSQp0PGnczeMJern8EloUAK9nUTo",
+            "expire_date": "2026-06-19T14:11:28.329Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "90ym50arjcmgl3u6k85382dyiyloj86k",
+        "fields": {
+            "session_data": "e30:1wX6Hg:dPMUKucR1wOhuoaPnum2S8LrqSCmvVITJwgJMe_Ouzo",
+            "expire_date": "2026-06-23T23:55:04.730Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "95ehl0nf023y8tv60gdqguo7h1ekiexu",
+        "fields": {
+            "session_data": "e30:1wWBhC:_yHdr23GgXRFsO8WJMRx6BUnFa8FnrqUv6cCwvpKOek",
+            "expire_date": "2026-06-21T11:29:38.263Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "9do96hyxhyon9dpv6ajzmgjqy70e795y",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wVw4M:xqrn0pefss73pOqIjxi5GDVpUMQ_S427F3fdsDEv0M4",
+            "expire_date": "2026-06-20T18:48:30.098Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "9t1xb8krayye68n1x02qmvdvnmlzns87",
+        "fields": {
+            "session_data": "e30:1wX5cC:z3toPM1-C7LVEDtMqLVwIBf-H7GNrSS9BS4p9oL7HEw",
+            "expire_date": "2026-06-23T23:12:12.973Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "a5qh9bpypk1ms8oj67hnn2f50wdcef1q",
+        "fields": {
+            "session_data": "e30:1wX6bJ:GNvdZL36_O1EMhmBoUJbc6YON5YKxAuWdJA1DWUwDBY",
+            "expire_date": "2026-06-24T00:15:21.965Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "a8hoisqoxza7jm07fw7yp7opke8dt9h6",
+        "fields": {
+            "session_data": "e30:1wWEvK:Eu6M2JZoDugcGyzO2-Q0XG4lNFjZiA0s5linFNwY-BM",
+            "expire_date": "2026-06-21T14:56:26.252Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "bhsbff202xqig69hly8ga9iv4vf0ylhe",
+        "fields": {
+            "session_data": "e30:1wVPnG:Ie3wPTl-JSUgduOOCDdplzt_PT7aMRJ2cW5-JXiv3A4",
+            "expire_date": "2026-06-19T08:20:42.538Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "bn45wqyhdja3665u4b5jgmbj7gbgxd56",
+        "fields": {
+            "session_data": "e30:1wXBVF:SooI3907U6m4vIx-veSlVYWa8MFjFYwECAgVcu0p6vA",
+            "expire_date": "2026-06-24T05:29:25.740Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "bu6lbh1tfpcm8bkvo4ozyirl8tlzg5br",
+        "fields": {
+            "session_data": "e30:1wXIGO:D495viNOpWfR9iRPBpLVpqyxtUYdKobze334Zeppt-8",
+            "expire_date": "2026-06-24T12:42:32.135Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "cbqp1jl58sg0bnxkq36707w3q8krx2xr",
+        "fields": {
+            "session_data": "e30:1wWl20:aDQqbDty0VH-G-NrDfHKu6JPWjfSbyUB7ojs0JbaDkI",
+            "expire_date": "2026-06-23T01:13:28.727Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "cdr2fo3unniwu86k5b14ho6bocztpyvi",
+        "fields": {
+            "session_data": "e30:1wVnK2:5plRKD4X5Hu1XqHTQBSXKsKcCqo0Opoi25OHrY2x0hw",
+            "expire_date": "2026-06-20T09:28:06.692Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "csgdd1qriforgjmited59dfwtvgia5bp",
+        "fields": {
+            "session_data": "e30:1wVwVf:8NM8f_3LRJNYhB22Hn8lwlt9ZOEneUPVY5iAzINFsbA",
+            "expire_date": "2026-06-20T19:16:43.432Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "cvjh3ji89gxgvvnyb5wn01mnpcj0d62z",
+        "fields": {
+            "session_data": "e30:1wVgdj:OsmHX5n4ErIiiTUm1FVWo9fPGshqqJx8xWoOz2X7nBo",
+            "expire_date": "2026-06-20T02:19:59.727Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "d01xh871zo4s87mku04p11sitril1fup",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wWZPQ:eWTeV_Kx9jqEQUVonw7drBBAhyR-_j213EI2lnRsbZY",
+            "expire_date": "2026-06-22T12:48:52.913Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "d4dp0fuz7cd3lz0bsk06pg3yix70smog",
+        "fields": {
+            "session_data": ".eJxVjEEOgjAQRe_StWkoU-rUpXvOQGY6U4saSCisjHdXEha6_e-9_zIDbWsZtqrLMIq5mNacfjem9NBpB3Kn6TbbNE_rMrLdFXvQavtZ9Hk93L-DQrV8a4TgMoBmjB16Zu8UIuM5e42NYhBWINdJaDxmASFSyg4FYps6H9i8P-PmOEg:1wVbeM:JTTvdi9GoIsScumVAxcbKWMxBL08W4PApDGeOJLMVDw",
+            "expire_date": "2026-06-19T21:00:18.538Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "det6ykrdc45aj3hbl2wyw50d22m5zdj1",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wWjJj:T_i0eBU9XUWqqKejnQUeMoaK5eJQMvzi7yQagKC476I",
+            "expire_date": "2026-06-22T23:23:39.823Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "dx97xc4o1101xwzfn6bu3h8vraxsr8yy",
+        "fields": {
+            "session_data": "e30:1wXIhf:NpvkbNvKKJ0XifLJWz7pIIn4qQaq7wBJs-_Lo4zld54",
+            "expire_date": "2026-06-24T13:10:43.772Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "ebatbdedcdw828mw20scywuefc7l185s",
+        "fields": {
+            "session_data": "e30:1wWzUx:d29t4gVB6mcRZXXRfTk3E3XnEroeAMdp6Rc9JKPBtQw",
+            "expire_date": "2026-06-23T16:40:19.136Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "ekect41dvwk3q4wd12q3r5d8vz8iwswt",
+        "fields": {
+            "session_data": "e30:1wWOse:CnUNgFJzromcfs0crlCpziKjWZXazgtffT7aJbHD6M4",
+            "expire_date": "2026-06-22T01:34:20.391Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "epv5izymj4olzd4aap0settcqg3cfoke",
+        "fields": {
+            "session_data": ".eJxVjMEOwiAQRP-FsyG0u7Tg0bvfQFh2laqBpLQn47_bJj3obTLvzbxViOuSw9pkDhOrs3Lq9NtRTE8pO-BHLPeqUy3LPJHeFX3Qpq-V5XU53L-DHFve1hIlWTZIrh9FGBkBovMMznaOtmiAyYvBmxVIppeBZMQBwVMC7Iz6fAH_xDgC:1wX5yz:J_rZZx1bY8WKofsBb2xpGhwmtks-pWuABMLYBi_UUH0",
+            "expire_date": "2026-06-23T23:35:45.510Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "ez63q2gu2m4brlsy52nmwh9jq4z2hfvn",
+        "fields": {
+            "session_data": "e30:1wWhuh:e5d1OezPnNR0RY3TwTMy1DmhycJkZN99nZah0Ye83cY",
+            "expire_date": "2026-06-22T21:53:43.689Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "f5fwooiofroz15uh5wgsp2m6suta7dua",
+        "fields": {
+            "session_data": "e30:1wVtB8:ysrTusukMLBnRxPv6Y8CvXnkXHhfNHZ6m-vN6BsmLdU",
+            "expire_date": "2026-06-20T15:43:18.772Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "fb2yffxr5mf6bf6vd0uxb7yljpvs6qg4",
+        "fields": {
+            "session_data": "e30:1wVfNV:gozUc4ZV4l16dW_BRcpzqKXfqdcu57PMfL3ahGHyFRA",
+            "expire_date": "2026-06-20T00:59:09.664Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "fiaanpser6pstv8g0db2cnzv4utbg6jz",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wWWuR:GB4RWWYGTIB3IdyvPOyZHoiXrs48u5goX6Vx0_Vk7s8",
+            "expire_date": "2026-06-22T10:08:43.879Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "fnb2af7pdyq9o035i9gr9arvj9p3kd73",
+        "fields": {
+            "session_data": "e30:1wWJLW:mjs8HWXxU5rr_d3TrPQq4QM3xA2q4C3ZA_j9kxsRMvU",
+            "expire_date": "2026-06-21T19:39:46.036Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "frvunjgbkwjm5prc9rkpsx5c7dhe123f",
+        "fields": {
+            "session_data": "e30:1wWeJW:ogpJZu8NreMwOSYQ-5t9MwrBtcEUDSO8Bmnn2lNQAlc",
+            "expire_date": "2026-06-22T18:03:06.620Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "fx470inxpaki0biaxxhpby0eae98ntsu",
+        "fields": {
+            "session_data": "e30:1wWEvv:DGgfZpdOXZu0ElUR-ztAX_BWiI5-K8hnSvCj0Brw9A4",
+            "expire_date": "2026-06-21T14:57:03.665Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "gaa8yt1ttsw4r92bb4pv3rtnz2y3tx1l",
+        "fields": {
+            "session_data": "e30:1wXH61:c2qPoLkIpj834eTgb8YzbZXC95ZfQOBMkWs8Doutq70",
+            "expire_date": "2026-06-24T11:27:45.304Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "gahzw2bdox19tvgfqs1tneauonbwhgw5",
+        "fields": {
+            "session_data": "e30:1wW1Ls:R-1UCUc_cgF85QA03yeVniEdWfD9ZFbjLyNF1oEtJv4",
+            "expire_date": "2026-06-21T00:26:56.151Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "gbas8vqmo6b6qvgbd4j2b7k13ky1bzcy",
+        "fields": {
+            "session_data": "e30:1wXP8W:H3dhngWxGyVVFT0doEJInhqIO5JcBdmIhiWJBUux5uc",
+            "expire_date": "2026-06-24T20:02:52.172Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "gg6uxqmgzj03s0bxls7kea6a9xvodkkl",
+        "fields": {
+            "session_data": "e30:1wWY6R:SWgOUQGzKgKhN9Jpe8FL-gdfgB4JOHD3sHPPPNl03oE",
+            "expire_date": "2026-06-22T11:25:11.495Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "gmxwz1mrvafgnez5j9wjy8certd4s3ri",
+        "fields": {
+            "session_data": "e30:1wWeIo:mZJuEMDl_8qY-Dww-0jC4BUS8Y1qfB5hAKnnnsV1unI",
+            "expire_date": "2026-06-22T18:02:22.304Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "hljlfj6170r8yciha6oz7oa8s1owrfll",
+        "fields": {
+            "session_data": ".eJxVjDsOwjAQBe_iGln4t4kp6TmDteu1cQDZUpxUiLuTSCmgfTPz3iLgupSw9jSHicVFGHH63QjjM9Ud8APrvcnY6jJPJHdFHrTLW-P0uh7u30HBXrZa2UjgfHLMoCEieO0MQ0KiaDVoNSirHHh3HjRlogwZNn_EnEb02YjPF97TN-Y:1wVZjg:9DgKwpzHh7YkiiTTJMwAHb8ov0P-IbQLEYh3S88B55Y",
+            "expire_date": "2026-06-19T18:57:40.844Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "hlpj3bs5gpbghqhlqhjx24gi7kljplis",
+        "fields": {
+            "session_data": "e30:1wVfQa:FPtDEp64xhObSl8-5j9le5l_y0fQPZUfVRuZASh15Lo",
+            "expire_date": "2026-06-20T01:02:20.198Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "hsljf5kud9ffc81f715kwu7h4mw4vw3g",
+        "fields": {
+            "session_data": "e30:1wX67k:70BQCnrxQdKO5rSZIknLQgH5ZDmplkdN1C6ZgfmYs7E",
+            "expire_date": "2026-06-23T23:44:48.547Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "hw4pnuifro9zrt49ws6tugq2hl93320o",
+        "fields": {
+            "session_data": "e30:1wVMyB:WWIWfbOysQP1eh3TJXG_YIZHf6AvF_5tWYCLzMu_8Vk",
+            "expire_date": "2026-06-19T05:19:47.363Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "i3npjd1yrbs5v8r71ppzlk58w7ll3r2c",
+        "fields": {
+            "session_data": "e30:1wX2xg:p7XVmQpyHs5uDR7L0xyTh7ll5cToL_grk8QQYTQKrKY",
+            "expire_date": "2026-06-23T20:22:12.359Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "ijfhyznocq8zyyybkjdw53rcwuf5nmxm",
+        "fields": {
+            "session_data": ".eJxVjDEOAiEQRe9CbQgDiGBp7xnIADOyaiBZdivj3XWTLbT9773_EhHXpcZ10BynIs4CxOF3S5gf1DZQ7thuXebelnlKclPkToe89kLPy-7-HVQc9VuTVRZyStZgLsUq1Kw9Eli2yWnD5kh4Ag5AKjMHD0TagQ_Ga1QBnHh_APo0N_I:1wWDAu:sDyOQnwUoUymuBKmAF3OjV0EySV1nQ08NngVHkJCZlc",
+            "expire_date": "2026-06-21T13:04:24.134Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "ityngeoinojp88vgcj3q6jytsfb39al6",
+        "fields": {
+            "session_data": "e30:1wX632:OdJ4TEz_-Hi6LZh0zqdVlBdANhdpivZWYJQ3tQk62Gk",
+            "expire_date": "2026-06-23T23:39:56.521Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "j4wrod4l62b127l6kf3x5w7aieze1div",
+        "fields": {
+            "session_data": "e30:1wX6Ve:qUqEtT_xq9Pp6aGPwbtCRSvUBU2tNzc_7qJhclJvJJM",
+            "expire_date": "2026-06-24T00:09:30.623Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "jszugxpncajm9eulgizieu84btu6xkzq",
+        "fields": {
+            "session_data": "e30:1wVuQ8:40A2Dkkn7-DmFd91set5VkiiyighzpA5Roc0JgIQJ8k",
+            "expire_date": "2026-06-20T17:02:52.306Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "ju2u2ykp1lbypfpzp8847scs4ggen2n1",
+        "fields": {
+            "session_data": ".eJxVjEEOgjAQRe_StWkoU-rUpXvOQGY6U4saSCisjHdXEha6_e-9_zIDbWsZtqrLMIq5mNacfjem9NBpB3Kn6TbbNE_rMrLdFXvQavtZ9Hk93L-DQrV8a4TgMoBmjB16Zu8UIuM5e42NYhBWINdJaDxmASFSyg4FYps6H9i8P-PmOEg:1wVsER:dL71hw7fqAxFQvzlZt-A3lktH73HOS4cAmID33nrQc4",
+            "expire_date": "2026-06-20T14:42:39.657Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "k1uqvjvfwk45dw3o3pzy6p1cmhe42nnt",
+        "fields": {
+            "session_data": "e30:1wX4pI:kObvGAx-OeUdERPvCvZI5_G5Y4ibe_DIuy4mxHNRa1c",
+            "expire_date": "2026-06-23T22:21:40.655Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "k6z68peddq21kxamixua3xehqpvfro4i",
+        "fields": {
+            "session_data": "e30:1wWh8D:Rz9iqrpX_ZmUYe40AuCd-s_rjnqqWkWeQjDXaJsmea4",
+            "expire_date": "2026-06-22T21:03:37.933Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "khsphyj368bj1e7jmce4wbwy0d472zfn",
+        "fields": {
+            "session_data": "e30:1wVwWk:l9r37uWSgeoFk0b4ZjsdHRgH1nOSAA73bICs79X31Ts",
+            "expire_date": "2026-06-20T19:17:50.828Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "kvk0w17h6p5lbaa9cljaa14updt29wtb",
+        "fields": {
+            "session_data": "e30:1wXCSb:Zu9cRbiDsV8VDUTyYcVV4U4JvIu3crs6LUAH7UAKOIA",
+            "expire_date": "2026-06-24T06:30:45.442Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "lvvejhw05gcp5viosw780spv4shop3x8",
+        "fields": {
+            "session_data": "e30:1wVWpW:Mx8J8ehwLIPbE-u9oau6bP5SbsXjRGx_Zex8kTDapGA",
+            "expire_date": "2026-06-19T15:51:30.130Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "m2sdhz8q0z9v2iat5yp36r78d25vlj6g",
+        "fields": {
+            "session_data": "e30:1wVwXA:fbiGA39l-KVF2qgUZ1BkfDoOoaJnpmBgC8PVcOM0v_s",
+            "expire_date": "2026-06-20T19:18:16.623Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "mjhgl9li8zt42nglgq667iagipshr1bn",
+        "fields": {
+            "session_data": "e30:1wX1no:ic1XsWfPMROfpkxpfgcXphfYj4rUBJz38WS1htxhzK0",
+            "expire_date": "2026-06-23T19:07:56.176Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "moqutd2vlok9zu5qmskbkq27u3bhec54",
+        "fields": {
+            "session_data": "e30:1wXCS5:6EwU7d_M7X0wGfhfzBHXGlvfwRQVnr8frGc199lrUaQ",
+            "expire_date": "2026-06-24T06:30:13.019Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "n11pa4dlpajuv1eppjzpqiiwf38z1mq1",
+        "fields": {
+            "session_data": "e30:1wXPtJ:2bFmNq42TTqR8W7BInBsLZHluoRGiBXa4jkS40sBeNs",
+            "expire_date": "2026-06-24T20:51:13.629Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "nk0hsr75i8vvx9ox9qn31alvi0k95tp9",
+        "fields": {
+            "session_data": "e30:1wVdwL:HDHfHIBi_PQ1bAWGE1dOS9addbaYaBJx7BXggr5kOk4",
+            "expire_date": "2026-06-19T23:27:01.459Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "o3fd2itzxdkttvvb1pywpx3v28iyqzmf",
+        "fields": {
+            "session_data": "e30:1wVfQf:QFzXknOXS9fvTPVjwFr0H7lPQXkYUnXiVhC16B3MvMU",
+            "expire_date": "2026-06-20T01:02:25.538Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "oe0w7mdyqgvgl8tzsaz4qs2fhwn4g3u0",
+        "fields": {
+            "session_data": ".eJxVjEEOgjAQRe_StWkoU-rUpXvOQGY6U4saSCisjHdXEha6_e-9_zIDbWsZtqrLMIq5mNacfjem9NBpB3Kn6TbbNE_rMrLdFXvQavtZ9Hk93L-DQrV8a4TgMoBmjB16Zu8UIuM5e42NYhBWINdJaDxmASFSyg4FYps6H9i8P-PmOEg:1wVbeN:fp-hlKIQnQDBe5tawE7XTh3g0KuBD2Y6TfyW4m-TN7M",
+            "expire_date": "2026-06-19T21:00:19.806Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "os85ils1utpbck6818xlnsdhh9k27vfp",
+        "fields": {
+            "session_data": "e30:1wW17r:XoG96kuQq0Xo3A1_Ot9XBSF7e3uX58BgippNG0TOGf8",
+            "expire_date": "2026-06-21T00:12:27.599Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "pus3ybmtjwncxc178y2p0qo90olsom4o",
+        "fields": {
+            "session_data": "e30:1wVuQU:vm7fY7zyKxrK5jBiydWEtMV3dT4AKddedejp-8eWsL0",
+            "expire_date": "2026-06-20T17:03:14.402Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "qw99or5lvszoaly09kcnne5e5xre44yz",
+        "fields": {
+            "session_data": ".eJxVjEEOwiAQRe_C2hCgneK4dN8zEGYGpGpKUtqV8e7apAvd_vfef6kQt7WEraUlTKIuyqvT70aRH2negdzjfKua67wuE-ld0QdteqySntfD_TsosZVvHZkHYEhiXerJ95Y7QOM7zmS9Zw8uD5RTn40MgGiQIJ-xI4nIwujU-wP6Djh8:1wW0sB:hU61xpZDQ1dUDXhp7imTfQNoSXPUWp478AqWikF4Zns",
+            "expire_date": "2026-06-20T23:56:15.438Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "r5h5t838pmfxyd9o9grk7l77iing69gs",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wWWfZ:1CIwAF8ijiMIZxM2XafZSS0_q4Kc1G8l7XkrLS2_VFk",
+            "expire_date": "2026-06-22T09:53:21.465Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "r69dpgf1iwrnqtos76yq7v4uslt3rv1i",
+        "fields": {
+            "session_data": "e30:1wVP0h:yLge4gomdebAuKao_fxlVuJrf6sHsEg8AC7oPbFm6w8",
+            "expire_date": "2026-06-19T07:30:31.447Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "rcot4wn7fui8wnxtf5cs1een6sot6po6",
+        "fields": {
+            "session_data": "e30:1wXBRI:gZ5IzxN2qptGCjzo30VsAE7tNQl9f5I8riKGPSfdTvU",
+            "expire_date": "2026-06-24T05:25:20.537Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "rf7oq8yvyuhtmfhw0vac9qhz5rnz2lfe",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wWkhN:QM968b-Wej2mqiu8k38WpwlSU5WwsG6_YOOQEfE0aFs",
+            "expire_date": "2026-06-23T00:52:09.302Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "rfa46zcz4dcdzsgiph9rh7178h7if27m",
+        "fields": {
+            "session_data": "e30:1wWO2f:zum5kNsJpk0OFsdYhySwe6x9muTb9qePSP65V6jwfdk",
+            "expire_date": "2026-06-22T00:40:37.770Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "rjgtozwp3yfmxat4fzyhcfylm7626f15",
+        "fields": {
+            "session_data": ".eJxVjEEOgjAQRe_StWkoU-rUpXvOQGY6U4saSCisjHdXEha6_e-9_zIDbWsZtqrLMIq5mNacfjem9NBpB3Kn6TbbNE_rMrLdFXvQavtZ9Hk93L-DQrV8a4TgMoBmjB16Zu8UIuM5e42NYhBWINdJaDxmASFSyg4FYps6H9i8P-PmOEg:1wVuGx:_ehN4b6zUOuhbc6MWCYVVYkcK7hxoq0TyAMZ07nTKys",
+            "expire_date": "2026-06-20T16:53:23.606Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "rsc1vy0yjkxbldssfi025hte13leekkx",
+        "fields": {
+            "session_data": "e30:1wW0ra:fM4dNCjGA8KoPf6yfOoBdd_Odu9GdYVk_HMn6yjm93M",
+            "expire_date": "2026-06-20T23:55:38.507Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "s28c8qpkzs2jnt7z77uy7vf9hcht3uoy",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wVwig:fnZyKvzO3hPD056JybpWJGovEIMNMl0t3xD4flo9ZC8",
+            "expire_date": "2026-06-20T19:30:10.524Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "s6klynhtazxo010mldhfhxq69v0o70hs",
+        "fields": {
+            "session_data": "e30:1wVMiK:SPcnWQndKjODmCSkWWRpc1CXyE74zc191JudJVHz67I",
+            "expire_date": "2026-06-19T05:03:24.083Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "sb4siadcpn5xidilqhwpb2hfd7100280",
+        "fields": {
+            "session_data": "e30:1wVh5K:hTbopwo3haN_HjtonNA6BaQ5X9tQp4dcSQRfMtFM34s",
+            "expire_date": "2026-06-20T02:48:30.490Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "syt2mseiov5ufhopj26any0qlsu587aa",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wVvZS:90krUbnUzu-GWtIHLQmC8i875ML5j5O8bNarnJi8DSE",
+            "expire_date": "2026-06-20T18:16:34.158Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "t2czve2ttpzevcyi4x1xvfo33wayiza0",
+        "fields": {
+            "session_data": "e30:1wW18c:z4rZH6Zcz4W71Tc3jWGKO8xOp4a3uOI3P1xBwBltwe0",
+            "expire_date": "2026-06-21T00:13:14.237Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "t4x089rf87npcubkydyichu6tfrn56hu",
+        "fields": {
+            "session_data": "e30:1wVcMF:BkOnPx6HDMaKO_-JiCROaUnL8XfVSi7afApJ4vUAUFA",
+            "expire_date": "2026-06-19T21:45:39.837Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "t5o133xesswqi9mxjxq53oq8byqo8brx",
+        "fields": {
+            "session_data": ".eJxVjDEOAiEQRe9CbQgDiGBp7xnIADOyaiBZdivj3XWTLbT9773_EhHXpcZ10BynIs4CxOF3S5gf1DZQ7thuXebelnlKclPkToe89kLPy-7-HVQc9VuTVRZyStZgLsUq1Kw9Eli2yWnD5kh4Ag5AKjMHD0TagQ_Ga1QBnHh_APo0N_I:1wWCwX:cRyPb2RBsCe-l-djRUNJTj3ml-3TMA5NDnZUv0aP6OY",
+            "expire_date": "2026-06-21T12:49:33.532Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "tba35a2u30kt7aumo7wyl5p3xa9l4x6b",
+        "fields": {
+            "session_data": "e30:1wVqNt:qKLFwiMHw9S9MFn7RZ0UEaECpQ_adGw9OZyaGsOWXo0",
+            "expire_date": "2026-06-20T12:44:17.849Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "thxpo18kc568ofig3p54fo401ft8pkpp",
+        "fields": {
+            "session_data": "e30:1wX6DE:3JR-AMhbYrqUDOsK5WGkRDeU0DL42RZswhOA9y4F3_Y",
+            "expire_date": "2026-06-23T23:50:28.061Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "u59ow153jg0kofxeoojpnvf7f9v0ek1t",
+        "fields": {
+            "session_data": "e30:1wVXzu:z5i7tHR2vZGydtYdbeLO3nBvQgzWTcSAHtVYhyuzfrM",
+            "expire_date": "2026-06-19T17:06:18.921Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "ucb5ag4e0nspguaf2j8ggzddp5mu04me",
+        "fields": {
+            "session_data": "e30:1wWblS:F3H_NxxT5pK8aYq0NWVxvEh2bU9jGkHswNrIqJS61X0",
+            "expire_date": "2026-06-22T15:19:46.200Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "utujwyi36c6xn2txn3fh4hvdbk0ic181",
+        "fields": {
+            "session_data": "e30:1wWLv2:i9k06j70iOUbV1i_eftnpa-yvmdk55UP1cS3nHEgRTc",
+            "expire_date": "2026-06-21T22:24:36.246Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "v1es6zm772og8mtu060ouxd97a76gw9t",
+        "fields": {
+            "session_data": "e30:1wXAx4:Lkmih_j8afqtYgl2DDGilgpad-69iU9Xn8hTo6ZZqWg",
+            "expire_date": "2026-06-24T04:54:06.130Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "v2jnw45rdow2m5p35mhqcjztt3gmrp2d",
+        "fields": {
+            "session_data": "e30:1wW1ML:NUnSn_ecbyPpIzg4mgJ4YibP4BsCHLNdpVPM8Qp1FOQ",
+            "expire_date": "2026-06-21T00:27:25.668Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "vjc0bxrkl35dcnv93jbqj2x5a8vt48vx",
+        "fields": {
+            "session_data": "e30:1wWJ3A:kfjmkI0f7ZsYYV9_Go9LNWX10nw_2uxq_vunDSyIFzA",
+            "expire_date": "2026-06-21T19:20:48.494Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "vjrh6yk59wev3jgwc75dhzeotc15ajdq",
+        "fields": {
+            "session_data": "e30:1wXLIC:HyEujwH_Svio5a3K8UvP7CfrdiEF-o8PIJOUcmI3WO0",
+            "expire_date": "2026-06-24T15:56:36.431Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "vkyfqieeh8d1wkcvwcqmwq35dls7tpjf",
+        "fields": {
+            "session_data": "e30:1wXO1B:vsKitYIcveEGep6kOrzpmvEb8sT8Ikg5_1oYsaal6Eo",
+            "expire_date": "2026-06-24T18:51:13.334Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "w3uboit6fuuit8v9y8vmwccdcv6pr39c",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wWWfY:CGpk3belpAUM-aZelA768AlshyM3c3_dxaXQ4-I4qho",
+            "expire_date": "2026-06-22T09:53:20.212Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "xphake55pu4apv2wngmkpno19w43ky96",
+        "fields": {
+            "session_data": "e30:1wVevR:-4slxS3-YHT2MO9h-G6_4tZMeHP0_seVuGK9Vpz0Mew",
+            "expire_date": "2026-06-20T00:30:09.677Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "xvappy52hvjxx36e57f2e7qdwg18vmke",
+        "fields": {
+            "session_data": "e30:1wVvK0:A0ndH0nLPVUWqS5wGR34P74kS-mdzWqplEeN5kRHrcU",
+            "expire_date": "2026-06-20T18:00:36.932Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "y0kan0jpzzv8rycxllqbj6mhmcld6iyy",
+        "fields": {
+            "session_data": "e30:1wX4SI:7QvZRiAGgQ3WaUn8l51SZI0hqQYXimrMOH3XOZRLI9E",
+            "expire_date": "2026-06-23T21:57:54.011Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "y0ww26h7n9zvd1aqpxq816fuk7gaucow",
+        "fields": {
+            "session_data": "e30:1wWkwP:SSzXiM0DXQi_p1oTKN7PQdn-_tD35F5NVo8cYCHuVmM",
+            "expire_date": "2026-06-23T01:07:41.496Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "y2q2vjy8eo4boe55kfb5axjjeeopea7l",
+        "fields": {
+            "session_data": ".eJxVjDEOAiEQRe9CbQgDiGBp7xnIADOyaiBZdivj3XWTLbT9773_EhHXpcZ10BynIs4CxOF3S5gf1DZQ7thuXebelnlKclPkToe89kLPy-7-HVQc9VuTVRZyStZgLsUq1Kw9Eli2yWnD5kh4Ag5AKjMHD0TagQ_Ga1QBnHh_APo0N_I:1wVtrk:jA9e2hVLONlmqIdiB4kv-iy_s23rU36aASO1NaThTUA",
+            "expire_date": "2026-06-20T16:27:20.124Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "yd0bg4jf3hlgzpa5a6su86uzjdhqkd75",
+        "fields": {
+            "session_data": "e30:1wX5g5:hg5B6rP2P_eSQcUXCOpDZxNLbSCrzzITc1qEFsc1Mn0",
+            "expire_date": "2026-06-23T23:16:13.410Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "yw52jy0rf6xvfm9xrhh67pf22jzonw6j",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wWLUj:UKDnjFj3FOtEot-Wu2gv68kxaH1H6ZsXQkS49FiY8rY",
+            "expire_date": "2026-06-21T21:57:25.305Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "yz6lbw5of45hmitpiekkr3vocs7mzv7u",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAQRf-FtSFQHkNduvcbyAwDtmogKe3K-O_apAvd3nPOfYmI2zrFreclzizOwovT70aYHrnugO9Yb02mVtdlJrkr8qBdXhvn5-Vw_w4m7NO31mFwioisBrRlVMaxQfCqKG1VGLynQRtIzNlBCWjzmBFKIgcMFgqJ9wfJ2DfU:1wWWwP:a3EwE--ludLHFR6iuczVGwyEh6QxSR9A86UxZp22Nyw",
+            "expire_date": "2026-06-22T10:10:45.790Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "z130m7gz07m1twxosb5j1czdzc37qwvc",
+        "fields": {
+            "session_data": "e30:1wX56P:5VPldnp2GJolge78j3Mb7P22K1T-0RDklZg_CAU_sJU",
+            "expire_date": "2026-06-23T22:39:21.465Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "z5jgerb9xe0dtv63id93v9uc8ugelwnx",
+        "fields": {
+            "session_data": ".eJxVjDEOAiEQRe9CbQgDiGBp7xnIADOyaiBZdivj3XWTLbT9773_EhHXpcZ10BynIs4CxOF3S5gf1DZQ7thuXebelnlKclPkToe89kLPy-7-HVQc9VuTVRZyStZgLsUq1Kw9Eli2yWnD5kh4Ag5AKjMHD0TagQ_Ga1QBnHh_APo0N_I:1wVOlq:IPFtu08Hf1l_AGQM45PswUQiA79qr-mNVEsUt2Mpa8E",
+            "expire_date": "2026-06-19T07:15:10.417Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "zaxs50dnq90w85k93grhdlv34b9mu8a4",
+        "fields": {
+            "session_data": "e30:1wVwW5:jfO1Rca3wFn37pbV6WxTempCglhn_yMfXrTLi9APOrg",
+            "expire_date": "2026-06-20T19:17:09.368Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "ze5i6qzn23saxus147l0lcjfb1oreeo0",
+        "fields": {
+            "session_data": "e30:1wWZYD:RHX7yNfO1IQm1SXXJGWlkELGOspjSWOC5ofyPLmMYq0",
+            "expire_date": "2026-06-22T12:57:57.915Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "zfugbwp25vwc4y7jc5x31m523gouc81c",
+        "fields": {
+            "session_data": ".eJxVjEEOgjAQRe_StWkoU-rUpXvOQGY6U4saSCisjHdXEha6_e-9_zIDbWsZtqrLMIq5mNacfjem9NBpB3Kn6TbbNE_rMrLdFXvQavtZ9Hk93L-DQrV8a4TgMoBmjB16Zu8UIuM5e42NYhBWINdJaDxmASFSyg4FYps6H9i8P-PmOEg:1wVuL8:9ptitFFsBnjtrKo6nJQkyK9RZqAuKBFb9iwdP2CZqzc",
+            "expire_date": "2026-06-20T16:57:42.784Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "zxlceufw4iyfjet03o6etnz8lis11qcs",
+        "fields": {
+            "session_data": "e30:1wWMpx:rhuLuyJJeUgbvO0ymyWn-DtXWoE9iolfmTWbxsIgO-4",
+            "expire_date": "2026-06-21T23:23:25.054Z"
+        }
+    },
+    {
+        "model": "produtos.categoria",
+        "pk": 1,
+        "fields": {
+            "nome": "Masculinos",
+            "slug": "masculinos"
+        }
+    },
+    {
+        "model": "produtos.categoria",
+        "pk": 2,
+        "fields": {
+            "nome": "Femininos",
+            "slug": "femininos"
+        }
+    },
+    {
+        "model": "produtos.categoria",
+        "pk": 3,
+        "fields": {
+            "nome": "Arabes",
+            "slug": "arabes"
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 1,
+        "fields": {
+            "nome": "Versace - Versace Pour Homme (decant)",
+            "marca": "Versace",
+            "slug": "versace-pour-homme",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/versace-pour-homme.webp",
+            "imagem_descricao": "perfumes/descricao/resenha-versace-pour-homme.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 3,
+        "fields": {
+            "nome": "Dior - Sauvage Eau de Parfum (decant)",
+            "marca": "Dior",
+            "slug": "dior-sauvage-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/sauvage-dior-edp.webp",
+            "imagem_descricao": "perfumes/descricao/sauvage-edp resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 4,
+        "fields": {
+            "nome": "Chanel - Coco Mademoiselle Eau de Parfum (decant)",
+            "marca": "Chanel",
+            "slug": "chanel-coco-mademoiselle-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/coco-mademoiselle-edp-intense.webp",
+            "imagem_descricao": "perfumes/descricao/coco_mademoisele_edp_resenha.webp",
+            "categorias": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 5,
+        "fields": {
+            "nome": "Dolce & Gabanna - Light Blue Eau de Toilette (decant)",
+            "marca": "Dolce & Gabanna",
+            "slug": "dolce-gabanna-light-blue-eau-de-toilette-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/dg-light-blue-edt.webp",
+            "imagem_descricao": "perfumes/descricao/light-blue-fem-resenha.webp",
+            "categorias": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 6,
+        "fields": {
+            "nome": "Lattafa - Fakhar Rose Eau de Parfum (decant)",
+            "marca": "Lattafa",
+            "slug": "lattafa-fakhar-rose-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/fakharrose-edt.webp",
+            "imagem_descricao": "perfumes/descricao/fakhar-rose-fem-resenha.webp",
+            "categorias": [
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 7,
+        "fields": {
+            "nome": "Armaf - Club de Nuit Intense Men Eau de Toilette (decant)",
+            "marca": "Armaf",
+            "slug": "armaf-club-de-nuit-intense-men-eau-de-toilette-dec",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/club-de-nuit-intense-men.webp",
+            "imagem_descricao": "perfumes/descricao/club-nuit-intense-resenha.webp",
+            "categorias": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 8,
+        "fields": {
+            "nome": "Calvin Klein - Euphoria Eau de Parfum (decant)",
+            "marca": "Calvin Klein",
+            "slug": "calvin-klein-euphoria-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/euphoria-edp-fem.webp",
+            "imagem_descricao": "perfumes/descricao/euphoria-edp-fem-resenha.webp",
+            "categorias": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 9,
+        "fields": {
+            "nome": "Jean Paul Gaultier - Le Male Le Parfum (decant)",
+            "marca": "Jean Paul Gaultier",
+            "slug": "jean-paul-gaultier-le-male-le-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/le-male-le-parfum.webp",
+            "imagem_descricao": "perfumes/descricao/le-male-parfum-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 10,
+        "fields": {
+            "nome": "Ralph Lauren - Polo Blue Eau de Parfum (decant)",
+            "marca": "Ralph Lauren",
+            "slug": "ralph-lauren-polo-blue-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/polo-blue-edp-masc.webp",
+            "imagem_descricao": "perfumes/descricao/polo-blue-edp-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 11,
+        "fields": {
+            "nome": "Lattafa - Yara Eau de Parfum (decant)",
+            "marca": "Lattafa",
+            "slug": "lattafa-yara-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/yara-latafa-fem.webp",
+            "imagem_descricao": "perfumes/descricao/lattafa-yara-resenha.webp",
+            "categorias": [
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 12,
+        "fields": {
+            "nome": "Carolina Herrera - 212 Vip Black Eau de Parfum (decant)",
+            "marca": "Carolina Herrera",
+            "slug": "carolina-herrera-212-vip-black-eau-de-parfum-decan",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/212-vip-black-edp.webp",
+            "imagem_descricao": "perfumes/descricao/212-vip-black-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 13,
+        "fields": {
+            "nome": "Carolina Herrera - 212 VIP Rosé Eau de Parfum (decant)",
+            "marca": "Carolina Herrera",
+            "slug": "carolina-herrera-212-vip-rose-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/212-vip-rose-edp.webp",
+            "imagem_descricao": "perfumes/descricao/212-vip-rose-resenha.webp",
+            "categorias": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 14,
+        "fields": {
+            "nome": "Chanel - Allure Homme Edition Blanche (Decant)",
+            "marca": "Chanel",
+            "slug": "chanel-allure-homme-edition-blanche-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/allure-blanche-edt.webp",
+            "imagem_descricao": "perfumes/descricao/alure-blanche-edt-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 15,
+        "fields": {
+            "nome": "Chanel - Allure Homme Sport Eau de Toilette (decant)",
+            "marca": "Chanel",
+            "slug": "chanel-allure-homme-sport-eau-de-toilette-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/allure-homme-sport-edt.webp",
+            "imagem_descricao": "perfumes/descricao/alure-sport-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 16,
+        "fields": {
+            "nome": "Carolina Herrera - CH (decant)",
+            "marca": "Carolina Herrera",
+            "slug": "carolina-herrera-ch-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/ch-fem.webp",
+            "imagem_descricao": "perfumes/descricao/ch-fem-resenha.webp",
+            "categorias": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 17,
+        "fields": {
+            "nome": "Calvin Klein - CK One (decant)",
+            "marca": "Calvin Klein",
+            "slug": "calvin-klein-ck-one-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/ck-one-masc.webp",
+            "imagem_descricao": "perfumes/descricao/ck-one-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 18,
+        "fields": {
+            "nome": "Versace - Eros Parfum (decant)",
+            "marca": "Versace",
+            "slug": "versace-eros-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/versace-eros-edp.webp",
+            "imagem_descricao": "perfumes/descricao/eros-edp-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 19,
+        "fields": {
+            "nome": "Carolina Herrera - Good Girl Eau de Parfum (decant)",
+            "marca": "Carolina Herrera",
+            "slug": "carolina-herrera-good-girl-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/good-girl-carolina-herrera-edp.webp",
+            "imagem_descricao": "perfumes/descricao/good-girl-fem-edp-resenha.webp",
+            "categorias": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 20,
+        "fields": {
+            "nome": "Paco Rabanne - Invictus Eau de Toilette (decant)",
+            "marca": "Paco Rabanne",
+            "slug": "paco-rabanne-invictus-eau-de-toilette-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/invictus-edt.webp",
+            "imagem_descricao": "perfumes/descricao/invictus-edp%20resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 21,
+        "fields": {
+            "nome": "Issey Miyake - L'eau d'Issey Pour Homme (decant)",
+            "marca": "Issey Miyake",
+            "slug": "issey-miyake-leau-dissey-pour-homme-decant",
+            "estoque_ml": 20,
+            "ativo": true,
+            "imagem": "perfumes/leau-dissey-pour-homme-edt.webp",
+            "imagem_descricao": "perfumes/descricao/issey-ph-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 22,
+        "fields": {
+            "nome": "Paco Rabanne - 1 Million Eau de Parfum (decant)",
+            "marca": "Paco Rabanne",
+            "slug": "paco-rabanne-1-million-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/1-million-edp.webp",
+            "imagem_descricao": "perfumes/descricao/million-edp-masc-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 23,
+        "fields": {
+            "nome": "Prada Milano - Paradoxe Eau de Parfum (decant)",
+            "marca": "Prada Milano",
+            "slug": "prada-milano-paradoxe-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/prada-paradoxe-edp.webp",
+            "imagem_descricao": "perfumes/descricao/prada-paradoxe-resenha.webp",
+            "categorias": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 24,
+        "fields": {
+            "nome": "Chanel - Bleu de Chanel Eau de Toilette (decant)",
+            "marca": "Chanel",
+            "slug": "chanel-bleu-de-chanel-eau-de-toilette-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/bleu-edt.webp",
+            "imagem_descricao": "perfumes/descricao/resenha-bleu-chanel-edt.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 25,
+        "fields": {
+            "nome": "Jean Paul Gaultier - Scandal Eau de Parfum (decant)",
+            "marca": "Jean Paul Gaultier",
+            "slug": "jean-paul-gaultier-scandal-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/scandal-edp.webp",
+            "imagem_descricao": "perfumes/descricao/scandall-edp_resenha.webp",
+            "categorias": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 26,
+        "fields": {
+            "nome": "Rasasi - Hawas Black (decant)",
+            "marca": "Rasasi",
+            "slug": "rasasi-hawas-black-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/hawas-black.webp",
+            "imagem_descricao": "perfumes/descricao/hawas-black-resenha.webp",
+            "categorias": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 27,
+        "fields": {
+            "nome": "Afnan - 9 PM Rebel (decant)",
+            "marca": "Afnan",
+            "slug": "afnan-9-pm-rebel-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/9-pm-rebel.webp",
+            "imagem_descricao": "perfumes/descricao/9pm-rebel-resenha.webp",
+            "categorias": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 28,
+        "fields": {
+            "nome": "French Avenue - Liquid Brun (decant)",
+            "marca": "French Avenue",
+            "slug": "french-avenue-liquid-brun-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/liquid-brun.webp",
+            "imagem_descricao": "perfumes/descricao/avenue-Liquid-Brun-resenha.webp",
+            "categorias": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 29,
+        "fields": {
+            "nome": "Lattafa - Asad Eau de Parfum (decant)",
+            "marca": "Lattafa",
+            "slug": "lattafa-yara-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/asad-latafa-edp.webp",
+            "imagem_descricao": "perfumes/descricao/latafa-asad-resenha.webp",
+            "categorias": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 30,
+        "fields": {
+            "nome": "Lattafa - Asad Bourboun Eau de Parfum (decant)",
+            "marca": "Lattafa",
+            "slug": "lattafa-asad-bourboun-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/asad-bourbon-edp.webp",
+            "imagem_descricao": "perfumes/descricao/lattafa-asad-bourbon.webp",
+            "categorias": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 31,
+        "fields": {
+            "nome": "Guerlain-homme-edt",
+            "marca": "Guerlain",
+            "slug": "guerlain-homme-edt",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/guerlain-homme.webp",
+            "imagem_descricao": "perfumes/descricao/guerlain-home-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 32,
+        "fields": {
+            "nome": "Armani code Ultimate",
+            "marca": "Giorgio Armani",
+            "slug": "armani-code-ultimate",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/code-ultimate.webp",
+            "imagem_descricao": "perfumes/descricao/code-ultimate-resenha.webp",
+            "categorias": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "produtos.perfume",
+        "pk": 33,
+        "fields": {
+            "nome": "AL Wataniah - Sabah Al Ward Eau de Parfum (decant)",
+            "marca": "AL Wataniah",
+            "slug": "al-wataniah-sabah-al-ward-eau-de-parfum-decant",
+            "estoque_ml": 0,
+            "ativo": true,
+            "imagem": "perfumes/sabah-al-ward-edp.webp",
+            "imagem_descricao": "perfumes/descricao/al-sabah-resenha.webp",
+            "categorias": [
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 1,
+        "fields": {
+            "perfume": 1,
+            "tamanho": "2ml",
+            "valor": "22.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 2,
+        "fields": {
+            "perfume": 1,
+            "tamanho": "5ml",
+            "valor": "44.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 3,
+        "fields": {
+            "perfume": 1,
+            "tamanho": "10ml",
+            "valor": "79.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 7,
+        "fields": {
+            "perfume": 3,
+            "tamanho": "2ml",
+            "valor": "36.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 8,
+        "fields": {
+            "perfume": 3,
+            "tamanho": "5ml",
+            "valor": "69.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 9,
+        "fields": {
+            "perfume": 3,
+            "tamanho": "10ml",
+            "valor": "99.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 10,
+        "fields": {
+            "perfume": 4,
+            "tamanho": "2ml",
+            "valor": "38.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 11,
+        "fields": {
+            "perfume": 4,
+            "tamanho": "5ml",
+            "valor": "72.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 12,
+        "fields": {
+            "perfume": 4,
+            "tamanho": "10ml",
+            "valor": "102.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 13,
+        "fields": {
+            "perfume": 5,
+            "tamanho": "2ml",
+            "valor": "23.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 14,
+        "fields": {
+            "perfume": 5,
+            "tamanho": "5ml",
+            "valor": "53.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 15,
+        "fields": {
+            "perfume": 5,
+            "tamanho": "10ml",
+            "valor": "83.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 16,
+        "fields": {
+            "perfume": 6,
+            "tamanho": "2ml",
+            "valor": "19.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 17,
+        "fields": {
+            "perfume": 6,
+            "tamanho": "5ml",
+            "valor": "39.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 18,
+        "fields": {
+            "perfume": 6,
+            "tamanho": "10ml",
+            "valor": "89.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 19,
+        "fields": {
+            "perfume": 7,
+            "tamanho": "2ml",
+            "valor": "19.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 20,
+        "fields": {
+            "perfume": 7,
+            "tamanho": "5ml",
+            "valor": "39.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 21,
+        "fields": {
+            "perfume": 7,
+            "tamanho": "10ml",
+            "valor": "59.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 22,
+        "fields": {
+            "perfume": 8,
+            "tamanho": "2ml",
+            "valor": "19.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 23,
+        "fields": {
+            "perfume": 8,
+            "tamanho": "5ml",
+            "valor": "39.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 24,
+        "fields": {
+            "perfume": 8,
+            "tamanho": "10ml",
+            "valor": "59.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 25,
+        "fields": {
+            "perfume": 9,
+            "tamanho": "2ml",
+            "valor": "24.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 26,
+        "fields": {
+            "perfume": 9,
+            "tamanho": "5ml",
+            "valor": "48.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 27,
+        "fields": {
+            "perfume": 9,
+            "tamanho": "10ml",
+            "valor": "74.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 28,
+        "fields": {
+            "perfume": 10,
+            "tamanho": "2ml",
+            "valor": "24.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 29,
+        "fields": {
+            "perfume": 10,
+            "tamanho": "5ml",
+            "valor": "48.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 30,
+        "fields": {
+            "perfume": 10,
+            "tamanho": "10ml",
+            "valor": "74.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 31,
+        "fields": {
+            "perfume": 11,
+            "tamanho": "2ml",
+            "valor": "17.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 32,
+        "fields": {
+            "perfume": 11,
+            "tamanho": "5ml",
+            "valor": "33.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 33,
+        "fields": {
+            "perfume": 11,
+            "tamanho": "10ml",
+            "valor": "46.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 34,
+        "fields": {
+            "perfume": 12,
+            "tamanho": "2ml",
+            "valor": "23.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 35,
+        "fields": {
+            "perfume": 12,
+            "tamanho": "5ml",
+            "valor": "46.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 36,
+        "fields": {
+            "perfume": 12,
+            "tamanho": "10ml",
+            "valor": "68.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 37,
+        "fields": {
+            "perfume": 13,
+            "tamanho": "2ml",
+            "valor": "23.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 38,
+        "fields": {
+            "perfume": 13,
+            "tamanho": "5ml",
+            "valor": "46.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 39,
+        "fields": {
+            "perfume": 13,
+            "tamanho": "10ml",
+            "valor": "69.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 40,
+        "fields": {
+            "perfume": 14,
+            "tamanho": "2ml",
+            "valor": "44.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 41,
+        "fields": {
+            "perfume": 14,
+            "tamanho": "5ml",
+            "valor": "88.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 42,
+        "fields": {
+            "perfume": 14,
+            "tamanho": "10ml",
+            "valor": "179.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 43,
+        "fields": {
+            "perfume": 15,
+            "tamanho": "2ml",
+            "valor": "35.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 44,
+        "fields": {
+            "perfume": 15,
+            "tamanho": "5ml",
+            "valor": "69.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 45,
+        "fields": {
+            "perfume": 15,
+            "tamanho": "10ml",
+            "valor": "99.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 46,
+        "fields": {
+            "perfume": 16,
+            "tamanho": "2ml",
+            "valor": "29.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 47,
+        "fields": {
+            "perfume": 16,
+            "tamanho": "5ml",
+            "valor": "59.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 48,
+        "fields": {
+            "perfume": 16,
+            "tamanho": "10ml",
+            "valor": "89.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 49,
+        "fields": {
+            "perfume": 17,
+            "tamanho": "2ml",
+            "valor": "18.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 50,
+        "fields": {
+            "perfume": 17,
+            "tamanho": "5ml",
+            "valor": "36.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 51,
+        "fields": {
+            "perfume": 17,
+            "tamanho": "10ml",
+            "valor": "69.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 52,
+        "fields": {
+            "perfume": 18,
+            "tamanho": "2ml",
+            "valor": "29.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 53,
+        "fields": {
+            "perfume": 18,
+            "tamanho": "5ml",
+            "valor": "59.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 54,
+        "fields": {
+            "perfume": 18,
+            "tamanho": "10ml",
+            "valor": "89.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 55,
+        "fields": {
+            "perfume": 19,
+            "tamanho": "2ml",
+            "valor": "28.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 56,
+        "fields": {
+            "perfume": 19,
+            "tamanho": "5ml",
+            "valor": "58.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 57,
+        "fields": {
+            "perfume": 19,
+            "tamanho": "10ml",
+            "valor": "83.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 58,
+        "fields": {
+            "perfume": 20,
+            "tamanho": "2ml",
+            "valor": "22.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 59,
+        "fields": {
+            "perfume": 20,
+            "tamanho": "5ml",
+            "valor": "44.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 60,
+        "fields": {
+            "perfume": 20,
+            "tamanho": "10ml",
+            "valor": "65.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 61,
+        "fields": {
+            "perfume": 21,
+            "tamanho": "2ml",
+            "valor": "20.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 62,
+        "fields": {
+            "perfume": 21,
+            "tamanho": "5ml",
+            "valor": "40.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 63,
+        "fields": {
+            "perfume": 21,
+            "tamanho": "10ml",
+            "valor": "60.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 64,
+        "fields": {
+            "perfume": 22,
+            "tamanho": "2ml",
+            "valor": "24.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 65,
+        "fields": {
+            "perfume": 22,
+            "tamanho": "5ml",
+            "valor": "49.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 66,
+        "fields": {
+            "perfume": 22,
+            "tamanho": "10ml",
+            "valor": "74.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 67,
+        "fields": {
+            "perfume": 23,
+            "tamanho": "2ml",
+            "valor": "37.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 68,
+        "fields": {
+            "perfume": 23,
+            "tamanho": "5ml",
+            "valor": "74.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 69,
+        "fields": {
+            "perfume": 23,
+            "tamanho": "10ml",
+            "valor": "139.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 70,
+        "fields": {
+            "perfume": 24,
+            "tamanho": "2ml",
+            "valor": "39.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 71,
+        "fields": {
+            "perfume": 24,
+            "tamanho": "5ml",
+            "valor": "89.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 72,
+        "fields": {
+            "perfume": 24,
+            "tamanho": "10ml",
+            "valor": "174.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 73,
+        "fields": {
+            "perfume": 25,
+            "tamanho": "2ml",
+            "valor": "29.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 74,
+        "fields": {
+            "perfume": 25,
+            "tamanho": "5ml",
+            "valor": "59.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 75,
+        "fields": {
+            "perfume": 25,
+            "tamanho": "10ml",
+            "valor": "88.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 76,
+        "fields": {
+            "perfume": 26,
+            "tamanho": "2ml",
+            "valor": "24.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 77,
+        "fields": {
+            "perfume": 26,
+            "tamanho": "5ml",
+            "valor": "48.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 78,
+        "fields": {
+            "perfume": 26,
+            "tamanho": "10ml",
+            "valor": "73.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 79,
+        "fields": {
+            "perfume": 27,
+            "tamanho": "2ml",
+            "valor": "24.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 80,
+        "fields": {
+            "perfume": 27,
+            "tamanho": "5ml",
+            "valor": "48.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 81,
+        "fields": {
+            "perfume": 27,
+            "tamanho": "10ml",
+            "valor": "73.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 82,
+        "fields": {
+            "perfume": 28,
+            "tamanho": "2ml",
+            "valor": "24.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 83,
+        "fields": {
+            "perfume": 28,
+            "tamanho": "5ml",
+            "valor": "48.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 84,
+        "fields": {
+            "perfume": 28,
+            "tamanho": "10ml",
+            "valor": "73.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 85,
+        "fields": {
+            "perfume": 29,
+            "tamanho": "2ml",
+            "valor": "18.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 86,
+        "fields": {
+            "perfume": 29,
+            "tamanho": "5ml",
+            "valor": "37.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 87,
+        "fields": {
+            "perfume": 29,
+            "tamanho": "10ml",
+            "valor": "56.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 88,
+        "fields": {
+            "perfume": 30,
+            "tamanho": "2ml",
+            "valor": "23.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 89,
+        "fields": {
+            "perfume": 30,
+            "tamanho": "5ml",
+            "valor": "53.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 90,
+        "fields": {
+            "perfume": 30,
+            "tamanho": "10ml",
+            "valor": "75.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 91,
+        "fields": {
+            "perfume": 31,
+            "tamanho": "2ml",
+            "valor": "39.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 92,
+        "fields": {
+            "perfume": 31,
+            "tamanho": "5ml",
+            "valor": "78.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 93,
+        "fields": {
+            "perfume": 31,
+            "tamanho": "10ml",
+            "valor": "119.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 94,
+        "fields": {
+            "perfume": 32,
+            "tamanho": "2ml",
+            "valor": "25.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 95,
+        "fields": {
+            "perfume": 32,
+            "tamanho": "5ml",
+            "valor": "47.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 96,
+        "fields": {
+            "perfume": 32,
+            "tamanho": "10ml",
+            "valor": "73.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 97,
+        "fields": {
+            "perfume": 33,
+            "tamanho": "2ml",
+            "valor": "15.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 98,
+        "fields": {
+            "perfume": 33,
+            "tamanho": "5ml",
+            "valor": "31.90"
+        }
+    },
+    {
+        "model": "produtos.preco",
+        "pk": 99,
+        "fields": {
+            "perfume": 33,
+            "tamanho": "10ml",
+            "valor": "44.90"
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 196,
+        "fields": {
+            "session_key": "ceq6conhxxr27xlhsv6nqv3jbcwplsr0",
+            "usuario": 1
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 199,
+        "fields": {
+            "session_key": "dnwlmh0rp23jed7zzz8hdzo3ermkrbpo",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 203,
+        "fields": {
+            "session_key": "y0ww26h7n9zvd1aqpxq816fuk7gaucow",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 206,
+        "fields": {
+            "session_key": "zgp8u4d0bzqzqq5czdhb0pb36ls980bu",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 207,
+        "fields": {
+            "session_key": "cbqp1jl58sg0bnxkq36707w3q8krx2xr",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 208,
+        "fields": {
+            "session_key": "72boh6aa4vyehly1wukg30y5it5f1lrh",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 212,
+        "fields": {
+            "session_key": "0ksrbwb0u4b4938ioddgy3mnpb5ox7q3",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 213,
+        "fields": {
+            "session_key": "ebatbdedcdw828mw20scywuefc7l185s",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 223,
+        "fields": {
+            "session_key": "i3npjd1yrbs5v8r71ppzlk58w7ll3r2c",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 224,
+        "fields": {
+            "session_key": "y0kan0jpzzv8rycxllqbj6mhmcld6iyy",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 228,
+        "fields": {
+            "session_key": "z130m7gz07m1twxosb5j1czdzc37qwvc",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 231,
+        "fields": {
+            "session_key": "9t1xb8krayye68n1x02qmvdvnmlzns87",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 237,
+        "fields": {
+            "session_key": "epv5izymj4olzd4aap0settcqg3cfoke",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 238,
+        "fields": {
+            "session_key": "jaqf3xzq3f71wmgktprq6i06vl82x2ww",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 239,
+        "fields": {
+            "session_key": "ityngeoinojp88vgcj3q6jytsfb39al6",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 241,
+        "fields": {
+            "session_key": "thxpo18kc568ofig3p54fo401ft8pkpp",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 242,
+        "fields": {
+            "session_key": "90ym50arjcmgl3u6k85382dyiyloj86k",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 243,
+        "fields": {
+            "session_key": "j4wrod4l62b127l6kf3x5w7aieze1div",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 244,
+        "fields": {
+            "session_key": "a5qh9bpypk1ms8oj67hnn2f50wdcef1q",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 245,
+        "fields": {
+            "session_key": "0olv5kg4abrd5s99dahygl9f6g1etvjk",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 246,
+        "fields": {
+            "session_key": "2py15cu8pn2tu5nz38v3i3w7nfwidg4g",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 247,
+        "fields": {
+            "session_key": "3imss2d5j7ymgyf3iyot6ch1lvx73fgv",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 248,
+        "fields": {
+            "session_key": "v1es6zm772og8mtu060ouxd97a76gw9t",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 249,
+        "fields": {
+            "session_key": "rcot4wn7fui8wnxtf5cs1een6sot6po6",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 250,
+        "fields": {
+            "session_key": "bn45wqyhdja3665u4b5jgmbj7gbgxd56",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 251,
+        "fields": {
+            "session_key": "moqutd2vlok9zu5qmskbkq27u3bhec54",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 252,
+        "fields": {
+            "session_key": "kvk0w17h6p5lbaa9cljaa14updt29wtb",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 253,
+        "fields": {
+            "session_key": "gaa8yt1ttsw4r92bb4pv3rtnz2y3tx1l",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 254,
+        "fields": {
+            "session_key": "bu6lbh1tfpcm8bkvo4ozyirl8tlzg5br",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 255,
+        "fields": {
+            "session_key": "yd0bg4jf3hlgzpa5a6su86uzjdhqkd75",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 256,
+        "fields": {
+            "session_key": "dx97xc4o1101xwzfn6bu3h8vraxsr8yy",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 257,
+        "fields": {
+            "session_key": "vjrh6yk59wev3jgwc75dhzeotc15ajdq",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 258,
+        "fields": {
+            "session_key": "utujwyi36c6xn2txn3fh4hvdbk0ic181",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 259,
+        "fields": {
+            "session_key": "vkyfqieeh8d1wkcvwcqmwq35dls7tpjf",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 260,
+        "fields": {
+            "session_key": "gbas8vqmo6b6qvgbd4j2b7k13ky1bzcy",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.carrinho",
+        "pk": 261,
+        "fields": {
+            "session_key": "n11pa4dlpajuv1eppjzpqiiwf38z1mq1",
+            "usuario": null
+        }
+    },
+    {
+        "model": "carrinho.item",
+        "pk": 166,
+        "fields": {
+            "carrinho": 206,
+            "perfume": 21,
+            "preco_obj": 61,
+            "tamanho": "2ml",
+            "preco": "20.90",
+            "quantidade": 2
+        }
+    },
+    {
+        "model": "carrinho.item",
+        "pk": 172,
+        "fields": {
+            "carrinho": 242,
+            "perfume": 21,
+            "preco_obj": 61,
+            "tamanho": "2ml",
+            "preco": "20.90",
+            "quantidade": 1
+        }
+    },
+    {
+        "model": "carrinho.item",
+        "pk": 174,
+        "fields": {
+            "carrinho": 244,
+            "perfume": 21,
+            "preco_obj": 61,
+            "tamanho": "2ml",
+            "preco": "20.90",
+            "quantidade": 1
+        }
+    },
+    {
+        "model": "carrinho.item",
+        "pk": 175,
+        "fields": {
+            "carrinho": 245,
+            "perfume": 21,
+            "preco_obj": 61,
+            "tamanho": "2ml",
+            "preco": "20.90",
+            "quantidade": 1
+        }
+    },
+    {
+        "model": "carrinho.item",
+        "pk": 176,
+        "fields": {
+            "carrinho": 246,
+            "perfume": 21,
+            "preco_obj": 61,
+            "tamanho": "2ml",
+            "preco": "20.90",
+            "quantidade": 1
+        }
+    },
+    {
+        "model": "carrinho.item",
+        "pk": 177,
+        "fields": {
+            "carrinho": 243,
+            "perfume": 21,
+            "preco_obj": 61,
+            "tamanho": "2ml",
+            "preco": "20.90",
+            "quantidade": 1
+        }
+    },
+    {
+        "model": "paginas.perfilusuario",
+        "pk": 2,
+        "fields": {
+            "user": 1,
+            "telefone": null,
+            "cpf": null,
+            "alias": null,
+            "endereco": null,
+            "numero": null,
+            "complemento": null,
+            "bairro": null,
+            "cidade": null,
+            "estado": null,
+            "cep": null,
+            "pais": "Brasil"
+        }
+    }
+]
