@@ -189,7 +189,7 @@ def normalizar_nome(nome_completo):
     nome_limpo = " ".join(nome_completo.strip().split())
     palavras = nome_limpo.split()
 
-    palavras = [p.capitalize() for p in palavras]
+    palavras = normalizar_texto(nome_completo).split()
 
     first_name = palavras[0] if palavras else ""
     last_name = " ".join(palavras[1:]) if len(palavras) > 1 else ""
@@ -469,12 +469,10 @@ def criar_conta(request):
         request,
         'criar_conta.html',
         {
-            'RECAPTCHA_SITE_KEY': (
-                settings.RECAPTCHA_SITE_KEY
-            )
+            'RECAPTCHA_SITE_KEY': settings.RECAPTCHA_SITE_KEY,
+            'next': request.GET.get('next', '')
         }
     )
-    
     
 # ✅ LOGIN
 def login_usuario(request):
@@ -602,12 +600,21 @@ def editar_dados(request):
             'telefone'
         ).strip()
 
-        perfil.cpf = request.POST.get(
-            'cpf'
-        )
+        # ✅ CPF COM VALIDAÇÃO
+        cpf = request.POST.get('cpf', '')
 
+        # remove máscara (pontos e traço)
+        cpf = re.sub(r'\D', '', cpf)
+
+        # valida CPF
+        if not validar_cpf(cpf):
+            messages.error(request, '❌ CPF inválido.')
+            return redirect('editar_dados')
+
+        perfil.cpf = cpf
+
+        # ✅ SALVA
         request.user.save()
-
         perfil.save()
 
         messages.success(
@@ -616,15 +623,10 @@ def editar_dados(request):
         )
 
         # ✅ VOLTA PARA CHECKOUT SE EXISTIR
-        next_url = request.GET.get(
-            'next'
-        )
+        next_url = request.GET.get('next')
 
         if next_url:
-
-            return redirect(
-                next_url
-            )
+            return redirect(next_url)
 
         return redirect('minha_conta')
 
@@ -736,7 +738,9 @@ def editar_endereco(request):
         }
     )
     
-    # =====================================
+import re
+
+# =====================================
 # ✅ NORMALIZAR TEXTO
 # =====================================
 
@@ -745,9 +749,70 @@ def normalizar_texto(texto):
     if not texto:
         return ''
 
+    # remove espaços extras
     texto = texto.strip()
-
     texto = re.sub(r'\s+', ' ', texto)
 
-    return texto.title()
+    # palavras que permanecem minúsculas
+    palavras_minusculas = {'da', 'de', 'do', 'das', 'dos', 'e'}
 
+    # siglas oficiais
+    siglas = {
+        'AC','AL','AP','AM','BA','CE','DF','ES',
+        'GO','MA','MT','MS','MG','PA','PB','PR',
+        'PE','PI','RJ','RN','RS','RO','RR','SC',
+        'SP','SE','TO'
+    }
+
+    palavras = texto.lower().split()
+
+    resultado = []
+
+    for i, p in enumerate(palavras):
+
+        # ✅ primeira palavra SEMPRE capitalizada
+        if i == 0:
+            resultado.append(p.capitalize())
+            continue
+
+        # ✅ siglas (PR, SP, etc)
+        if p.upper() in siglas:
+            resultado.append(p.upper())
+
+        # ✅ palavras minúsculas (da, de, etc)
+        elif p in palavras_minusculas:
+            resultado.append(p)
+
+        # ✅ restante capitaliza
+        else:
+            resultado.append(p.capitalize())
+
+    return ' '.join(resultado)
+
+def validar_cpf(cpf):
+    
+    import re
+
+    cpf = re.sub(r'\D', '', cpf)
+
+    if len(cpf) != 11:
+        return False
+
+    if cpf == cpf[0] * 11:
+        return False
+
+    # primeiro dígito
+    soma = sum(int(cpf[i]) * (10 - i) for i in range(9))
+    digito1 = (soma * 10 % 11) % 10
+
+    if digito1 != int(cpf[9]):
+        return False
+
+    # segundo dígito
+    soma = sum(int(cpf[i]) * (11 - i) for i in range(10))
+    digito2 = (soma * 10 % 11) % 10
+
+    if digito2 != int(cpf[10]):
+        return False
+
+    return True

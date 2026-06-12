@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.core.validators import RegexValidator
 
 class PerfilUsuario(models.Model):
 
@@ -16,11 +16,18 @@ class PerfilUsuario(models.Model):
         null=True
     )
 
+    cpf_validator = RegexValidator(
+        regex=r'^\d{11}$',
+        message='CPF deve conter 11 números'
+    )
+
     cpf = models.CharField(
-        max_length=20,
+        max_length=11,
+        validators=[cpf_validator],
         blank=True,
         null=True
     )
+
 
     # ✅ IDENTIFICAÇÃO ENDEREÇO
     alias = models.CharField(

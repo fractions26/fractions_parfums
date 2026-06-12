@@ -21,86 +21,100 @@
 
     <div class="conta-grid">
 
-        <!-- ✅ ESQUERDA -->
-        <div>
+    <!-- ✅ ESQUERDA -->
+    <div>
 
-            <div class="box-conta-info">
+        <div class="box-conta-info">
 
-                <div class="box-header">
-
-                    <h3>
-                        Entrega
-                    </h3>
-
-                </div>
-
-                <div class="dados-usuario">
-
-                    <strong>
-                        {{ pedido.nome }}
-                    </strong>
-
-                    <p>
-                        {{ pedido.endereco }},
-                        {{ pedido.numero }}
-                    </p>
-
-                    {% if pedido.complemento %}
-                    <p>
-                        {{ pedido.complemento }}
-                    </p>
-                    {% endif %}
-
-                    <p>
-                        {{ pedido.cidade }} -
-                        {{ pedido.estado }}
-                    </p>
-
-                    <p>
-                        CEP: {{ pedido.cep }}
-                    </p>
-
-                    <p>
-                        Telefone:
-                        {{ pedido.telefone }}
-                    </p>
-
-                </div>
-
+            <div class="box-header">
+                <h3>Entrega</h3>
             </div>
 
-            <div class="box-conta-info">
+            <div class="dados-usuario">
 
-                <div class="box-header">
+                <strong>
+                    {{ pedido.nome }}
+                </strong>
 
-                    <h3>
-                        Frete
-                    </h3>
+                <p>
+                    {{ pedido.endereco }},
+                    {{ pedido.numero }}
+                </p>
 
-                </div>
+                {% if pedido.complemento %}
+                <p>
+                    {{ pedido.complemento }}
+                </p>
+                {% endif %}
 
-                <div class="dados-usuario">
+                <p>
+                    {{ pedido.cidade }} -
+                    {{ pedido.estado }}
+                </p>
 
-                    <p>
-                        <strong>Transportadora:</strong>
-                        {{ pedido.frete_nome }}
-                    </p>
+                <p>
+                    CEP: {{ pedido.cep }}
+                </p>
 
-                    <p>
-                        <strong>Prazo:</strong>
-                        {{ pedido.frete_prazo }} dias
-                    </p>
-
-                    <p>
-                        <strong>Valor:</strong>
-                        R$ {{ pedido.frete }}
-                    </p>
-
-                </div>
+                <p>
+                    Telefone:
+                    {{ pedido.telefone }}
+                </p>
 
             </div>
 
         </div>
+
+        <div class="box-conta-info">
+
+            <div class="box-header">
+                <h3>Frete</h3>
+            </div>
+
+            <div class="dados-usuario">
+
+                <!-- ✅ TRANSPORTADORA COM LOGO -->
+            <div class="frete-linha">
+
+                {% with pedido.frete_nome|lower as nome %}
+
+                    {% if '.package' in nome or '.com' in nome %}
+                        <img src="{% static 'images/jadlog.png' %}"
+                            alt="Jadlog"
+                            class="frete-logo">
+
+                    {% elif 'correios' in nome or 'sedex' in nome or 'pac' in nome %}
+                        <img src="{% static 'images/correios.png' %}"
+                            alt="Correios"
+                            class="frete-logo">
+                    {% endif %}
+
+                {% endwith %}
+
+                <div>
+                    <strong>
+                        {{ pedido.frete_nome }}
+                    </strong>
+                </div>
+
+            </div>
+
+
+                <p>
+                    <strong>Prazo:</strong>
+                    {{ pedido.frete_prazo }} dias
+                </p>
+
+                <p>
+                    <strong>Valor:</strong>
+                    R$ {{ pedido.frete }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
 
         <!-- ✅ DIREITA -->
         <div>

@@ -610,3 +610,18 @@
     color:#000;
 }
 
+.frete-linha {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.frete-logo {
+    width: 70px;
+    height: 40px;
+    object-fit: contain;
+    background: #fff;
+    margin-top:-14px;
+    border-radius: 6px;
+    padding: 1px;
+}

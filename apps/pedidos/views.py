@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.conf import settings
-
+from django.urls import reverse
 import requests
 
 from apps.carrinho.utils import get_carrinho
@@ -21,9 +21,14 @@ from .services import gerar_codigo_pedido
 # ✅ CHECKOUT
 # =====================================
 
-@login_required
+
 def checkout(request):
 
+    # ✅ SE NÃO ESTIVER LOGADO → REDIRECIONA COM NEXT
+    if not request.user.is_authenticated:
+        return redirect(f"{reverse('criar_conta')}?next={request.path}")
+
+    # ✅ CARRINHO
     carrinho = get_carrinho(request)
 
     itens = carrinho.itens.all()
@@ -34,6 +39,7 @@ def checkout(request):
         principal=True
     ).first()
 
+    # ✅ TOTAL
     total = sum(
         item.preco * item.quantidade
         for item in itens
