@@ -45,7 +45,7 @@ def login_view(request):
 # ✅ CRIAR CONTA
 # =====================================
 def criar_conta(request):
-
+    
     if request.method == 'POST':
 
         nome = request.POST.get('nome')
@@ -55,14 +55,12 @@ def criar_conta(request):
 
         # ✅ valida senha
         if senha != confirmar:
-
             return render(request, 'criar_conta.html', {
                 'erro': 'As senhas não coincidem'
             })
 
         # ✅ evita duplicado
         if User.objects.filter(username=email).exists():
-
             return render(request, 'criar_conta.html', {
                 'erro': 'Email já cadastrado'
             })
@@ -78,16 +76,15 @@ def criar_conta(request):
         # ✅ LOGA AUTOMATICAMENTE
         login(request, user)
 
-        # ✅ REDIRECIONA PRO DESTINO CERTO
-        next_url = request.POST.get('next')
+        # ✅ REDIRECIONA COM SEGURANÇA
+        next_url = request.POST.get('next') or request.GET.get('next')
 
         if next_url:
             return redirect(next_url)
 
-        return redirect('home')
+        return redirect('/pedido/')
 
     return render(request, 'criar_conta.html')
-
 
 # =====================================
 # ✅ MEUS ENDEREÇOS
