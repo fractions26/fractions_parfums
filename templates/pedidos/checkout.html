@@ -502,32 +502,47 @@ function validarCPF(cpf) {
 // =====================================
 function atualizarEstadoBotao() {
 
-    const freteOK = document.getElementById('freteValorInput').value;
-    const pagamentoOK = metodoSelecionado;
-
+    const freteInput = document.getElementById('freteValorInput');
     const cpfInput = document.getElementById('cpfPagamento');
-    const cpf = cpfInput.value;
-
     const botao = document.getElementById('btnFinalizar');
 
-    if (freteOK && pagamentoOK && validarCPF(cpf)) {
+    // ✅ evita erro se algum elemento não existir
+    if (!freteInput || !cpfInput || !botao) return;
+
+    const freteOK = freteInput.value !== ""; // ✅ evita bug com frete = 0
+    const pagamentoOK = metodoSelecionado !== null;
+
+    const cpf = cpfInput.value.trim();
+
+    let cpfOK = true;
+
+    // ✅ só valida CPF se for cartão
+    if (metodoSelecionado === 'novo_cartao') {
+
+        cpfOK = validarCPF(cpf);
+
+        if (cpf.length > 0) {
+            cpfInput.style.borderColor = cpfOK ? '#00a650' : '#dc2626';
+        } else {
+            cpfInput.style.borderColor = '#ddd';
+        }
+
+    } else {
+        // ✅ PIX / boleto não exige CPF
+        cpfInput.style.borderColor = '#ddd';
+    }
+
+    // ✅ controle final do botão
+    if (freteOK && pagamentoOK && cpfOK) {
 
         botao.disabled = false;
-
-        cpfInput.style.borderColor = '#00a650'; // ✅ verde
 
     } else {
 
         botao.disabled = true;
-
-        // só marca vermelho se digitou algo
-        if (cpf.length > 0) {
-            cpfInput.style.borderColor = '#dc2626'; // ❌ vermelho
-        } else {
-            cpfInput.style.borderColor = '#ddd';
-        }
     }
-}
+
+} // ✅ FECHAMENTO CORRETO DA FUNÇÃO
 
 
 // =====================================

@@ -75,7 +75,7 @@
         </p>
 
         <a
-            href="{% url 'criar_conta' %}?next=/pedido/checkout/"
+            href="{% url 'criar_conta' %}?next={% url 'checkout' %}"
             class="link-criar-conta"
         >
             Criar conta

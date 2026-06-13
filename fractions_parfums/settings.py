@@ -246,7 +246,7 @@ EMAIL_USE_TLS = config(
 
 EMAIL_HOST_USER = config(
     'EMAIL_HOST_USER',
-    default='contato@fractions.com.br'
+    default='contato@fractionsparfums.com.br'
 )
 
 EMAIL_HOST_PASSWORD = config(
@@ -261,3 +261,4 @@ DEFAULT_FROM_EMAIL = 'contato@fractionsparfums.com.br'
 # =========================
 
 LOGIN_URL = '/login/'
+

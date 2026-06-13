@@ -12,27 +12,27 @@
 
             <div class="carrinho-auth-acoes">
 
-                <a href="{% url 'criar_conta' %}?next=/pedido/checkout/"
+                <!-- ✅ CRIAR CONTA -->
+                <a href="{% url 'criar_conta' %}?next={% url 'checkout' %}"
                 class="btn-carrinho-auth criar">
 
                     <i class="fa-solid fa-user-plus"></i>
-
                     Criar conta
 
                 </a>
 
-                <a href="{% url 'login' %}?next=/pedido/checkout/"
+                <!-- ✅ LOGIN -->
+                <a href="{% url 'login' %}?next={% url 'checkout' %}"
                 class="btn-carrinho-auth entrar">
 
                     <i class="fa-solid fa-right-to-bracket"></i>
-
                     Entrar
 
                 </a>
 
             </div>
 
-            </div>
+        </div>
 
         {% endif %}
 

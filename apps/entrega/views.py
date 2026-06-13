@@ -19,35 +19,34 @@ def checkout(request):
 # ✅ CALCULAR FRETE (MELHOR ENVIO)
 # =========================
 def calcular_frete(request):
-
+    
     cep = request.GET.get("cep")
 
-    # ✅ validação básica
     if not cep or len(cep) < 8:
         return JsonResponse({
             "success": False,
+            "fretes": [],
             "erro": "CEP inválido"
         })
 
     url = "https://sandbox.melhorenvio.com.br/api/v2/me/shipment/calculate"
 
     headers = {
-        "Authorization": f"Bearer {settings.MELHOR_ENVIO_TOKEN}", # 🔥 coloca seu token
+        "Authorization": f"Bearer {settings.MELHOR_ENVIO_TOKEN}",
         "Accept": "application/json",
         "Content-Type": "application/json"
     }
 
     payload = {
-        "from": {"postal_code": "82590100"},  # ✅ origem real (sua loja)
-        "to": {"postal_code": cep},          # ✅ destino (cliente)
-
+        "from": {"postal_code": "82590100"},
+        "to": {"postal_code": cep},
         "products": [
             {
                 "id": "1",
-                "width": 10,      # largura
-                "height": 4,      # altura
-                "length": 10,     # comprimento
-                "weight": 0.2,    # ✅ 200g ideal para decant
+                "width": 10,
+                "height": 4,
+                "length": 10,
+                "weight": 0.2,
                 "quantity": 1
             }
         ]
@@ -58,15 +57,19 @@ def calcular_frete(request):
             url,
             json=payload,
             headers=headers,
-            verify=False  # 🔥 CORREÇÃO DO SSL
+            verify=False
         )
 
         data = response.json()
 
-        return JsonResponse(data, safe=False)
+        return JsonResponse({
+            "success": True,
+            "fretes": data
+        })
 
     except Exception as e:
         return JsonResponse({
             "success": False,
+            "fretes": [],
             "erro": str(e)
         })

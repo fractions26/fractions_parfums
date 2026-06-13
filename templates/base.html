@@ -968,9 +968,12 @@ function calcularFreteCarrinho() {
 
     lista.innerHTML = "Calculando frete...";
 
-    fetch('/checkout/calcular-frete/', {
+    fetch(`/entrega/frete/?cep=${cep}`, {
         credentials: 'same-origin'
     })
+
+
+
     .then(res => {
 
         // ✅ usuário não logado → redireciona

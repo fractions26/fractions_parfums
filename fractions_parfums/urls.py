@@ -7,23 +7,27 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
 
+    # ✅ PÁGINAS (home está aqui dentro)
     path('', include('apps.paginas.urls')),
 
+    # ✅ PRODUTOS
     path('produtos/', include('apps.produtos.urls')),
 
+    # ✅ CARRINHO
     path('carrinho/', include('apps.carrinho.urls')),
 
+    # ✅ CHECKOUT / PEDIDOS
     path('checkout/', include('apps.pedidos.urls')),
-
-    # ✅ PEDIDOS
     path('pedido/', include('apps.pedidos.urls')),
 
-    # ✅ PAGAMENTOS
+    # ✅ PAGAMENTO
     path('pagamento/', include('apps.pagamentos.urls')),
-    
-    # ✅ USUARIOS
+
+    # ✅ USUÁRIO
     path('usuario/', include('apps.usuarios.urls')),
-    
+
+    # ✅ FRETE (CORRIGIDO)
+    path('entrega/', include('apps.entrega.urls')),
 ]
 
 # ✅ MEDIA

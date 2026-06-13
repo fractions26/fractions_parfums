@@ -821,13 +821,13 @@
         flex-direction: column !important;
         margin: 20px auto;
         padding: 0 12px;
-        gap: 16px;
+        gap: 2px;
     }
 
     .checkout-left {
         display: flex !important;
         flex-direction: column !important;
-        gap: 16px;
+        gap: 2px;
     }
 
     /* ordem principal */

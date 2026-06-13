@@ -1,30 +1,26 @@
-from decimal import Decimal
-import re
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.conf import settings
-from django.urls import reverse
 import requests
 from apps.carrinho.utils import get_carrinho
 from apps.usuarios.models import Endereco
 from .models import Pedido
 from .models import ItemPedido
 from .services import gerar_codigo_pedido
+
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.urls import reverse
 from decimal import Decimal
+import re
 
-
-# ✅ NOVO: usa decorator (mas mantém seu fluxo)
 @login_required(login_url='login')
 def checkout(request):
 
-    # ✅ (MANTIDO) fallback antigo ainda preservado
-    if not request.user.is_authenticated:
-        return redirect(f"{reverse('criar_conta')}?next={request.path}")
-
-    # ✅ CARRINHO (PATCH seguro)
+    # ✅ CARRINHO
     carrinho = get_carrinho(request)
 
     if not carrinho or not hasattr(carrinho, 'itens'):
@@ -37,43 +33,36 @@ def checkout(request):
         messages.warning(request, "Seu carrinho está vazio.")
         return redirect('home')
 
-    # ✅ ENDEREÇO PRINCIPAL
+    # ✅ ENDEREÇO
     endereco_principal = Endereco.objects.filter(
         usuario=request.user,
         principal=True
     ).first()
 
-    # ✅ TOTAL (PATCH seguro)
+    # ✅ TOTAL
     total = sum(
         (item.preco or 0) * (item.quantidade or 0)
         for item in itens
     )
 
-    # ✅ CRIA PEDIDO
+    # =====================================
+    # ✅ POST (FINALIZAR PEDIDO)
+    # =====================================
     if request.method == 'POST':
 
-# =====================================
-# ✅ CPF (VERSÃO SEGURA)
-# =====================================
-
+        # ✅ CPF
         perfil = getattr(request.user, 'perfil', None)
-
         cpf_input = request.POST.get('cpf_pagamento')
 
         cpf = cpf_input or (perfil.cpf if perfil else '')
         cpf = re.sub(r'\D', '', cpf)
 
+        # ✅ salva no perfil se não tiver
+        if perfil and cpf and not getattr(perfil, 'cpf', None):
+            perfil.cpf = cpf
+            perfil.save()
 
-        # =====================================
-        # ✅ salva no perfil (apenas se ainda não tiver)
-        # =====================================
-
-        if perfil:
-            if cpf and not getattr(perfil, 'cpf', None):
-                perfil.cpf = cpf
-                perfil.save()
-
-        # ✅ FRETE DINÂMICO (PATCH seguro)
+        # ✅ FRETE
         frete_valor = request.POST.get('frete_valor') or '0'
 
         try:
@@ -81,113 +70,67 @@ def checkout(request):
         except:
             frete = Decimal('0')
 
-        # ✅ VALIDAÇÃO (não quebra fluxo)
         if frete <= 0:
             messages.warning(request, "Selecione um frete.")
             return redirect('checkout')
 
+        # ✅ CRIA PEDIDO
         pedido = Pedido.objects.create(
-
             usuario=request.user,
-
             codigo=gerar_codigo_pedido(),
 
             subtotal=total,
-
             frete=frete,
-
-            # ✅ CPF SALVO NO PEDIDO
-            cpf=cpf,
-
-            frete_nome=request.POST.get(
-                'frete_nome',
-                ''
-            ),
-
-            frete_prazo=request.POST.get(
-                'frete_prazo',
-                ''
-            ),
-
             total=total + frete,
 
-            # ✅ DADOS USUÁRIO
-            nome=request.user.get_full_name(),
+            # ✅ CPF
+            cpf=cpf,
 
+            # ✅ FRETE INFO
+            frete_nome=request.POST.get('frete_nome', ''),
+            frete_prazo=request.POST.get('frete_prazo', ''),
+
+            # ✅ USUÁRIO
+            nome=request.user.get_full_name(),
             email=request.user.email,
 
             telefone=(
-                endereco_principal.telefone
-                if endereco_principal else ''
+                endereco_principal.telefone if endereco_principal else ''
             ),
 
             # ✅ ENDEREÇO
-            cep=(
-                endereco_principal.cep
-                if endereco_principal else ''
-            ),
-
-            endereco=(
-                endereco_principal.endereco
-                if endereco_principal else ''
-            ),
-
-            numero=(
-                endereco_principal.numero
-                if endereco_principal else ''
-            ),
-
-            complemento=(
-                endereco_principal.complemento
-                if endereco_principal else ''
-            ),
-
-            cidade=(
-                endereco_principal.cidade
-                if endereco_principal else ''
-            ),
-
-            estado=(
-                endereco_principal.estado
-                if endereco_principal else ''
-            ),
+            cep=(endereco_principal.cep if endereco_principal else ''),
+            endereco=(endereco_principal.endereco if endereco_principal else ''),
+            numero=(endereco_principal.numero if endereco_principal else ''),
+            complemento=(endereco_principal.complemento if endereco_principal else ''),
+            cidade=(endereco_principal.cidade if endereco_principal else ''),
+            estado=(endereco_principal.estado if endereco_principal else ''),
         )
 
-        # ✅ ITENS DO PEDIDO
+        # ✅ ITENS
         for item in itens:
-
             ItemPedido.objects.create(
-
                 pedido=pedido,
-
                 perfume=item.perfume,
-
                 produto_nome=item.perfume.nome,
-
                 tamanho=item.tamanho,
-
                 quantidade=item.quantidade,
-
                 preco=item.preco,
-
                 subtotal=(item.preco * item.quantidade)
             )
 
-        # ✅ LIMPA CARRINHO (MANTIDO)
+        # ✅ LIMPA CARRINHO
         itens.delete()
-        
-        
-        # ✅ MENSAGEM DE SUCESSO
-        from django.contrib import messages
+
+        # ✅ SUCESSO
         messages.success(
             request,
             f"✅ Pedido #{pedido.codigo} realizado com sucesso!"
         )
 
-        # ✅ REDIRECIONA PARA DETALHE DO PEDIDO (RECOMENDADO)
         return redirect('detalhe_pedido', codigo=pedido.codigo)
 
-
+    # ✅ GET (carrega página)
     return render(
         request,
         'pedidos/checkout.html',
@@ -197,7 +140,6 @@ def checkout(request):
             'endereco_principal': endereco_principal
         }
     )
-
 
 # =====================================
 # ✅ FRETE CHECKOUT AJAX
