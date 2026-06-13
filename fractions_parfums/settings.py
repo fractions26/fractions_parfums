@@ -35,7 +35,7 @@ X_FRAME_OPTIONS = 'DENY'
 
 CSRF_TRUSTED_ORIGINS = config(
     'CSRF_TRUSTED_ORIGINS',
-    default=''
+    default='http://127.0.0.1:8000,http://localhost:8000,https://fractionsparfums.com.br'
 ).split(',')
 
 # ✅ HSTS
@@ -85,6 +85,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
 
+    # ✅ NECESSÁRIO PARA ALLAUTH
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # ✅ GOOGLE LOGIN
+    'allauth.socialaccount.providers.google',
+
+    # ✅ seus apps
     'apps.produtos.apps.ProdutosConfig',
     'apps.carrinho.apps.CarrinhoConfig',
     'apps.entrega',
@@ -94,7 +105,6 @@ INSTALLED_APPS = [
     'apps.paginas.apps.PaginasConfig',
 
     'mathfilters',
-
 ]
 
 # =========================
@@ -118,10 +128,13 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+        
+    'allauth.account.middleware.AccountMiddleware',
 
     'django.contrib.messages.middleware.MessageMiddleware',
 
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'fractions_parfums.urls'
@@ -262,3 +275,30 @@ DEFAULT_FROM_EMAIL = 'contato@fractionsparfums.com.br'
 
 LOGIN_URL = '/login/'
 
+# =========================
+# ✅ ALLAUTH login Google
+# =========================
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/pedido/'
+LOGOUT_REDIRECT_URL = '/'
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
+ACCOUNT_UNIQUE_EMAIL = True
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]

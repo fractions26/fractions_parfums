@@ -28,7 +28,11 @@ urlpatterns = [
 
     # ✅ FRETE (CORRIGIDO)
     path('entrega/', include('apps.entrega.urls')),
+
+    # ✅ LOGIN GOOGLE)
+    path('accounts/', include('allauth.urls')),
 ]
+
 
 # ✅ MEDIA
 urlpatterns += static(

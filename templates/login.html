@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load socialaccount %}
 
 {% block content %}
 
 <div class="conta-form">
 
-    <h2>
-        Iniciar sessão
-    </h2>
+    <h2>Iniciar sessão</h2>
 
     {% if messages %}
         {% for message in messages %}
@@ -31,9 +30,7 @@
 
         <div class="form-group">
 
-            <label>
-                E-mail
-            </label>
+            <label>E-mail</label>
 
             <input
                 type="email"
@@ -45,9 +42,7 @@
 
         <div class="form-group">
 
-            <label>
-                Senha
-            </label>
+            <label>Senha</label>
 
             <input
                 type="password"
@@ -57,6 +52,7 @@
 
         </div>
 
+        <!-- ✅ BOTÃO ENTRAR -->
         <button
             type="submit"
             class="btn-criar-conta">
@@ -66,6 +62,23 @@
         </button>
 
     </form>
+
+    <!-- ✅ DIVISOR -->
+    <div style="text-align:center; margin: 20px 0;">
+        <span>ou</span>
+    </div>
+
+    <!-- ✅ LOGIN GOOGLE (CORRIGIDO COM NEXT) -->
+    <a href="{% provider_login_url 'google' process='login' next=request.GET.next %}"
+       class="btn-google">
+
+        <img src="https://developers.google.com/identity/images/g-logo.png"
+            alt="Google"
+            style="width:18px; margin-right:8px;">
+
+        Entrar com Google
+
+    </a>
 
     <!-- ✅ CRIAR CONTA -->
     <div class="login-extra">
