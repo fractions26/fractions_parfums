@@ -69,15 +69,16 @@ class PerfumeAdmin(admin.ModelAdmin):
 
     # ✅ PREVIEW AJUSTADO PARA CHARFIELD
     def imagem_preview(self, obj):
-
+        
         if obj.imagem:
 
             return format_html(
-                '<img src="/media/{}" style="max-width: 120px; border-radius: 8px;" />',
-                obj.imagem
+                '<img src="{}" style="max-width: 120px; border-radius: 8px;" />',
+                obj.get_imagem_url()
             )
 
         return "Sem imagem"
+
 
 
 # ✅ PREÇO
