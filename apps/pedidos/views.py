@@ -1,5 +1,6 @@
 from decimal import Decimal
-
+import re
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.shortcuts import redirect
@@ -7,20 +8,12 @@ from django.http import JsonResponse
 from django.conf import settings
 from django.urls import reverse
 import requests
-
 from apps.carrinho.utils import get_carrinho
 from apps.usuarios.models import Endereco
-
 from .models import Pedido
 from .models import ItemPedido
-
 from .services import gerar_codigo_pedido
-
-
-# =====================================
-# ✅ CHECKOUT
-# =====================================
-
+from decimal import Decimal
 
 def checkout(request):
 
@@ -30,7 +23,6 @@ def checkout(request):
 
     # ✅ CARRINHO
     carrinho = get_carrinho(request)
-
     itens = carrinho.itens.all()
 
     # ✅ ENDEREÇO PRINCIPAL
@@ -47,6 +39,15 @@ def checkout(request):
 
     # ✅ CRIA PEDIDO
     if request.method == 'POST':
+
+        # ✅ CPF
+        cpf = request.POST.get('cpf_pagamento') or getattr(request.user.perfil, 'cpf', '')
+        cpf = re.sub(r'\D', '', cpf)
+
+        # ✅ salva no perfil (apenas se ainda não tiver)
+        if cpf and not getattr(request.user.perfil, 'cpf', None):
+            request.user.perfil.cpf = cpf
+            request.user.perfil.save()
 
         # ✅ FRETE DINÂMICO
         frete = Decimal(
@@ -65,6 +66,9 @@ def checkout(request):
             subtotal=total,
 
             frete=frete,
+
+            # ✅ CPF SALVO NO PEDIDO
+            cpf=cpf,
 
             frete_nome=request.POST.get(
                 'frete_nome',
@@ -127,10 +131,8 @@ def checkout(request):
 
                 pedido=pedido,
 
-                # ✅ RELAÇÃO COM O PRODUTO (ESSENCIAL)
                 perfume=item.perfume,
 
-                # ✅ DADOS SNAPSHOT
                 produto_nome=item.perfume.nome,
 
                 tamanho=item.tamanho,
@@ -142,12 +144,20 @@ def checkout(request):
                 subtotal=(item.preco * item.quantidade)
             )
 
-
         # ✅ LIMPA CARRINHO
         itens.delete()
+        
+        
+        # ✅ MENSAGEM DE SUCESSO
+        from django.contrib import messages
+        messages.success(
+            request,
+            f"✅ Pedido #{pedido.codigo} realizado com sucesso!"
+        )
 
-        # ✅ REDIRECIONA PAGAMENTO
-        return redirect('pagamento')
+        # ✅ REDIRECIONA PARA DETALHE DO PEDIDO (RECOMENDADO)
+        return redirect('detalhe_pedido', codigo=pedido.codigo)
+
 
     return render(
         request,
@@ -158,7 +168,6 @@ def checkout(request):
             'endereco_principal': endereco_principal
         }
     )
-
 
 # =====================================
 # ✅ FRETE CHECKOUT AJAX

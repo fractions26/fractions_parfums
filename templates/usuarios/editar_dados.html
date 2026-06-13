@@ -19,6 +19,24 @@
 
     </div>
 
+    <!-- ✅ MENSAGENS -->
+    {% if messages %}
+        <div style="margin-bottom:15px;">
+            {% for message in messages %}
+                <div style="
+                    padding:10px;
+                    border-radius:5px;
+                    margin-bottom:5px;
+                    background-color: {% if 'success' in message.tags %}#d4edda{% else %}#f8d7da{% endif %};
+                    color: {% if 'success' in message.tags %}#155724{% else %}#721c24{% endif %};
+                    font-size: 14px;
+                ">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <form method="post" class="form-conta">
 
         {% csrf_token %}
@@ -26,9 +44,7 @@
         <!-- ✅ NOME -->
         <div class="form-group">
 
-            <label>
-                Nome
-            </label>
+            <label>Nome</label>
 
             <input
                 type="text"
@@ -41,9 +57,7 @@
         <!-- ✅ SOBRENOME -->
         <div class="form-group">
 
-            <label>
-                Sobrenome
-            </label>
+            <label>Sobrenome</label>
 
             <input
                 type="text"
@@ -56,9 +70,7 @@
         <!-- ✅ TELEFONE -->
         <div class="form-group">
 
-            <label>
-                Telefone
-            </label>
+            <label>Telefone</label>
 
             <input
                 type="text"
@@ -71,14 +83,15 @@
         <!-- ✅ CPF -->
         <div class="form-group">
 
-            <label>
-                CPF
-            </label>
+            <label>CPF</label>
 
             <input
                 type="text"
                 name="cpf"
-                value="{{ user.perfil.cpf|default:'' }}"
+                id="cpf"
+                value="{{ user.perfil.cpf }}"
+                placeholder="000.000.000-00"
+                readonly
             >
 
         </div>
@@ -91,5 +104,18 @@
     </form>
 
 </div>
+
+<!-- ✅ SCRIPT MÁSCARA CPF (OPCIONAL, MAS RECOMENDADO) -->
+<script>
+document.getElementById('cpf')?.addEventListener('input', function(e) {
+    let v = e.target.value.replace(/\D/g, '');
+
+    v = v.replace(/(\d{3})(\d)/, '$1.$2');
+    v = v.replace(/(\d{3})(\d)/, '$1.$2');
+    v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+    e.target.value = v;
+});
+</script>
 
 {% endblock %}

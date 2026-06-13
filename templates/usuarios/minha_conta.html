@@ -20,6 +20,17 @@
 
     </div>
 
+    <!-- ✅ MENSAGENS -->
+    {% if messages %}
+        <div class="mensagens-conta">
+            {% for message in messages %}
+                <div class="msg-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <!-- ✅ GRID -->
     <div class="conta-grid">
 

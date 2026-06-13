@@ -10,12 +10,8 @@
     <!-- ✅ ESQUERDA -->
     <div class="checkout-left">
 
-    {% comment %} <h1 class="checkout-title">
-        Finalizar Compra
-    </h1> {% endcomment %}
-
         <!-- ✅ ENTREGA -->
-        <div class="checkout-box">
+        <div class="checkout-box box-endereco">
 
             <div class="checkout-header">
 
@@ -25,9 +21,7 @@
 
                 <a href="{% url 'meus_enderecos' %}?next={% url 'checkout' %}"
                 class="checkout-editar">
-
                     Alterar
-
                 </a>
 
             </div>
@@ -36,38 +30,33 @@
 
                 <div class="endereco-card">
 
+                    <!-- ✅ NOME -->
                     <strong>
                         {{ user.first_name }} {{ user.last_name }}
                     </strong>
 
+                    <!-- ✅ LINHA PRINCIPAL (JUNTA TUDO) -->
                     <p>
                         {{ endereco_principal.endereco }},
                         {{ endereco_principal.numero }}
+                        {% if endereco_principal.complemento %}
+                            - {{ endereco_principal.complemento }}
+                        {% endif %}
                     </p>
 
-                    {% if endereco_principal.complemento %}
+                    <!-- ✅ CIDADE COMPACTA -->
                     <p>
-                        {{ endereco_principal.complemento }}
-                    </p>
-                    {% endif %}
-
-                    <p>
-                        {{ endereco_principal.bairro }}
+                        {{ endereco_principal.bairro }} •
+                        {{ endereco_principal.cidade }} - {{ endereco_principal.estado }}
                     </p>
 
+                    <!-- ✅ CEP + TELEFONE MAIS CURTOS -->
                     <p>
-                        {{ endereco_principal.cidade }} -
-                        {{ endereco_principal.estado }}
+                        CEP: {{ endereco_principal.cep }}
                     </p>
 
-                    <p>
-                        CEP:
-                        {{ endereco_principal.cep }}
-                    </p>
-
-                    <p>
-                        Telefone:
-                        {{ endereco_principal.telefone }}
+                    <p class="telefone-endereco">
+                        Tel: {{ endereco_principal.telefone }}
                     </p>
 
                 </div>
@@ -101,7 +90,7 @@
         <!-- ✅ FRETES -->
         {% if endereco_principal %}
 
-        <div class="checkout-box">
+        <div class="checkout-box box-frete">
 
             <h2>
                 Frete
@@ -119,52 +108,98 @@
 
         {% endif %}
 
-<!-- ✅ BOTÃO -->
-{% if endereco_principal %}
 
-<form method="POST">
+    {% if endereco_principal %}
 
-    {% csrf_token %}
+    <form method="POST">
 
-    <!-- ✅ FRETE HIDDEN -->
-    <input
-        type="hidden"
-        name="frete_valor"
-        id="freteValorInput"
-    >
+        {% csrf_token %}
 
-    <input
-        type="hidden"
-        name="frete_nome"
-        id="freteNomeInput"
-    >
+        <!-- ✅ PAGAMENTO -->
+        <div class="checkout-box box-pagamento">
 
-    <input
-        type="hidden"
-        name="frete_prazo"
-        id="fretePrazoInput"
-    >
+            <h2>Forma de pagamento</h2>
 
-    <button type="submit"
-            class="btn-finalizar-checkout"
-            id="btnFinalizar"
-            disabled>
+            <!-- ✅ CARTÃO SALVO -->
+            <div class="opcao-pagamento selected" data-metodo="cartao_salvo">
+                <strong>**** 3811</strong>
+                <span class="subtexto">Até 3x sem juros</span>
+            </div>
+
+            <!-- ✅ NOVO CARTÃO (EXPANSÍVEL) -->
+            <div class="opcao-pagamento" data-metodo="novo_cartao">
+
+                <div class="opcao-header">
+                    <strong>Cartão de crédito</strong>
+                    <span class="subtexto">Até 3x sem juros</span>
+                </div>
+
+                <!-- ✅ FORM QUE ABRE -->
+                <div class="form-cartao">
+
+                    <input type="text" name="numero_cartao" placeholder="Número do cartão">
+
+                    <div class="linha-cartao">
+                        <input type="text" name="nome_cartao" placeholder="Nome no cartão">
+                        <input type="text" name="validade_cartao" placeholder="MM/AA">
+                        <input type="text" name="cvv_cartao" placeholder="CVV">
+                    </div>
+
+                    <input
+                        type="text"
+                        name="cpf_pagamento"
+                        id="cpfPagamento"
+                        placeholder="CPF do titular"
+                        value="{{ user.perfil.cpf|default:'' }}"
+                    >
+
+                    <input
+                        type="text"
+                        name="telefone_pagamento"
+                        placeholder="Telefone"
+                    >
+
+                </div>
+
+            </div>
+
+            <!-- ✅ PIX -->
+            <div class="opcao-pagamento" data-metodo="pix">
+                <strong>Pix</strong>
+                <span class="subtexto">Aprovação imediata</span>
+            </div>
+
+            <!-- ✅ BOLETO -->
+            <div class="opcao-pagamento" data-metodo="boleto">
+                <strong>Boleto bancário</strong>
+            </div>
+
+        </div>
 
 
-        IR PARA PAGAMENTO
+        <!-- ✅ FRETE HIDDEN -->
+        <input type="hidden" name="frete_valor" id="freteValorInput">
+        <input type="hidden" name="frete_nome" id="freteNomeInput">
+        <input type="hidden" name="frete_prazo" id="fretePrazoInput">
+        <input type="hidden" name="metodo_pagamento" id="metodoPagamentoInput">
 
-    </button>
+        <!-- ✅ BOTÃO -->
+        <button type="submit"
+                class="btn-finalizar-checkout"
+                id="btnFinalizar"
+                disabled>
+            FAZER PEDIDO
+        </button>
 
-</form>
+    </form>
 
-{% endif %}
+    {% endif %}
 
 </div>
 
 <!-- ✅ DIREITA -->
-<div class="checkout-right">
 
-    <div class="resumo-box">
+    <div class="resumo-box box-resumo">
 
         <h2>
             Resumo do Pedido
@@ -208,7 +243,6 @@
         {% endfor %}
 
         <hr>
-
 
         <!-- ✅ TOTAIS -->
         <div class="totais-checkout">
@@ -293,11 +327,10 @@ function atualizarTotalFrete() {
             document.getElementById('freteNomeInput').value = nome;
             document.getElementById('fretePrazoInput').value = prazo;
 
-            document.getElementById('btnFinalizar').disabled = false;
+            atualizarEstadoBotao(); // ✅ NOVO
         });
     });
 
-    // ✅ dispara change se já houver selecionado
     const selecionado = document.querySelector('input[name="frete"]:checked');
 
     if (selecionado) {
@@ -393,15 +426,125 @@ async function carregarFretesCheckout() {
     }
 }
 
+// =====================================
+// ✅ PAGAMENTO (COM EXPANSÃO)
+// =====================================
+let metodoSelecionado = null;
+
+function configurarPagamento() {
+
+    const opcoes = document.querySelectorAll('.opcao-pagamento');
+
+    opcoes.forEach(opcao => {
+
+        opcao.addEventListener('click', function() {
+
+            // ✅ remove seleção e expansão dos outros
+            opcoes.forEach(o => {
+                o.classList.remove('selected');
+                o.classList.remove('active');
+            });
+
+            // ✅ marca o clicado
+            this.classList.add('selected');
+
+            metodoSelecionado = this.dataset.metodo;
+
+            document.getElementById('metodoPagamentoInput').value = metodoSelecionado;
+
+            // ✅ abre formulário do cartão
+            if (metodoSelecionado === 'novo_cartao') {
+                this.classList.add('active');
+            }
+
+            atualizarEstadoBotao();
+        });
+
+    });
+
+}
+
+
+// =====================================
+// ✅ VALIDAÇÃO REAL DE CPF
+// =====================================
+function validarCPF(cpf) {
+
+    cpf = cpf.replace(/\D/g, '');
+
+    if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+
+    let soma = 0;
+    let resto;
+
+    for (let i = 1; i <= 9; i++)
+        soma += parseInt(cpf[i - 1]) * (11 - i);
+
+    resto = (soma * 10) % 11;
+
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf[9])) return false;
+
+    soma = 0;
+
+    for (let i = 1; i <= 10; i++)
+        soma += parseInt(cpf[i - 1]) * (12 - i);
+
+    resto = (soma * 10) % 11;
+
+    if (resto === 10 || resto === 11) resto = 0;
+
+    return resto === parseInt(cpf[10]);
+}
+
+
+// =====================================
+// ✅ CONTROLE BOTÃO FINAL
+// =====================================
+function atualizarEstadoBotao() {
+
+    const freteOK = document.getElementById('freteValorInput').value;
+    const pagamentoOK = metodoSelecionado;
+
+    const cpfInput = document.getElementById('cpfPagamento');
+    const cpf = cpfInput.value;
+
+    const botao = document.getElementById('btnFinalizar');
+
+    if (freteOK && pagamentoOK && validarCPF(cpf)) {
+
+        botao.disabled = false;
+
+        cpfInput.style.borderColor = '#00a650'; // ✅ verde
+
+    } else {
+
+        botao.disabled = true;
+
+        // só marca vermelho se digitou algo
+        if (cpf.length > 0) {
+            cpfInput.style.borderColor = '#dc2626'; // ❌ vermelho
+        } else {
+            cpfInput.style.borderColor = '#ddd';
+        }
+    }
+}
+
 
 // =====================================
 // ✅ INICIALIZA
 // =====================================
 document.addEventListener('DOMContentLoaded', function () {
+
     carregarFretesCheckout();
+
+    configurarPagamento();
+
+
 });
 
 </script>
+
 
 {% endblock %}
 

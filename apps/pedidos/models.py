@@ -74,6 +74,17 @@ class Pedido(models.Model):
         blank=True
     )
 
+    # ✅ NOVO CAMPO
+    cpf = models.CharField(
+        max_length=14,
+        blank=True,
+        null=True
+    )
+
+    cep = models.CharField(
+        max_length=20
+    )
+
     cep = models.CharField(
         max_length=20
     )

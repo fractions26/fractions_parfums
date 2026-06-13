@@ -1,121 +1,159 @@
+/* =======================================================
+   CHECKOUT
+======================================================= */
+
 .checkout-page {
-
     max-width: 1300px;
-
     margin: 40px auto;
-
     padding: 0 20px;
 
     display: grid;
 
-    grid-template-columns: 1fr 420px;
+    /* grid-template-columns:
+        minmax(320px, 1fr)
+        minmax(320px, 1fr)
+        340px; */
 
-    gap: 30px;
+    grid-template-areas:
+        "endereco pagamento resumo"
+        "frete    frete     resumo";
+
+    gap: 24px;
+
+    align-items: start;
 }
 
 
-.checkout-left,
-.checkout-right {
+/* =======================================================
+   GRID AREAS
+======================================================= */
 
+.box-endereco {
+    grid-area: endereco;
+}
+
+.box-pagamento {
+    grid-area: pagamento;
+}
+
+.box-frete {
+    grid-area: frete;
+}
+
+.box-resumo {
+    grid-area: resumo;
+    align-self: start;
+    justify-self: center;
+    position: sticky;
+    top: 20px;
+}
+
+.checkout-left {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(320px, 1fr)
+        minmax(320px, 1fr);
+
+    grid-template-areas:
+        "endereco pagamento"
+        "frete frete";
+
+    gap: 24px;
+
+    align-items: start;
+}
+
+.box-endereco {
+    grid-area: endereco;
+}
+
+.box-frete {
+    grid-area: frete;
+}
+
+/* o FORM vira a área pagamento */
+.checkout-left form {
+    grid-area: pagamento;
+    margin: 0;
+}
+
+/* =======================================================
+   AJUSTE VISUAL DESKTOP
+======================================================= */
+
+.box-endereco,
+.box-pagamento {
+    min-height: 180px;
+}
+
+.box-frete {
     width: 100%;
-
-    align-self: start;   /* ✅ garante alinhamento correto do resumo */
 }
 
+.resumo-box {
+    width: 100%;
+    max-width: 340px;
+}
+/* =======================================================
+   TÍTULO
+======================================================= */
 
 .checkout-title {
 
-    font-size: 28px;     /* ✅ levemente mais equilibrado */
+    font-size: 28px;
+
     font-weight: 700;
 
-    margin-bottom: 20px; /* ✅ menos espaçamento exagerado */
+    margin-bottom: 20px;
 
     color: #111;
 
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
 }
 
-
-/* ✅ BOXES */
+/* =======================================================
+   BOXES
+======================================================= */
 
 .checkout-box,
 .resumo-box {
 
     background: #fff;
 
-    border-radius: 14px; /* ✅ mais moderno */
+    border: 1px solid #ddd;
 
-    padding: 22px;       /* ✅ mais compacto */
-    border: 1px solid #e6ebf0;
+    border-radius: 14px;
 
-    box-shadow: 0 4px 14px rgba(0,0,0,0.04); /* ✅ mais suave */
+    padding: 16px;
 
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    box-shadow:
+        0 4px 14px rgba(0,0,0,.04);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
 }
-
-.resumo-box {
-    color: #111;   /* ✅ tudo preto padrão */
-}
-
-.resumo-box .linha-total strong {
-    color: #00a650;   /* ✅ valores verdes */
-}
-
-.resumo-box .total-geral span {
-    font-weight: 700;
-    color: #111;
-}
-
-.resumo-box .total-geral strong {
-    color: #00a650;
-    font-size: 18px;
-    font-weight: 700;
-}
-
-
-.resumo-box .linha-total.total-geral strong {
-    color: #00a650 !important;   /* ✅ força o verde */
-    font-size: 16px;
-    font-weight: 700;
-}
-
-/* ✅ SUBTOTAL + FRETE */
-.resumo-box .linha-total {
-    font-size: 13px;       /* ✅ menor */
-}
-
-.resumo-box .linha-total span {
-    font-size: 15px;
-    color: #111;
-}
-
-.resumo-box .linha-total strong {
-    font-size: 15px;
-    color: #00a650;
-    font-weight: 700;
-}
-
-/* ✅ TOTAL (DESTACADO) */
-.resumo-box .total-geral span {
-    font-size: 16px;       /* ✅ maior que os outros */
-    font-weight: 700;
-    color: #111;
-}
-
-.resumo-box .total-geral strong {
-    font-size: 18px;       /* ✅ maior */
-    font-weight: 700;
-    color: #00a650;
-}
-
 
 .checkout-box {
 
-    margin-bottom: 12px; /* ✅ alinhado com novo padrão */
+    margin-bottom: 20px;
+
+    height: fit-content;
 }
 
-
-/* ✅ HEADER */
+/* =======================================================
+   HEADER BOX
+======================================================= */
 
 .checkout-header {
 
@@ -125,71 +163,87 @@
 
     align-items: center;
 
-    margin-bottom: 16px; /* ✅ mais compacto */
+    margin-bottom: 16px;
 }
-
 
 .checkout-header h2 {
 
-    font-size: 16px;     /* ✅ menos pesado */
-    font-weight: 700;
-
     margin: 0;
+
+    font-size: 16px;
+
+    font-weight: 700;
 
     color: #111;
 }
 
+/* =======================================================
+   BOTÃO EDITAR
+======================================================= */
 
-.btn-alterar-endereco {
+.checkout-editar {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 12px;
+
+    border-radius: 8px;
+
+    background: #111;
+
+    color: #fff;
 
     text-decoration: none;
 
-    color: #7b2cbf;
+    font-size: 13px;
 
     font-weight: 600;
 
-    transition: 0.2s;
+    transition: .2s;
 }
 
+.checkout-editar:hover {
 
-.btn-alterar-endereco:hover {
+    transform: translateY(-1px);
 
-    opacity: 0.8;
+    opacity: .9;
 }
 
+/* =======================================================
+   ENDEREÇO
+======================================================= */
 
-/* ✅ CONTAINER (opcional, melhora tipografia geral) */
-.endereco-card {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-/* ✅ NOME */
 .endereco-card strong {
 
     display: block;
 
-    font-size: 15px;       /* ✅ menor e mais elegante */
+    margin-bottom: 8px;
+
+    font-size: 15px;
+
     font-weight: 600;
 
     color: #111;
-
-    margin-bottom: 8px;   /* ✅ menos espaço */
 }
 
-
-/* ✅ LINHAS ENDEREÇO */
 .endereco-card p {
 
-    margin: 4px 0;        /* ✅ reduz espaçamento */
+    margin: 4px 0;
 
-    font-size: 13px;      /* ✅ mais compacto */
     color: #555;
 
-    line-height: 1.4;     /* ✅ mais ajustado */
+    font-size: 13px;
+
+    line-height: 1.4;
 }
 
-
-/* ✅ ALERTA */
+/* =======================================================
+   ALERTA
+======================================================= */
 
 .checkout-alerta {
 
@@ -206,37 +260,49 @@
     font-weight: 500;
 }
 
-
-/* ✅ BOTÃO CADASTRAR */
+/* =======================================================
+   BOTÃO CADASTRAR ENDEREÇO
+======================================================= */
 
 .btn-checkout-endereco {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background:#111;
-    color: #fff;
-    text-decoration: none;
-    padding: 10px 12px;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 13px;
-    transition: 0.2s;
-}
 
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 10px 12px;
+
+    border-radius: 10px;
+
+    background: #111;
+
+    color: #fff;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: .2s;
+}
 
 .btn-checkout-endereco:hover {
 
-    background: #624c75;
+    background: #000;
 }
 
-
-/* ✅ BOTÃO FINALIZAR */
+/* =======================================================
+   BOTÃO FINALIZAR
+======================================================= */
 
 .btn-finalizar-checkout {
 
     width: 100%;
 
-    height: 40px;
+    height: 42px;
 
     border: none;
 
@@ -252,316 +318,574 @@
 
     cursor: pointer;
 
-    transition: 0.2s;
+    transition: .2s;
 }
-
 
 .btn-finalizar-checkout:hover {
 
-    transform: translateY(-1px);
-
     background: #000;
+
+    transform: translateY(-1px);
 }
 
-
-/* ✅ RESUMO */
+/* =======================================================
+   RESUMO DO PEDIDO
+======================================================= */
 
 .resumo-box {
 
-    position: sticky;
-    margin-top: 0px;
-    top: 120px;
-    font-size: 20px;
-}
+    max-width: 360px;
 
+    color: #111;
+}
 
 .resumo-box h2 {
 
     font-size: 18px;
 
-    margin-bottom: 25px;
+    font-weight: 700;
 
     color: #111;
+
+    margin-bottom: 18px;
 }
 
-
-/* ✅ ITEM RESUMO */
+/* =======================================================
+   ITEM DO RESUMO
+======================================================= */
 
 .item-resumo {
+
     display: flex;
-    align-items: center;        /* ✅ centraliza vertical */
+
+    align-items: center;
+
     gap: 10px;
+
     margin-bottom: 14px;
 }
 
-/* ✅ IMAGEM (igual carrinho) */
+/* =======================================================
+   IMAGEM PRODUTO
+======================================================= */
+
 .item-img {
+
     width: 70px;
+
     height: 70px;
+
     object-fit: contain;
-    flex-shrink: 0;             /* ✅ não deixa crescer */
+
+    flex-shrink: 0;
 }
 
-/* ✅ BLOCO DE TEXTO */
+/* =======================================================
+   CONTEÚDO
+======================================================= */
+
 .item-resumo > div {
+
     flex: 1;
+
     display: flex;
+
     flex-direction: column;
 }
 
-/* ✅ NOME */
+/* =======================================================
+   NOME PRODUTO
+======================================================= */
+
 .item-resumo strong {
+
     color: #111;
-    font-size: 10.5px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
     line-height: 1.3;
 }
 
-/* ✅ DETALHES */
+/* =======================================================
+   DETALHES
+======================================================= */
+
 .item-resumo p {
+
     margin: 2px 0;
+
     color: #666;
-    font-size: 10.5px;
+
+    font-size: 11px;
 }
 
-/* ✅ PREÇO */
+/* =======================================================
+   PREÇO
+======================================================= */
+
 .item-resumo > strong {
-    font-size: 13px;
+
+    font-size: 14px;
+
     font-weight: 700;
+
     white-space: nowrap;
 }
 
+/* =======================================================
+   DIVISÓRIA
+======================================================= */
 
-/* ✅ TOTAL */
+.resumo-box hr {
+
+    border: none;
+
+    border-top: 1px solid #e5e7eb;
+
+    margin: 18px 0;
+}
+
+/* =======================================================
+   SUBTOTAL / FRETE
+======================================================= */
+
+.linha-total {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+}
+
+.linha-total span {
+
+    color: #111;
+
+    font-size: 15px;
+}
+
+.linha-total strong {
+
+    color: #00a650;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+/* =======================================================
+   TOTAL GERAL
+======================================================= */
+
+.total-geral {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 10px;
+}
+
+.total-geral span {
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    color: #111;
+}
+
+.total-geral strong {
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    color: #00a650;
+}
+
+/* =======================================================
+   BLOCO TOTAL LEGADO
+   (mantido para compatibilidade)
+======================================================= */
 
 .resumo-total {
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
-    margin-top: 25px;
+
+    margin-top: 20px;
 }
 
 .resumo-total span {
+
     font-size: 18px;
+
     font-weight: 600;
+
     color: #111;
 }
 
 .resumo-total strong {
+
     font-size: 24px;
+
+    font-weight: 700;
+
     color: #111;
 }
 
+/* =======================================================
+   FRETE
+======================================================= */
 
-/* ✅ HR */
+.frete-opcao {
 
-.resumo-box hr {
-    border: none;
-    border-top: 1px solid #e5e7eb;
-    margin: 25px 0;
-}
+    display: flex;
 
-
-/* ✅ RESPONSIVO */
-
-@media (max-width: 991px) {
-
-    .checkout-page {
-
-        grid-template-columns: 1fr;
-    }
-
-    .resumo-box {
-
-        position: relative;
-
-        top: 0;
-    }
-}
-
-
-@media (max-width: 600px) {
-
-    .checkout-page {
-
-        margin-top: 20px;
-
-        padding: 0 5px;
-    }
-
-    .checkout-title {
-
-        font-size: 26px;
-    }
-
-    .checkout-box,
-    .resumo-box {
-
-        padding: 20px;
-    }
-
-    .checkout-header {
-
-        flex-direction: column;
-
-        align-items: flex-start;
-
-        gap: 10px;
-    }
-
-    .btn-finalizar-checkout {
-
-        height: 44px;
-    }
-}
-
-/* ========================================= */
-/* ✅ FRETES */
-/* ========================================= */
-
-.frete-opcao{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:5px;
-
-    padding:6px 6px;
-
-    border:1px solid #e5e7eb;
-
-    border-radius:16px;
-
-    margin-top:14px;
-
-    cursor:pointer;
-
-    transition:0.25s ease;
-
-    background:#fff;
-}
-
-.frete-opcao:hover{
-
-    border-color:#111;
-
-    transform:translateY(-1px);
-
-    box-shadow:
-    0 8px 20px rgba(0,0,0,0.04);
-}
-
-.frete-opcao input{
-
-    width:18px;
-    height:18px;
-
-    accent-color:#111;
-}
-
-.frete-opcao div{
-
-    flex:1;
-}
-
-.frete-opcao strong{
-
-    color:#111;
-}
-
-.frete-opcao p{
-
-    margin-top:6px;
-
-    color:#666;
-
-    font-size:14px;
-}
-
-.checkout-box h2 {
-    font-size: 18px;   /* ✅ reduz tamanho */
-    margin-bottom: 12px;  /* ✅ aproxima do conteúdo */
-}
-
-
-.checkout-editar {
-
-    display: inline-flex;
     align-items: center;
-    gap: 6px;
 
-    padding: 6px 12px;
+    justify-content: space-between;
 
-    border-radius: 8px;
+    gap: 16px;
 
-    font-size: 13px;
-    font-weight: 600;
+    padding: 10px 12px;
 
-    color: #fafafa;
-    text-decoration: none;
+    border: 1px solid #e5e7eb;
 
-    background: #111;
+    border-radius: 14px;
 
-    border: 1px solid rgba(123, 44, 191, 0.15);
+    margin-top: 8px;
 
-    transition: 0.2s ease;
+    background: #fff;
+
+    cursor: pointer;
+
+    transition: .2s ease;
 }
 
-.checkout-editar:hover {
+.frete-opcao:hover {
 
-    background: rgba(123, 44, 191, 0.15);
+    border-color: #111;
 
     transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 16px rgba(0,0,0,.04);
 }
+
+.frete-opcao input {
+
+    width: 18px;
+
+    height: 18px;
+
+    accent-color: #111;
+
+    flex-shrink: 0;
+}
+
+.frete-opcao div {
+
+    flex: 1;
+}
+
+.frete-opcao strong {
+
+    color: #111;
+}
+
+.frete-opcao p {
+
+    margin-top: 4px;
+
+    color: #666;
+
+    font-size: 13px;
+}
+
+/* =======================================================
+   TÍTULOS DAS BOXES
+======================================================= */
+
+.checkout-box h2 {
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    margin-bottom: 12px;
+
+    color: #111;
+}
+
+/* =======================================================
+   PAGAMENTO
+======================================================= */
+
+.opcao-pagamento {
+
+    display: flex;
+
+    flex-direction: column;
+
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+    padding: 14px 16px;
+
+    margin-bottom: 10px;
+
+    background: #fff;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.opcao-pagamento:hover {
+
+    border-color: #6b46c1;
+}
+
+/* =======================================================
+   PAGAMENTO SELECIONADO
+======================================================= */
+
+.opcao-pagamento.selected {
+
+    border: 2px solid #6b46c1;
+
+    background: #f4f0ff;
+}
+
+/* =======================================================
+   TEXTO PRINCIPAL
+======================================================= */
+
+.opcao-pagamento strong {
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    color: #333;
+}
+
+/* =======================================================
+   SUBTEXTO
+======================================================= */
+
+.opcao-pagamento .subtexto {
+
+    margin-top: 2px;
+
+    font-size: 13px;
+
+    color: #666;
+}
+
+/* =======================================================
+   CPF PAGAMENTO
+======================================================= */
+
+.form-cpf-pagamento {
+
+    display: flex;
+
+    flex-direction: column;
+
+    margin-bottom: 16px;
+}
+
+.form-cpf-pagamento label {
+
+    margin-bottom: 6px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #111;
+}
+
+.form-cpf-pagamento input {
+
+    width: 100%;
+
+    height: 42px;
+
+    padding: 0 12px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    color: #111;
+
+    transition: .2s;
+}
+
+.form-cpf-pagamento input:focus {
+
+    outline: none;
+
+    border-color: #6b46c1;
+
+    box-shadow:
+        0 0 0 2px rgba(107,70,193,.10);
+}
+
+.form-cpf-pagamento input[readonly] {
+
+    background: #f5f5f5;
+
+    color: #555;
+
+    cursor: not-allowed;
+}
+
+/* =======================================================
+   FORM CARTÃO
+======================================================= */
+
+.form-cartao {
+
+    max-height: 0;
+
+    overflow: hidden;
+
+    margin-top: 0;
+
+    transition: .3s ease;
+}
+
+.opcao-pagamento.active .form-cartao {
+
+    max-height: 350px;
+
+    margin-top: 12px;
+}
+
+/* =======================================================
+   LINHAS CARTÃO
+======================================================= */
+
+.linha-cartao {
+
+    display: flex;
+
+    gap: 8px;
+}
+
+.linha-cartao input {
+
+    flex: 1;
+}
+
+/* =======================================================
+   AJUSTES DE ALTURA DAS COLUNAS
+======================================================= */
+
+.box-endereco,
+.box-frete {
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-start;
+
+    height: 100%;
+}
+
+/* =======================================================
+   MOBILE CHECKOUT FIX (VERSÃO CORRETA)
+======================================================= */
 
 @media (max-width: 768px) {
 
-    .checkout-header {
-        position: relative;   /* ✅ base para posicionamento */
-    }
-
-    .checkout-editar {
-        position: absolute;
-
-        right: 0;        /* ✅ joga pra direita */
-        top: -5px;       /* ✅ sobe um pouco */
-
-        font-size: 12px;
-
-        padding: 4px 10px;   /* ✅ menor */
-    }
-}
-
-@media (max-width: 768px) {
-
+    /* quebra o GRID principal de verdade */
     .checkout-page {
-        display: flex;
+        display: flex !important;
+        flex-direction: column !important;
+
+        margin: 20px auto;
+        padding: 0 12px;
+        gap: 16px;
+    }
+
+    /* remove qualquer layout interno que bagunça */
+    .checkout-left {
+        display: contents !important;
+    }
+
+    /* força boxes ocuparem largura total */
+    .checkout-box,
+    .resumo-box,
+    .box-endereco,
+    .box-frete,
+    .box-pagamento,
+    .box-resumo {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* ORDEM CORRETA (agora funciona porque é flex real) */
+    .box-endereco { order: 1; }
+    .box-frete    { order: 2; }
+    .box-pagamento { order: 3; }
+    .box-resumo   { order: 4; }
+
+    /* remove sticky que quebra layout */
+    .box-resumo {
+        position: relative !important;
+        top: auto !important;
+    }
+
+    /* remove altura travada que encolhe o endereço */
+    .box-endereco,
+    .box-frete,
+    .box-pagamento {
+        min-height: auto !important;
+        height: auto !important;
+    }
+
+    /* cartão empilha correto */
+    .linha-cartao {
         flex-direction: column;
     }
 
-    /* ✅ RESUMO PRIMEIRO */
-    .checkout-right {
-        order: 1;
+    /* frete melhor mobile */
+    .frete-opcao {
+        align-items: flex-start;
+        gap: 12px;
     }
 
-    /* ✅ ENTREGA DEPOIS */
-    .checkout-left {
-        order: 2;
+    /* imagem menor */
+    .item-img {
+        width: 60px;
+        height: 60px;
     }
 
-    /* ✅ AJUSTA ESPAÇO */
-    .resumo-box {
-        margin-top: 0;
-        margin-bottom: 20px;
+    /* botão melhor usabilidade */
+    .btn-finalizar-checkout {
+        height: 48px;
+        font-size: 14px;
     }
-}
-
-@media (max-width: 768px) {
-
-    .checkout-page {
-        gap: 11px;   /* ✅ reduz o espaço entre blocos */
-    }
-
 }
