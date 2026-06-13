@@ -48,20 +48,17 @@ class Perfume(models.Model):
     def __str__(self):
         return self.nome
 
+
     # ✅ caminhos para exibir no template
     def get_imagem_url(self):
-
         if self.imagem:
             return f"/static/{self.imagem}"
-
         return ""
 
-        def get_imagem_descricao_url(self):
-            
-            if self.imagem_descricao:
-                return f"/static/{self.imagem_descricao}"
-
-            return ""
+    def get_imagem_descricao_url(self):
+        if self.imagem_descricao:
+            return f"/static/{self.imagem_descricao}"
+        return ""
 
     # ✅ verifica se possui estoque para determinado tamanho
     def disponivel_para(self, tamanho_ml):
