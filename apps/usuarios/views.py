@@ -74,7 +74,7 @@ def criar_conta(request):
         )
 
         # ✅ LOGA AUTOMATICAMENTE
-        login(request, user)
+        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
         # ✅ REDIRECIONA COM SEGURANÇA
         next_url = request.POST.get('next') or request.GET.get('next')

@@ -443,7 +443,7 @@ def criar_conta(request):
             )
 
         # ✅ LOGIN AUTOMÁTICO
-        login(request, user)
+        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
         request.session.save()
 
@@ -496,7 +496,7 @@ def login_usuario(request):
 
         if user is not None:
 
-            login(request, user)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
             # ✅ VINCULA CARRINHO
             vincular_carrinho_usuario(
