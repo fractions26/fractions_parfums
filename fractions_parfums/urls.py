@@ -13,7 +13,7 @@ urlpatterns = [
 
     path('carrinho/', include('apps.carrinho.urls')),
 
-    path('checkout/', include('apps.entrega.urls')),
+    path('checkout/', include('apps.pedidos.urls')),
 
     # ✅ PEDIDOS
     path('pedido/', include('apps.pedidos.urls')),

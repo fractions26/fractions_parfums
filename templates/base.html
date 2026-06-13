@@ -968,87 +968,122 @@ function calcularFreteCarrinho() {
 
     lista.innerHTML = "Calculando frete...";
 
-    fetch(`/checkout/frete/?cep=${cep}`)
-        .then(res => res.json())
-        .then(data => {
+    fetch('/checkout/calcular-frete/', {
+        credentials: 'same-origin'
+    })
+    .then(res => {
 
-            let fretes = data.filter(f => !f.error);
+        // ✅ usuário não logado → redireciona
+        if (res.redirected) {
 
-            if (!fretes.length) {
-                lista.innerHTML = "Nenhuma opção disponível";
-                return;
-            }
+            lista.innerHTML = `
+                <p style="color:#666; font-size:13px;">
+                    Faça login para calcular o frete
+                </p>
+            `;
 
-            // ✅ ordena por preço
-            fretes.sort((a, b) => a.price - b.price);
+            return null;
+        }
 
-            // ✅ pega top 3
-            fretes = fretes.slice(0, 3);
+        return res.json();
+    })
+    .then(data => {
 
-            lista.innerHTML = "";
+        if (!data) return;
 
-            fretes.forEach((f, index) => {
+        console.log("DEBUG FRETE:", data);
 
-                const div = document.createElement("label");
-                div.className = "frete-option";
+        // ✅ valida estrutura da resposta
+        if (!data.success || !data.fretes) {
+            lista.innerHTML = "Erro ao carregar frete";
+            return;
+        }
 
-                if (index === 0) div.classList.add("melhor");
+        let fretes = data.fretes;
 
-                const radio = document.createElement("input");
-                radio.type = "radio";
-                radio.name = "frete";
+        // ✅ remove erros da API
+        fretes = fretes.filter(f => !f.error);
 
-                if (index === 0) radio.checked = true;
+        if (!fretes.length) {
+            lista.innerHTML = "Nenhuma opção disponível";
+            return;
+        }
 
-                const preco = parseFloat(f.price);
+        // ✅ ordena por preço
+        fretes.sort((a, b) => (a.price || 0) - (b.price || 0));
 
-                // ✅ QUANDO TROCAR FRETE
-                radio.addEventListener("change", () => {
+        // ✅ pega só 3 opções
+        fretes = fretes.slice(0, 3);
 
-                    aplicarFreteCarrinho(preco, cep);
+        lista.innerHTML = "";
 
-                    // ✅ SALVA FRETE ESCOLHIDO
-                    localStorage.setItem("frete_valor", preco);
-                    localStorage.setItem("frete_nome", f.name);
-                    localStorage.setItem("frete_prazo", f.delivery_time);
-                });
+        fretes.forEach((f, index) => {
 
-                const left = document.createElement("div");
-                left.className = "frete-left";
+            const div = document.createElement("label");
+            div.className = "frete-option";
 
-                const img = document.createElement("img");
-                img.src = f.company.picture;
+            if (index === 0) div.classList.add("melhor");
 
-                const nome = document.createElement("span");
-                nome.innerText = f.name;
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = "frete";
 
-                left.appendChild(radio);
-                left.appendChild(img);
-                left.appendChild(nome);
+            if (index === 0) radio.checked = true;
 
-                const right = document.createElement("div");
-                right.className = "frete-info";
+            const preco = parseFloat(f.price || 0);
 
-                right.innerHTML = `
-                    <strong>R$ ${preco.toFixed(2)}</strong><br>
-                    ${f.delivery_time} dias
-                `;
+            // ✅ evento troca frete
+            radio.addEventListener("change", () => {
 
-                div.appendChild(left);
-                div.appendChild(right);
+                aplicarFreteCarrinho(preco, cep);
 
-                lista.appendChild(div);
-
-                // ✅ aplica o primeiro automaticamente
-                if (index === 0) {
-                    aplicarFreteCarrinho(preco, cep);
-                }
+                localStorage.setItem("frete_valor", preco);
+                localStorage.setItem("frete_nome", f.name);
+                localStorage.setItem("frete_prazo", f.delivery_time);
             });
 
-        })
-        .catch(() => {
-            lista.innerHTML = "Erro ao calcular frete";
+            const left = document.createElement("div");
+            left.className = "frete-left";
+
+            // ✅ imagem segura
+            const img = document.createElement("img");
+            img.src = (f.company && f.company.picture) ? f.company.picture : "";
+
+            // ✅ nome seguro
+            const nome = document.createElement("span");
+            nome.innerText = f.name || "Frete";
+
+            left.appendChild(radio);
+            left.appendChild(img);
+            left.appendChild(nome);
+
+            const right = document.createElement("div");
+            right.className = "frete-info";
+
+            right.innerHTML = `
+                <strong>R$ ${preco.toFixed(2)}</strong><br>
+                ${(f.delivery_time || "-")} dias
+            `;
+
+            div.appendChild(left);
+            div.appendChild(right);
+
+            lista.appendChild(div);
+
+            // ✅ aplica automaticamente o primeiro
+            if (index === 0) {
+                aplicarFreteCarrinho(preco, cep);
+            }
+
         });
+
+    })
+    .catch((error) => {
+
+        console.error("ERRO FRETE:", error);
+
+        lista.innerHTML = "Erro ao calcular frete";
+    });
 }
 
 

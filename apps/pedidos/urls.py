@@ -5,7 +5,7 @@ urlpatterns = [
 
     # ✅ CHECKOUT
     path(
-        'checkout/',
+        '',
         views.checkout,
         name='checkout'
     ),

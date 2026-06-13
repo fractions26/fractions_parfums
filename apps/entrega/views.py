@@ -12,7 +12,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # ✅ CHECKOUT
 # =========================
 def checkout(request):
-    return render(request, 'checkout.html')
+    return render(request, 'pedidos/checkout.html')
 
 
 # =========================
