@@ -2562,3 +2562,9 @@ body.modal-aberto {
     width: 18px;
 }
 
+.conta-form form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+}
+
