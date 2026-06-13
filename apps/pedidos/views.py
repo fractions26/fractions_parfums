@@ -40,14 +40,26 @@ def checkout(request):
     # ✅ CRIA PEDIDO
     if request.method == 'POST':
 
-        # ✅ CPF
-        cpf = request.POST.get('cpf_pagamento') or getattr(request.user.perfil, 'cpf', '')
+# =====================================
+# ✅ CPF (VERSÃO SEGURA)
+# =====================================
+
+        perfil = getattr(request.user, 'perfil', None)
+
+        cpf_input = request.POST.get('cpf_pagamento')
+
+        cpf = cpf_input or (perfil.cpf if perfil else '')
         cpf = re.sub(r'\D', '', cpf)
 
+
+        # =====================================
         # ✅ salva no perfil (apenas se ainda não tiver)
-        if cpf and not getattr(request.user.perfil, 'cpf', None):
-            request.user.perfil.cpf = cpf
-            request.user.perfil.save()
+        # =====================================
+
+        if perfil:
+            if cpf and not getattr(perfil, 'cpf', None):
+                perfil.cpf = cpf
+                perfil.save()
 
         # ✅ FRETE DINÂMICO
         frete = Decimal(
