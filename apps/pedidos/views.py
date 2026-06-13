@@ -15,15 +15,27 @@ from .models import ItemPedido
 from .services import gerar_codigo_pedido
 from decimal import Decimal
 
+
+# ✅ NOVO: usa decorator (mas mantém seu fluxo)
+@login_required(login_url='login')
 def checkout(request):
 
-    # ✅ SE NÃO ESTIVER LOGADO → REDIRECIONA COM NEXT
+    # ✅ (MANTIDO) fallback antigo ainda preservado
     if not request.user.is_authenticated:
         return redirect(f"{reverse('criar_conta')}?next={request.path}")
 
-    # ✅ CARRINHO
+    # ✅ CARRINHO (PATCH seguro)
     carrinho = get_carrinho(request)
-    itens = carrinho.itens.all()
+
+    if not carrinho or not hasattr(carrinho, 'itens'):
+        messages.warning(request, "Seu carrinho está vazio.")
+        return redirect('carrinho')
+
+    itens = carrinho.itens.select_related('perfume')
+
+    if not itens.exists():
+        messages.warning(request, "Seu carrinho está vazio.")
+        return redirect('home')
 
     # ✅ ENDEREÇO PRINCIPAL
     endereco_principal = Endereco.objects.filter(
@@ -31,9 +43,9 @@ def checkout(request):
         principal=True
     ).first()
 
-    # ✅ TOTAL
+    # ✅ TOTAL (PATCH seguro)
     total = sum(
-        item.preco * item.quantidade
+        (item.preco or 0) * (item.quantidade or 0)
         for item in itens
     )
 
@@ -61,13 +73,18 @@ def checkout(request):
                 perfil.cpf = cpf
                 perfil.save()
 
-        # ✅ FRETE DINÂMICO
-        frete = Decimal(
-            request.POST.get(
-                'frete_valor',
-                '0'
-            )
-        )
+        # ✅ FRETE DINÂMICO (PATCH seguro)
+        frete_valor = request.POST.get('frete_valor') or '0'
+
+        try:
+            frete = Decimal(frete_valor)
+        except:
+            frete = Decimal('0')
+
+        # ✅ VALIDAÇÃO (não quebra fluxo)
+        if frete <= 0:
+            messages.warning(request, "Selecione um frete.")
+            return redirect('checkout')
 
         pedido = Pedido.objects.create(
 
@@ -156,7 +173,7 @@ def checkout(request):
                 subtotal=(item.preco * item.quantidade)
             )
 
-        # ✅ LIMPA CARRINHO
+        # ✅ LIMPA CARRINHO (MANTIDO)
         itens.delete()
         
         
@@ -180,6 +197,7 @@ def checkout(request):
             'endereco_principal': endereco_principal
         }
     )
+
 
 # =====================================
 # ✅ FRETE CHECKOUT AJAX
@@ -264,6 +282,7 @@ def calcular_frete_checkout(request):
             'erro': str(e)
         })
         
+
 # =====================================
 # ✅ DETALHE PEDIDO
 # =====================================

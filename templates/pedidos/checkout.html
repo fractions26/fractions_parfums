@@ -150,7 +150,6 @@
                         name="cpf_pagamento"
                         id="cpfPagamento"
                         placeholder="CPF do titular"
-                        value="{{ user.perfil.cpf|default:'' }}"
                     >
 
                     <input
@@ -305,7 +304,7 @@
 function atualizarTotalFrete() {
 
     const radios = document.querySelectorAll('input[name="frete"]');
-    const subtotal = parseFloat("{{ total|floatformat:2 }}".replace(",", "."));
+    const subtotal = parseFloat("{{ total|default:0|floatformat:2 }}".replace(",", "."));
 
     radios.forEach(radio => {
 
