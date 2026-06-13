@@ -44,10 +44,10 @@
     grid-area: resumo;
     align-self: start;
     justify-self: center;
-    position: sticky;
-    top: 20px;
-}
 
+    position: relative;
+    top: 0;
+}
 .checkout-left {
 
     display: grid;
@@ -814,28 +814,42 @@
     height: 100%;
 }
 
-/* =======================================================
-   MOBILE CHECKOUT FIX (VERSÃO CORRETA)
-======================================================= */
-
 @media (max-width: 768px) {
 
-    /* quebra o GRID principal de verdade */
     .checkout-page {
         display: flex !important;
         flex-direction: column !important;
-
         margin: 20px auto;
         padding: 0 12px;
         gap: 16px;
     }
 
-    /* remove qualquer layout interno que bagunça */
     .checkout-left {
-        display: contents !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px;
     }
 
-    /* força boxes ocuparem largura total */
+    /* ordem principal */
+    .box-endereco {
+        order: 1;
+    }
+
+    form {
+        order: 2;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .box-frete {
+        order: 3;
+    }
+
+    .box-resumo {
+        order: 5;
+    }
+
+    /* largura */
     .checkout-box,
     .resumo-box,
     .box-endereco,
@@ -846,25 +860,46 @@
         max-width: 100% !important;
     }
 
-    /* ORDEM CORRETA (agora funciona porque é flex real) */
-    .box-endereco { order: 1; }
-    .box-frete    { order: 2; }
-    .box-pagamento { order: 3; }
-    .box-resumo   { order: 4; }
+    /* botão após frete */
+    .btn-finalizar-checkout {
+        order: 4;
+        height: 48px;
+        font-size: 14px;
+    }
 
-    /* remove sticky que quebra layout */
     .box-resumo {
         position: relative !important;
         top: auto !important;
+        margin: 0 !important;
     }
 
-    /* remove altura travada que encolhe o endereço */
     .box-endereco,
     .box-frete,
     .box-pagamento {
         min-height: auto !important;
         height: auto !important;
     }
+
+    .linha-cartao {
+        flex-direction: column;
+    }
+
+    .frete-opcao {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .item-img {
+        width: 60px;
+        height: 60px;
+    }
+
+    /* botão */
+    .btn-finalizar-checkout {
+        height: 48px;
+        font-size: 14px;
+    }
+}
 
     /* cartão empilha correto */
     .linha-cartao {
@@ -888,4 +923,3 @@
         height: 48px;
         font-size: 14px;
     }
-}

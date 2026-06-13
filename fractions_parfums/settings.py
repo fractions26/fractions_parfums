@@ -254,7 +254,7 @@ EMAIL_HOST_PASSWORD = config(
     default=''
 )
 
-DEFAULT_FROM_EMAIL = 'contato@fractions.com.br'
+DEFAULT_FROM_EMAIL = 'contato@fractionsparfums.com.br'
 
 # =========================
 # ✅ LOGIN
