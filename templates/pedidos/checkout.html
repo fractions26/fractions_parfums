@@ -5,37 +5,59 @@
 
 <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
 
+<!-- ✅ TIMELINE -->
+<div class="checkout-steps">
+
+    <div class="step active" data-step="1">
+        <div class="circle">1</div>
+        <span>Entrega</span>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="step" data-step="2">
+        <div class="circle">2</div>
+        <span>Pagamento</span>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="step" data-step="3">
+        <div class="circle">3</div>
+        <span>Finalizar</span>
+    </div>
+
+</div>
+
 <div class="checkout-page">
 
-    <!-- ✅ ESQUERDA -->
     <div class="checkout-left">
 
-        <!-- ✅ ENTREGA -->
-        <div class="checkout-box box-endereco">
+        <!-- ✅ PASSO 1 -->
+        <div class="checkout-step-content active" data-step="1">
 
-            <div class="checkout-header">
+            <!-- ✅ ENDEREÇO -->
+            <div class="checkout-box box-endereco">
 
-                <h2>
-                    Endereço entrega
-                </h2>
+                <div class="checkout-header">
 
-                <a href="{% url 'meus_enderecos' %}?next={% url 'checkout' %}"
-                class="checkout-editar">
-                    Alterar
-                </a>
+                    <h2>Endereço entrega</h2>
 
-            </div>
+                    <a href="{% url 'meus_enderecos' %}?next={% url 'checkout' %}"
+                       class="checkout-editar">
+                        Alterar
+                    </a>
 
-            {% if endereco_principal %}
+                </div>
+
+                {% if endereco_principal %}
 
                 <div class="endereco-card">
 
-                    <!-- ✅ NOME -->
                     <strong>
                         {{ user.first_name }} {{ user.last_name }}
                     </strong>
 
-                    <!-- ✅ LINHA PRINCIPAL (JUNTA TUDO) -->
                     <p>
                         {{ endereco_principal.endereco }},
                         {{ endereco_principal.numero }}
@@ -44,16 +66,12 @@
                         {% endif %}
                     </p>
 
-                    <!-- ✅ CIDADE COMPACTA -->
                     <p>
                         {{ endereco_principal.bairro }} •
                         {{ endereco_principal.cidade }} - {{ endereco_principal.estado }}
                     </p>
 
-                    <!-- ✅ CEP + TELEFONE MAIS CURTOS -->
-                    <p>
-                        CEP: {{ endereco_principal.cep }}
-                    </p>
+                    <p>CEP: {{ endereco_principal.cep }}</p>
 
                     <p class="telefone-endereco">
                         Tel: {{ endereco_principal.telefone }}
@@ -61,72 +79,73 @@
 
                 </div>
 
-            {% else %}
+                {% else %}
 
-            <div class="checkout-alerta">
+                <div class="checkout-alerta">
 
-                <strong>
-                    Você ainda não possui endereço cadastrado.
-                </strong>
+                    <strong>
+                        Você ainda não possui endereço cadastrado.
+                    </strong>
 
-                <p>
-                    Cadastre um endereço para visualizar
-                    as opções de entrega.
-                </p>
+                    <p>
+                        Cadastre um endereço para visualizar
+                        as opções de entrega.
+                    </p>
+
+                </div>
+
+                <a href="{% url 'meus_enderecos' %}?next={% url 'checkout' %}"
+                   class="btn-checkout-endereco">
+
+                    Cadastrar Endereço
+
+                </a>
+
+                {% endif %}
 
             </div>
 
-            <a href="{% url 'meus_enderecos' %}?next={% url 'checkout' %}"
-            class="btn-checkout-endereco">
+            <!-- ✅ FRETE -->
+            {% if endereco_principal %}
+            <div class="checkout-box box-frete">
 
-                Cadastrar Endereço
+                <h2>Frete</h2>
 
-            </a>
+                <div id="fretesCheckout">
+                    <p>Calculando opções de entrega...</p>
+                </div>
 
+            </div>
             {% endif %}
 
-            </div>
-
-        <!-- ✅ FRETES -->
-        {% if endereco_principal %}
-
-        <div class="checkout-box box-frete">
-
-            <h2>
-                Frete
-            </h2>
-
-            <div id="fretesCheckout">
-
-                <p>
-                    Calculando opções de entrega...
-                </p>
+            <!-- ✅ BOTÃO STEP 1 -->
+            <button type="button"
+                    class="btn-finalizar-checkout"
+                    onclick="validarStepAtualEAvancar(2)">
+                Continuar para pagamento
+            </button>
 
             </div>
 
-        </div>
+{% if endereco_principal %}
 
-        {% endif %}
+<form method="POST">
 
+    {% csrf_token %}
 
-    {% if endereco_principal %}
-
-    <form method="POST">
-
-        {% csrf_token %}
+    <!-- ✅ PASSO 2 -->
+    <div class="checkout-step-content" data-step="2">
 
         <!-- ✅ PAGAMENTO -->
         <div class="checkout-box box-pagamento">
 
             <h2>Forma de pagamento</h2>
 
-            <!-- ✅ CARTÃO SALVO -->
             <div class="opcao-pagamento selected" data-metodo="cartao_salvo">
                 <strong>**** 3811</strong>
                 <span class="subtexto">Até 3x sem juros</span>
             </div>
 
-            <!-- ✅ NOVO CARTÃO (EXPANSÍVEL) -->
             <div class="opcao-pagamento" data-metodo="novo_cartao">
 
                 <div class="opcao-header">
@@ -134,23 +153,55 @@
                     <span class="subtexto">Até 3x sem juros</span>
                 </div>
 
-                <!-- ✅ FORM QUE ABRE -->
                 <div class="form-cartao">
 
-                    <input type="text" name="numero_cartao" placeholder="Número do cartão">
+                    <div class="cartao-visual">
 
-                    <div class="linha-cartao">
-                        <input type="text" name="nome_cartao" placeholder="Nome no cartão">
-                        <input type="text" name="validade_cartao" placeholder="MM/AA">
-                        <input type="text" name="cvv_cartao" placeholder="CVV">
+                        <div class="cartao-numero" id="previewNumero">
+                            •••• •••• •••• ••••
+                        </div>
+
+                        <div class="cartao-nome" id="previewNome">
+                            NOME NO CARTÃO
+                        </div>
+
                     </div>
 
-                <input
-                    type="text"
-                    name="cpf_pagamento"
-                    id="cpfPagamento"
-                    placeholder="CPF do titular"
-                >
+                    <input 
+                        type="text" 
+                        name="numero_cartao" 
+                        placeholder="Número do cartão"
+                        maxlength="19"
+                    >
+
+                    <div class="linha-cartao">
+
+                        <input 
+                            type="text" 
+                            name="validade_cartao" 
+                            placeholder="MM/AA"
+                        >
+
+                        <input 
+                            type="text" 
+                            name="cvv_cartao" 
+                            placeholder="CVV"
+                        >
+
+                    </div>
+
+                    <input 
+                        type="text" 
+                        name="nome_cartao" 
+                        placeholder="Nome no cartão"
+                    >
+
+                    <input
+                        type="text"
+                        name="cpf_pagamento"
+                        id="cpfPagamento"
+                        placeholder="CPF do titular"
+                    >
 
                     <input
                         type="text"
@@ -162,141 +213,173 @@
 
             </div>
 
-            <!-- ✅ PIX -->
             <div class="opcao-pagamento" data-metodo="pix">
                 <strong>Pix</strong>
                 <span class="subtexto">Aprovação imediata</span>
             </div>
 
-            <!-- ✅ BOLETO -->
             <div class="opcao-pagamento" data-metodo="boleto">
                 <strong>Boleto bancário</strong>
             </div>
 
         </div>
 
-
-        <!-- ✅ FRETE HIDDEN -->
-        <input type="hidden" name="frete_valor" id="freteValorInput">
-        <input type="hidden" name="frete_nome" id="freteNomeInput">
-        <input type="hidden" name="frete_prazo" id="fretePrazoInput">
-        <input type="hidden" name="metodo_pagamento" id="metodoPagamentoInput">
-
-        <!-- ✅ BOTÃO -->
-        <button type="submit"
+        <!-- ✅ BOTÃO STEP 2 -->
+        <button type="button"
                 class="btn-finalizar-checkout"
-                id="btnFinalizar"
-                disabled>
-            FAZER PEDIDO
+                onclick="validarStepAtualEAvancar(3)">
+            Revisar pedido
         </button>
 
-    </form>
+    </div> <!-- ✅ FECHA STEP 2 -->
 
-    {% endif %}
+    <!-- =========================
+        ✅ PASSO 3
+    ========================= -->
+    <div class="checkout-step-content" data-step="3">
 
-</div>
+        <!-- ✅ DIREITA / RESUMO -->
+        <div class="resumo-box box-resumo">
 
-<!-- ✅ DIREITA -->
+            <h2>
+                Resumo do Pedido
+            </h2>
 
-    <div class="resumo-box box-resumo">
+            {% for item in itens %}
 
-        <h2>
-            Resumo do Pedido
-        </h2>
+            <div class="item-resumo">
 
-        {% for item in itens %}
+                <!-- ✅ IMAGEM -->
+                <img
+                    src="{% if item.perfume.imagem %}{% static item.perfume.imagem %}{% else %}{% static 'img/sem-imagem.png' %}{% endif %}"
+                    class="item-img"
+                    alt="{{ item.perfume.nome }}"
+                >
 
-        <div class="item-resumo">
+                <!-- ✅ DADOS -->
+                <div class="item-resumo-info">
 
-            <!-- ✅ IMAGEM -->
-            <img
-                src="{% if item.perfume.imagem %}{% static item.perfume.imagem %}{% else %}{% static 'img/sem-imagem.png' %}{% endif %}"
-                class="item-img"
-                alt="{{ item.perfume.nome }}"
-            >
+                    <strong>
+                        {{ item.perfume.nome }}
+                    </strong>
 
-            <!-- ✅ DADOS -->
-            <div class="item-resumo-info">
+                    <p>
+                        {{ item.tamanho }}
+                    </p>
 
-                <strong>
-                    {{ item.perfume.nome }}
-                </strong>
+                    <p>
+                        Qtd: {{ item.quantidade }}
+                    </p>
 
-                <p>
-                    {{ item.tamanho }}
-                </p>
+                </div>
 
-                <p>
-                    Qtd: {{ item.quantidade }}
-                </p>
-
-            </div>
-
-            <!-- ✅ PREÇO -->
-            <strong class="item-resumo-preco">
-                R$ {{ item.preco }}
-            </strong>
-
-        </div>
-
-        {% endfor %}
-
-        <hr>
-
-        <!-- ✅ TOTAIS -->
-        <div class="totais-checkout">
-
-            <div class="linha-total">
-
-                <span>
-                    Subtotal:
-                </span>
-
-                <strong>
-                    R$ {{ total }}
+                <!-- ✅ PREÇO -->
+                <strong class="item-resumo-preco">
+                    R$ {{ item.preco }}
                 </strong>
 
             </div>
 
-            <div class="linha-total">
+            {% endfor %}
 
-                <span>
-                    Frete:
-                </span>
+            <hr>
 
-                <strong id="valorFreteCheckout">
+            <!-- ✅ PAGAMENTO ESCOLHIDO -->
+            <div class="checkout-pagamento-resumo">
 
-                    R$ 0,00
+                <div class="linha-total">
+                    <span>Pagamento:</span>
+                    <strong id="resumoMetodoPagamento">
+                        Não selecionado
+                    </strong>
+                </div>
 
-                </strong>
+                <div class="linha-total">
+                    <span>Parcelamento:</span>
+                    <strong id="resumoParcelamento">
+                        -
+                    </strong>
+                </div>
 
             </div>
 
             <hr>
 
-            <div class="linha-total total-geral">
+            <!-- ✅ TOTAIS -->
+            <div class="totais-checkout">
 
-                <span>
-                    Total:
-                </span>
+                <div class="linha-total">
+                    <span>Subtotal:</span>
+                    <strong>R$ {{ total }}</strong>
+                </div>
 
-                <strong id="totalCheckout">
+                <div class="linha-total">
+                    <span>Frete:</span>
+                    <strong id="valorFreteCheckout">
+                        R$ 0,00
+                    </strong>
+                </div>
 
-                    R$ {{ total }}
+                <hr>
 
-                </strong>
+                <div class="linha-total total-geral">
+                    <span>Total:</span>
+                    <strong id="totalCheckout">
+                        R$ {{ total }}
+                    </strong>
+                </div>
 
             </div>
+
+            <!-- ✅ HIDDEN -->
+            <input type="hidden" name="frete_valor" id="freteValorInput">
+            <input type="hidden" name="frete_nome" id="freteNomeInput">
+            <input type="hidden" name="frete_prazo" id="fretePrazoInput">
+            <input type="hidden" name="metodo_pagamento" id="metodoPagamentoInput">
+
+            <!-- ✅ FINAL -->
+            <button type="submit"
+                    class="btn-finalizar-checkout"
+                    id="btnFinalizar"
+                    disabled>
+                FAZER PEDIDO
+            </button>
 
         </div>
 
     </div>
 
-</div>
+</form>
 
-</div>
+{% endif %}
 
+<!-- ✅ SCRIPT -->
 <script>
+
+// =====================================
+// ✅ CONTROLE DE ETAPAS (NOVO)
+let stepAtual = 1;
+
+function irParaStep(step) {
+
+    // troca conteúdo
+    document.querySelectorAll('.checkout-step-content').forEach(el => {
+        el.classList.remove('active');
+    });
+
+    const destino = document.querySelector(`.checkout-step-content[data-step="${step}"]`);
+    if (destino) destino.classList.add('active');
+
+    // atualiza timeline
+    document.querySelectorAll('.step').forEach(s => {
+        s.classList.remove('active');
+    });
+
+    const stepEl = document.querySelector(`.step[data-step="${step}"]`);
+    if (stepEl) stepEl.classList.add('active');
+
+    stepAtual = step;
+}
 
 // =====================================
 // ✅ ATUALIZA TOTAL FRETE
@@ -326,7 +409,7 @@ function atualizarTotalFrete() {
             document.getElementById('freteNomeInput').value = nome;
             document.getElementById('fretePrazoInput').value = prazo;
 
-            atualizarEstadoBotao(); // ✅ NOVO
+            atualizarEstadoBotao();
         });
     });
 
@@ -368,49 +451,47 @@ async function carregarFretesCheckout() {
             const empresa = (frete.company?.name || '').replace(/["']/g, '');
 
             const imgTag = imagem
-                ? `<img src="${encodeURI(imagem)}" alt="${empresa}">`
+                ? `<img src="${encodeURI(imagem)}" alt="${empresa}" class="frete-img">`
                 : '';
 
             html += `
             <label class="frete-opcao ${index === 0 ? 'melhor' : ''}">
 
-                    <div class="frete-left">
+                <div class="frete-left">
 
-                        <input
-                            type="radio"
-                            name="frete"
-                            value="${valor}"
-                            data-nome="${nome}"
-                            data-prazo="${prazo}"
-                        >
+                    <input
+                        type="radio"
+                        name="frete"
+                        value="${valor}"
+                        data-nome="${nome}"
+                        data-prazo="${prazo}"
+                    >
 
-                        ${imgTag}
+                    ${imgTag}
 
-                        <span>${nome}</span>
+                    <span>${nome}</span>
 
-                    </div>
+                </div>
 
-                    <div class="frete-info">
+                <div class="frete-info">
 
-                        <strong>R$ ${valor.toFixed(2)}</strong>
-                        <small>${prazo} dias</small>
+                    <strong>R$ ${valor.toFixed(2)}</strong>
+                    <small>${prazo} dias</small>
 
-                    </div>
+                </div>
 
-                </label>
+            </label>
             `;
         });
 
+
         container.innerHTML = html;
 
-        // ✅ ativa eventos de total
         atualizarTotalFrete();
 
-        // ✅ seleciona o primeiro automaticamente
         const radios = document.querySelectorAll('input[name="frete"]');
 
         if (radios.length > 0) {
-
             radios[0].checked = true;
             radios[0].dispatchEvent(new Event('change'));
         }
@@ -419,11 +500,10 @@ async function carregarFretesCheckout() {
 
         console.error('Erro frete:', error);
 
-        container.innerHTML = `
-            <p>Falha ao carregar fretes</p>
-        `;
+        container.innerHTML = `<p>Falha ao carregar fretes</p>`;
     }
 }
+
 
 // =====================================
 // ✅ PAGAMENTO (COM EXPANSÃO)
@@ -448,7 +528,7 @@ function configurarPagamento() {
             this.classList.add('selected');
 
             metodoSelecionado = this.dataset.metodo;
-
+            atualizarResumoPagamento(this);
             document.getElementById('metodoPagamentoInput').value = metodoSelecionado;
 
             // ✅ abre formulário do cartão
@@ -506,17 +586,15 @@ function atualizarEstadoBotao() {
     const cpfInput = document.getElementById('cpfPagamento');
     const botao = document.getElementById('btnFinalizar');
 
-    // ✅ evita erro se algum elemento não existir
     if (!freteInput || !cpfInput || !botao) return;
 
-    const freteOK = freteInput.value !== ""; // ✅ evita bug com frete = 0
+    const freteOK = freteInput.value !== "";
     const pagamentoOK = metodoSelecionado !== null;
 
     const cpf = cpfInput.value.trim();
 
     let cpfOK = true;
 
-    // ✅ só valida CPF se for cartão
     if (metodoSelecionado === 'novo_cartao') {
 
         cpfOK = validarCPF(cpf);
@@ -528,11 +606,9 @@ function atualizarEstadoBotao() {
         }
 
     } else {
-        // ✅ PIX / boleto não exige CPF
         cpfInput.style.borderColor = '#ddd';
     }
 
-    // ✅ controle final do botão
     if (freteOK && pagamentoOK && cpfOK) {
 
         botao.disabled = false;
@@ -542,7 +618,38 @@ function atualizarEstadoBotao() {
         botao.disabled = true;
     }
 
-} // ✅ FECHAMENTO CORRETO DA FUNÇÃO
+}
+
+
+// =====================================
+// ✅ CONTROLE DE AVANÇO ENTRE STEPS (NOVO)
+// =====================================
+function validarStepAtualEAvancar(proximoStep) {
+
+    // ✅ STEP 1 → exigir frete
+    if (stepAtual === 1) {
+
+        const freteInput = document.getElementById('freteValorInput');
+
+        if (!freteInput || freteInput.value === "") {
+            alert("Selecione um frete para continuar");
+            return;
+        }
+
+    }
+
+    // ✅ STEP 2 → exigir pagamento
+    if (stepAtual === 2) {
+
+        if (!metodoSelecionado) {
+            alert("Selecione uma forma de pagamento");
+            return;
+        }
+
+    }
+
+    irParaStep(proximoStep);
+}
 
 
 // =====================================
@@ -554,12 +661,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
     configurarPagamento();
 
-
 });
+
+function atualizarResumoPagamento(opcao) {
+
+    const metodoEl = document.getElementById('resumoMetodoPagamento');
+    const parcelaEl = document.getElementById('resumoParcelamento');
+
+    if (!metodoEl || !parcelaEl) return;
+
+    const metodo = opcao.dataset.metodo;
+
+    if (metodo === 'cartao_salvo') {
+        metodoEl.innerText = "Cartão salvo (**** 3811)";
+        parcelaEl.innerText = "Até 3x sem juros";
+    }
+
+    if (metodo === 'novo_cartao') {
+        metodoEl.innerText = "Cartão de crédito";
+        parcelaEl.innerText = "Até 3x sem juros";
+    }
+
+    if (metodo === 'pix') {
+        metodoEl.innerText = "Pix";
+        parcelaEl.innerText = "Pagamento à vista";
+    }
+
+    if (metodo === 'boleto') {
+        metodoEl.innerText = "Boleto bancário";
+        parcelaEl.innerText = "Pagamento à vista";
+    }
+
+}
 
 </script>
 
-
 {% endblock %}
+
 
 
