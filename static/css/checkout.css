@@ -903,11 +903,6 @@
         height: 60px;
     }
 
-    /* botão melhor usabilidade */
-    .btn-finalizar-checkout {
-        height: 48px;
-        font-size: 14px;
-    }
 
     /* ==========================================
    ✅ FORM CARTÃO (VERSÃO FINAL LIMPA)
@@ -1143,4 +1138,25 @@
 .checkout-steps {
     max-width: 800px;   /* ✅ reduz largura */
     margin: 30px auto 20px;  /* ✅ centraliza e dá respiro */
+}
+
+@media (min-width: 1024px) {
+
+    .box-pagamento {
+        max-width: 800px;   /* ✅ reduz largura */
+        margin-left: auto;  /* ✅ centraliza */
+        margin-right: auto;
+    }
+
+}
+
+@media (min-width: 1024px) {
+
+    .btn-finalizar-checkout {
+        max-width: 800px;   /* ✅ mesma largura das boxes */
+        width: 100%;
+        margin: 0 auto;     /* ✅ centraliza */
+        display: block;
+    }
+
 }

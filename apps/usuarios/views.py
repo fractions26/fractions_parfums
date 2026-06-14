@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.utils.http import url_has_allowed_host_and_scheme
+from django.conf import settings
 
 from .models import Endereco
 
@@ -26,10 +28,12 @@ def login_view(request):
 
             login(request, user)
 
-            # ✅ REDIRECIONA PRO DESTINO CERTO
             next_url = request.POST.get('next')
 
-            if next_url:
+            if next_url and url_has_allowed_host_and_scheme(
+                next_url,
+                allowed_hosts={request.get_host()}
+            ):
                 return redirect(next_url)
 
             return redirect('home')
@@ -45,22 +49,44 @@ def login_view(request):
 # ✅ CRIAR CONTA
 # =====================================
 def criar_conta(request):
-    
+
     if request.method == 'POST':
 
-        nome = request.POST.get('nome')
-        email = request.POST.get('email')
+        nome = request.POST.get('nome', '').strip()
+        email = request.POST.get('email', '').strip().lower()
         senha = request.POST.get('senha')
         confirmar = request.POST.get('confirmar')
 
-        # ✅ valida senha
+        # ✅ valida nome
+        if not nome:
+            return render(request, 'criar_conta.html', {
+                'erro': 'Informe seu nome'
+            })
+
+        # ✅ valida email
+        if not email:
+            return render(request, 'criar_conta.html', {
+                'erro': 'Informe seu email'
+            })
+
+        # ✅ senha
+        if not senha or not confirmar:
+            return render(request, 'criar_conta.html', {
+                'erro': 'Preencha a senha corretamente'
+            })
+
         if senha != confirmar:
             return render(request, 'criar_conta.html', {
                 'erro': 'As senhas não coincidem'
             })
 
+        if len(senha) < 8:
+            return render(request, 'criar_conta.html', {
+                'erro': 'Senha muito curta (mínimo 8 caracteres)'
+            })
+
         # ✅ evita duplicado
-        if User.objects.filter(username=email).exists():
+        if User.objects.filter(username__iexact=email).exists():
             return render(request, 'criar_conta.html', {
                 'erro': 'Email já cadastrado'
             })
@@ -73,18 +99,26 @@ def criar_conta(request):
             first_name=nome
         )
 
-        # ✅ LOGA AUTOMATICAMENTE
-        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+        # ✅ login automático
+        login(
+            request,
+            user,
+            backend='django.contrib.auth.backends.ModelBackend'
+        )
 
-        # ✅ REDIRECIONA COM SEGURANÇA
+        # ✅ redirect seguro (checkout support ✅)
         next_url = request.POST.get('next') or request.GET.get('next')
 
-        if next_url:
+        if next_url and url_has_allowed_host_and_scheme(
+            next_url,
+            allowed_hosts={request.get_host()}
+        ):
             return redirect(next_url)
 
         return redirect('/pedido/')
 
     return render(request, 'criar_conta.html')
+
 
 # =====================================
 # ✅ MEUS ENDEREÇOS
@@ -92,7 +126,6 @@ def criar_conta(request):
 @login_required
 def meus_enderecos(request):
 
-    # ✅ BUSCA ENDEREÇO PRINCIPAL
     endereco = Endereco.objects.filter(
         usuario=request.user,
         principal=True
@@ -100,47 +133,38 @@ def meus_enderecos(request):
 
     if request.method == 'POST':
 
-        # ✅ SE JÁ EXISTE → ATUALIZA
+        dados = {
+            'nome_destinatario': request.POST.get('alias'),
+            'endereco': request.POST.get('endereco'),
+            'numero': request.POST.get('numero'),
+            'complemento': request.POST.get('complemento'),
+            'bairro': request.POST.get('bairro'),
+            'cidade': request.POST.get('cidade'),
+            'estado': request.POST.get('estado'),
+            'cep': request.POST.get('cep'),
+            'telefone': request.POST.get('telefone'),
+            'usuario': request.user,
+            'principal': True
+        }
+
         if endereco:
-
-            endereco.nome_destinatario = request.POST.get('alias')
-            endereco.endereco = request.POST.get('endereco')
-            endereco.numero = request.POST.get('numero')
-            endereco.complemento = request.POST.get('complemento')
-            endereco.bairro = request.POST.get('bairro')
-            endereco.cidade = request.POST.get('cidade')
-            endereco.estado = request.POST.get('estado')
-            endereco.cep = request.POST.get('cep')
-            endereco.telefone = request.POST.get('telefone')
-
+            for campo, valor in dados.items():
+                setattr(endereco, campo, valor)
             endereco.save()
-
-        # ✅ SE NÃO EXISTE → CRIA NOVO
         else:
+            endereco = Endereco.objects.create(**dados)
 
-            endereco = Endereco.objects.create(
-                usuario=request.user,
-                nome_destinatario=request.POST.get('alias'),
-                endereco=request.POST.get('endereco'),
-                numero=request.POST.get('numero'),
-                complemento=request.POST.get('complemento'),
-                bairro=request.POST.get('bairro'),
-                cidade=request.POST.get('cidade'),
-                estado=request.POST.get('estado'),
-                cep=request.POST.get('cep'),
-                telefone=request.POST.get('telefone'),
-                principal=True
-            )
-
-        # ✅ REDIRECIONAMENTO INTELIGENTE
+        # ✅ redirect inteligente (checkout friendly)
         next_url = request.POST.get('next')
 
-        if next_url:
+        if next_url and url_has_allowed_host_and_scheme(
+            next_url,
+            allowed_hosts={request.get_host()}
+        ):
             return redirect(next_url)
 
         return redirect('checkout')
 
-    # ✅ GET → ENVIA PRA TELA JÁ PREENCHIDO
     return render(
         request,
         'usuarios/editar_endereco.html',
@@ -148,6 +172,3 @@ def meus_enderecos(request):
             'endereco': endereco
         }
     )
-
-    
-
