@@ -125,113 +125,145 @@
                 IR PARA PAGAMENTO
             </button>
 
-            </div>
+        </div>
 
-{% if endereco_principal %}
+        {% if endereco_principal %}
 
-<form method="POST">
+        <form method="POST">
 
-    {% csrf_token %}
+            {% csrf_token %}
 
-    <!-- ✅ PASSO 2 -->
-    <div class="checkout-step-content" data-step="2">
+            <!-- ✅ PASSO 2 -->
+            <div class="checkout-step-content" data-step="2">
 
-        <!-- ✅ PAGAMENTO -->
-        <div class="checkout-box box-pagamento">
+                <!-- ✅ PAGAMENTO -->
+                <div class="checkout-box box-pagamento">
 
-            <h2>Forma de pagamento</h2>
+                    <h2>Forma de pagamento</h2>
 
-            <div class="opcao-pagamento selected" data-metodo="cartao_salvo">
-                <strong>**** 3811</strong>
-                <span class="subtexto">Até 3x sem juros</span>
-            </div>
+                    <!-- ✅ CARTÃO SALVO -->
+                    <div class="opcao-pagamento selected" data-metodo="cartao_salvo">
+                        <strong>**** 3811</strong>
+                        <span class="subtexto">Até 3x sem juros</span>
+                    </div>
 
-            <div class="opcao-pagamento" data-metodo="novo_cartao">
+                    <!-- ✅ NOVO CARTÃO -->
+                    <div class="opcao-pagamento" data-metodo="novo_cartao">
+
+                        <div class="opcao-header">
+                            <strong>Cartão de crédito</strong>
+                            <span class="subtexto">Até 3x sem juros</span>
+                        </div>
+
+                        <div class="form-cartao">
+
+                            <div class="cartao-visual">
+
+                                <div class="cartao-numero" id="previewNumero">
+                                    •••• •••• •••• ••••
+                                </div>
+
+                                <div class="cartao-nome" id="previewNome">
+                                    NOME NO CARTÃO
+                                </div>
+
+                            </div>
+
+                            <input 
+                                type="text" 
+                                name="numero_cartao" 
+                                placeholder="Número do cartão"
+                                maxlength="19"
+                            >
+
+                            <div class="linha-cartao">
+
+                                <input 
+                                    type="text" 
+                                    name="validade_cartao" 
+                                    placeholder="MM/AA"
+                                >
+
+                                <input 
+                                    type="text" 
+                                    name="cvv_cartao" 
+                                    placeholder="CVV"
+                                >
+
+                            </div>
+
+                            <input 
+                                type="text" 
+                                name="nome_cartao" 
+                                placeholder="Nome no cartão"
+                            >
+
+                            <input
+                                type="text"
+                                name="cpf_pagamento"
+                                id="cpfPagamentoCartao"
+                                placeholder="CPF do titular"
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <!-- ✅ PIX -->
+                    <div class="opcao-pagamento" data-metodo="pix">
+
+                        <div class="opcao-header">
+                            <strong>Pix</strong>
+                            <span class="subtexto">Aprovação imediata</span>
+                        </div>
+
+                        <div class="form-cartao">
+
+                            <input
+                                type="text"
+                                name="cpf_pagamento"
+                                id="cpfPagamentoPix"
+                                placeholder="CPF para pagamento"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+            <!-- ✅ BOLETO -->
+            <div class="opcao-pagamento" data-metodo="boleto">
 
                 <div class="opcao-header">
-                    <strong>Cartão de crédito</strong>
-                    <span class="subtexto">Até 3x sem juros</span>
+                    <strong>Boleto bancário</strong>
+                    <span class="subtexto">Pagamento à vista</span>
                 </div>
 
+                <!-- ✅ CPF OBRIGATÓRIO -->
                 <div class="form-cartao">
-
-                    <div class="cartao-visual">
-
-                        <div class="cartao-numero" id="previewNumero">
-                            •••• •••• •••• ••••
-                        </div>
-
-                        <div class="cartao-nome" id="previewNome">
-                            NOME NO CARTÃO
-                        </div>
-
-                    </div>
-
-                    <input 
-                        type="text" 
-                        name="numero_cartao" 
-                        placeholder="Número do cartão"
-                        maxlength="19"
-                    >
-
-                    <div class="linha-cartao">
-
-                        <input 
-                            type="text" 
-                            name="validade_cartao" 
-                            placeholder="MM/AA"
-                        >
-
-                        <input 
-                            type="text" 
-                            name="cvv_cartao" 
-                            placeholder="CVV"
-                        >
-
-                    </div>
-
-                    <input 
-                        type="text" 
-                        name="nome_cartao" 
-                        placeholder="Nome no cartão"
-                    >
 
                     <input
                         type="text"
                         name="cpf_pagamento"
-                        id="cpfPagamento"
-                        placeholder="CPF do titular"
-                    >
-
-                    <input
-                        type="text"
-                        name="telefone_pagamento"
-                        placeholder="Telefone"
+                        id="cpfPagamentoBoleto"
+                        placeholder="CPF para pagamento"
                     >
 
                 </div>
 
             </div>
 
-            <div class="opcao-pagamento" data-metodo="pix">
-                <strong>Pix</strong>
-                <span class="subtexto">Aprovação imediata</span>
-            </div>
+            </div> <!-- ✅💥 FECHA checkout-box box-pagamento (ESSENCIAL) -->
 
-            <div class="opcao-pagamento" data-metodo="boleto">
-                <strong>Boleto bancário</strong>
-            </div>
 
-        </div>
+            <!-- ✅ BOTÃO STEP 2 -->
+            <button type="button"
+                    class="btn-finalizar-checkout"
+                    onclick="validarStepAtualEAvancar(3)">
+                FINALIZAR PEDIDO
+            </button>
 
-        <!-- ✅ BOTÃO STEP 2 -->
-        <button type="button"
-                class="btn-finalizar-checkout"
-                onclick="validarStepAtualEAvancar(3)">
-            FINALIZAR PEDIDO
-        </button>
-
-    </div> <!-- ✅ FECHA STEP 2 -->
+            </div> <!-- ✅ FECHA STEP 2 -->
 
     <!-- =========================
         ✅ PASSO 3
@@ -352,6 +384,9 @@
 </form>
 
 {% endif %}
+
+</div> <!-- ✅ FECHA checkout-left -->
+</div> <!-- ✅ checkout-page ✅ ESSA FALTAVA -->
 
 <!-- ✅ SCRIPT -->
 <script>
@@ -524,18 +559,25 @@ function configurarPagamento() {
                 o.classList.remove('active');
             });
 
-            // ✅ marca o clicado
+            // ✅ marca selecionado
             this.classList.add('selected');
 
             metodoSelecionado = this.dataset.metodo;
+
+            // ✅ atualiza resumo + hidden
             atualizarResumoPagamento(this);
             document.getElementById('metodoPagamentoInput').value = metodoSelecionado;
 
-            // ✅ abre formulário do cartão
-            if (metodoSelecionado === 'novo_cartao') {
+            // ✅ abre formulário dos métodos que precisam
+            if (
+                metodoSelecionado === 'novo_cartao' ||
+                metodoSelecionado === 'pix' ||
+                metodoSelecionado === 'boleto'
+            ) {
                 this.classList.add('active');
             }
 
+            // ✅ 💥 ESSENCIAL → atualiza estado do botão
             atualizarEstadoBotao();
         });
 
@@ -577,47 +619,52 @@ function validarCPF(cpf) {
 }
 
 
-// =====================================
-// ✅ CONTROLE BOTÃO FINAL
-// =====================================
 function atualizarEstadoBotao() {
 
     const freteInput = document.getElementById('freteValorInput');
-    const cpfInput = document.getElementById('cpfPagamento');
     const botao = document.getElementById('btnFinalizar');
 
-    if (!freteInput || !cpfInput || !botao) return;
+    if (!freteInput || !botao) return;
 
     const freteOK = freteInput.value !== "";
     const pagamentoOK = metodoSelecionado !== null;
 
-    const cpf = cpfInput.value.trim();
-
-    let cpfOK = true;
+    let cpfInput = null;
 
     if (metodoSelecionado === 'novo_cartao') {
+        cpfInput = document.getElementById('cpfPagamentoCartao');
+    }
 
-        cpfOK = validarCPF(cpf);
+    if (metodoSelecionado === 'pix') {
+        cpfInput = document.getElementById('cpfPagamentoPix');
+    }
+
+    if (metodoSelecionado === 'boleto') {
+        cpfInput = document.getElementById('cpfPagamentoBoleto');
+    }
+
+    let cpfOK = false; // ✅ começa como falso (OBRIGATÓRIO)
+
+    if (cpfInput) {
+
+        const cpf = cpfInput.value.trim();
 
         if (cpf.length > 0) {
+            cpfOK = validarCPF(cpf);
             cpfInput.style.borderColor = cpfOK ? '#00a650' : '#dc2626';
         } else {
-            cpfInput.style.borderColor = '#ddd';
+            cpfOK = false; // ✅ força erro se vazio
+            cpfInput.style.borderColor = '#dc2626';
         }
 
-    } else {
-        cpfInput.style.borderColor = '#ddd';
     }
 
+    // ✅ libera botão só com tudo ok
     if (freteOK && pagamentoOK && cpfOK) {
-
         botao.disabled = false;
-
     } else {
-
         botao.disabled = true;
     }
-
 }
 
 
@@ -658,8 +705,22 @@ function validarStepAtualEAvancar(proximoStep) {
 document.addEventListener('DOMContentLoaded', function () {
 
     carregarFretesCheckout();
-
     configurarPagamento();
+
+    // ✅💥 pega o método já selecionado no HTML
+    const selecionadoInicial = document.querySelector('.opcao-pagamento.selected');
+
+    if (selecionadoInicial) {
+        metodoSelecionado = selecionadoInicial.dataset.metodo;
+
+        const inputMetodo = document.getElementById('metodoPagamentoInput');
+        if (inputMetodo) {
+            inputMetodo.value = metodoSelecionado;
+        }
+    }
+
+    // ✅ garante estado inicial do botão
+    atualizarEstadoBotao();
 
 });
 
@@ -693,6 +754,20 @@ function atualizarResumoPagamento(opcao) {
     }
 
 }
+
+    // ✅ quando digitar CPF
+    document.addEventListener('input', function(e) {
+        if (e.target.name === 'cpf_pagamento') {
+            atualizarEstadoBotao();
+        }
+    });
+
+    // ✅ quando mudar frete
+    document.addEventListener('change', function(e) {
+        if (e.target.name === 'frete') {
+            atualizarEstadoBotao();
+        }
+    });
 
 </script>
 

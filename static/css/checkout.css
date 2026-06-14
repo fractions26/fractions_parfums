@@ -904,32 +904,32 @@
     }
 
 
-    /* ==========================================
-   ✅ FORM CARTÃO (VERSÃO FINAL LIMPA)
+/* ==========================================
+   ✅ FORM CARTÃO (VERSÃO CORRIGIDA FINAL)
 ========================================== */
 
-/* 🔥 mantém animação + adiciona visual */
+/* container animado */
 .form-cartao {
     max-height: 0;
     overflow: hidden;
     margin-top: 0;
-    transition: .3s ease;
+    transition: max-height .3s ease, padding .3s ease;
 
     background: #fafafa;
-    border: 1px solid #eee;
+    border: 1px solid transparent; /* evita salto */
     border-radius: 14px;
     padding: 0 16px;
 }
 
-/* estado expandido */
+/* estado aberto */
 .opcao-pagamento.active .form-cartao {
-    max-height: 400px;
+    max-height: 420px;
     margin-top: 14px;
     padding: 16px;
-    border-top: 1px solid #eee;
+    border-color: #eee;
 }
 
-/* INPUT BASE */
+/* inputs */
 .form-cartao input {
     width: 100%;
     height: 48px;
@@ -943,27 +943,27 @@
     color: #111;
     background: #fff;
 
-    transition: .2s;
+    transition: border .2s, box-shadow .2s;
 }
 
-/* espaçamento entre campos */
-.form-cartao input + input {
+/* espaçamento LIMPO */
+.form-cartao input:not(:first-child) {
     margin-top: 10px;
 }
 
-/* FOCO */
+/* foco */
 .form-cartao input:focus {
     border-color: #6b46c1;
     box-shadow: 0 0 0 3px rgba(107,70,193,.12);
     outline: none;
 }
 
-/* PLACEHOLDER */
+/* placeholder */
 .form-cartao input::placeholder {
     color: #999;
 }
 
-/* LINHA CARTÃO */
+/* linha (validade + cvv) */
 .linha-cartao {
     display: flex;
     gap: 10px;
@@ -972,7 +972,9 @@
 
 .linha-cartao input {
     flex: 1;
+    margin-top: 0 !important; /* evita conflito */
 }
+
 
 /* CPF + TELEFONE */
 .form-cartao input[name="cpf_pagamento"],

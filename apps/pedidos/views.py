@@ -50,19 +50,38 @@ def checkout(request):
     # =====================================
     if request.method == 'POST':
 
-        # ✅ CPF
+        # =========================
+        # ✅ CPF (OBRIGATÓRIO)
+        # =========================
         perfil = getattr(request.user, 'perfil', None)
-        cpf_input = request.POST.get('cpf_pagamento')
 
-        cpf = cpf_input or (perfil.cpf if perfil else '')
+        cpf_input = request.POST.get('cpf_pagamento') or ''
+        cpf_perfil = perfil.cpf if perfil and perfil.cpf else ''
+
+        cpf = cpf_input or cpf_perfil
+
+        # ✅ VALIDA OBRIGATÓRIO
+        if not cpf:
+            messages.error(request, "❌ Informe o CPF para continuar.")
+            return redirect('checkout')
+
+        # ✅ GARANTE STRING + LIMPA
+        cpf = str(cpf)
         cpf = re.sub(r'\D', '', cpf)
 
-        # ✅ salva no perfil se não tiver
-        if perfil and cpf and not getattr(perfil, 'cpf', None):
+        # ✅ VALIDA TAMANHO
+        if len(cpf) != 11:
+            messages.error(request, "❌ CPF inválido.")
+            return redirect('checkout')
+
+        # ✅ SALVA NO PERFIL (SE NÃO TIVER)
+        if perfil and not getattr(perfil, 'cpf', None):
             perfil.cpf = cpf
             perfil.save()
 
+        # =========================
         # ✅ FRETE
+        # =========================
         frete_valor = request.POST.get('frete_valor') or '0'
 
         try:
@@ -74,7 +93,9 @@ def checkout(request):
             messages.warning(request, "Selecione um frete.")
             return redirect('checkout')
 
+        # =========================
         # ✅ CRIA PEDIDO
+        # =========================
         pedido = Pedido.objects.create(
             usuario=request.user,
             codigo=gerar_codigo_pedido(),
@@ -86,17 +107,14 @@ def checkout(request):
             # ✅ CPF
             cpf=cpf,
 
-            # ✅ FRETE INFO
+            # ✅ FRETE
             frete_nome=request.POST.get('frete_nome', ''),
             frete_prazo=request.POST.get('frete_prazo', ''),
 
             # ✅ USUÁRIO
             nome=request.user.get_full_name(),
             email=request.user.email,
-
-            telefone=(
-                endereco_principal.telefone if endereco_principal else ''
-            ),
+            telefone=(endereco_principal.telefone if endereco_principal else ''),
 
             # ✅ ENDEREÇO
             cep=(endereco_principal.cep if endereco_principal else ''),
@@ -107,7 +125,9 @@ def checkout(request):
             estado=(endereco_principal.estado if endereco_principal else ''),
         )
 
+        # =========================
         # ✅ ITENS
+        # =========================
         for item in itens:
             ItemPedido.objects.create(
                 pedido=pedido,
@@ -119,10 +139,14 @@ def checkout(request):
                 subtotal=(item.preco * item.quantidade)
             )
 
+        # =========================
         # ✅ LIMPA CARRINHO
+        # =========================
         itens.delete()
 
+        # =========================
         # ✅ SUCESSO
+        # =========================
         messages.success(
             request,
             f"✅ Pedido #{pedido.codigo} realizado com sucesso!"
@@ -130,7 +154,10 @@ def checkout(request):
 
         return redirect('detalhe_pedido', codigo=pedido.codigo)
 
+
+    # =========================
     # ✅ GET (carrega página)
+    # =========================
     return render(
         request,
         'pedidos/checkout.html',
