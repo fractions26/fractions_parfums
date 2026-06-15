@@ -2,37 +2,76 @@
 
 <div class="mobile-only">
 
-        <!-- HEADER MOBILE -->
-        <header class="header-mobile">
+    <!-- HEADER MOBILE -->
+    <header class="header-mobile">
 
-            <!-- ESQUERDA -->
-            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <!-- ESQUERDA -->
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
-            <!-- CENTRO -->
-            <div class="logo">
-                <a href="{% url 'home' %}">
-                    <img src="{% static 'images/logo-horizontal.webp' %}" alt="Fractions Parfums">
-                </a>
+        <!-- CENTRO -->
+        <div class="logo">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/logo-horizontal.webp' %}" alt="Fractions Parfums">
+            </a>
+        </div>
+
+        <!-- DIREITA -->
+        <div class="header-right">
+
+            <!-- CONTA -->
+            <div class="menu-item conta" onclick="toggleConta(event)">
+                <i class="fa-regular fa-user"></i>
             </div>
 
-            <div class="header-right">
-                <div class="menu-item cart" onclick="abrirCarrinho()">
+            <!-- MENU CONTA -->
+            <div id="boxConta" class="box-conta">
 
-                    <!-- ✅ ÍCONE (ESTAVA FALTANDO!) -->
+                {% if user.is_authenticated %}
+
+                    <a href="{% url 'minha_conta' %}" class="link-conta">
+                        <i class="fa-regular fa-user"></i>
+                        <span>Minha Conta</span>
+                    </a>
+
+                    <a href="{% url 'logout' %}" class="link-conta">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Sair</span>
+                    </a>
+
+                {% else %}
+
+                    <a href="{% url 'criar_conta' %}" class="link-conta">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Criar Conta</span>
+                    </a>
+
+                    <a href="{% url 'login' %}" class="link-conta">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>Entrar</span>
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+            <!-- CARRINHO -->
+            <div class="menu-item cart" onclick="abrirCarrinho()">
+
+                <div class="cart-icon">
                     <i class="fa-solid fa-cart-shopping"></i>
 
-                    <!-- ✅ BADGE DINÂMICO -->
                     <span class="cart-badge">
                         {{ cart_count|default:0 }}
                     </span>
-
                 </div>
+
             </div>
 
-        </header>
+        </div>
 
+    </header>
 
-    <!-- ✅ BUSCA MOBILE -->
+    <!-- BUSCA MOBILE -->
     <div class="search-mobile">
 
         <form

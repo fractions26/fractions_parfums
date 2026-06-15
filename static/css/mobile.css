@@ -1873,3 +1873,89 @@ body.modal-aberto {
 .usuario-links a:hover{
     color: #d6b36a;
 }
+
+/* ========================= */
+/* ✅ HEADER MOBILE */
+/* ========================= */
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+}
+
+.header-mobile .menu-item i {
+    font-size: 20px;
+    color: #333;
+}
+
+/* ========================= */
+/* ✅ DROPDOWN CONTA MOBILE */
+/* ========================= */
+
+.box-conta {
+    position: absolute;
+
+    top: 42px;
+    right: 0;
+    left: auto;
+
+    width: 180px;
+    min-width: 180px;
+
+    background: #fff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,.15);
+
+    display: none;
+    overflow: hidden;
+
+    z-index: 99999;
+
+    transform: none;
+}
+
+.box-conta.ativo {
+    display: flex !important;
+    flex-direction: column;
+}
+
+/* ========================= */
+/* ✅ LINKS */
+/* ========================= */
+
+.link-conta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    width: 100%;
+
+    padding: 10px 14px;
+
+    text-decoration: none;
+
+    color: #222;
+    font-size: 13px;
+    font-weight: 500;
+
+    transition: .2s;
+}
+
+.link-conta:hover {
+    background: #f5f5f5;
+}
+
+.link-conta i {
+    width: 16px;
+    min-width: 16px;
+    font-size: 14px;
+}
+
+.link-conta span {
+    flex: 1;
+}
