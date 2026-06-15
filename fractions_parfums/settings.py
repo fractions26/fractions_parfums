@@ -87,6 +87,8 @@ INSTALLED_APPS = [
 
     # ✅ NECESSÁRIO PARA ALLAUTH
     'django.contrib.sites',
+    'django.contrib.sitemaps',
+
 
     'allauth',
     'allauth.account',

@@ -2,10 +2,20 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
+from fractions_parfums.sitemaps import StaticSitemap
+
+sitemaps = {
+    'static': StaticSitemap,
+}
+
 
 urlpatterns = [
 
     path('admin/', admin.site.urls),
+        
+    # ✅ PESQUISA SITEMAP GOOGLE)
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
 
     # ✅ PÁGINAS (home está aqui dentro)
     path('', include('apps.paginas.urls')),
@@ -31,6 +41,7 @@ urlpatterns = [
 
     # ✅ LOGIN GOOGLE)
     path('accounts/', include('allauth.urls')),
+
 ]
 
 
