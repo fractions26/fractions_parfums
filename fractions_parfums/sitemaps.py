@@ -1,7 +1,13 @@
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
+from apps.produtos.models import Produto
 
+
+# ✅ PÁGINAS ESTÁTICAS
 class StaticSitemap(Sitemap):
+
+    priority = 0.8
+    changefreq = 'weekly'
 
     def items(self):
         return [
@@ -28,3 +34,16 @@ class StaticSitemap(Sitemap):
 
         if item == 'quem_somos':
             return '/quem-somos/'
+
+
+# ✅ PRODUTOS (ESSENCIAL)
+class ProdutoSitemap(Sitemap):
+
+    changefreq = "daily"
+    priority = 0.9
+
+    def items(self):
+        return Produto.objects.all()  # ✅ pega todos
+
+    def location(self, obj):
+        return f"/produtos/detalhe/{obj.slug}/"
