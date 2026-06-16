@@ -3,21 +3,31 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
-from fractions_parfums.sitemaps import StaticSitemap
 
+from fractions_parfums.sitemaps import StaticSitemap, ProdutoSitemap
+
+
+# ✅ SITEMAPS REGISTRADOS
 sitemaps = {
     'static': StaticSitemap,
+    'produtos': ProdutoSitemap,
 }
 
 
 urlpatterns = [
 
+    # ✅ ADMIN
     path('admin/', admin.site.urls),
-        
-    # ✅ PESQUISA SITEMAP GOOGLE)
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
 
-    # ✅ PÁGINAS (home está aqui dentro)
+    # ✅ SITEMAP (SEO GOOGLE)
+    path(
+        'sitemap.xml',
+        sitemap,
+        {'sitemaps': sitemaps},
+        name='sitemap'
+    ),
+
+    # ✅ PÁGINAS (home incluso)
     path('', include('apps.paginas.urls')),
 
     # ✅ PRODUTOS
@@ -36,16 +46,16 @@ urlpatterns = [
     # ✅ USUÁRIO
     path('usuario/', include('apps.usuarios.urls')),
 
-    # ✅ FRETE (CORRIGIDO)
+    # ✅ FRETE
     path('entrega/', include('apps.entrega.urls')),
 
-    # ✅ LOGIN GOOGLE)
+    # ✅ LOGIN GOOGLE
     path('accounts/', include('allauth.urls')),
 
 ]
 
 
-# ✅ MEDIA
+# ✅ MEDIA (UPLOADS)
 urlpatterns += static(
     settings.MEDIA_URL,
     document_root=settings.MEDIA_ROOT
