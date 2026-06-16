@@ -1,98 +1,49 @@
-from django.db import models
+from django.contrib.sitemaps import Sitemap
+from django.urls import reverse
+from apps.produtos.models import Perfume
 
 
-class Categoria(models.Model):
+# ✅ PÁGINAS ESTÁTICAS
+class StaticSitemap(Sitemap):
 
-    nome = models.CharField(max_length=50)
+    priority = 0.8
+    changefreq = 'weekly'
 
-    slug = models.SlugField(unique=True)
+    def items(self):
+        return [
+            'home',
+            'categoria_masculinos',
+            'categoria_femininos',
+            'categoria_arabes',
+            'quem_somos',
+        ]
 
-    def __str__(self):
-        return self.nome
+    def location(self, item):
 
+        if item == 'home':
+            return reverse('home')
 
-class Perfume(models.Model):
+        if item == 'categoria_masculinos':
+            return '/produtos/categoria/masculinos/'
 
-    nome = models.CharField(max_length=150)
+        if item == 'categoria_femininos':
+            return '/produtos/categoria/femininos/'
 
-    marca = models.CharField(max_length=150)
+        if item == 'categoria_arabes':
+            return '/produtos/categoria/arabes/'
 
-    slug = models.SlugField(unique=True)
-
-    # ✅ NOVO ESTOQUE EM ML
-    estoque_ml = models.PositiveIntegerField(
-        default=0,
-        verbose_name="Estoque total em ML"
-    )
-
-    # ✅ CONTROLE ATIVO / INDISPONÍVEL
-    ativo = models.BooleanField(
-        default=True
-    )
-
-    # ✅ imagens agora são caminhos (sem upload)
-    imagem = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True
-    )
-
-    imagem_descricao = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True
-    )
-
-    categorias = models.ManyToManyField(Categoria)
-
-    def __str__(self):
-        return self.nome
+        if item == 'quem_somos':
+            return '/quem-somos/'
 
 
-    # ✅ caminhos para exibir no template
-    def get_imagem_url(self):
-        if self.imagem:
-            return f"/static/{self.imagem}"
-        return ""
+# ✅ SITEMAP DE PRODUTOS (AGORA CORRETO)
+class ProdutoSitemap(Sitemap):
 
-    def get_imagem_descricao_url(self):
-        if self.imagem_descricao:
-            return f"/static/{self.imagem_descricao}"
-        return ""
+    changefreq = "daily"
+    priority = 0.9
 
-    # ✅ verifica se possui estoque para determinado tamanho
-    def disponivel_para(self, tamanho_ml):
+    def items(self):
+        return Perfume.objects.filter(ativo=True)  # ✅ usa seu campo correto
 
-        return self.estoque_ml >= tamanho_ml
-
-    # ✅ calcula quantas unidades cabem no estoque
-    def unidades_disponiveis(self, tamanho_ml):
-
-        if tamanho_ml <= 0:
-            return 0
-
-        return self.estoque_ml // tamanho_ml
-
-
-class Preco(models.Model):
-
-    perfume = models.ForeignKey(
-        Perfume,
-        related_name='precos',
-        on_delete=models.CASCADE
-    )
-
-    tamanho = models.CharField(max_length=10)
-
-    valor = models.DecimalField(
-        max_digits=8,
-        decimal_places=2
-    )
-
-    def __str__(self):
-
-        return (
-            f"{self.perfume.nome} - "
-            f"{self.tamanho} - "
-            f"R$ {self.valor}"
-        )
+    def location(self, obj):
+        return f"/produtos/detalhe/{obj.slug}/"
