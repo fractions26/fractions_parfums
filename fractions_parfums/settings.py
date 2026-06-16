@@ -118,7 +118,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
     # ✅ BLOQUEIA URLS MALFORMADAS
-    'fractions_parfums.middleware.InvalidPathMiddleware',
+    # 'fractions_parfums.middleware.InvalidPathMiddleware',
 
     # ✅ STATIC FILES
     'whitenoise.middleware.WhiteNoiseMiddleware',
