@@ -6,8 +6,8 @@ from apps.produtos.models import Perfume
 # ✅ PÁGINAS ESTÁTICAS
 class StaticSitemap(Sitemap):
 
-    priority = 0.8
     changefreq = 'weekly'
+    priority = 0.8
 
     def items(self):
         return [
@@ -36,13 +36,14 @@ class StaticSitemap(Sitemap):
             return '/quem-somos/'
 
 
-# ✅ PRODUTOS
+# ✅ PRODUTOS (DINÂMICO)
 class ProdutoSitemap(Sitemap):
 
     changefreq = "daily"
     priority = 0.9
 
     def items(self):
+        # ✅ apenas produtos ativos
         return Perfume.objects.filter(ativo=True)
 
     def location(self, obj):
