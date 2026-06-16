@@ -36,14 +36,16 @@ class StaticSitemap(Sitemap):
             return '/quem-somos/'
 
 
-# ✅ SITEMAP DE PRODUTOS (AGORA CORRETO)
+# ✅ SITEMAP DE PRODUTOS
 class ProdutoSitemap(Sitemap):
 
     changefreq = "daily"
     priority = 0.9
 
     def items(self):
-        return Perfume.objects.filter(ativo=True)  # ✅ usa seu campo correto
+        # ✅ pega apenas produtos ativos (igual seu model)
+        return Perfume.objects.filter(ativo=True)
 
     def location(self, obj):
+        # ✅ usa o slug (correto com seu model)
         return f"/produtos/detalhe/{obj.slug}/"
