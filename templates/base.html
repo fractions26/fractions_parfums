@@ -849,7 +849,9 @@ function toggleConta(event){
 
     event.stopPropagation();
 
-    const box = document.getElementById("boxConta");
+    // pega o box MAIS PRÓXIMO do clique
+    const box = event.currentTarget.querySelector(".box-conta");
+
     if(!box) return;
 
     const aberto = box.classList.contains("ativo");
@@ -865,13 +867,13 @@ function toggleConta(event){
 // ✅ FECHAR TODOS DROPDOWNS
 // =======================
 function fecharTodosDropdowns(){
+
     const dropdowns = document.querySelectorAll(
-        "#boxAtendimento, #boxConta"
+        "#boxAtendimento, #boxConta, #boxContaMobile"
     );
 
     dropdowns.forEach(el => {
         el.classList.remove("ativo");
-        el.style.display = "";
     });
 }
 
@@ -1300,4 +1302,4 @@ if(desktopInputBusca && desktopResultadosBusca){
 </script>
 
 </body>
-</html>
+</html>]

@@ -1878,84 +1878,98 @@ body.modal-aberto {
 /* ✅ HEADER MOBILE */
 /* ========================= */
 
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    position: relative;
-}
+@media (max-width: 768px) {
 
-.header-mobile .menu-item i {
-    font-size: 20px;
-    color: #333;
-}
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        position: relative;
+    }
 
-/* ========================= */
-/* ✅ DROPDOWN CONTA MOBILE */
-/* ========================= */
+    .header-mobile .menu-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
 
-.box-conta {
-    position: absolute;
+    .header-mobile .menu-item i {
+        font-size: 20px;
+        color: #333;
+    }
 
-    top: 42px;
-    right: 0;
-    left: auto;
+    /* ========================= */
+    /* ✅ DROPDOWN CONTA MOBILE */
+    /* ========================= */
 
-    width: 180px;
-    min-width: 180px;
+    .box-conta {
+        position: absolute;
 
-    background: #fff;
+        top: 25px;      /* ✅ mais próximo do ícone */
+        right: -40px;    /* ✅ dá leve ajuste lateral */
 
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
+        left: auto;
+        transform: none;
 
-    box-shadow: 0 8px 25px rgba(0,0,0,.15);
+        /* ✅ tamanho reduzido */
+        min-width: 160px;
+        width: max-content;
+        max-width: 200px;
 
-    display: none;
-    overflow: hidden;
+        background: #fff;
 
-    z-index: 99999;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
 
-    transform: none;
-}
+        box-shadow: 0 6px 18px rgba(0,0,0,.12);
 
-.box-conta.ativo {
-    display: flex !important;
-    flex-direction: column;
-}
+        display: none;
+        flex-direction: column;
 
-/* ========================= */
-/* ✅ LINKS */
-/* ========================= */
+        overflow: hidden;
 
-.link-conta {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+        padding: 4px 0; /* ✅ menos espaçamento */
 
-    width: 100%;
+        z-index: 99999;
+    }
 
-    padding: 10px 14px;
+    .box-conta.ativo {
+        display: flex !important;
+    }
 
-    text-decoration: none;
+    /* LINKS */
 
-    color: #222;
-    font-size: 13px;
-    font-weight: 500;
+    .box-conta .link-conta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
 
-    transition: .2s;
-}
+        width: 100%;
 
-.link-conta:hover {
-    background: #f5f5f5;
-}
+        padding: 10px 14px;
 
-.link-conta i {
-    width: 16px;
-    min-width: 16px;
-    font-size: 14px;
-}
+        text-decoration: none;
 
-.link-conta span {
-    flex: 1;
+        color: #222;
+        font-size: 12px;
+        font-weight: 500;
+
+        transition: .2s;
+    }
+
+    .box-conta .link-conta:hover {
+        background: #f5f5f5;
+    }
+
+    .box-conta .link-conta i {
+        width: 16px;
+        min-width: 16px;
+        font-size: 14px;
+    }
+
+    .box-conta .link-conta span {
+        flex: 1;
+    }
+
 }

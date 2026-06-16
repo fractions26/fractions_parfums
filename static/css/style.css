@@ -1760,7 +1760,7 @@ body.modal-aberto {
     border-radius: 10px;
 
     padding: 2px 0;
-    min-width: 230px;
+    min-width: 150px;
 
     box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 
@@ -1827,7 +1827,7 @@ body.modal-aberto {
     text-decoration: none;
     color: #123b63;
  
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 500;
  
     transition: .2s;
@@ -2580,3 +2580,8 @@ html, body {
 main {
     flex: 1;
 }
+
+header {
+    overflow: visible !important;
+}
+
