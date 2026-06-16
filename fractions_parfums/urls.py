@@ -4,13 +4,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 
-from fractions_parfums.sitemaps import StaticSitemap, ProdutoSitemap
+from fractions_parfums.sitemaps import StaticSitemap
 
 
 # ✅ SITEMAPS REGISTRADOS
 sitemaps = {
     'static': StaticSitemap,
-    'produtos': ProdutoSitemap,
 }
 
 
