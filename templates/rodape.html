@@ -7,25 +7,25 @@
     <!-- ✅ LINHAS DE LINKS -->
     <div class="footer-links">
 
-    <div class="footer-col">
-        <h4>Menu Principal</h4>
+        <!-- MENU -->
+        <div class="footer-col">
+            <h4>Menu Principal</h4>
 
-        <a href="{% url 'home' %}">Início</a>
-        <a href="{% url 'contato' %}">Contato</a>
+            <a href="{% url 'home' %}">Início</a>
+            <a href="{% url 'contato' %}">Contato</a>
 
-        <a href="{% url 'lista_categoria' 'masculinos' %}">
-            Perfumes Masculinos
-        </a>
+            <a href="{% url 'lista_categoria' 'masculinos' %}">
+                Perfumes Masculinos
+            </a>
 
-        <a href="{% url 'lista_categoria' 'femininos' %}">
-            Perfumes Femininos
-        </a>
+            <a href="{% url 'lista_categoria' 'femininos' %}">
+                Perfumes Femininos
+            </a>
 
-        <!-- ✅ NOVO -->
-        <a href="{% url 'lista_categoria' 'arabes' %}">
-            Perfumes Árabes
-        </a>
-    </div>
+            <a href="{% url 'lista_categoria' 'arabes' %}">
+                Perfumes Árabes
+            </a>
+        </div>
 
         <!-- INFO -->
         <div class="footer-col">
@@ -80,11 +80,11 @@
         <h4>Redes Sociais</h4>
 
         <div class="social-icons">
-            <a href="#" aria-label="Instagram">
+            <a href="https://instagram.com/fractionsparfums" target="_blank" aria-label="Instagram">
                 <i class="fa-brands fa-instagram"></i>
             </a>
 
-            <a href="#" aria-label="Facebook">
+            <a href="https://facebook.com" target="_blank" aria-label="Facebook">
                 <i class="fa-brands fa-facebook-f"></i>
             </a>
         </div>
