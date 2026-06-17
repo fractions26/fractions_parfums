@@ -530,3 +530,22 @@
         font-size: 13px;
     }
 }
+
+/* ===================== */
+/* ✅ LINK BUSCA GOOGLE */
+/* ===================== */
+
+.seo-link {
+    padding: 6px 14px;
+    background: #eaeaea;
+    color: #333;
+    border-radius: 15px;
+    text-decoration: none;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+.seo-link:hover {
+    background: #7b2cff;
+    color: #fff;
+}
