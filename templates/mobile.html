@@ -296,8 +296,10 @@
 
         <!-- FAIXA SUPERIOR -->
         <div class="menu-topbar">
-            <!-- INSTAGRAM FACETRUCK-->
-            <span>
+
+            <!-- ✅ INSTAGRAM (AGORA COM LINK) -->
+            <a href="https://instagram.com/fractionsparfums" target="_blank" aria-label="Instagram">
+
                 <svg viewBox="0 0 28 28" width="28" height="28">
                     <defs>
                         <linearGradient id="igFix" x1="0%" y1="100%" x2="100%" y2="0%">
@@ -314,14 +316,16 @@
                     <circle cx="14" cy="14" r="4.5" fill="none" stroke="white" stroke-width="2"/>
                     <circle cx="19" cy="9" r="1.2" fill="white"/>
                 </svg>
-            </span>
 
-            <!-- FACEBOOK -->
+            </a>
+
+            {% comment %} <!-- ✅ FACEBOOK (NÃO ALTERADO) -->
             <span>
                 <i class="fa-brands fa-facebook-f"></i>
-            </span>
+            </span> {% endcomment %}
 
         </div>
+
 
         <!-- FECHAR -->
         <div class="menu-header">
@@ -353,24 +357,24 @@
 
             </div>
 
-<!-- SUBMENU MASCULINOS -->
-<div id="submenu-masculinos" class="submenu-page">
+    <!-- SUBMENU MASCULINOS -->
+    <div id="submenu-masculinos" class="submenu-page">
 
-    <div class="submenu-header" onclick="backMenu()">
-        Masculinos
+        <div class="submenu-header" onclick="backMenu()">
+            Masculinos
+        </div>
+
+        <!-- ✅ VER TODOS -->
+        <a href="{% url 'lista_categoria' 'masculinos' %}">
+            Ver todos
+        </a>
+
+        <!-- ✅ ÁRABES MASCULINOS -->
+        <a href="{% url 'lista_categoria' 'masculinos' %}?categoria=masculinos&categoria=arabes">
+            Árabes
+        </a>
+
     </div>
-
-    <!-- ✅ VER TODOS -->
-    <a href="{% url 'lista_categoria' 'masculinos' %}">
-        Ver todos
-    </a>
-
-    <!-- ✅ ÁRABES MASCULINOS -->
-    <a href="{% url 'lista_categoria' 'masculinos' %}?categoria=masculinos&categoria=arabes">
-        Árabes
-    </a>
-
-</div>
 
         <!-- SUBMENU FEMININOS -->
         <div id="submenu-femininos" class="submenu-page">
