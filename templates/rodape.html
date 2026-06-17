@@ -7,21 +7,25 @@
     <!-- ✅ LINHAS DE LINKS -->
     <div class="footer-links">
 
-        <!-- MENU -->
-        <div class="footer-col">
-            <h4>Menu Principal</h4>
+    <div class="footer-col">
+        <h4>Menu Principal</h4>
 
-            <a href="{% url 'home' %}">Início</a>
-            <a href="{% url 'contato' %}">Contato</a>
+        <a href="{% url 'home' %}">Início</a>
+        <a href="{% url 'contato' %}">Contato</a>
 
-            <a href="{% url 'lista_categoria' 'masculinos' %}">
-                Perfumes Masculinos
-            </a>
+        <a href="{% url 'lista_categoria' 'masculinos' %}">
+            Perfumes Masculinos
+        </a>
 
-            <a href="{% url 'lista_categoria' 'femininos' %}">
-                Perfumes Femininos
-            </a>
-        </div>
+        <a href="{% url 'lista_categoria' 'femininos' %}">
+            Perfumes Femininos
+        </a>
+
+        <!-- ✅ NOVO -->
+        <a href="{% url 'lista_categoria' 'arabes' %}">
+            Perfumes Árabes
+        </a>
+    </div>
 
         <!-- INFO -->
         <div class="footer-col">
@@ -41,27 +45,6 @@
 
             <a href="{% url 'quem_somos' %}">
                 Quem Somos
-            </a>
-        </div>
-
-        <!-- ✅ SEO EXTRA (leve, sem poluir) -->
-        <div class="footer-col">
-            <h4>Categorias</h4>
-
-            <a href="{% url 'lista_categoria' 'masculinos' %}">
-                Perfumes Masculinos
-            </a>
-
-            <a href="{% url 'lista_categoria' 'femininos' %}">
-                Perfumes Femininos
-            </a>
-
-            <a href="{% url 'lista_categoria' 'arabes' %}">
-                Perfumes Árabes
-            </a>
-
-            <a href="{% url 'lista_produtos' %}">
-                Todos os Produtos
             </a>
         </div>
 
