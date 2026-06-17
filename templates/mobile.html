@@ -297,32 +297,40 @@
         <!-- FAIXA SUPERIOR -->
         <div class="menu-topbar">
 
-            <!-- ✅ INSTAGRAM (AGORA COM LINK) -->
-            <a href="https://instagram.com/fractionsparfums" target="_blank" aria-label="Instagram">
+            <!-- ✅ INSTAGRAM (COM LINK SEM QUEBRAR LAYOUT) -->
+            <span>
+                <a href="https://instagram.com/fractionsparfums"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram">
 
-                <svg viewBox="0 0 28 28" width="28" height="28">
-                    <defs>
-                        <linearGradient id="igFix" x1="0%" y1="100%" x2="100%" y2="0%">
-                            <stop offset="0%" stop-color="#833ab4"/>
-                            <stop offset="40%" stop-color="#fd1d1d"/>
-                            <stop offset="70%" stop-color="#f56040"/>
-                            <stop offset="100%" stop-color="#f77737"/>
-                        </linearGradient>
-                    </defs>
+                    <svg viewBox="0 0 28 28" width="28" height="28">
+                        <defs>
+                            <linearGradient id="igFix" x1="0%" y1="100%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#833ab4"/>
+                                <stop offset="40%" stop-color="#fd1d1d"/>
+                                <stop offset="70%" stop-color="#f56040"/>
+                                <stop offset="100%" stop-color="#f77737"/>
+                            </linearGradient>
+                        </defs>
 
-                    <rect x="0" y="0" width="28" height="28" rx="6" fill="white"/>
-                    <rect x="4" y="4" width="20" height="20" rx="5" fill="url(#igFix)"/>
+                        <rect x="0" y="0" width="28" height="28" rx="6" fill="white"/>
+                        <rect x="4" y="4" width="20" height="20" rx="5" fill="url(#igFix)"/>
 
-                    <circle cx="14" cy="14" r="4.5" fill="none" stroke="white" stroke-width="2"/>
-                    <circle cx="19" cy="9" r="1.2" fill="white"/>
-                </svg>
+                        <circle cx="14" cy="14" r="4.5"
+                                fill="none"
+                                stroke="white"
+                                stroke-width="2"/>
+                        <circle cx="19" cy="9" r="1.2" fill="white"/>
+                    </svg>
 
-            </a>
+                </a>
+            </span>
 
-            {% comment %} <!-- ✅ FACEBOOK (NÃO ALTERADO) -->
+            <!-- ✅ FACEBOOK (EXATAMENTE COMO ESTAVA) -->
             <span>
                 <i class="fa-brands fa-facebook-f"></i>
-            </span> {% endcomment %}
+            </span>
 
         </div>
 
