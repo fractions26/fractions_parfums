@@ -169,11 +169,13 @@
 
                             </div>
 
-                            <input 
-                                type="text" 
-                                name="numero_cartao" 
-                                placeholder="Número do cartão"
+                            <input
+                                type="text"
+                                name="numero_cartao"
+                                id="numeroCartao"
+                                placeholder="0000 0000 0000 0000"
                                 maxlength="19"
+                                autocomplete="cc-number"
                             >
 
                             <div class="linha-cartao">
@@ -192,10 +194,12 @@
 
                             </div>
 
-                            <input 
-                                type="text" 
-                                name="nome_cartao" 
-                                placeholder="Nome no cartão"
+                            <input
+                                type="text"
+                                name="nome_cartao"
+                                id="nomeCartao"
+                                placeholder="Nome impresso no cartão"
+                                autocomplete="cc-name"
                             >
 
                             <input
@@ -768,6 +772,46 @@ function atualizarResumoPagamento(opcao) {
             atualizarEstadoBotao();
         }
     });
+
+// =====================================
+// ✅ PREVIEW CARTÃO
+// =====================================
+
+const numeroCartao =
+document.querySelector('[name="numero_cartao"]');
+
+const nomeCartao =
+document.querySelector('[name="nome_cartao"]');
+
+if (numeroCartao) {
+
+    numeroCartao.addEventListener('input', function() {
+
+        let valor = this.value
+            .replace(/\D/g, '')
+            .substring(0, 16)
+            .replace(/(.{4})/g, '$1 ')
+            .trim();
+
+        this.value = valor;
+
+        document.getElementById('previewNumero').textContent =
+            valor || '•••• •••• •••• ••••';
+
+    });
+
+}
+
+if (nomeCartao) {
+
+    nomeCartao.addEventListener('input', function() {
+
+        document.getElementById('previewNome').textContent =
+            this.value.toUpperCase() || 'NOME NO CARTÃO';
+
+    });
+
+}
 
 </script>
 
