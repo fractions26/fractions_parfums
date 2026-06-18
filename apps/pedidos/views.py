@@ -1,21 +1,32 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import JsonResponse
+from django.shortcuts import render
+from django.shortcuts import redirect
+from django.http import JsonResponse
 from django.conf import settings
+
 import requests
+import re
+
+from decimal import Decimal
+
 from apps.carrinho.utils import get_carrinho
 from apps.usuarios.models import Endereco
+
 from .models import Pedido
 from .models import ItemPedido
+
 from .services import gerar_codigo_pedido
-from apps.pagamentos.services import get_mp_public_key
+
+from apps.pagamentos.services import (
+    get_mp_public_key,
+    criar_pagamento_cartao
+)
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse
-from decimal import Decimal
-import re
 
 @login_required(login_url='login')
 def checkout(request):
@@ -50,9 +61,6 @@ def checkout(request):
     # =====================================
     if request.method == 'POST':
         
-        from apps.pagamentos.services import (
-            criar_pagamento_cartao
-    )
         # =========================
         # ✅ CPF (OBRIGATÓRIO)
         # =========================
@@ -117,7 +125,15 @@ def checkout(request):
                 cpf=cpf
             )
 
-            print(resultado_pagamento)
+            import json
+
+            print(
+                json.dumps(
+                    resultado_pagamento,
+                    indent=2,
+                    ensure_ascii=False
+                )
+            )
 
 
         # =========================
