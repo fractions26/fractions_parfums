@@ -120,6 +120,16 @@ def checkout(request):
             )
 
 
+            import json
+
+            print(
+                json.dumps(
+                    resultado_pagamento,
+                    indent=2,
+                    ensure_ascii=False
+                )
+            )
+
         # =========================
         # ✅ CRIA PEDIDO
         # =========================
