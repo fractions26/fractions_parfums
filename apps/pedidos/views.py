@@ -8,7 +8,7 @@ from apps.usuarios.models import Endereco
 from .models import Pedido
 from .models import ItemPedido
 from .services import gerar_codigo_pedido
-
+from apps.pagamentos.services import get_mp_public_key
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -49,6 +49,7 @@ def checkout(request):
     # ✅ POST (FINALIZAR PEDIDO)
     # =====================================
     if request.method == 'POST':
+    
 
         # =========================
         # ✅ CPF (OBRIGATÓRIO)
@@ -104,19 +105,20 @@ def checkout(request):
             frete=frete,
             total=total + frete,
 
-            # ✅ CPF
+            metodo_pagamento=request.POST.get(
+                'metodo_pagamento',
+                ''
+            ),
+
             cpf=cpf,
 
-            # ✅ FRETE
             frete_nome=request.POST.get('frete_nome', ''),
             frete_prazo=request.POST.get('frete_prazo', ''),
 
-            # ✅ USUÁRIO
             nome=request.user.get_full_name(),
             email=request.user.email,
             telefone=(endereco_principal.telefone if endereco_principal else ''),
 
-            # ✅ ENDEREÇO
             cep=(endereco_principal.cep if endereco_principal else ''),
             endereco=(endereco_principal.endereco if endereco_principal else ''),
             numero=(endereco_principal.numero if endereco_principal else ''),
@@ -164,7 +166,10 @@ def checkout(request):
         {
             'itens': itens,
             'total': total,
-            'endereco_principal': endereco_principal
+            'endereco_principal': endereco_principal,
+
+            # Mercado Pago
+            'mp_public_key': get_mp_public_key(),
         }
     )
 

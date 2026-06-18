@@ -3,6 +3,7 @@
 
 {% block content %}
 
+
 <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
 
 <!-- ✅ TIMELINE -->
@@ -129,187 +130,195 @@
 
         {% if endereco_principal %}
 
-        <form method="POST">
+        <form method="POST" id="checkoutForm">
 
             {% csrf_token %}
 
-            <!-- ✅ PASSO 2 -->
-            <div class="checkout-step-content" data-step="2">
+        <!-- ✅ PASSO 2 -->
+        <div class="checkout-step-content" data-step="2">
 
-                <!-- ✅ PAGAMENTO -->
-                <div class="checkout-box box-pagamento">
+            <!-- ✅ PAGAMENTO -->
+            <div class="checkout-box box-pagamento">
 
-                    <h2>Forma de pagamento</h2>
+                <h2>Forma de pagamento</h2>
 
-                    <!-- ✅ CARTÃO SALVO -->
-                    <div class="opcao-pagamento selected" data-metodo="cartao_salvo">
-                        <strong>**** 3811</strong>
+                <!-- ✅ CARTÃO SALVO -->
+                <div class="opcao-pagamento selected" data-metodo="cartao_salvo">
+                    <strong>**** 3811</strong>
+                    <span class="subtexto">Até 3x sem juros</span>
+                </div>
+
+                <!-- ✅ NOVO CARTÃO -->
+                <div class="opcao-pagamento" data-metodo="novo_cartao">
+
+                    <div class="opcao-header">
+                        <strong>Cartão de crédito</strong>
                         <span class="subtexto">Até 3x sem juros</span>
                     </div>
 
-                    <!-- ✅ NOVO CARTÃO -->
-                    <div class="opcao-pagamento" data-metodo="novo_cartao">
+                    <div class="form-cartao">
 
-                        <div class="opcao-header">
-                            <strong>Cartão de crédito</strong>
-                            <span class="subtexto">Até 3x sem juros</span>
+                        <div class="cartao-visual">
+
+                            <div class="cartao-numero" id="previewNumero">
+                                •••• •••• •••• ••••
+                            </div>
+
+                            <div class="cartao-nome" id="previewNome">
+                                NOME NO CARTÃO
+                            </div>
+
                         </div>
 
-                        <div class="form-cartao">
+                        <!-- TOKEN MP -->
+                        <input
+                            type="hidden"
+                            name="card_token"
+                            id="cardToken"
+                        >
 
-                            <div class="cartao-visual">
+                        <input
+                            type="text"
+                            name="numero_cartao"
+                            id="numeroCartao"
+                            placeholder="0000 0000 0000 0000"
+                            maxlength="19"
+                            autocomplete="cc-number"
+                        >
 
-                                <div class="cartao-numero" id="previewNumero">
-                                    •••• •••• •••• ••••
-                                </div>
-
-                                <div class="cartao-nome" id="previewNome">
-                                    NOME NO CARTÃO
-                                </div>
-
-                            </div>
-
-                            <input
-                                type="text"
-                                name="numero_cartao"
-                                id="numeroCartao"
-                                placeholder="0000 0000 0000 0000"
-                                maxlength="19"
-                                autocomplete="cc-number"
-                            >
-
-                            <div class="linha-cartao">
-
-                                <input 
-                                    type="text" 
-                                    name="validade_cartao" 
-                                    placeholder="MM/AA"
-                                >
-
-                                <input 
-                                    type="text" 
-                                    name="cvv_cartao" 
-                                    placeholder="CVV"
-                                >
-
-                            </div>
+                        <div class="linha-cartao">
 
                             <input
                                 type="text"
-                                name="nome_cartao"
-                                id="nomeCartao"
-                                placeholder="Nome impresso no cartão"
-                                autocomplete="cc-name"
+                                name="validade_cartao"
+                                id="validadeCartao"
+                                placeholder="MM/AA"
+                                maxlength="5"
+                                autocomplete="cc-exp"
                             >
 
                             <input
                                 type="text"
-                                name="cpf_pagamento"
-                                id="cpfPagamentoCartao"
-                                placeholder="CPF do titular"
+                                name="cvv_cartao"
+                                id="cvvCartao"
+                                placeholder="CVV"
+                                maxlength="4"
+                                autocomplete="cc-csc"
                             >
 
                         </div>
+
+                        <input
+                            type="text"
+                            name="nome_cartao"
+                            id="nomeCartao"
+                            placeholder="Nome impresso no cartão"
+                            autocomplete="cc-name"
+                        >
+
+                        <input
+                            type="text"
+                            name="cpf_pagamento"
+                            id="cpfPagamentoCartao"
+                            placeholder="CPF do titular"
+                        >
 
                     </div>
 
-                    <!-- ✅ PIX -->
-                    <div class="opcao-pagamento" data-metodo="pix">
+                </div>
+                <!-- ✅ FECHA novo_cartao -->
 
-                        <div class="opcao-header">
-                            <strong>Pix</strong>
-                            <span class="subtexto">Aprovação imediata</span>
-                        </div>
 
-                        <div class="form-cartao">
+                <!-- ✅ PIX -->
+                <div class="opcao-pagamento" data-metodo="pix">
 
-                            <input
-                                type="text"
-                                name="cpf_pagamento"
-                                id="cpfPagamentoPix"
-                                placeholder="CPF para pagamento"
-                            >
+                    <div class="opcao-header">
+                        <strong>Pix</strong>
+                        <span class="subtexto">Aprovação imediata</span>
+                    </div>
 
-                        </div>
+                    <div class="form-cartao">
+
+                        <input
+                            type="text"
+                            name="cpf_pagamento"
+                            id="cpfPagamentoPix"
+                            placeholder="CPF para pagamento"
+                        >
 
                     </div>
 
-
-            <!-- ✅ BOLETO -->
-            <div class="opcao-pagamento" data-metodo="boleto">
-
-                <div class="opcao-header">
-                    <strong>Boleto bancário</strong>
-                    <span class="subtexto">Pagamento à vista</span>
                 </div>
 
-                <!-- ✅ CPF OBRIGATÓRIO -->
-                <div class="form-cartao">
 
-                    <input
-                        type="text"
-                        name="cpf_pagamento"
-                        id="cpfPagamentoBoleto"
-                        placeholder="CPF para pagamento"
-                    >
+                <!-- ✅ BOLETO -->
+                <div class="opcao-pagamento" data-metodo="boleto">
+
+                    <div class="opcao-header">
+                        <strong>Boleto bancário</strong>
+                        <span class="subtexto">Pagamento à vista</span>
+                    </div>
+
+                    <div class="form-cartao">
+
+                        <input
+                            type="text"
+                            name="cpf_pagamento"
+                            id="cpfPagamentoBoleto"
+                            placeholder="CPF para pagamento"
+                        >
+
+                    </div>
 
                 </div>
 
             </div>
-
-            </div> <!-- ✅💥 FECHA checkout-box box-pagamento (ESSENCIAL) -->
+            <!-- ✅ FECHA checkout-box box-pagamento -->
 
 
             <!-- ✅ BOTÃO STEP 2 -->
-            <button type="button"
-                    class="btn-finalizar-checkout"
-                    onclick="validarStepAtualEAvancar(3)">
+            <button
+                type="button"
+                class="btn-finalizar-checkout"
+                onclick="validarStepAtualEAvancar(3)">
                 FINALIZAR PEDIDO
             </button>
 
-            </div> <!-- ✅ FECHA STEP 2 -->
+        </div>
+        <!-- ✅ FECHA STEP 2 -->
 
-    <!-- =========================
-        ✅ PASSO 3
-    ========================= -->
-    <div class="checkout-step-content" data-step="3">
 
-        <!-- ✅ DIREITA / RESUMO -->
+        <!-- =========================
+            ✅ PASSO 3
+        ========================= -->
+        <div class="checkout-step-content" data-step="3">
+
         <div class="resumo-box box-resumo">
 
-            <h2>
-                Resumo do Pedido
-            </h2>
+            <h2>Resumo do Pedido</h2>
 
             {% for item in itens %}
 
             <div class="item-resumo">
 
-                <!-- ✅ IMAGEM -->
                 <img
                     src="{% if item.perfume.imagem %}{% static item.perfume.imagem %}{% else %}{% static 'img/sem-imagem.png' %}{% endif %}"
                     class="item-img"
                     alt="{{ item.perfume.nome }}"
                 >
 
-                <!-- ✅ DADOS -->
                 <div class="item-resumo-info">
 
                     <strong>
                         {{ item.perfume.nome }}
                     </strong>
 
-                    <p>
-                        {{ item.tamanho }}
-                    </p>
+                    <p>{{ item.tamanho }}</p>
 
-                    <p>
-                        Qtd: {{ item.quantidade }}
-                    </p>
+                    <p>Qtd: {{ item.quantidade }}</p>
 
                 </div>
 
-                <!-- ✅ PREÇO -->
                 <strong class="item-resumo-preco">
                     R$ {{ item.preco }}
                 </strong>
@@ -320,7 +329,6 @@
 
             <hr>
 
-            <!-- ✅ PAGAMENTO ESCOLHIDO -->
             <div class="checkout-pagamento-resumo">
 
                 <div class="linha-total">
@@ -341,7 +349,6 @@
 
             <hr>
 
-            <!-- ✅ TOTAIS -->
             <div class="totais-checkout">
 
                 <div class="linha-total">
@@ -367,33 +374,48 @@
 
             </div>
 
-            <!-- ✅ HIDDEN -->
             <input type="hidden" name="frete_valor" id="freteValorInput">
             <input type="hidden" name="frete_nome" id="freteNomeInput">
             <input type="hidden" name="frete_prazo" id="fretePrazoInput">
             <input type="hidden" name="metodo_pagamento" id="metodoPagamentoInput">
 
-            <!-- ✅ FINAL -->
-            <button type="submit"
-                    class="btn-finalizar-checkout"
-                    id="btnFinalizar"
-                    disabled>
+            <button
+                type="submit"
+                class="btn-finalizar-checkout"
+                id="btnFinalizar"
+                disabled>
+
                 FAZER PEDIDO
+
             </button>
 
         </div>
 
     </div>
 
-</form>
+    </form>
 
-{% endif %}
+    {% endif %}
 
-</div> <!-- ✅ FECHA checkout-left -->
-</div> <!-- ✅ checkout-page ✅ ESSA FALTAVA -->
+    </div> <!-- checkout-left -->
+    </div> <!-- checkout-page -->
 
-<!-- ✅ SCRIPT -->
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+
 <script>
+
+    const MP_PUBLIC_KEY = "{{ mp_public_key }}";
+
+    const mp = new MercadoPago(
+        MP_PUBLIC_KEY,
+        {
+            locale: 'pt-BR'
+        }
+    );
+
+    console.log('Mercado Pago iniciado');
+
+
 
 // =====================================
 // ✅ CONTROLE DE ETAPAS (NOVO)
@@ -812,6 +834,102 @@ if (nomeCartao) {
     });
 
 }
+
+
+// =====================================
+// ✅ TOKENIZAÇÃO MERCADO PAGO
+// =====================================
+
+const checkoutForm =
+    document.getElementById('checkoutForm');
+
+if (checkoutForm) {
+
+    checkoutForm.addEventListener('submit', async function(e) {
+
+        const metodo =
+            document.getElementById(
+                'metodoPagamentoInput'
+            )?.value;
+
+        // ✅ PIX e BOLETO seguem fluxo normal
+        if (metodo !== 'novo_cartao') {
+            return;
+        }
+
+        e.preventDefault();
+
+        try {
+
+            const numeroCartao =
+                document.getElementById(
+                    'numeroCartao'
+                ).value.replace(/\s/g, '');
+
+            const validade =
+                document.getElementById(
+                    'validadeCartao'
+                ).value;
+
+            const partes =
+                validade.split('/');
+
+            if (partes.length !== 2) {
+
+                alert(
+                    'Validade do cartão inválida.'
+                );
+
+                return;
+            }
+
+            const mes = partes[0];
+            const ano = '20' + partes[1];
+
+            const resultado =
+                await mp.createCardToken({
+
+                    cardNumber: numeroCartao,
+
+                    cardholderName:
+                        document.getElementById(
+                            'nomeCartao'
+                        ).value,
+
+                    cardExpirationMonth: mes,
+
+                    cardExpirationYear: ano,
+
+                    securityCode:
+                        document.getElementById(
+                            'cvvCartao'
+                        ).value
+
+                });
+
+            document.getElementById(
+                'cardToken'
+            ).value = resultado.id;
+
+            checkoutForm.submit();
+
+        } catch (erro) {
+
+            console.error(
+                'Erro Mercado Pago:',
+                erro
+            );
+
+            alert(
+                'Não foi possível validar o cartão. Verifique os dados informados.'
+            );
+
+        }
+
+    });
+
+}
+
 
 </script>
 

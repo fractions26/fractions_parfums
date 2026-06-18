@@ -19,7 +19,7 @@ STATUS_CHOICES = [
 
 
 class Pedido(models.Model):
-
+    
     usuario = models.ForeignKey(
         User,
         on_delete=models.CASCADE
@@ -41,7 +41,6 @@ class Pedido(models.Model):
         default=0
     )
 
-    # ✅ NOVOS CAMPOS FRETE
     frete_nome = models.CharField(
         max_length=255,
         blank=True
@@ -63,6 +62,28 @@ class Pedido(models.Model):
         default='PENDENTE'
     )
 
+    # =====================================
+    # ✅ MERCADO PAGO
+    # =====================================
+
+    metodo_pagamento = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True
+    )
+
+    mercadopago_payment_id = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+
+    mercadopago_status = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True
+    )
+
     nome = models.CharField(
         max_length=255
     )
@@ -74,15 +95,10 @@ class Pedido(models.Model):
         blank=True
     )
 
-    # ✅ NOVO CAMPO
     cpf = models.CharField(
         max_length=14,
         blank=True,
         null=True
-    )
-
-    cep = models.CharField(
-        max_length=20
     )
 
     cep = models.CharField(
@@ -119,8 +135,8 @@ class Pedido(models.Model):
     )
 
     def __str__(self):
-
         return f'Pedido #{self.codigo}'
+
 
 
 class ItemPedido(models.Model):

@@ -73,6 +73,20 @@ MELHOR_ENVIO_TOKEN = config(
 )
 
 # =========================
+# ✅ MERCADO PAGO
+# =========================
+
+MP_PUBLIC_KEY = config(
+    'MP_PUBLIC_KEY',
+    default=''
+)
+
+MP_ACCESS_TOKEN = config(
+    'MP_ACCESS_TOKEN',
+    default=''
+)
+
+# =========================
 # ✅ APPS
 # =========================
 
