@@ -246,8 +246,10 @@ def consultar_parcelas(bin_cartao, valor):
             "erro": str(erro)
         }
         
+import uuid
+
 def reembolsar_pagamento(payment_id):
-    
+
     url = (
         f"https://api.mercadopago.com/v1/payments/"
         f"{payment_id}/refunds"
@@ -256,7 +258,8 @@ def reembolsar_pagamento(payment_id):
     headers = {
         "Authorization": (
             f"Bearer {settings.MP_ACCESS_TOKEN}"
-        )
+        ),
+        "X-Idempotency-Key": str(uuid.uuid4())
     }
 
     try:
