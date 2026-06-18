@@ -140,6 +140,21 @@ class Pedido(models.Model):
         auto_now=True
     )
 
+    pix_qr_code = models.TextField(
+        blank=True,
+        null=True
+    )
+
+    pix_qr_code_base64 = models.TextField(
+        blank=True,
+        null=True
+    )
+
+    pix_ticket_url = models.URLField(
+        blank=True,
+        null=True
+    )
+
     def __str__(self):
         return f'Pedido #{self.codigo}'
 
@@ -179,6 +194,8 @@ class ItemPedido(models.Model):
         max_digits=10,
         decimal_places=2
     )
+    
+    
 
     def __str__(self):
         return self.produto_nome

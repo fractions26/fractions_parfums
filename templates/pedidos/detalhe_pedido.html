@@ -175,6 +175,56 @@
                         </span>
                     </p>
 
+                    {% if pedido.metodo_pagamento == 'pix' and pedido.pix_qr_code_base64 %}
+
+                        <hr>
+
+                        <h3 class="pix-titulo">
+                            Pague com PIX
+                        </h3>
+
+                        <div class="pix-container">
+
+                            <img
+                                src="data:image/png;base64,{{ pedido.pix_qr_code_base64 }}"
+                                alt="QR Code PIX"
+                                class="pix-qrcode"
+                            >
+
+                            <p class="pix-label">
+                                <strong>Copia e Cola PIX</strong>
+                            </p>
+
+                            <textarea
+                                id="pixCode"
+                                readonly
+                                class="pix-codigo"
+                            >{{ pedido.pix_qr_code }}</textarea>
+
+                            <button
+                                type="button"
+                                class="btn-finalizar-checkout"
+                                onclick="copiarPix()"
+                            >
+                                📋 COPIAR PIX
+                            </button>
+
+                            {% if pedido.pix_ticket_url %}
+
+                            <a
+                                href="{{ pedido.pix_ticket_url }}"
+                                target="_blank"
+                                class="btn-ticket-pix"
+                            >
+                                🔗 ABRIR QR CODE
+                            </a>
+
+                            {% endif %}
+
+                        </div>
+
+                    {% endif %}
+
                     <p>
                         <strong>Subtotal:</strong>
                         R$ {{ pedido.subtotal }}
@@ -188,6 +238,35 @@
                 </div>
 
             </div>
+
+            <script>
+
+            function copiarPix() {
+
+                const campo =
+                    document.getElementById(
+                        'pixCode'
+                    );
+
+                campo.select();
+
+                campo.setSelectionRange(
+                    0,
+                    99999
+                );
+
+                navigator.clipboard.writeText(
+                    campo.value
+                );
+
+                alert(
+                    'Código PIX copiado.'
+                );
+
+            }
+
+            </script>
+
 
         </div>
 

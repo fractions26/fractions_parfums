@@ -18,7 +18,8 @@ from .services import gerar_codigo_pedido
 
 from apps.pagamentos.services import (
     get_mp_public_key,
-    criar_pagamento_cartao
+    criar_pagamento_cartao,
+    criar_pagamento_pix
 )
 
 @login_required(login_url='login')
@@ -105,7 +106,7 @@ def checkout(request):
             )
             return redirect('checkout')
 
-# =========================
+        # =========================
         # ✅ PAGAMENTO MP
         # =========================
         resultado_pagamento = None
@@ -118,9 +119,19 @@ def checkout(request):
 
         status_pedido = 'PENDENTE'
 
-        if request.POST.get(
+        metodo_pagamento = request.POST.get(
             'metodo_pagamento'
-        ) == 'novo_cartao':
+        )
+
+        print(
+            "METODO RECEBIDO:",
+            metodo_pagamento
+        )
+
+        # =========================
+        # ✅ CARTÃO DE CRÉDITO
+        # =========================
+        if metodo_pagamento == 'novo_cartao':
 
             card_token = request.POST.get(
                 'card_token'
@@ -214,8 +225,101 @@ def checkout(request):
                 status_pedido = 'CANCELADO'
 
 # =========================
+        # ✅ PIX
+        # =========================
+        elif metodo_pagamento == 'pix':
+
+            resultado_pagamento = criar_pagamento_pix(
+                valor=total + frete,
+                email=request.user.email,
+                nome=request.user.get_full_name(),
+                cpf=cpf
+            )
+
+            print("========== PIX ==========")
+            print(resultado_pagamento)
+            print("=========================")
+
+            if resultado_pagamento is None:
+
+                messages.error(
+                    request,
+                    'Erro ao gerar PIX.'
+                )
+
+                return redirect('checkout')
+
+            if resultado_pagamento.get(
+                'http_status'
+            ) != 201:
+
+                messages.error(
+                    request,
+                    resultado_pagamento.get(
+                        'message',
+                        'Erro ao gerar PIX.'
+                    )
+                )
+
+                return redirect('checkout')
+
+            status_mp = resultado_pagamento.get(
+                'status',
+                ''
+            )
+
+            payment_id = str(
+                resultado_pagamento.get(
+                    'id',
+                    ''
+                )
+            )
+
+            print(
+                f"PIX PAYMENT ID={payment_id} "
+                f"STATUS={status_mp}"
+            )
+
+            if status_mp == 'approved':
+
+                status_pedido = 'PAGO'
+
+            elif status_mp == 'pending':
+
+                status_pedido = 'AGUARDANDO_PAGAMENTO'
+
+            elif status_mp == 'rejected':
+
+                status_pedido = 'CANCELADO'
+
+            elif status_mp in (
+                'cancelled',
+                'cancelled_by_user',
+                'charged_back'
+            ):
+
+                status_pedido = 'CANCELADO'
+                
+# =========================
         # ✅ CRIA PEDIDO
         # =========================
+
+        qr_code = ''
+
+        qr_code_base64 = ''
+
+        if resultado_pagamento:
+
+            qr_code = resultado_pagamento.get(
+                'qr_code',
+                ''
+            )
+
+            qr_code_base64 = resultado_pagamento.get(
+                'qr_code_base64',
+                ''
+            )
+
         pedido = Pedido.objects.create(
             usuario=request.user,
             codigo=gerar_codigo_pedido(),
@@ -236,6 +340,10 @@ def checkout(request):
             mercadopago_status=status_mp,
 
             bandeira_cartao=bandeira_cartao,
+
+            pix_qr_code=qr_code,
+
+            pix_qr_code_base64=qr_code_base64,
 
             cpf=cpf,
 
@@ -295,6 +403,7 @@ def checkout(request):
                 else ''
             ),
         )
+
         # =========================
         # ✅ ITENS
         # =========================

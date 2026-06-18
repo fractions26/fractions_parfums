@@ -142,19 +142,35 @@
 
                 <h2>Forma de pagamento</h2>
 
-                <!-- ✅ CARTÃO SALVO -->
-                <div class="opcao-pagamento selected" data-metodo="cartao_salvo">
-                    <strong>**** 3811</strong>
-                    <span class="subtexto">Até 3x sem juros</span>
+            <!-- ✅ CARTÃO SALVO -->
+            <div class="opcao-pagamento selected" data-metodo="cartao_salvo">
+
+                <div class="opcao-header">
+                    <strong>✅ Cartão Salvo</strong>
+
+                    <span class="subtexto">
+                        Mastercard • **** 3811
+                    </span>
+
+                    <span class="subtexto">
+                        Até 3x sem juros
+                    </span>
                 </div>
+
+            </div>
 
                 <!-- ✅ NOVO CARTÃO -->
                 <div class="opcao-pagamento" data-metodo="novo_cartao">
 
-                    <div class="opcao-header">
-                        <strong>Cartão de crédito</strong>
-                        <span class="subtexto">Até 3x sem juros</span>
-                    </div>
+                <div class="opcao-header">
+
+                    <strong>💳 Cartão de Crédito</strong>
+
+                    <span class="subtexto">
+                        Até 12x disponíveis
+                    </span>
+
+                </div>
 
                     <div class="form-cartao">
 
@@ -252,8 +268,17 @@
                 <div class="opcao-pagamento" data-metodo="pix">
 
                     <div class="opcao-header">
-                        <strong>Pix</strong>
-                        <span class="subtexto">Aprovação imediata</span>
+
+                        <strong>⚡ PIX</strong>
+
+                        <span class="subtexto">
+                            Aprovação imediata
+                        </span>
+
+                        <span class="badge-desconto">
+                            3% OFF
+                        </span>
+
                     </div>
 
                     <div class="form-cartao">
@@ -269,27 +294,6 @@
 
                 </div>
 
-
-                <!-- ✅ BOLETO -->
-                <div class="opcao-pagamento" data-metodo="boleto">
-
-                    <div class="opcao-header">
-                        <strong>Boleto bancário</strong>
-                        <span class="subtexto">Pagamento à vista</span>
-                    </div>
-
-                    <div class="form-cartao">
-
-                        <input
-                            type="text"
-                            name="cpf_pagamento"
-                            id="cpfPagamentoBoleto"
-                            placeholder="CPF para pagamento"
-                        >
-
-                    </div>
-
-                </div>
 
             </div>
             <!-- ✅ FECHA checkout-box box-pagamento -->
@@ -616,8 +620,7 @@ function configurarPagamento() {
             // ✅ abre formulário dos métodos que precisam
             if (
                 metodoSelecionado === 'novo_cartao' ||
-                metodoSelecionado === 'pix' ||
-                metodoSelecionado === 'boleto'
+                metodoSelecionado === 'pix'
             ) {
                 this.classList.add('active');
             }
@@ -684,10 +687,8 @@ function atualizarEstadoBotao() {
         cpfInput = document.getElementById('cpfPagamentoPix');
     }
 
-    if (metodoSelecionado === 'boleto') {
-        cpfInput = document.getElementById('cpfPagamentoBoleto');
-    }
 
+    
     let cpfOK = false; // ✅ começa como falso (OBRIGATÓRIO)
 
     if (cpfInput) {
@@ -731,17 +732,114 @@ function validarStepAtualEAvancar(proximoStep) {
     }
 
     // ✅ STEP 2 → exigir pagamento
-    if (stepAtual === 2) {
+        if (stepAtual === 2) {
 
-        if (!metodoSelecionado) {
-            alert("Selecione uma forma de pagamento");
-            return;
+            if (!metodoSelecionado) {
+
+                alert("Selecione uma forma de pagamento");
+
+                return;
+            }
+
+            // ✅ VALIDA CAMPOS DO CARTÃO
+            if (metodoSelecionado === 'novo_cartao') {
+
+                const numeroCartao =
+                    document.getElementById(
+                        'numeroCartao'
+                    ).value.trim();
+
+                const validadeCartao =
+                    document.getElementById(
+                        'validadeCartao'
+                    ).value.trim();
+
+                const cvvCartao =
+                    document.getElementById(
+                        'cvvCartao'
+                    ).value.trim();
+
+                const nomeCartao =
+                    document.getElementById(
+                        'nomeCartao'
+                    ).value.trim();
+
+                const cpfCartao =
+                    document.getElementById(
+                        'cpfPagamentoCartao'
+                    ).value.trim();
+
+                if (!numeroCartao) {
+
+                    alert(
+                        'Informe o número do cartão.'
+                    );
+
+                    document.getElementById(
+                        'numeroCartao'
+                    ).focus();
+
+                    return;
+                }
+
+                if (!validadeCartao) {
+
+                    alert(
+                        'Informe a validade do cartão.'
+                    );
+
+                    document.getElementById(
+                        'validadeCartao'
+                    ).focus();
+
+                    return;
+                }
+
+                if (!cvvCartao) {
+
+                    alert(
+                        'Informe o CVV do cartão.'
+                    );
+
+                    document.getElementById(
+                        'cvvCartao'
+                    ).focus();
+
+                    return;
+                }
+
+                if (!nomeCartao) {
+
+                    alert(
+                        'Informe o nome impresso no cartão.'
+                    );
+
+                    document.getElementById(
+                        'nomeCartao'
+                    ).focus();
+
+                    return;
+                }
+
+                if (!cpfCartao) {
+
+                    alert(
+                        'Informe o CPF do titular.'
+                    );
+
+                    document.getElementById(
+                        'cpfPagamentoCartao'
+                    ).focus();
+
+                    return;
+                }
+
+            }
+
         }
 
+        irParaStep(proximoStep);
     }
-
-    irParaStep(proximoStep);
-}
 
 
 // =====================================
@@ -789,13 +887,8 @@ function atualizarResumoPagamento(opcao) {
     }
 
     if (metodo === 'pix') {
-        metodoEl.innerText = "Pix";
-        parcelaEl.innerText = "Pagamento à vista";
-    }
-
-    if (metodo === 'boleto') {
-        metodoEl.innerText = "Boleto bancário";
-        parcelaEl.innerText = "Pagamento à vista";
+        metodoEl.innerText = "PIX";
+        parcelaEl.innerText = "Pagamento instantâneo";
     }
 
 }
@@ -992,6 +1085,41 @@ if (checkoutForm) {
 
 }
 
+
+// =====================================
+// ✅ MÁSCARA VALIDADE CARTÃO (MM/AA)
+// =====================================
+
+const validadeCartaoCampo =
+    document.getElementById(
+        'validadeCartao'
+    );
+
+if (validadeCartaoCampo) {
+
+    validadeCartaoCampo.addEventListener(
+        'input',
+        function() {
+
+            let valor = this.value
+                .replace(/\D/g, '')
+                .substring(0, 4);
+
+            if (valor.length > 2) {
+
+                valor =
+                    valor.substring(0, 2)
+                    + '/'
+                    + valor.substring(2);
+
+            }
+
+            this.value = valor;
+
+        }
+    );
+
+}
 
 </script>
 

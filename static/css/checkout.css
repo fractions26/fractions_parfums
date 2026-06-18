@@ -1167,3 +1167,14 @@
     border-radius: 4px;
     margin-bottom: 35px;
 }
+
+.badge-desconto {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 10px;
+    background: #dcfce7;
+    color: #166534;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
