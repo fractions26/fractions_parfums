@@ -1139,3 +1139,31 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.cartao-visual {
+    position: relative;
+}
+
+.cartao-bandeira {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+}
+
+.bandeira-cartao {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+}
+
+.cartao-chip {
+    width: 34px;
+    height: 26px;
+    background: linear-gradient(
+        135deg,
+        #f7d154,
+        #d9b233
+    );
+    border-radius: 4px;
+    margin-bottom: 35px;
+}

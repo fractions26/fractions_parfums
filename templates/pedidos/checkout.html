@@ -158,17 +158,36 @@
 
                     <div class="form-cartao">
 
-                        <div class="cartao-visual">
+                    <div class="cartao-visual">
 
-                            <div class="cartao-numero" id="previewNumero">
-                                •••• •••• •••• ••••
-                            </div>
+                        <div class="cartao-bandeira">
 
-                            <div class="cartao-nome" id="previewNome">
-                                NOME NO CARTÃO
-                            </div>
+                        <img
+                            id="bandeiraCartao"
+                            class="bandeira-cartao"
+                            src="{% static 'images/pagamento/visa.png' %}"
+                            alt="Bandeira"
+                        >
 
                         </div>
+
+                        <div class="cartao-chip"></div>
+
+                        <div
+                            class="cartao-numero"
+                            id="previewNumero"
+                        >
+                            •••• •••• •••• ••••
+                        </div>
+
+                        <div
+                            class="cartao-nome"
+                            id="previewNome"
+                        >
+                            NOME NO CARTÃO
+                        </div>
+
+                    </div>
 
                         <!-- TOKEN MP -->
                         <input
@@ -796,7 +815,7 @@ function atualizarResumoPagamento(opcao) {
     });
 
 // =====================================
-// ✅ PREVIEW CARTÃO
+// ✅ PREVIEW CARTÃO + BANDEIRA
 // =====================================
 
 const numeroCartao =
@@ -805,20 +824,83 @@ document.querySelector('[name="numero_cartao"]');
 const nomeCartao =
 document.querySelector('[name="nome_cartao"]');
 
+const bandeiraCartao =
+document.getElementById('bandeiraCartao');
+
 if (numeroCartao) {
 
     numeroCartao.addEventListener('input', function() {
 
-        let valor = this.value
+        let numeroLimpo = this.value
             .replace(/\D/g, '')
-            .substring(0, 16)
+            .substring(0, 16);
+
+        let valor = numeroLimpo
             .replace(/(.{4})/g, '$1 ')
             .trim();
 
         this.value = valor;
 
-        document.getElementById('previewNumero').textContent =
+        document.getElementById(
+            'previewNumero'
+        ).textContent =
             valor || '•••• •••• •••• ••••';
+
+        // =========================
+        // ✅ DETECTA BANDEIRA
+        // =========================
+
+        if (!bandeiraCartao) {
+            return;
+        }
+
+        if (/^4/.test(numeroLimpo)) {
+
+        bandeiraCartao.src =
+            '/static/images/pagamento/mastercard.png';
+
+            bandeiraCartao.alt = 'Visa';
+
+        }
+
+        else if (
+            /^(5[1-5])/.test(numeroLimpo) ||
+            /^(2[2-7])/.test(numeroLimpo)
+        ) {
+
+            bandeiraCartao.src =
+                '/static/images/pagamento/mastercard.png';
+
+            bandeiraCartao.alt = 'Mastercard';
+
+        }
+
+        else if (/^(34|37)/.test(numeroLimpo)) {
+
+            bandeiraCartao.src =
+                '/static/images/pagamento/amex.png';
+
+            bandeiraCartao.alt = 'American Express';
+
+        }
+
+        else if (/^(4011|4312|4389|4514|4576|5041|5067|5090|6277|6362|6363)/.test(numeroLimpo)) {
+
+            bandeiraCartao.src =
+                '/static/images/pagamento/elo.png';
+
+            bandeiraCartao.alt = 'Elo';
+
+        }
+
+        else {
+
+            bandeiraCartao.src =
+                '/static/images/pagamento/default.png';
+
+            bandeiraCartao.alt = 'Cartão';
+
+        }
 
     });
 
@@ -828,8 +910,12 @@ if (nomeCartao) {
 
     nomeCartao.addEventListener('input', function() {
 
-        document.getElementById('previewNome').textContent =
-            this.value.toUpperCase() || 'NOME NO CARTÃO';
+        document.getElementById(
+            'previewNome'
+        ).textContent =
+
+            this.value.toUpperCase()
+            || 'NOME NO CARTÃO';
 
     });
 
