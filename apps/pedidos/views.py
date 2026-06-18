@@ -119,6 +119,8 @@ def checkout(request):
 
         status_pedido = 'PENDENTE'
 
+        parcelas = 1
+
         metodo_pagamento = request.POST.get(
             'metodo_pagamento'
         )
@@ -137,6 +139,11 @@ def checkout(request):
                 'card_token'
             )
 
+            parcelas = request.POST.get(
+                'parcelas',
+                1
+            )
+            
             if not card_token:
 
                 messages.error(
@@ -151,7 +158,8 @@ def checkout(request):
                 valor=total + frete,
                 email=request.user.email,
                 nome=request.user.get_full_name(),
-                cpf=cpf
+                cpf=cpf,
+                installments=parcelas
             )
 
             if resultado_pagamento is None:
@@ -334,6 +342,8 @@ def checkout(request):
                 'metodo_pagamento',
                 ''
             ),
+
+            parcelas=int(parcelas),
 
             mercadopago_payment_id=payment_id,
 

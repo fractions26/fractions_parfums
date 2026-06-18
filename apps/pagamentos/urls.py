@@ -11,4 +11,10 @@ urlpatterns = [
         name='pagamento'
     ),
 
+    path(
+        'parcelas/',
+        views.consultar_parcelas_checkout,
+        name='consultar_parcelas_checkout'
+    ),
+
 ]

@@ -159,8 +159,8 @@
 
             </div>
 
-                <!-- ✅ NOVO CARTÃO -->
-                <div class="opcao-pagamento" data-metodo="novo_cartao">
+            <!-- ✅ NOVO CARTÃO -->
+            <div class="opcao-pagamento" data-metodo="novo_cartao">
 
                 <div class="opcao-header">
 
@@ -172,18 +172,18 @@
 
                 </div>
 
-                    <div class="form-cartao">
+                <div class="form-cartao">
 
                     <div class="cartao-visual">
 
                         <div class="cartao-bandeira">
 
-                        <img
-                            id="bandeiraCartao"
-                            class="bandeira-cartao"
-                            src="{% static 'images/pagamento/visa.png' %}"
-                            alt="Bandeira"
-                        >
+                            <img
+                                id="bandeiraCartao"
+                                class="bandeira-cartao"
+                                src="{% static 'images/pagamento/visa.png' %}"
+                                alt="Bandeira"
+                            >
 
                         </div>
 
@@ -205,63 +205,73 @@
 
                     </div>
 
-                        <!-- TOKEN MP -->
+                    <!-- TOKEN MP -->
+                    <input
+                        type="hidden"
+                        name="card_token"
+                        id="cardToken"
+                    >
+
+                    <input
+                        type="text"
+                        name="numero_cartao"
+                        id="numeroCartao"
+                        placeholder="0000 0000 0000 0000"
+                        maxlength="19"
+                        autocomplete="cc-number"
+                    >
+
+                    <div class="linha-cartao">
+
                         <input
-                            type="hidden"
-                            name="card_token"
-                            id="cardToken"
+                            type="text"
+                            name="validade_cartao"
+                            id="validadeCartao"
+                            placeholder="MM/AA"
+                            maxlength="5"
+                            autocomplete="cc-exp"
                         >
 
                         <input
                             type="text"
-                            name="numero_cartao"
-                            id="numeroCartao"
-                            placeholder="0000 0000 0000 0000"
-                            maxlength="19"
-                            autocomplete="cc-number"
-                        >
-
-                        <div class="linha-cartao">
-
-                            <input
-                                type="text"
-                                name="validade_cartao"
-                                id="validadeCartao"
-                                placeholder="MM/AA"
-                                maxlength="5"
-                                autocomplete="cc-exp"
-                            >
-
-                            <input
-                                type="text"
-                                name="cvv_cartao"
-                                id="cvvCartao"
-                                placeholder="CVV"
-                                maxlength="4"
-                                autocomplete="cc-csc"
-                            >
-
-                        </div>
-
-                        <input
-                            type="text"
-                            name="nome_cartao"
-                            id="nomeCartao"
-                            placeholder="Nome impresso no cartão"
-                            autocomplete="cc-name"
-                        >
-
-                        <input
-                            type="text"
-                            name="cpf_pagamento"
-                            id="cpfPagamentoCartao"
-                            placeholder="CPF do titular"
+                            name="cvv_cartao"
+                            id="cvvCartao"
+                            placeholder="CVV"
+                            maxlength="4"
+                            autocomplete="cc-csc"
                         >
 
                     </div>
 
+                    <input
+                        type="text"
+                        name="nome_cartao"
+                        id="nomeCartao"
+                        placeholder="Nome impresso no cartão"
+                        autocomplete="cc-name"
+                    >
+
+                    <input
+                        type="text"
+                        name="cpf_pagamento"
+                        id="cpfPagamentoCartao"
+                        placeholder="CPF do titular"
+                    >
+
+                    <!-- ✅ PARCELAMENTO -->
+                    <select
+                        id="parcelasCartao"
+                        name="parcelas"
+                    >
+                        <option value="">
+                            Selecione o parcelamento
+                        </option>
+                    </select>
+
                 </div>
-                <!-- ✅ FECHA novo_cartao -->
+
+            </div>
+            <!-- ✅ FECHA novo_cartao -->
 
 
                 <!-- ✅ PIX -->
@@ -688,7 +698,7 @@ function atualizarEstadoBotao() {
     }
 
 
-    
+
     let cpfOK = false; // ✅ começa como falso (OBRIGATÓRIO)
 
     if (cpfInput) {
@@ -928,6 +938,21 @@ if (numeroCartao) {
             .replace(/\D/g, '')
             .substring(0, 16);
 
+        // ✅ CONSULTA PARCELAS AO OBTER O BIN
+        if (numeroLimpo.length >= 6) {
+
+            const bin =
+                numeroLimpo.substring(
+                    0,
+                    6
+                );
+
+            carregarParcelasCartao(
+                bin
+            );
+
+        }
+
         let valor = numeroLimpo
             .replace(/(.{4})/g, '$1 ')
             .trim();
@@ -1119,6 +1144,109 @@ if (validadeCartaoCampo) {
         }
     );
 
+}
+
+// =====================================
+// ✅ CONSULTA PARCELAS MERCADO PAGO
+// =====================================
+
+async function carregarParcelasCartao(bin) {
+
+    const selectParcelas =
+        document.getElementById(
+            'parcelasCartao'
+        );
+
+    if (!selectParcelas) {
+        return;
+    }
+
+    const totalTexto =
+        document.getElementById(
+            'totalCheckout'
+        ).innerText;
+
+    const valorTotal = totalTexto
+        .replace('R$', '')
+        .trim()
+        .replace(',', '.');
+
+    try {
+
+        const response = await fetch(
+            `/pagamento/parcelas/?bin=${bin}&valor=${valorTotal}`
+        );
+
+
+        const data = await response.json();
+
+        selectParcelas.innerHTML =
+            `<option value="">Selecione o parcelamento</option>`;
+
+        if (
+            !data.success ||
+            !data.dados ||
+            !data.dados.length
+        ) {
+            return;
+        }
+
+        const parcelas =
+            data.dados[0].payer_costs || [];
+
+        console.log(
+            'QUANTIDADE PARCELAS:',
+            parcelas.length
+        );
+
+        console.log(
+            'LISTA PARCELAS:',
+            parcelas
+        );
+
+        parcelas.forEach(item => {
+
+            const option =
+                document.createElement('option');
+
+            option.value =
+                item.installments;
+
+            const valorOriginal =
+                parseFloat(valorTotal);
+
+            if (item.installments <= 3) {
+
+                const parcelaSemJuros =
+                    valorOriginal /
+                    item.installments;
+
+                option.textContent =
+                    `${item.installments}x de R$ ${parcelaSemJuros.toFixed(2)} sem juros`;
+
+            }
+            else {
+
+                option.textContent =
+                    item.recommended_message;
+
+            }
+
+            selectParcelas.appendChild(
+                option
+            );
+
+        });
+
+
+    } catch (erro) {
+
+        console.error(
+            'Erro ao carregar parcelas:',
+            erro
+        );
+
+    }
 }
 
 </script>

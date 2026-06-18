@@ -13,6 +13,7 @@ def criar_pagamento_cartao(
     email,
     nome,
     cpf,
+    installments=1,
     payment_method_id="visa"
 ):
 
@@ -31,7 +32,7 @@ def criar_pagamento_cartao(
 
         "description": "Pedido Fractions Parfums",
 
-        "installments": 1,
+        "installments": int(installments),
 
         "payment_method_id": payment_method_id,
 
@@ -209,5 +210,38 @@ def consultar_pagamento(payment_id):
 
         return {
             "status": "error",
+            "erro": str(erro)
+        }
+        
+def consultar_parcelas(bin_cartao, valor):
+
+    url = (
+        "https://api.mercadopago.com/v1/"
+        "payment_methods/installments"
+    )
+
+    headers = {
+        "Authorization": f"Bearer {settings.MP_ACCESS_TOKEN}"
+    }
+
+    params = {
+        "bin": bin_cartao,
+        "amount": float(valor)
+    }
+
+    try:
+
+        response = requests.get(
+            url,
+            headers=headers,
+            params=params,
+            timeout=30
+        )
+
+        return response.json()
+
+    except Exception as erro:
+
+        return {
             "erro": str(erro)
         }

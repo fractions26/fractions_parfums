@@ -90,6 +90,10 @@ class Pedido(models.Model):
         null=True
     )
 
+    parcelas = models.PositiveIntegerField(
+        default=1
+    )
+
     nome = models.CharField(
         max_length=255
     )

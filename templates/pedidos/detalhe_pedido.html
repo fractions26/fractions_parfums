@@ -175,7 +175,43 @@
                         </span>
                     </p>
 
-                    {% if pedido.metodo_pagamento == 'pix' and pedido.pix_qr_code_base64 %}
+                    <p>
+                        <strong>Pagamento:</strong>
+
+                        {% if pedido.metodo_pagamento == 'novo_cartao' %}
+                            Cartão de Crédito
+                        {% elif pedido.metodo_pagamento == 'pix' %}
+                            PIX
+                        {% else %}
+                            {{ pedido.metodo_pagamento }}
+                        {% endif %}
+                    </p>
+
+                    {% if pedido.metodo_pagamento == 'novo_cartao' %}
+
+                        <p>
+                            <strong>Bandeira:</strong>
+                            {{ pedido.bandeira_cartao|title }}
+                        </p>
+
+                        <p>
+                            <strong>Parcelamento:</strong>
+
+                            {% if pedido.parcelas == 1 %}
+                                1x sem juros
+                            {% elif pedido.parcelas == 2 %}
+                                2x sem juros
+                            {% elif pedido.parcelas == 3 %}
+                                3x sem juros
+                            {% else %}
+                                {{ pedido.parcelas }}x com juros
+                            {% endif %}
+
+                        </p>
+
+                    {% endif %}
+
+                    {% if pedido.metodo_pagamento == 'pix' and pedido.pix_qr_code_base64 and pedido.status == 'AGUARDANDO_PAGAMENTO' %}
 
                         <hr>
 
