@@ -9,7 +9,6 @@ from decimal import Decimal
 
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.urls import reverse
 
 from apps.carrinho.utils import get_carrinho
 from apps.usuarios.models import Endereco
@@ -54,7 +53,7 @@ def checkout(request):
     # ✅ POST (FINALIZAR PEDIDO)
     # =====================================
     if request.method == 'POST':
-        
+
         # =========================
         # ✅ CPF (OBRIGATÓRIO)
         # =========================
@@ -65,21 +64,23 @@ def checkout(request):
 
         cpf = cpf_input or cpf_perfil
 
-        # ✅ VALIDA OBRIGATÓRIO
         if not cpf:
-            messages.error(request, "❌ Informe o CPF para continuar.")
+            messages.error(
+                request,
+                "❌ Informe o CPF para continuar."
+            )
             return redirect('checkout')
 
-        # ✅ GARANTE STRING + LIMPA
         cpf = str(cpf)
         cpf = re.sub(r'\D', '', cpf)
 
-        # ✅ VALIDA TAMANHO
         if len(cpf) != 11:
-            messages.error(request, "❌ CPF inválido.")
+            messages.error(
+                request,
+                "❌ CPF inválido."
+            )
             return redirect('checkout')
 
-        # ✅ SALVA NO PERFIL (SE NÃO TIVER)
         if perfil and not getattr(perfil, 'cpf', None):
             perfil.cpf = cpf
             perfil.save()
@@ -87,29 +88,50 @@ def checkout(request):
         # =========================
         # ✅ FRETE
         # =========================
-        frete_valor = request.POST.get('frete_valor') or '0'
+        frete_valor = request.POST.get(
+            'frete_valor'
+        ) or '0'
 
         try:
             frete = Decimal(frete_valor)
-        except:
+
+        except Exception:
             frete = Decimal('0')
 
         if frete <= 0:
-            messages.warning(request, "Selecione um frete.")
+            messages.warning(
+                request,
+                "Selecione um frete."
+            )
             return redirect('checkout')
 
-
         # =========================
-        # ✅ TESTE PAGAMENTO MP
+        # ✅ PAGAMENTO MP
         # =========================
-
         resultado_pagamento = None
 
-        if request.POST.get('metodo_pagamento') == 'novo_cartao':
+        status_mp = ''
+
+        payment_id = ''
+
+        status_pedido = 'PENDENTE'
+
+        if request.POST.get(
+            'metodo_pagamento'
+        ) == 'novo_cartao':
 
             card_token = request.POST.get(
                 'card_token'
             )
+
+            if not card_token:
+
+                messages.error(
+                    request,
+                    'Token do cartão não recebido.'
+                )
+
+                return redirect('checkout')
 
             resultado_pagamento = criar_pagamento_cartao(
                 token=card_token,
@@ -119,16 +141,72 @@ def checkout(request):
                 cpf=cpf
             )
 
+            if resultado_pagamento is None:
 
-            import json
+                messages.error(
+                    request,
+                    'Erro ao processar pagamento.'
+                )
 
-            print(
-                json.dumps(
-                    resultado_pagamento,
-                    indent=2,
-                    ensure_ascii=False
+                return redirect('checkout')
+
+            status_mp = resultado_pagamento.get(
+                'status',
+                ''
+            )
+
+            if not status_mp:
+
+                messages.error(
+                    request,
+                    'Mercado Pago não retornou status do pagamento.'
+                )
+
+                return redirect('checkout')
+
+            payment_id = str(
+                resultado_pagamento.get(
+                    'id',
+                    ''
                 )
             )
+
+            if status_mp == 'error':
+
+                messages.error(
+                    request,
+                    'Erro ao processar pagamento.'
+                )
+
+                return redirect('checkout')
+
+            print(
+                f"MP PAYMENT ID: {payment_id}"
+            )
+
+            print(
+                f"MP STATUS: {status_mp}"
+            )
+
+            if status_mp == 'approved':
+
+                status_pedido = 'PAGO'
+
+            elif status_mp == 'pending':
+
+                status_pedido = 'AGUARDANDO_PAGAMENTO'
+
+            elif status_mp == 'rejected':
+
+                status_pedido = 'CANCELADO'
+
+            elif status_mp in (
+                'cancelled',
+                'cancelled_by_user',
+                'charged_back'
+            ):
+
+                status_pedido = 'CANCELADO'
 
         # =========================
         # ✅ CRIA PEDIDO
@@ -141,28 +219,75 @@ def checkout(request):
             frete=frete,
             total=total + frete,
 
+            status=status_pedido,
+
             metodo_pagamento=request.POST.get(
                 'metodo_pagamento',
                 ''
             ),
 
+            mercadopago_payment_id=payment_id,
+
+            mercadopago_status=status_mp,
+
             cpf=cpf,
 
-            frete_nome=request.POST.get('frete_nome', ''),
-            frete_prazo=request.POST.get('frete_prazo', ''),
+            frete_nome=request.POST.get(
+                'frete_nome',
+                ''
+            ),
+
+            frete_prazo=request.POST.get(
+                'frete_prazo',
+                ''
+            ),
 
             nome=request.user.get_full_name(),
+
             email=request.user.email,
-            telefone=(endereco_principal.telefone if endereco_principal else ''),
 
-            cep=(endereco_principal.cep if endereco_principal else ''),
-            endereco=(endereco_principal.endereco if endereco_principal else ''),
-            numero=(endereco_principal.numero if endereco_principal else ''),
-            complemento=(endereco_principal.complemento if endereco_principal else ''),
-            cidade=(endereco_principal.cidade if endereco_principal else ''),
-            estado=(endereco_principal.estado if endereco_principal else ''),
+            telefone=(
+                endereco_principal.telefone
+                if endereco_principal
+                else ''
+            ),
+
+            cep=(
+                endereco_principal.cep
+                if endereco_principal
+                else ''
+            ),
+
+            endereco=(
+                endereco_principal.endereco
+                if endereco_principal
+                else ''
+            ),
+
+            numero=(
+                endereco_principal.numero
+                if endereco_principal
+                else ''
+            ),
+
+            complemento=(
+                endereco_principal.complemento
+                if endereco_principal
+                else ''
+            ),
+
+            cidade=(
+                endereco_principal.cidade
+                if endereco_principal
+                else ''
+            ),
+
+            estado=(
+                endereco_principal.estado
+                if endereco_principal
+                else ''
+            ),
         )
-
         # =========================
         # ✅ ITENS
         # =========================

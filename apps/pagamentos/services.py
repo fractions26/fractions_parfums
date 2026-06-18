@@ -57,7 +57,11 @@ def criar_pagamento_cartao(
             timeout=30
         )
 
-        return response.json()
+        dados = response.json()
+
+        dados["http_status"] = response.status_code
+
+        return dados
 
     except Exception as erro:
 
@@ -65,9 +69,10 @@ def criar_pagamento_cartao(
             "status": "error",
             "erro": str(erro)
         }
-        
+
+
 def testar_credenciais():
-    
+
     url = "https://api.mercadopago.com/users/me"
 
     headers = {
