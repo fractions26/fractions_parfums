@@ -846,10 +846,6 @@ if (numeroCartao) {
         ).textContent =
             valor || '•••• •••• •••• ••••';
 
-        // =========================
-        // ✅ DETECTA BANDEIRA
-        // =========================
-
         if (!bandeiraCartao) {
             return;
         }
@@ -875,51 +871,32 @@ if (numeroCartao) {
 
         }
 
-        else if (/^(34|37)/.test(numeroLimpo)) {
-
-            bandeiraCartao.src =
-                '/static/images/pagamento/amex.png';
-
-            bandeiraCartao.alt = 'American Express';
-
-        }
-
-        else if (
-            /^(4011|4312|4389|4514|4576|5041|5067|5090|6277|6362|6363)/
-            .test(numeroLimpo)
-        ) {
-
-            bandeiraCartao.src =
-                '/static/images/pagamento/elo.png';
-
-            bandeiraCartao.alt = 'Elo';
-
-        }
-
         else {
 
             bandeiraCartao.src =
-                '/static/images/pagamento/default.png';
+                '/static/images/pagamento/visa.png';
 
             bandeiraCartao.alt = 'Cartão';
 
         }
 
-        if (nomeCartao) {
+    });
 
-            nomeCartao.addEventListener('input', function() {
+}
 
-                document.getElementById(
-                    'previewNome'
-                ).textContent =
+if (nomeCartao) {
 
-                    this.value.toUpperCase()
-                    || 'NOME NO CARTÃO';
+    nomeCartao.addEventListener('input', function() {
 
-            });
+        document.getElementById(
+            'previewNome'
+        ).textContent =
+            this.value.toUpperCase()
+            || 'NOME NO CARTÃO';
 
-        }
+    });
 
+}
 
 // =====================================
 // ✅ TOKENIZAÇÃO MERCADO PAGO
