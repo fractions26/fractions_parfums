@@ -28,6 +28,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 
+from apps.pagamentos.services import (
+    get_mp_public_key,
+    criar_pagamento_cartao,
+    testar_credenciais
+)
+
 @login_required(login_url='login')
 def checkout(request):
 
@@ -129,7 +135,7 @@ def checkout(request):
 
             print(
                 json.dumps(
-                    resultado_pagamento,
+                    testar_credenciais(),
                     indent=2,
                     ensure_ascii=False
                 )
