@@ -863,8 +863,6 @@ if (numeroCartao) {
 
         }
 
-        }
-
         else if (
             /^(5[1-5])/.test(numeroLimpo) ||
             /^(2[2-7])/.test(numeroLimpo)
@@ -886,7 +884,10 @@ if (numeroCartao) {
 
         }
 
-        else if (/^(4011|4312|4389|4514|4576|5041|5067|5090|6277|6362|6363)/.test(numeroLimpo)) {
+        else if (
+            /^(4011|4312|4389|4514|4576|5041|5067|5090|6277|6362|6363)/
+            .test(numeroLimpo)
+        ) {
 
             bandeiraCartao.src =
                 '/static/images/pagamento/elo.png';
@@ -904,24 +905,20 @@ if (numeroCartao) {
 
         }
 
-    });
+        if (nomeCartao) {
 
-}
+            nomeCartao.addEventListener('input', function() {
 
-if (nomeCartao) {
+                document.getElementById(
+                    'previewNome'
+                ).textContent =
 
-    nomeCartao.addEventListener('input', function() {
+                    this.value.toUpperCase()
+                    || 'NOME NO CARTÃO';
 
-        document.getElementById(
-            'previewNome'
-        ).textContent =
+            });
 
-            this.value.toUpperCase()
-            || 'NOME NO CARTÃO';
-
-    });
-
-}
+        }
 
 
 // =====================================
