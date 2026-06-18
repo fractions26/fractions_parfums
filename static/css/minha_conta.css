@@ -694,3 +694,46 @@
 .linha-cartao input {
     flex: 1;
 }
+
+.status-pedido {
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+/* ✅ PAGO */
+.status-pedido.pago {
+    color: #166534;
+    background: #dcfce7;
+}
+
+/* ✅ PENDENTE */
+.status-pedido.pendente {
+    color: #1d4ed8;
+    background: #dbeafe;
+}
+
+/* ✅ AGUARDANDO PAGAMENTO */
+.status-pedido.aguardando_pagamento {
+    color: #1d4ed8;
+    background: #dbeafe;
+}
+
+/* ✅ FINALIZADO */
+.status-pedido.finalizado {
+    color: #1d4ed8;
+    background: #dbeafe;
+}
+
+/* ✅ ENVIADO */
+.status-pedido.enviado {
+    color: #92400e;
+    background: #fef3c7;
+}
+
+/* ✅ CANCELADO */
+.status-pedido.cancelado {
+    color: #991b1b;
+    background: #fee2e2;
+}

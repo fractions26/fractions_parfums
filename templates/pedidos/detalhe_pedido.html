@@ -169,8 +169,10 @@
                 <div class="dados-usuario">
 
                     <p>
-                        <strong>Status Pagamento:</strong>
-                        {{ pedido.status }}
+                        Status Pagamento:
+                        <span class="status-pedido {{ pedido.status|lower }}">
+                            {{ pedido.status }}
+                        </span>
                     </p>
 
                     <p>

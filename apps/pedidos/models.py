@@ -62,7 +62,7 @@ class Pedido(models.Model):
         default='PENDENTE'
     )
 
-    # =====================================
+# =====================================
     # ✅ MERCADO PAGO
     # =====================================
 
@@ -80,6 +80,12 @@ class Pedido(models.Model):
 
     mercadopago_status = models.CharField(
         max_length=50,
+        blank=True,
+        null=True
+    )
+
+    bandeira_cartao = models.CharField(
+        max_length=30,
         blank=True,
         null=True
     )

@@ -6,10 +6,6 @@ def get_mp_public_key():
     return settings.MP_PUBLIC_KEY
 
 
-def get_mp_access_token():
-    return settings.MP_ACCESS_TOKEN
-
-
 def criar_pagamento_cartao(
     token,
     valor,
@@ -61,13 +57,19 @@ def criar_pagamento_cartao(
 
         dados["http_status"] = response.status_code
 
+        dados["bandeira_cartao"] = dados.get(
+            "payment_method_id",
+            ""
+        )
+
         return dados
 
     except Exception as erro:
 
         return {
             "status": "error",
-            "erro": str(erro)
+            "erro": str(erro),
+            "http_status": 0
         }
 
 

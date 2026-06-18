@@ -105,7 +105,7 @@ def checkout(request):
             )
             return redirect('checkout')
 
-        # =========================
+# =========================
         # ✅ PAGAMENTO MP
         # =========================
         resultado_pagamento = None
@@ -113,6 +113,8 @@ def checkout(request):
         status_mp = ''
 
         payment_id = ''
+
+        bandeira_cartao = ''
 
         status_pedido = 'PENDENTE'
 
@@ -171,6 +173,11 @@ def checkout(request):
                 )
             )
 
+            bandeira_cartao = resultado_pagamento.get(
+                'bandeira_cartao',
+                ''
+            )
+
             if status_mp == 'error':
 
                 messages.error(
@@ -181,11 +188,9 @@ def checkout(request):
                 return redirect('checkout')
 
             print(
-                f"MP PAYMENT ID: {payment_id}"
-            )
-
-            print(
-                f"MP STATUS: {status_mp}"
+                f"MP PAYMENT ID={payment_id} "
+                f"STATUS={status_mp} "
+                f"BANDEIRA={bandeira_cartao}"
             )
 
             if status_mp == 'approved':
@@ -208,7 +213,7 @@ def checkout(request):
 
                 status_pedido = 'CANCELADO'
 
-        # =========================
+# =========================
         # ✅ CRIA PEDIDO
         # =========================
         pedido = Pedido.objects.create(
@@ -229,6 +234,8 @@ def checkout(request):
             mercadopago_payment_id=payment_id,
 
             mercadopago_status=status_mp,
+
+            bandeira_cartao=bandeira_cartao,
 
             cpf=cpf,
 
