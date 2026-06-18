@@ -3,20 +3,14 @@ from django.contrib.auth.models import User
 
 
 STATUS_CHOICES = [
-
     ('PENDENTE', 'Pendente'),
-
     ('AGUARDANDO_PAGAMENTO', 'Aguardando Pagamento'),
-
     ('PAGO', 'Pago'),
-
     ('ENVIADO', 'Enviado'),
-
     ('FINALIZADO', 'Finalizado'),
-
     ('CANCELADO', 'Cancelado'),
+    ('REEMBOLSADO', 'Reembolsado'),
 ]
-
 
 class Pedido(models.Model):
     
