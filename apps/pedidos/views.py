@@ -49,7 +49,15 @@ def checkout(request):
     # ✅ POST (FINALIZAR PEDIDO)
     # =====================================
     if request.method == 'POST':
-    
+        
+        print(
+            f"CARD TOKEN: {request.POST.get('card_token')}"
+        )
+
+        print(
+            f"METODO: {request.POST.get('metodo_pagamento')}"
+        )
+        
 
         # =========================
         # ✅ CPF (OBRIGATÓRIO)
