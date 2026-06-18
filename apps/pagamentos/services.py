@@ -65,19 +65,3 @@ def criar_pagamento_cartao(
             "status": "error",
             "erro": str(erro)
         }
-        
-def testar_credenciais():
-    
-    url = "https://api.mercadopago.com/users/me"
-
-    headers = {
-        "Authorization": f"Bearer {settings.MP_ACCESS_TOKEN}"
-    }
-
-    response = requests.get(
-        url,
-        headers=headers,
-        timeout=30
-    )
-
-    return response.json()

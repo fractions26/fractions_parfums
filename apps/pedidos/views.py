@@ -1,8 +1,4 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
-from django.http import JsonResponse
-from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.conf import settings
 
@@ -11,27 +7,19 @@ import re
 
 from decimal import Decimal
 
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.urls import reverse
+
 from apps.carrinho.utils import get_carrinho
 from apps.usuarios.models import Endereco
 
-from .models import Pedido
-from .models import ItemPedido
-
+from .models import Pedido, ItemPedido
 from .services import gerar_codigo_pedido
 
 from apps.pagamentos.services import (
     get_mp_public_key,
     criar_pagamento_cartao
-)
-
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from django.urls import reverse
-
-from apps.pagamentos.services import (
-    get_mp_public_key,
-    criar_pagamento_cartao,
-    testar_credenciais
 )
 
 @login_required(login_url='login')
@@ -129,16 +117,6 @@ def checkout(request):
                 email=request.user.email,
                 nome=request.user.get_full_name(),
                 cpf=cpf
-            )
-
-            import json
-
-            print(
-                json.dumps(
-                    testar_credenciais(),
-                    indent=2,
-                    ensure_ascii=False
-                )
             )
 
 
