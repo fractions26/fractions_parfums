@@ -50,15 +50,9 @@ def checkout(request):
     # =====================================
     if request.method == 'POST':
         
-        print(
-            f"CARD TOKEN: {request.POST.get('card_token')}"
-        )
-
-        print(
-            f"METODO: {request.POST.get('metodo_pagamento')}"
-        )
-        
-
+        from apps.pagamentos.services import (
+            criar_pagamento_cartao
+    )
         # =========================
         # ✅ CPF (OBRIGATÓRIO)
         # =========================
@@ -101,6 +95,30 @@ def checkout(request):
         if frete <= 0:
             messages.warning(request, "Selecione um frete.")
             return redirect('checkout')
+
+
+        # =========================
+        # ✅ TESTE PAGAMENTO MP
+        # =========================
+
+        resultado_pagamento = None
+
+        if request.POST.get('metodo_pagamento') == 'novo_cartao':
+
+            card_token = request.POST.get(
+                'card_token'
+            )
+
+            resultado_pagamento = criar_pagamento_cartao(
+                token=card_token,
+                valor=total + frete,
+                email=request.user.email,
+                nome=request.user.get_full_name(),
+                cpf=cpf
+            )
+
+            print(resultado_pagamento)
+
 
         # =========================
         # ✅ CRIA PEDIDO
