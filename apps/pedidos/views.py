@@ -538,6 +538,9 @@ def calcular_frete_checkout(request):
 # ✅ DETALHE PEDIDO
 # =====================================
 
+from apps.pagamentos.services import consultar_pagamento
+
+
 @login_required
 def detalhe_pedido(request, codigo):
 
@@ -549,6 +552,54 @@ def detalhe_pedido(request, codigo):
     if not pedido:
 
         return redirect('minha_conta')
+
+    # =========================
+    # ✅ SINCRONIZA STATUS PIX
+    # =========================
+    if (
+        pedido.mercadopago_payment_id
+        and pedido.status == 'AGUARDANDO_PAGAMENTO'
+    ):
+
+        try:
+
+            resultado = consultar_pagamento(
+                pedido.mercadopago_payment_id
+            )
+
+            status_mp = resultado.get(
+                'status',
+                ''
+            )
+
+            if status_mp:
+
+                pedido.mercadopago_status = status_mp
+
+                if status_mp == 'approved':
+
+                    pedido.status = 'PAGO'
+
+                elif status_mp == 'pending':
+
+                    pedido.status = 'AGUARDANDO_PAGAMENTO'
+
+                elif status_mp in (
+                    'rejected',
+                    'cancelled',
+                    'cancelled_by_user',
+                    'charged_back'
+                ):
+
+                    pedido.status = 'CANCELADO'
+
+                pedido.save()
+
+        except Exception as erro:
+
+            print(
+                f'Erro ao consultar Mercado Pago: {erro}'
+            )
 
     return render(
         request,

@@ -181,3 +181,33 @@ def testar_credenciais():
     )
 
     return response.json()
+
+
+def consultar_pagamento(payment_id):
+    
+    url = f"https://api.mercadopago.com/v1/payments/{payment_id}"
+
+    headers = {
+        "Authorization": f"Bearer {settings.MP_ACCESS_TOKEN}"
+    }
+
+    try:
+
+        response = requests.get(
+            url,
+            headers=headers,
+            timeout=30
+        )
+
+        dados = response.json()
+
+        dados["http_status"] = response.status_code
+
+        return dados
+
+    except Exception as erro:
+
+        return {
+            "status": "error",
+            "erro": str(erro)
+        }
