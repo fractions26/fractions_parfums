@@ -66,13 +66,28 @@ def vincular_carrinho_usuario(request, user):
 
 # ✅ HOME
 def home(request):
-    masculinos = Perfume.objects.filter(categorias__slug='masculinos').distinct()
-    femininos = Perfume.objects.filter(categorias__slug='femininos').distinct()
+    
+    masculinos = Perfume.objects.filter(
+        categorias__slug='masculinos'
+    ).distinct()
 
-    return render(request, 'home.html', {
-        'masculinos': masculinos,
-        'femininos': femininos
-    })
+    femininos = Perfume.objects.filter(
+        categorias__slug='femininos'
+    ).distinct()
+
+    mais_vendidos = Perfume.objects.filter(
+        categorias__slug='mais-vendidos'
+    ).distinct()
+
+    return render(
+        request,
+        'home.html',
+        {
+            'masculinos': masculinos,
+            'femininos': femininos,
+            'mais_vendidos': mais_vendidos,
+        }
+    )
 
 
 # ✅ CONTATO

@@ -55,7 +55,6 @@
         </div>
     </div>
 
-    <!-- ✅ SEGURANÇA -->
     <div class="info-item-desktop">
 
         <div class="icon-box" style="color:#19b45b;">
@@ -63,7 +62,6 @@
         </div>
 
         <div class="info-text">
-
             <span class="info-destaque">
                 SITE SEGURO
             </span>
@@ -71,17 +69,17 @@
             <p>
                 Certificado SSL protegido
             </p>
-
         </div>
 
     </div>
 
-    </div> <!-- ✅ FECHA banner-info-desktop -->
+</div>
 
 <!-- ========================================= -->
 <!-- ✅ TICKER MARCAS -->
 <!-- ========================================= -->
 <div id="brand-ticker" class="desktop-only">
+
     <div class="ticker-track">
 
         <span>Dior</span>
@@ -90,7 +88,6 @@
         <span>Armani</span>
         <span>Calvin Klein</span>
 
-        <!-- duplicado -->
         <span>Dior</span>
         <span>Prada</span>
         <span>YSL</span>
@@ -98,6 +95,7 @@
         <span>Calvin Klein</span>
 
     </div>
+
 </div>
 
 {% endif %}
@@ -115,67 +113,105 @@
         <img src="{% static 'images/banner-femininos.webp' %}" alt="Femininos">
     </a>
 
-
 </div>
 
-
 <!-- ========================================= -->
-<!-- ✅ PRODUTOS -->
+<!-- ✅ MAIS VENDIDOS -->
 <!-- ========================================= -->
-<div class="grid">
+<section class="mais-vendidos-home">
 
-    {% for produto in produtos %}
-    <div class="card">
+    <h2 class="titulo-vendidos">
+        🔥 Mais Vendidos
+    </h2>
 
-        <div class="img-box">
-            <a href="{% url 'detalhe_produto' produto.slug %}">
-                {% if produto.imagem %}
-                    <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
-                {% endif %}
-            </a>
+    <div class="carrossel-vendidos">
+
+        <button
+            type="button"
+            class="seta-vendidos seta-esquerda"
+            onclick="moverVendidos(-1000)">
+            ❮
+        </button>
+
+        <div
+            class="vendidos-scroll"
+            id="vendidosScroll">
+
+            {% for perfume in mais_vendidos %}
+
+            <div class="card-wrapper">
+
+                <div class="card">
+
+                    <div class="img-box">
+
+                        <a href="{% url 'detalhe_produto' perfume.slug %}">
+
+                            <img
+                                src="{% static perfume.imagem %}"
+                                alt="{{ perfume.nome }}">
+
+                        </a>
+
+                    </div>
+
+                    <h3>{{ perfume.nome }}</h3>
+
+                    <div class="avaliacao-home">
+                        <span class="stars">★★★★☆</span>
+                        <span class="qtd">(21)</span>
+                    </div>
+
+                    {% with preco=perfume.precos.first %}
+
+                        {% if preco %}
+
+                        <div class="preco">
+                            R$ {{ preco.valor|floatformat:2 }}
+
+                            <span class="desconto">
+                                5% OFF
+                            </span>
+                        </div>
+
+                        <p class="parcelado">
+                            <strong>3x</strong> de
+                            <strong>
+                                R$ {{ preco.valor|floatformat:2 }}
+                            </strong>
+                            sem juros
+                        </p>
+
+                        {% endif %}
+
+                    {% endwith %}
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <p>
+                Nenhum produto cadastrado na categoria
+                Mais Vendidos.
+            </p>
+
+            {% endfor %}
+
         </div>
 
-        <h3>{{ produto.nome }}</h3>
-
-        {% for preco in produto.precos.all|slice:":1" %}
-            <p class="preco">R$ {{ preco.valor }}</p>
-        {% endfor %}
-
-        <p class="parcelado">3x sem juros</p>
-
-    </div>
-    {% endfor %}
-
-</div>
-
-<!-- ========================================= -->
-<!-- ✅ PRODUTOS -->
-<!-- ========================================= -->
-<div class="grid">
-
-    {% for produto in produtos %}
-    <div class="card">
-
-        <div class="img-box">
-            <a href="{% url 'detalhe_produto' produto.slug %}">
-                {% if produto.imagem %}
-                    <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
-                {% endif %}
-            </a>
-        </div>
-
-        <h3>{{ produto.nome }}</h3>
-
-        {% for preco in produto.precos.all|slice:":1" %}
-            <p class="preco">R$ {{ preco.valor }}</p>
-        {% endfor %}
-
-        <p class="parcelado">3x sem juros</p>
+        <button
+            type="button"
+            class="seta-vendidos seta-direita"
+            onclick="moverVendidos(1000)">
+            ❯
+        </button>
 
     </div>
-    {% endfor %}
 
-</div>
+</section>
+
 
 <!-- ========================================= -->
 <!-- ✅ SCRIPT CARROSSEL -->
@@ -225,6 +261,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+function moverVendidos(valor){
+
+    document
+        .getElementById("vendidosScroll")
+        .scrollBy({
+            left: valor,
+            behavior: "smooth"
+        });
+}
+
 </script>
 
 {% endblock %}

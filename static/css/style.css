@@ -2584,3 +2584,79 @@ main {
 header {
     overflow: visible !important;
 }
+
+/* ✅ MAIS VENDIDOS */
+
+.mais-vendidos-home{
+    max-width:1400px;
+    margin:60px auto;
+    padding:0 20px;
+}
+
+.titulo-vendidos{
+    text-align:center;
+    font-size:28px;
+    margin-bottom:25px;
+}
+
+.carrossel-vendidos{
+    position:relative;
+}
+
+.vendidos-scroll{
+
+    display:flex;
+
+    gap:15px;
+
+    overflow-x:auto;
+
+    scroll-behavior:smooth;
+
+    scrollbar-width:none;
+}
+
+.vendidos-scroll::-webkit-scrollbar{
+    display:none;
+}
+
+.vendidos-scroll .card-wrapper{
+
+    min-width:270px;
+
+    max-width:270px;
+
+    flex-shrink:0;
+}
+
+.seta-vendidos{
+
+    position:absolute;
+
+    top:40%;
+
+    transform:translateY(-50%);
+
+    width:50px;
+    height:50px;
+
+    border-radius:50%;
+
+    border:none;
+
+    background:#fff;
+
+    box-shadow:0 0 10px rgba(0,0,0,.15);
+
+    cursor:pointer;
+
+    z-index:10;
+}
+
+.seta-esquerda{
+    left:-20px;
+}
+
+.seta-direita{
+    right:-20px;
+}
