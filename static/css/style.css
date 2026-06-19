@@ -2661,18 +2661,22 @@ header {
     right:-20px;
 }
 
-.banner-fundo{
+@media (min-width: 769px) {
 
-    background: linear-gradient(
-        169deg,
-        #111 0%,
-        #3a5565 50%,
-        #000 100%
-    );
+    .banner-fundo{
 
-    padding: 25px 0;
-}
+        background: linear-gradient(
+            169deg,
+            #111 0%,
+            #3a5565 50%,
+            #000 100%
+        );
 
-.banner-fundo .banner-carousel{
-    margin: 0 auto !important;
+        padding: 25px 0;
+    }
+
+    .banner-fundo .banner-carousel{
+        margin: 0 auto !important;
+    }
+
 }
