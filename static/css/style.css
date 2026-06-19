@@ -2660,3 +2660,19 @@ header {
 .seta-direita{
     right:-20px;
 }
+
+.banner-fundo{
+
+    background: linear-gradient(
+        169deg,
+        #111 0%,
+        #3a5565 50%,
+        #000 100%
+    );
+
+    padding: 25px 0;
+}
+
+.banner-fundo .banner-carousel{
+    margin: 0 auto !important;
+}

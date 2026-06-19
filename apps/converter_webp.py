@@ -2,7 +2,7 @@ import os
 from PIL import Image
 
 # 🔥 CAMINHO DA SUA PASTA
-PASTA = r"C:\Users\wwwdl\OneDrive\Documentos\fractions_parfums\static\perfumes\descricao"
+PASTA = r"C:\Users\wwwdl\OneDrive\Documentos\fractions_parfums\static"
 
 # ✅ QUALIDADE (80-85 ideal)
 QUALIDADE = 85

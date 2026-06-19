@@ -141,15 +141,30 @@
         <div class="carousel-track">
 
             <div class="slide">
-                <img src="{% static 'images/banner-mobile.webp' %}" alt="Banner Fractions 1">
+                <a href="{% url 'lista_produtos' %}">
+                    <img
+                        src="{% static 'images/banner-carrosel-nova-adipec-mobile.webp' %}"
+                        alt="Banner Fractions 3"
+                    >
+                </a>
             </div>
 
             <div class="slide">
-                <img src="{% static 'images/banner2-mobile.webp' %}" alt="Banner Fractions 2">
+                <a href="{% url 'lista_produtos' %}">
+                    <img
+                        src="{% static 'images/banner-mobile.webp' %}"
+                        alt="Banner Fractions 1"
+                    >
+                </a>
             </div>
 
             <div class="slide">
-                <img src="{% static 'images/banner3-mobile.webp' %}" alt="Banner Fractions 3">
+                <a href="{% url 'lista_produtos' %}">
+                    <img
+                        src="{% static 'images/banner2-mobile.webp' %}"
+                        alt="Banner Fractions 2"
+                    >
+                </a>
             </div>
 
         </div>
@@ -587,7 +602,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setInterval(() => {
             index = (index + 1) % maxSlides;
             updateCarousel();
-        }, 5000);
+        }, 10000);
     }
 
 

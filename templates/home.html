@@ -5,26 +5,42 @@
 
 {% if request.resolver_match.url_name == 'home' %}
 
-<!-- ========================================= -->
-<!-- ✅ CARROSSEL DESKTOP -->
-<!-- ========================================= -->
-<div class="banner-carousel desktop-only">
+    <!-- ========================================= -->
+    <!-- ✅ FUNDO DO BANNER -->
+    <!-- ========================================= -->
+    <div class="banner-fundo">
 
-    <div class="carousel-track">
+        <div class="banner-carousel desktop-only">
 
-        <div class="slide">
-            <img src="{% static 'images/banner-desktop.webp' %}" alt="Banner 1" loading="lazy">
-        </div>
+            <div class="carousel-track">
 
-        <div class="slide">
-            <img src="{% static 'images/banner2-desktop.webp' %}" alt="Banner 2" loading="lazy">
+                <div class="slide">
+                    <a href="{% url 'lista_produtos' %}">
+                        <img
+                            src="{% static 'images/banner-carrosel-nova-adipec-desktop.webp' %}"
+                            alt="Banner 1"
+                            loading="lazy"
+                        >
+                    </a>
+                </div>
+
+                <div class="slide">
+                    <a href="{% url 'lista_produtos' %}">
+                        <img
+                            src="{% static 'images/banner-desktop.webp' %}"
+                            alt="Banner 2"
+                            loading="lazy"
+                        >
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="carousel-dots"></div>
+
         </div>
 
     </div>
-
-    <div class="carousel-dots"></div>
-
-</div>
 
 <!-- ========================================= -->
 <!-- ✅ BANNER INFORMATIVO -->
@@ -256,7 +272,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setInterval(() => {
             index = (index + 1) % slides.length;
             updateCarousel();
-        }, 4000);
+        }, 10000);
 
     });
 
