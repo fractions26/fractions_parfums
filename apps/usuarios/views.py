@@ -67,37 +67,67 @@ def criar_conta(request):
 
         # ✅ valida nome
         if not nome:
-            return render(request, 'criar_conta.html', {
+
+            response = render(request, 'criar_conta.html', {
                 'erro': 'Informe seu nome'
             })
 
+            response["X-Robots-Tag"] = "noindex, nofollow"
+
+            return response
+
         # ✅ valida email
         if not email:
-            return render(request, 'criar_conta.html', {
+
+            response = render(request, 'criar_conta.html', {
                 'erro': 'Informe seu email'
             })
 
+            response["X-Robots-Tag"] = "noindex, nofollow"
+
+            return response
+
         # ✅ senha
         if not senha or not confirmar:
-            return render(request, 'criar_conta.html', {
+
+            response = render(request, 'criar_conta.html', {
                 'erro': 'Preencha a senha corretamente'
             })
 
+            response["X-Robots-Tag"] = "noindex, nofollow"
+
+            return response
+
         if senha != confirmar:
-            return render(request, 'criar_conta.html', {
+
+            response = render(request, 'criar_conta.html', {
                 'erro': 'As senhas não coincidem'
             })
 
+            response["X-Robots-Tag"] = "noindex, nofollow"
+
+            return response
+
         if len(senha) < 8:
-            return render(request, 'criar_conta.html', {
+
+            response = render(request, 'criar_conta.html', {
                 'erro': 'Senha muito curta (mínimo 8 caracteres)'
             })
 
+            response["X-Robots-Tag"] = "noindex, nofollow"
+
+            return response
+
         # ✅ evita duplicado
         if User.objects.filter(username__iexact=email).exists():
-            return render(request, 'criar_conta.html', {
+
+            response = render(request, 'criar_conta.html', {
                 'erro': 'Email já cadastrado'
             })
+
+            response["X-Robots-Tag"] = "noindex, nofollow"
+
+            return response
 
         # ✅ cria usuario
         user = User.objects.create_user(
@@ -125,7 +155,11 @@ def criar_conta(request):
 
         return redirect('/pedido/')
 
-    return render(request, 'criar_conta.html')
+    response = render(request, 'criar_conta.html')
+
+    response["X-Robots-Tag"] = "noindex, nofollow"
+
+    return response
 
 
 # =====================================
