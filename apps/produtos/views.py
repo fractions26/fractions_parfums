@@ -285,7 +285,9 @@ def lista_categoria(request, slug):
 
     if ordenar == 'mais_vendidos':
 
-        perfumes = perfumes.order_by('-id')
+        perfumes = perfumes.filter(
+            categorias__slug='mais-vendidos'
+        )
 
     elif ordenar == 'preco_asc':
 

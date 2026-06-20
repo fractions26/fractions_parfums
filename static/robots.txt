@@ -1,6 +1,13 @@
 User-agent: *
 Allow: /
 
+Disallow: /carrinho/
+Disallow: /checkout/
+Disallow: /pedido/
+Disallow: /pagamento/
+Disallow: /usuario/
+Disallow: /accounts/
+
 User-agent: facebookexternalhit
 Allow: /
 
