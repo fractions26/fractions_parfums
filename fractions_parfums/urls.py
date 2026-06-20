@@ -11,6 +11,10 @@ from fractions_parfums.sitemaps import StaticSitemap
 from django.http import HttpResponse
 from django.views.decorators.http import require_GET
 
+# ✅ FAVICON
+from django.views.generic import RedirectView
+from django.templatetags.static import static as static_url
+
 
 # ✅ FUNÇÃO ROBOTS.TXT
 @require_GET
@@ -41,7 +45,16 @@ sitemaps = {
 
 urlpatterns = [
 
-    # ✅ 👇 SUPER IMPORTANTE (ANTES DE TUDO)
+    # ✅ FAVICON
+    path(
+        "favicon.ico",
+        RedirectView.as_view(
+            url=static_url("images/favicon.ico"),
+            permanent=True
+        ),
+    ),
+
+    # ✅ ROBOTS.TXT
     path("robots.txt", robots_txt),
 
     # ✅ ADMIN
@@ -80,7 +93,6 @@ urlpatterns = [
     # ✅ LOGIN GOOGLE
     path('accounts/', include('allauth.urls')),
 ]
-
 
 # ✅ MEDIA
 urlpatterns += static(
