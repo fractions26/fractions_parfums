@@ -278,16 +278,24 @@ def adicionar_carrinho(request):
 # ✅ VER CARRINHO
 # =========================
 def ver_carrinho(request):
-
+    
     carrinho = get_carrinho(request)
 
     itens = carrinho.itens.all()
     total = sum(item.preco * item.quantidade for item in itens)
 
-    return render(request, 'carrinho.html', {
-        'itens': itens,
-        'total': total
-    })
+    response = render(
+        request,
+        'carrinho.html',
+        {
+            'itens': itens,
+            'total': total
+        }
+    )
+
+    response["X-Robots-Tag"] = "noindex, nofollow"
+
+    return response
 
 
 # =========================

@@ -12,7 +12,7 @@ from .models import Endereco
 # ✅ LOGIN
 # =====================================
 def login_view(request):
-
+    
     if request.method == 'POST':
 
         email = request.POST.get('email')
@@ -38,11 +38,19 @@ def login_view(request):
 
             return redirect('home')
 
-        return render(request, 'login.html', {
+        response = render(request, 'login.html', {
             'erro': 'Email ou senha inválidos'
         })
 
-    return render(request, 'login.html')
+        response["X-Robots-Tag"] = "noindex, nofollow"
+
+        return response
+
+    response = render(request, 'login.html')
+
+    response["X-Robots-Tag"] = "noindex, nofollow"
+
+    return response
 
 
 # =====================================
