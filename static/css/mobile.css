@@ -478,21 +478,21 @@
 /* ===================== */
 .search-mobile {
     position: fixed;
-    top: 65px;
+    top: 63px;
     left: 0;
     right: 0;
-
+    border-radius: 5px;
     display: flex;
     align-items: center;
-    justify-content: center; /* ✅ centraliza o input */
+    justify-content: center;
 
     padding: 10px 0;
     margin: 0;
 
-    background: #eee;
+    background: #1f1f1f;
 
     z-index: 999;
-    border-bottom: 1px solid #eee; /* ✅ acabamento */
+    border-bottom: 1px solid #2c2c2c;
 }
 
 /* ✅ INPUT AJUSTADO */
@@ -500,15 +500,19 @@
     width: 97%;
     max-width: 500px;
 
-    background: #fff;
+    background: #333;
     border-radius: 25px;
 
     padding: 16px 95px 16px 15px;
 
-    border: 1px solid #888;
+    border: 1px solid #fafafa;
 
     font-size: 14px;
+
+    position: relative;
+    top: 10px; /* 🔥 desce 10px */
 }
+
 
 /* ✅ ÍCONE DENTRO DO INPUT */
 .search-mobile form {
@@ -634,7 +638,7 @@
 .search-button {
     position: absolute;
     right: 15px;
-    top: 50%;
+    top: 70%;
     transform: translateY(-50%);
 
     background: none;
@@ -1972,4 +1976,9 @@ body.modal-aberto {
         flex: 1;
     }
 
+}
+
+.search-mobile input::placeholder {
+    color: #fff;
+    opacity: 1; /* importante para alguns navegadores */
 }
