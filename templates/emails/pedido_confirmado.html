@@ -188,15 +188,24 @@
         "
     >
 
+        <img
+            src="data:image/png;base64,{{ pedido.pix_qr_code_base64 }}"
+            alt="QR Code PIX"
+            style="
+                max-width:280px;
+                width:100%;
+            "
+        >
+
+    </div>
+
+    {% endif %}
+
     {% if pedido.pix_qr_code %}
 
     <hr>
 
-    <h3>Pagamento PIX</h3>
-
-    <p>
-        Utilize o código PIX abaixo para concluir o pagamento:
-    </p>
+    <h3>Código PIX Copia e Cola</h3>
 
     <div
         style="

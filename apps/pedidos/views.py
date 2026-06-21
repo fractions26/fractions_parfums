@@ -264,9 +264,10 @@ def checkout(request):
                 cpf=cpf
             )
 
-            print("========== PIX ==========")
-            print(resultado_pagamento)
-            print("=========================")
+            print(
+                f"PIX PAYMENT ID={resultado_pagamento.get('id')} "
+                f"STATUS={resultado_pagamento.get('status')}"
+            )
 
             if resultado_pagamento is None:
 
