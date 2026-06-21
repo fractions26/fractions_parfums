@@ -188,18 +188,14 @@
         "
     >
 
-        <img
-            src="data:image/png;base64,{{ pedido.pix_qr_code_base64 }}"
-            alt="QR Code PIX"
-            width="220"
-        >
-
-    </div>
-
     {% if pedido.pix_qr_code %}
 
+    <hr>
+
+    <h3>Pagamento PIX</h3>
+
     <p>
-        Ou utilize o código PIX abaixo:
+        Utilize o código PIX abaixo para concluir o pagamento:
     </p>
 
     <div
@@ -209,12 +205,23 @@
             border-radius:6px;
             word-break:break-all;
             font-size:12px;
+            line-height:1.6;
+            border:1px solid #e5e5e5;
         "
     >
         {{ pedido.pix_qr_code }}
     </div>
 
-    {% endif %}
+    <p
+        style="
+            margin-top:15px;
+            color:#666;
+            font-size:14px;
+        "
+    >
+        Caso prefira visualizar o QR Code, clique em
+        <strong>ACOMPANHAR PEDIDO</strong>.
+    </p>
 
     {% endif %}
 
