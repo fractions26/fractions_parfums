@@ -102,6 +102,11 @@ INSTALLED_APPS = [
 
     # ✅ NECESSÁRIO PARA ALLAUTH
     'django.contrib.sites',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_static',
+
+    'two_factor',
     'django.contrib.sitemaps',
 
 
@@ -148,6 +153,8 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    
+    'django_otp.middleware.OTPMiddleware',
         
     'allauth.account.middleware.AccountMiddleware',
 
@@ -351,3 +358,5 @@ TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
 
 USE_TZ = True
+
+TWO_FACTOR_PATCH_ADMIN = True

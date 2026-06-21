@@ -13,7 +13,7 @@ Disallow: /login/
 Disallow: /logout/
 Disallow: /minha-conta/
 Disallow: /meus-enderecos/
-Disallow: /admin/
+Disallow: /painel-interno-fractions/
 
 User-agent: facebookexternalhit
 Allow: /

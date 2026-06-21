@@ -1,9 +1,11 @@
 from django.contrib import admin
-from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from django.contrib.auth import views as auth_views
+from django.contrib import admin
+from django.urls import path, include
+from two_factor.urls import urlpatterns as tf_patterns
 
 # ✅ SITEMAP
 from fractions_parfums.sitemaps import StaticSitemap
@@ -57,9 +59,20 @@ urlpatterns = [
 
     # ✅ ROBOTS.TXT
     path("robots.txt", robots_txt),
+    
+    
+    # ✅ TWO FACTOR AUTH
+    path(
+    '',
+    include(
+        (tf_patterns[0], 'two_factor'),
+        namespace='two_factor'
+    )
+),
+
 
     # ✅ ADMIN
-    path('admin/', admin.site.urls),
+    path('painel-interno-fractions/', admin.site.urls),
 
     # ✅ SITEMAP
     path(
