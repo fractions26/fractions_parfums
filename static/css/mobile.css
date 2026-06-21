@@ -455,7 +455,7 @@
     flex-direction: column;
     align-items: center;
 
-    gap: 12px;        /* 🔥 menos “buraco” */
+    gap: 7px;        /* 🔥 menos “buraco” */
     padding: 10px 12px; /* 🔥 menos padding lateral */
 }
 
