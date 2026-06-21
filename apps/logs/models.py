@@ -1,0 +1,142 @@
+from django.db import models
+from django.contrib.auth.models import User
+
+
+class LoginLog(models.Model):
+
+    email = models.EmailField()
+
+    evento = models.CharField(
+        max_length=50,
+        default='LOGIN'
+    )
+
+    sucesso = models.BooleanField(
+        default=False
+    )
+
+    ip = models.CharField(
+        max_length=100,
+        blank=True
+    )
+
+    user_agent = models.TextField(
+        blank=True
+    )
+
+    criado_em = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return (
+            f"{self.email} - "
+            f"{self.evento} - "
+            f"{self.criado_em}"
+        )
+
+
+class PedidoLog(models.Model):
+
+    pedido_id = models.IntegerField()
+
+    usuario = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+
+    evento = models.CharField(
+        max_length=100
+    )
+
+    observacao = models.TextField(
+        blank=True
+    )
+
+    criado_em = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return (
+            f"Pedido {self.pedido_id} - "
+            f"{self.evento}"
+        )
+
+
+class ErroLog(models.Model):
+
+    url = models.TextField()
+
+    erro = models.TextField()
+
+    traceback = models.TextField()
+
+    criado_em = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return self.erro[:60]
+
+
+class CarrinhoAbandonadoLog(models.Model):
+    
+    usuario_email = models.EmailField(
+        blank=True
+    )
+
+    valor_total = models.DecimalField(
+        max_digits=10,
+        decimal_places=2
+    )
+
+    quantidade_itens = models.IntegerField()
+
+    checkout_em = models.DateTimeField()
+
+    itens_removidos = models.BooleanField(
+        default=True
+    )
+
+    criado_em = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return (
+            f"{self.usuario_email} - "
+            f"R$ {self.valor_total}"
+        )
+
+class CheckoutVisitado(models.Model):
+    
+    usuario = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    valor_total = models.DecimalField(
+        max_digits=10,
+        decimal_places=2
+    )
+
+    quantidade_itens = models.IntegerField()
+
+    checkout_em = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    processado = models.BooleanField(
+        default=False
+    )
+
+    def __str__(self):
+        return (
+            f"{self.usuario.email if self.usuario else 'Sem usuário'} - "
+            f"{self.checkout_em}"
+        )

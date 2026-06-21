@@ -6,13 +6,14 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.conf import settings
 
 from .models import Endereco
+from apps.logs.models import LoginLog
 
 
 # =====================================
 # ✅ LOGIN
 # =====================================
 def login_view(request):
-    
+
     if request.method == 'POST':
 
         email = request.POST.get('email')
@@ -38,15 +39,34 @@ def login_view(request):
 
             return redirect('home')
 
-        response = render(request, 'login.html', {
-            'erro': 'Email ou senha inválidos'
-        })
+        # ✅ FALHA DE LOGIN
+        LoginLog.objects.create(
+            email=email,
+            evento='LOGIN_FALHA',
+            sucesso=False,
+            ip=request.META.get('REMOTE_ADDR', ''),
+            user_agent=request.META.get(
+                'HTTP_USER_AGENT',
+                ''
+            )
+        )
+
+        response = render(
+            request,
+            'login.html',
+            {
+                'erro': 'Email ou senha inválidos'
+            }
+        )
 
         response["X-Robots-Tag"] = "noindex, nofollow"
 
         return response
 
-    response = render(request, 'login.html')
+    response = render(
+        request,
+        'login.html'
+    )
 
     response["X-Robots-Tag"] = "noindex, nofollow"
 

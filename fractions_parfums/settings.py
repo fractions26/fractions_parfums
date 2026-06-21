@@ -92,6 +92,7 @@ MP_ACCESS_TOKEN = config(
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'apps.logs.apps.LogsConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -130,6 +131,9 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
 
     'django.middleware.security.SecurityMiddleware',
+    
+    # ✅ LOGS UTILIZAÇÃO
+    'fractions_parfums.middleware.ErrorLogMiddleware',
 
     # ✅ BLOQUEIA URLS MALFORMADAS
     'fractions_parfums.middleware.InvalidPathMiddleware',
@@ -292,6 +296,16 @@ DEFAULT_FROM_EMAIL = 'contato@fractionsparfums.com.br'
 LOGIN_URL = '/login/'
 
 # =========================
+# ✅ SESSÃO E-COMMERCE
+# =========================
+
+SESSION_COOKIE_AGE = 2592000
+
+SESSION_SAVE_EVERY_REQUEST = True
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+# =========================
 # ✅ ALLAUTH login Google
 # =========================
 
@@ -320,3 +334,15 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+# =========================
+# ✅ LOCALIZAÇÃO
+# =========================
+
+LANGUAGE_CODE = 'pt-br'
+
+TIME_ZONE = 'America/Sao_Paulo'
+
+USE_I18N = True
+
+USE_TZ = True

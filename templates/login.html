@@ -52,6 +52,28 @@
 
         </div>
 
+        <!-- ✅ ESQUECEU A SENHA -->
+        <div
+            style="
+                text-align:center;
+                margin-top:-10px;
+                margin-bottom:20px;
+            "
+        >
+
+            <a
+                href="{% url 'password_reset' %}"
+                style="
+                    color:#222;
+                    text-decoration:none;
+                    font-size:14px;
+                "
+            >
+                Esqueceu sua senha?
+            </a>
+
+        </div>
+
         <!-- ✅ BOTÃO ENTRAR -->
         <button
             type="submit"
@@ -68,13 +90,17 @@
         <span>ou</span>
     </div>
 
-    <!-- ✅ LOGIN GOOGLE (CORRIGIDO COM NEXT) -->
-    <a href="{% provider_login_url 'google' process='login' next=request.GET.next %}"
-       class="btn-google">
+    <!-- ✅ LOGIN GOOGLE -->
+    <a
+        href="{% provider_login_url 'google' process='login' next=request.GET.next %}"
+        class="btn-google"
+    >
 
-        <img src="https://developers.google.com/identity/images/g-logo.png"
+        <img
+            src="https://developers.google.com/identity/images/g-logo.png"
             alt="Google"
-            style="width:18px; margin-right:8px;">
+            style="width:18px; margin-right:8px;"
+        >
 
         Entrar com Google
 

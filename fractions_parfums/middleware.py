@@ -1,4 +1,7 @@
 from django.http import HttpResponseNotFound
+import traceback
+
+from apps.logs.models import ErroLog
 
 
 class InvalidPathMiddleware:
@@ -30,3 +33,30 @@ class InvalidPathMiddleware:
 
         # ✅ segue fluxo normal
         return self.get_response(request)
+
+
+class ErrorLogMiddleware:
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+
+        try:
+
+            return self.get_response(request)
+
+        except Exception as e:
+
+            try:
+
+                ErroLog.objects.create(
+                    url=request.path,
+                    erro=str(e),
+                    traceback=traceback.format_exc()
+                )
+
+            except Exception:
+                pass
+
+            raise

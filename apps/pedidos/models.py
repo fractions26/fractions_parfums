@@ -56,6 +56,11 @@ class Pedido(models.Model):
         default='PENDENTE'
     )
 
+    estoque_baixado = models.BooleanField(
+        default=False
+    )
+
+
 # =====================================
     # ✅ MERCADO PAGO
     # =====================================

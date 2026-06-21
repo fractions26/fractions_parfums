@@ -6,10 +6,10 @@ import requests
 import re
 
 from decimal import Decimal
-
+from apps.logs.models import PedidoLog
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from apps.logs.models import CheckoutVisitado
 from apps.carrinho.utils import get_carrinho
 from apps.usuarios.models import Endereco
 
@@ -49,6 +49,21 @@ def checkout(request):
         (item.preco or 0) * (item.quantidade or 0)
         for item in itens
     )
+
+    # =========================
+    # ✅ REGISTRA VISITA CHECKOUT
+    # =========================
+
+    if request.method == 'GET':
+
+        CheckoutVisitado.objects.update_or_create(
+            usuario=request.user,
+            processado=False,
+            defaults={
+                'valor_total': total,
+                'quantidade_itens': itens.count()
+            }
+        )
 
     # =====================================
     # ✅ POST (FINALIZAR PEDIDO)
@@ -413,6 +428,26 @@ def checkout(request):
                 else ''
             ),
         )
+        
+        # ✅ LOG PEDIDO
+
+        PedidoLog.objects.create(
+            pedido_id=pedido.id,
+            usuario=request.user,
+            evento='PEDIDO_CRIADO',
+            observacao=(
+                f'Status={status_pedido} | '
+                f'Pagamento={metodo_pagamento}'
+            )
+        )
+
+        CheckoutVisitado.objects.filter(
+            usuario=request.user,
+            processado=False
+        ).update(
+            processado=True
+        )
+
 
         # =========================
         # ✅ ITENS
@@ -426,6 +461,63 @@ def checkout(request):
                 quantidade=item.quantidade,
                 preco=item.preco,
                 subtotal=(item.preco * item.quantidade)
+            )
+
+        # =========================
+        # ✅ BAIXA ESTOQUE
+        # =========================
+
+        if (
+            pedido.status == 'PAGO'
+            and not pedido.estoque_baixado
+        ):
+
+            for item_pedido in pedido.itens.select_related(
+                'perfume'
+            ):
+
+                if not item_pedido.perfume:
+                    continue
+
+                try:
+
+                    tamanho_ml = int(
+                        ''.join(
+                            filter(
+                                str.isdigit,
+                                item_pedido.tamanho
+                            )
+                        )
+                    )
+
+                except Exception:
+
+                    continue
+
+                ml_vendido = (
+                    tamanho_ml *
+                    item_pedido.quantidade
+                )
+
+                perfume = item_pedido.perfume
+
+                perfume.estoque_ml = max(
+                    0,
+                    perfume.estoque_ml - ml_vendido
+                )
+
+                perfume.save()
+
+            pedido.estoque_baixado = True
+            pedido.save()
+
+            PedidoLog.objects.create(
+                pedido_id=pedido.id,
+                usuario=request.user,
+                evento='ESTOQUE_BAIXADO',
+                observacao=(
+                    f'Pedido={pedido.codigo}'
+                )
             )
 
         # =========================
