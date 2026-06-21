@@ -12,9 +12,9 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 import re
 from apps.usuarios.models import Endereco
-from apps.carrinho.models import Carrinho, Item
 from apps.pedidos.models import Pedido
-
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 
 
 # ✅ 🔥 VINCULAR CARRINHO AO USUÁRIO (COM MIGRAÇÃO DE ITENS)
@@ -427,28 +427,36 @@ def criar_conta(request):
         # ✅ EMAIL BOAS-VINDAS
         try:
 
-            from django.core.mail import send_mail
-
-            send_mail(
-
-                subject=(
-                    "🎉 Bem-vindo à Fractions Parfums!"
-                ),
-
-                message=(
-                    f"Olá, {first_name}!\n\n"
-                    f"Seu cadastro foi realizado "
-                    f"com sucesso.\n\n"
-                    f"Obrigado por escolher "
-                    f"nossa loja!"
-                ),
-
-                from_email=settings.EMAIL_HOST_USER,
-
-                recipient_list=[email],
-
-                fail_silently=False,
+            html_content = render_to_string(
+                'emails/bem_vindo.html',
+                {
+                    'nome': first_name
+                }
             )
+
+            email_msg = EmailMultiAlternatives(
+
+                subject='🎉 Bem-vindo à Fractions Parfums!',
+
+                body=(
+                    f'Olá {first_name}, '
+                    f'bem-vindo à Fractions Parfums.'
+                ),
+
+                from_email=(
+                    'Fractions Parfums '
+                    '<contato@fractionsparfums.com.br>'
+                ),
+
+                to=[email]
+            )
+
+            email_msg.attach_alternative(
+                html_content,
+                "text/html"
+            )
+
+            email_msg.send()
 
         except Exception as e:
 
