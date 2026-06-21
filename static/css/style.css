@@ -2663,20 +2663,52 @@ header {
 
 @media (min-width: 769px) {
 
-    .banner-fundo{
+    .banner-fundo {
 
         background: linear-gradient(
             169deg,
-            #000 0%,
-            #333 50%,
-            #000 100%
+            #000000 0%,
+            #111111 35%,
+            #1a1a1a 50%,
+            #111111 65%,
+            #000000 100%
         );
 
         padding: 25px 0;
+
+        box-shadow:
+            inset 0 30px 60px rgba(0,0,0,0.45),
+            inset 0 -30px 60px rgba(0,0,0,0.45);
     }
 
-    .banner-fundo .banner-carousel{
+    .banner-fundo .banner-carousel {
         margin: 0 auto !important;
+    }
+
+}
+
+@media (min-width: 769px) {
+
+    .categorias-banner {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+
+        padding: 30px;
+
+        width: 100%;
+        max-width: 100%;
+
+        margin: 0;
+
+        background: linear-gradient(
+            90deg,
+            #222 0%,
+            #111111 20%,
+            #1a1a1a 50%,
+            #333 80%,
+            #000000 100%
+        );
     }
 
 }
