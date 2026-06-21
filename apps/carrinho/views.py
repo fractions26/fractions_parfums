@@ -302,7 +302,7 @@ def ver_carrinho(request):
 # ✅ DRAWER CARRINHO
 # =========================
 def drawer_carrinho(request):
-
+    
     carrinho = get_carrinho(request)
 
     itens = carrinho.itens.all()
@@ -312,7 +312,7 @@ def drawer_carrinho(request):
         for item in itens
     )
 
-    return render(
+    response = render(
         request,
         'partials/carrinho_drawer.html',
         {
@@ -320,6 +320,13 @@ def drawer_carrinho(request):
             'total': total
         }
     )
+
+    # ✅ Impede indexação pelo Google
+    response["X-Robots-Tag"] = (
+        "noindex, nofollow, noarchive"
+    )
+
+    return response
 
 
 # =========================

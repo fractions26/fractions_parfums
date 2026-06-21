@@ -2,11 +2,18 @@ User-agent: *
 Allow: /
 
 Disallow: /carrinho/
+Disallow: /carrinho/drawer/
 Disallow: /checkout/
 Disallow: /pedido/
 Disallow: /pagamento/
 Disallow: /usuario/
 Disallow: /accounts/
+Disallow: /criar-conta/
+Disallow: /login/
+Disallow: /logout/
+Disallow: /minha-conta/
+Disallow: /meus-enderecos/
+Disallow: /admin/
 
 User-agent: facebookexternalhit
 Allow: /
