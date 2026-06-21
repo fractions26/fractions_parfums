@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Pedido Confirmado</title>
+</head>
+
+<body style="margin:0;padding:0;background:#f5f5f5;font-family:Arial,sans-serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0">
+
+<tr>
+<td align="center">
+
+<table
+    width="650"
+    cellpadding="0"
+    cellspacing="0"
+    style="
+        background:#ffffff;
+        margin:30px auto;
+        border-radius:12px;
+        overflow:hidden;
+    "
+>
+
+<tr>
+<td
+    align="center"
+    style="
+        background:#111111;
+        padding:30px;
+    "
+>
+
+    <img
+        src="https://fractionsparfums.com.br/static/images/logo.png"
+        alt="Fractions Parfums"
+        style="max-width:220px;"
+    >
+
+</td>
+</tr>
+
+<tr>
+<td style="padding:40px;">
+
+    <h1
+        style="
+            text-align:center;
+            color:#111;
+        "
+    >
+        ✅ Pedido Confirmado
+    </h1>
+
+    <p>
+        Olá <strong>{{ nome }}</strong>,
+    </p>
+
+    <p>
+        Recebemos seu pedido com sucesso.
+    </p>
+
+    <p>
+        Número do pedido:
+        <strong>#{{ pedido.codigo }}</strong>
+    </p>
+
+    <p>
+        Status:
+        <strong>{{ pedido.status }}</strong>
+    </p>
+
+    <hr>
+
+    <h3>Itens Comprados</h3>
+
+    <table
+        width="100%"
+        cellpadding="8"
+        cellspacing="0"
+        style="border-collapse:collapse;"
+    >
+
+        <tr
+            style="
+                background:#f5f5f5;
+            "
+        >
+            <th align="left">Produto</th>
+            <th align="center">Qtd</th>
+            <th align="right">Subtotal</th>
+        </tr>
+
+        {% for item in itens %}
+
+        <tr>
+
+            <td>
+                {{ item.produto_nome }}
+                ({{ item.tamanho }})
+            </td>
+
+            <td align="center">
+                {{ item.quantidade }}
+            </td>
+
+            <td align="right">
+                R$ {{ item.subtotal }}
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <hr>
+
+    <p>
+        <strong>Subtotal:</strong>
+        R$ {{ pedido.subtotal }}
+    </p>
+
+    <p>
+        <strong>Frete:</strong>
+        R$ {{ pedido.frete }}
+    </p>
+
+    <p
+        style="
+            font-size:20px;
+            font-weight:bold;
+        "
+    >
+        Total:
+        R$ {{ pedido.total }}
+    </p>
+
+    <hr>
+
+    <h3>Entrega</h3>
+
+    <p>
+
+        {{ pedido.nome }}<br>
+
+        {{ pedido.endereco }},
+        {{ pedido.numero }}<br>
+
+        {% if pedido.complemento %}
+            {{ pedido.complemento }}<br>
+        {% endif %}
+
+        {{ pedido.cidade }}/{{ pedido.estado }}<br>
+
+        CEP: {{ pedido.cep }}
+
+    </p>
+
+    <div
+        style="
+            text-align:center;
+            margin-top:35px;
+        "
+    >
+
+        <a
+            href="https://fractionsparfums.com.br/pedido/{{ pedido.codigo }}/"
+            style="
+                background:#111111;
+                color:#ffffff;
+                text-decoration:none;
+                padding:15px 35px;
+                border-radius:8px;
+                display:inline-block;
+                font-weight:bold;
+            "
+        >
+            VER PEDIDO
+        </a>
+
+    </div>
+
+</td>
+</tr>
+
+<tr>
+
+<td
+    align="center"
+    style="
+        background:#f7f7f7;
+        padding:20px;
+        color:#777;
+        font-size:12px;
+    "
+>
+
+    Fractions Parfums<br>
+    contato@fractionsparfums.com.br<br>
+    www.fractionsparfums.com.br
+
+</td>
+
+</tr>
+
+</table>
+
+</td>
+</tr>
+
+</table>
+
+</body>
+</html>

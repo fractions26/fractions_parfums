@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 
 import requests
 import re
@@ -462,6 +464,58 @@ def checkout(request):
                 preco=item.preco,
                 subtotal=(item.preco * item.quantidade)
             )
+            
+        # =========================
+        # ✅ EMAIL CONFIRMAÇÃO PEDIDO
+        # =========================
+
+        if pedido.status in (
+            'PAGO',
+            'AGUARDANDO_PAGAMENTO'
+        ):
+
+            try:
+
+                html_content = render_to_string(
+                    'emails/pedido_confirmado.html',
+                    {
+                        'pedido': pedido,
+                        'itens': pedido.itens.all(),
+                        'nome': pedido.nome,
+                    }
+                )
+
+                email_msg = EmailMultiAlternatives(
+
+                    subject=(
+                        f'✅ Pedido #{pedido.codigo} confirmado'
+                    ),
+
+                    body=(
+                        f'Seu pedido #{pedido.codigo} foi recebido.'
+                    ),
+
+                    from_email=(
+                        'Fractions Parfums '
+                        '<contato@fractionsparfums.com.br>'
+                    ),
+
+                    to=[pedido.email]
+                )
+
+                email_msg.attach_alternative(
+                    html_content,
+                    "text/html"
+                )
+
+                email_msg.send()
+
+            except Exception as e:
+
+                print(
+                    'Erro ao enviar email do pedido:',
+                    e
+                )
 
         # =========================
         # ✅ BAIXA ESTOQUE

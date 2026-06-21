@@ -135,6 +135,17 @@ class CheckoutVisitado(models.Model):
         default=False
     )
 
+    # ✅ NOVO
+    email_carrinho_enviado = models.BooleanField(
+        default=False
+    )
+
+    # ✅ NOVO
+    email_carrinho_enviado_em = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
     def __str__(self):
         return (
             f"{self.usuario.email if self.usuario else 'Sem usuário'} - "

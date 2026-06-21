@@ -100,11 +100,18 @@ class CheckoutVisitadoAdmin(admin.ModelAdmin):
         'valor_total',
         'quantidade_itens',
         'checkout_em',
-        'processado'
+        'processado',
+        'email_carrinho_enviado',
+        'email_carrinho_enviado_em'
     )
 
     list_filter = (
         'processado',
+        'email_carrinho_enviado'
+    )
+
+    search_fields = (
+        'usuario__email',
     )
 
     ordering = (
