@@ -158,6 +158,10 @@ class Pedido(models.Model):
         null=True
     )
 
+    email_pagamento_enviado = models.BooleanField(
+        default=False
+    )
+    
     def __str__(self):
         return f'Pedido #{self.codigo}'
 

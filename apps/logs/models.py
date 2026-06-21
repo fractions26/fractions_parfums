@@ -37,8 +37,13 @@ class LoginLog(models.Model):
 
 
 class PedidoLog(models.Model):
-
+    
     pedido_id = models.IntegerField()
+
+    codigo_pedido = models.CharField(
+        max_length=20,
+        blank=True
+    )
 
     usuario = models.ForeignKey(
         User,
@@ -61,7 +66,7 @@ class PedidoLog(models.Model):
 
     def __str__(self):
         return (
-            f"Pedido {self.pedido_id} - "
+            f"#{self.codigo_pedido} - "
             f"{self.evento}"
         )
 

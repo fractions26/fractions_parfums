@@ -16,7 +16,10 @@ from apps.carrinho.utils import get_carrinho
 from apps.usuarios.models import Endereco
 
 from .models import Pedido, ItemPedido
-from .services import gerar_codigo_pedido
+from .services import (
+    gerar_codigo_pedido,
+    baixar_estoque_pedido
+)
 
 from apps.pagamentos.services import (
     get_mp_public_key,
@@ -435,6 +438,7 @@ def checkout(request):
 
         PedidoLog.objects.create(
             pedido_id=pedido.id,
+            codigo_pedido=pedido.codigo,
             usuario=request.user,
             evento='PEDIDO_CRIADO',
             observacao=(
@@ -464,7 +468,6 @@ def checkout(request):
                 preco=item.preco,
                 subtotal=(item.preco * item.quantidade)
             )
-            
         # =========================
         # ✅ EMAIL CONFIRMAÇÃO PEDIDO
         # =========================
@@ -521,73 +524,37 @@ def checkout(request):
         # ✅ BAIXA ESTOQUE
         # =========================
 
-        if (
-            pedido.status == 'PAGO'
-            and not pedido.estoque_baixado
-        ):
+        if pedido.status == 'PAGO':
 
-            for item_pedido in pedido.itens.select_related(
-                'perfume'
-            ):
-
-                if not item_pedido.perfume:
-                    continue
-
-                try:
-
-                    tamanho_ml = int(
-                        ''.join(
-                            filter(
-                                str.isdigit,
-                                item_pedido.tamanho
-                            )
-                        )
-                    )
-
-                except Exception:
-
-                    continue
-
-                ml_vendido = (
-                    tamanho_ml *
-                    item_pedido.quantidade
-                )
-
-                perfume = item_pedido.perfume
-
-                perfume.estoque_ml = max(
-                    0,
-                    perfume.estoque_ml - ml_vendido
-                )
-
-                perfume.save()
-
-            pedido.estoque_baixado = True
-            pedido.save()
+            baixar_estoque_pedido(pedido)
 
             PedidoLog.objects.create(
                 pedido_id=pedido.id,
+                codigo_pedido=pedido.codigo,
                 usuario=request.user,
                 evento='ESTOQUE_BAIXADO',
-                observacao=(
-                    f'Pedido={pedido.codigo}'
-                )
+                observacao='Estoque atualizado'
             )
 
         # =========================
         # ✅ LIMPA CARRINHO
         # =========================
+
         itens.delete()
 
         # =========================
         # ✅ SUCESSO
         # =========================
+
         messages.success(
             request,
             f"✅ Pedido #{pedido.codigo} realizado com sucesso!"
         )
 
-        return redirect('detalhe_pedido', codigo=pedido.codigo)
+        return redirect(
+            'detalhe_pedido',
+            codigo=pedido.codigo
+        )
 
 
     # =========================
@@ -732,9 +699,92 @@ def detalhe_pedido(request, codigo):
 
                 pedido.mercadopago_status = status_mp
 
-                if status_mp == 'approved':
+                status_anterior = pedido.status
 
+                if status_mp == 'approved':
+                    
                     pedido.status = 'PAGO'
+
+                    baixar_estoque_pedido(pedido)
+
+                    PedidoLog.objects.create(
+                        pedido_id=pedido.id,
+                        codigo_pedido=pedido.codigo,
+                        usuario=pedido.usuario,
+                        evento='ESTOQUE_BAIXADO',
+                        observacao='Estoque atualizado após confirmação PIX'
+                    )
+
+                    if (
+                        status_anterior != 'PAGO'
+                        and not pedido.email_pagamento_enviado
+                    ):
+
+                        PedidoLog.objects.create(
+                            pedido_id=pedido.id,
+                            codigo_pedido=pedido.codigo,
+                            usuario=pedido.usuario,
+                            evento='PAGAMENTO_CONFIRMADO',
+                            observacao=(
+                                f'MercadoPago={pedido.mercadopago_payment_id}'
+                            )
+                        )
+
+                        try:
+
+                            html_content = render_to_string(
+                                'emails/pagamento_confirmado.html',
+                                {
+                                    'pedido': pedido
+                                }
+                            )
+
+                            email_msg = EmailMultiAlternatives(
+
+                                subject=(
+                                    f'✅ Pagamento confirmado '
+                                    f'#{pedido.codigo}'
+                                ),
+
+                                body=(
+                                    f'Seu pagamento do pedido '
+                                    f'#{pedido.codigo} foi confirmado.'
+                                ),
+
+                                from_email=(
+                                    'Fractions Parfums '
+                                    '<contato@fractionsparfums.com.br>'
+                                ),
+
+                                to=[pedido.email]
+                            )
+
+                            email_msg.attach_alternative(
+                                html_content,
+                                "text/html"
+                            )
+
+                            email_msg.send()
+
+                            pedido.email_pagamento_enviado = True
+
+                            PedidoLog.objects.create(
+                                pedido_id=pedido.id,
+                                codigo_pedido=pedido.codigo,
+                                usuario=pedido.usuario,
+                                evento='EMAIL_PAGAMENTO_ENVIADO',
+                                observacao='Email enviado com sucesso'
+                            )
+
+                        except Exception as erro:
+
+                            PedidoLog.objects.create(
+                                pedido_id=pedido.id,
+                                codigo_pedido=pedido.codigo,
+                                usuario=pedido.usuario,
+                                evento='ERRO_EMAIL_PAGAMENTO',
+                                observacao=str(erro)
+                            )
 
                 elif status_mp == 'pending':
 
