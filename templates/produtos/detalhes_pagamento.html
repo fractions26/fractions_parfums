@@ -53,7 +53,8 @@
             <img src="{% static 'images/pagamento/visa.png' %}" alt="Visa">
             <img src="{% static 'images/pagamento/mastercard.png' %}" alt="Mastercard">
             <img src="{% static 'images/pagamento/pix.png' %}" alt="Pix">
-            <img src="{% static 'images/pagamento/boleto.png' %}" alt="Boleto">
+            <img src="{% static 'images/pagamento/hipercard.png' %}" alt="Hipercard">
+            <img src="{% static 'images/pagamento/elo.png' %}" alt="Elo">
         </div>
         
         <!-- ✅ BOLETO -->
@@ -70,10 +71,10 @@
         </div>
          {% endcomment %}
         <!-- ✅ VOLTAR -->
-        <a href="/produtos/{{ perfume.slug }}/" class="voltar">
+        <a href="{% url 'detalhe_produto' slug=perfume.slug %}" class="voltar">
             Voltar ao produto
         </a>
-        
+                
         </div>
         
         </div>
