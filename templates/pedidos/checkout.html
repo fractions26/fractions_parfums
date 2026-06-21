@@ -539,7 +539,14 @@ async function carregarFretesCheckout() {
             if (frete.error) return;
 
             const nome = (frete.name || '').replace(/["']/g, '');
-            const prazo = (frete.delivery_time || '').toString().replace(/["']/g, '');
+
+            // ✅ Prazo retornado pela API + 2 dias para expedição
+            const prazoOriginal = parseInt(
+                frete.delivery_time || 0
+            );
+
+            const prazo = prazoOriginal + 2;
+
             const valor = parseFloat(frete.price || 0);
             const imagem = frete.company?.picture || '';
             const empresa = (frete.company?.name || '').replace(/["']/g, '');
@@ -570,14 +577,13 @@ async function carregarFretesCheckout() {
                 <div class="frete-info">
 
                     <strong>R$ ${valor.toFixed(2)}</strong>
-                    <small>${prazo} dias</small>
+                    <small>${prazo} dias úteis</small>
 
                 </div>
 
             </label>
             `;
         });
-
 
         container.innerHTML = html;
 
@@ -597,7 +603,6 @@ async function carregarFretesCheckout() {
         container.innerHTML = `<p>Falha ao carregar fretes</p>`;
     }
 }
-
 
 // =====================================
 // ✅ PAGAMENTO (COM EXPANSÃO)
@@ -1252,6 +1257,3 @@ async function carregarParcelasCartao(bin) {
 </script>
 
 {% endblock %}
-
-
-

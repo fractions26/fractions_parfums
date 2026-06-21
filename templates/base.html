@@ -1034,6 +1034,10 @@ document.addEventListener("DOMContentLoaded", function () {
 // ✅ CALCULAR FRETE CARRINHO
 // =======================
 
+// =======================
+// ✅ CALCULAR FRETE CARRINHO
+// =======================
+
 function calcularFreteCarrinho() {
 
     const cep = document.getElementById("cepCarrinho").value.trim();
@@ -1052,8 +1056,6 @@ function calcularFreteCarrinho() {
         credentials: 'same-origin'
     })
 
-
-
     .then(res => {
 
         // ✅ usuário não logado → redireciona
@@ -1070,6 +1072,7 @@ function calcularFreteCarrinho() {
 
         return res.json();
     })
+
     .then(data => {
 
         if (!data) return;
@@ -1115,6 +1118,13 @@ function calcularFreteCarrinho() {
 
             const preco = parseFloat(f.price || 0);
 
+            // ✅ Prazo da API + 2 dias para separação e postagem
+            const prazoOriginal = parseInt(
+                f.delivery_time || 0
+            );
+
+            const prazo = prazoOriginal + 2;
+
             // ✅ evento troca frete
             radio.addEventListener("change", () => {
 
@@ -1122,7 +1132,7 @@ function calcularFreteCarrinho() {
 
                 localStorage.setItem("frete_valor", preco);
                 localStorage.setItem("frete_nome", f.name);
-                localStorage.setItem("frete_prazo", f.delivery_time);
+                localStorage.setItem("frete_prazo", prazo);
             });
 
             const left = document.createElement("div");
@@ -1130,7 +1140,10 @@ function calcularFreteCarrinho() {
 
             // ✅ imagem segura
             const img = document.createElement("img");
-            img.src = (f.company && f.company.picture) ? f.company.picture : "";
+            img.src = (
+                f.company &&
+                f.company.picture
+            ) ? f.company.picture : "";
 
             // ✅ nome seguro
             const nome = document.createElement("span");
@@ -1145,7 +1158,7 @@ function calcularFreteCarrinho() {
 
             right.innerHTML = `
                 <strong>R$ ${preco.toFixed(2)}</strong><br>
-                ${(f.delivery_time || "-")} dias
+                ${prazo} dias úteis
             `;
 
             div.appendChild(left);
@@ -1155,12 +1168,18 @@ function calcularFreteCarrinho() {
 
             // ✅ aplica automaticamente o primeiro
             if (index === 0) {
+
                 aplicarFreteCarrinho(preco, cep);
+
+                localStorage.setItem("frete_valor", preco);
+                localStorage.setItem("frete_nome", f.name);
+                localStorage.setItem("frete_prazo", prazo);
             }
 
         });
 
     })
+
     .catch((error) => {
 
         console.error("ERRO FRETE:", error);
