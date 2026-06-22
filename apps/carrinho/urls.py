@@ -5,50 +5,52 @@ from .views import (
     adicionar_carrinho,
     atualizar_item,
     quantidade_carrinho,
-    remover_item
+    remover_item,
+    carrinhos_ativos
 )
 
 urlpatterns = [
 
-    # ✅ Página completa do carrinho
     path(
         '',
         ver_carrinho,
         name='carrinho'
     ),
 
-    # ✅ Drawer AJAX
     path(
         'drawer/',
         ver_carrinho,
         name='carrinho_drawer'
     ),
 
-    # ✅ Adicionar item
     path(
         'adicionar/',
         adicionar_carrinho,
         name='adicionar_carrinho'
     ),
 
-    # ✅ Atualizar item
     path(
         'atualizar/',
         atualizar_item,
         name='atualizar_item'
     ),
 
-    # ✅ Remover item
     path(
         'remover/',
         remover_item,
         name='remover_item'
     ),
 
-    # ✅ Badge quantidade
     path(
         'quantidade/',
         quantidade_carrinho,
         name='quantidade_carrinho'
+    ),
+
+    # ✅ NOVA VIEW
+    path(
+        'carrinhos-ativos/',
+        carrinhos_ativos,
+        name='carrinhos_ativos'
     ),
 ]

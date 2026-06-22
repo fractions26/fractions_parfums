@@ -549,3 +549,32 @@ def quantidade_carrinho(request):
     return JsonResponse({
         "quantidade": quantidade
     })
+
+from django.contrib.admin.views.decorators import staff_member_required
+from .models import Carrinho
+
+
+@staff_member_required
+def carrinhos_ativos(request):
+
+    carrinhos = (
+        Carrinho.objects
+        .filter(
+            usuario__isnull=False,
+            itens__isnull=False
+        )
+        .select_related("usuario")
+        .prefetch_related(
+            "itens",
+            "itens__perfume"
+        )
+        .distinct()
+    )
+
+    return render(
+        request,
+        "carrinho/carrinhos_ativos.html",
+        {
+            "carrinhos": carrinhos
+        }
+    )
