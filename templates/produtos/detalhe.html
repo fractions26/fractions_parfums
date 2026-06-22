@@ -277,111 +277,138 @@ function calcularFrete() {
 
     lista.innerHTML = "<div class='frete-msg'>Calculando frete...</div>";
 
-    fetch(`/checkout/frete/?cep=${cep}`)
-        .then(res => res.json())
-        .then(data => {
+const cepLimpo = cep.replace(/\D/g, "");
 
-            let fretes = data.filter(f => !f.error);
+fetch(`/entrega/frete/?cep=${cepLimpo}`, {
+    credentials: "same-origin"
+})
+.then(res => res.json())
+.then(data => {
 
-            if (!fretes.length) {
-                lista.innerHTML = "<div class='frete-msg'>Nenhuma opção disponível</div>";
-                return;
-            }
+    if (!data.success || !data.fretes) {
 
-            // ===============================
-            // ✅ DETECTA REGIÃO (pela média de prazo)
-            // ===============================
-            const mediaPrazo = fretes.reduce((acc, f) => acc + f.delivery_time, 0) / fretes.length;
+        lista.innerHTML =
+            "<div class='frete-msg'>Erro ao carregar frete</div>";
 
-            let resultado = [];
+        return;
+    }
 
-            if (mediaPrazo > 10) {
-                // 📍 REGIÃO DISTANTE (NORTE / EX: MANAUS)
+    let fretes = data.fretes.filter(f => !f.error);
 
-                resultado = fretes
-                    .filter(f => f.delivery_time <= 20)        // remove absurdos
-                    .sort((a, b) => a.price - b.price);
+    if (!fretes.length) {
+        lista.innerHTML =
+            "<div class='frete-msg'>Nenhuma opção disponível</div>";
+        return;
+    }
 
-                // 🔥 prioriza Jadlog se existir
-                const jadlog = resultado.filter(f => f.company.name === "Jadlog");
+    // ===============================
+    // ✅ DETECTA REGIÃO (pela média de prazo)
+    // ===============================
+    const mediaPrazo =
+        fretes.reduce((acc, f) => acc + parseInt(f.delivery_time || 0), 0)
+        / fretes.length;
 
-                if (jadlog.length >= 2) {
-                    resultado = jadlog.slice(0, 2);
-                } else {
-                    resultado = resultado.slice(0, 2);
-                }
+    let resultado = [];
 
-            } else {
-                // 📍 REGIÃO NORMAL (SUL/SUDESTE)
+    if (mediaPrazo > 10) {
 
-                resultado = fretes
-                    .filter(f => f.delivery_time <= 10)
-                    .sort((a, b) => a.price - b.price)
-                    .slice(0, 3);
-            }
+        // 📍 REGIÃO DISTANTE (NORTE / EX: MANAUS)
+        resultado = fretes
+            .filter(f => parseInt(f.delivery_time || 0) <= 20)
+            .sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
 
-            lista.innerHTML = "";
+        // 🔥 prioriza Jadlog se existir
+        const jadlog = resultado.filter(
+            f => f.company && f.company.name === "Jadlog"
+        );
 
-            resultado.forEach((f, index) => {
+        if (jadlog.length >= 2) {
+            resultado = jadlog.slice(0, 2);
+        } else {
+            resultado = resultado.slice(0, 2);
+        }
 
-                const item = document.createElement("div");
-                item.className = "frete-item";
+    } else {
 
-                if (index === 0) item.classList.add("melhor");
+        // 📍 REGIÃO NORMAL (SUL/SUDESTE)
+        resultado = fretes
+            .filter(f => parseInt(f.delivery_time || 0) <= 10)
+            .sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
+            .slice(0, 3);
+    }
 
-                const logo = document.createElement("img");
-                logo.src = f.company.picture;
-                logo.className = "frete-logo";
+    lista.innerHTML = "";
 
-                const nome = document.createElement("strong");
-                nome.textContent = f.name;
+    resultado.forEach((f, index) => {
 
-                const preco = document.createElement("span");
-                preco.textContent = "R$ " + parseFloat(f.price).toFixed(2);
+        const item = document.createElement("div");
+        item.className = "frete-item";
 
-                const prazo = document.createElement("span");
-                prazo.textContent = f.delivery_time + " dias";
+        if (index === 0) {
+            item.classList.add("melhor");
+        }
 
-                const top = document.createElement("div");
-                top.className = "frete-top";
-                top.appendChild(logo);
-                top.appendChild(nome);
+        const logo = document.createElement("img");
+        logo.src = f.company?.picture || "";
+        logo.className = "frete-logo";
 
-                const detalhes = document.createElement("div");
-                detalhes.className = "frete-detalhes";
-                detalhes.appendChild(preco);
-                detalhes.appendChild(prazo);
+        const nome = document.createElement("strong");
+        nome.textContent = f.name || "Frete";
 
-                item.appendChild(top);
-                item.appendChild(detalhes);
+        const preco = document.createElement("span");
+        preco.textContent =
+            "R$ " + parseFloat(f.price || 0).toFixed(2);
 
-                // ✅ BADGES
-                const badge = document.createElement("small");
+        const prazo = document.createElement("span");
+        prazo.textContent =
+            (parseInt(f.delivery_time || 0) + 2) + " dias úteis";
 
-                if (index === 0) {
-                    badge.className = "badge";
-                    badge.textContent = "Melhor custo";
-                } else {
-                    badge.className = "badge secundario";
-                    badge.textContent = "Alternativa";
-                }
+        const top = document.createElement("div");
+        top.className = "frete-top";
+        top.appendChild(logo);
+        top.appendChild(nome);
 
-                item.appendChild(badge);
+        const detalhes = document.createElement("div");
+        detalhes.className = "frete-detalhes";
+        detalhes.appendChild(preco);
+        detalhes.appendChild(prazo);
 
-                lista.appendChild(item);
-            });
+        item.appendChild(top);
+        item.appendChild(detalhes);
 
-        })
-        .catch(() => {
-            lista.innerHTML = "<div class='frete-msg'>Erro ao calcular frete</div>";
-        });
-}
-    
-document.addEventListener("DOMContentLoaded", function () {
+        // ✅ BADGES
+        const badge = document.createElement("small");
 
-    window.imagens = document.querySelectorAll('.produto-img');
-    window.indicador = document.getElementById('indicador');
-    window.indicadorModal = document.getElementById('indicadorModal');
+        if (index === 0) {
+            badge.className = "badge";
+            badge.textContent = "Melhor custo";
+        } else {
+            badge.className = "badge secundario";
+            badge.textContent = "Alternativa";
+        }
+
+        item.appendChild(badge);
+
+        lista.appendChild(item);
+    });
+
+})
+    .catch((error) => {
+
+        console.error("ERRO FRETE:", error);
+
+        lista.innerHTML =
+            "<div class='frete-msg'>Erro ao calcular frete</div>";
+    });
+
+    } // fecha a função calcularFrete
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        window.imagens = document.querySelectorAll('.produto-img');
+        window.indicador = document.getElementById('indicador');
+        window.indicadorModal = document.getElementById('indicadorModal');
+
 
     window.index = 0;
 

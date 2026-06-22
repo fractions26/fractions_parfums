@@ -49,7 +49,7 @@
 
     .mobile-only {
         display: block;
-        padding-top: 140px; /* ✅ resolve o corte */
+        padding-top: 147px; /* ✅ resolve o corte */
     }
 
         .header-mobile .logo,
