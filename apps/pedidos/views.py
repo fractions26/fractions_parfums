@@ -55,20 +55,45 @@ def checkout(request):
         for item in itens
     )
 
-    # =========================
+# =========================
     # ✅ REGISTRA VISITA CHECKOUT
     # =========================
 
     if request.method == 'GET':
 
-        CheckoutVisitado.objects.update_or_create(
-            usuario=request.user,
-            processado=False,
-            defaults={
-                'valor_total': total,
-                'quantidade_itens': itens.count()
-            }
+        checkouts = (
+            CheckoutVisitado.objects
+            .filter(
+                usuario=request.user,
+                processado=False
+            )
+            .order_by('-checkout_em')
         )
+
+        checkout = checkouts.first()
+
+        # ✅ Remove registros duplicados antigos
+        if checkout and checkouts.count() > 1:
+
+            checkouts.exclude(
+                id=checkout.id
+            ).delete()
+
+        if checkout:
+
+            checkout.valor_total = total
+            checkout.quantidade_itens = itens.count()
+
+            checkout.save()
+
+        else:
+
+            CheckoutVisitado.objects.create(
+                usuario=request.user,
+                valor_total=total,
+                quantidade_itens=itens.count(),
+                processado=False
+            )
 
     # =====================================
     # ✅ POST (FINALIZAR PEDIDO)
