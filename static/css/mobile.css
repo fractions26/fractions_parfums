@@ -456,7 +456,7 @@
     align-items: center;
 
     gap: 7px;        /* 🔥 menos “buraco” */
-    padding: 10px 12px; /* 🔥 menos padding lateral */
+    padding: 10px 2px; /* 🔥 menos padding lateral */
 }
 
 @media (max-width: 768px) {
@@ -1051,13 +1051,13 @@
 }
 
 
-/* ✅ CARROSSEL MOBILE */
 @media (max-width: 768px) {
 
     .banner-carousel {
         position: relative;
         overflow: hidden;
-        margin: 4px;
+
+        margin: 2px;
         border-radius: 12px;
     }
 
@@ -1075,7 +1075,6 @@
         height: auto;
         object-fit: contain;
     }
-
 }
 
 /* ✅ BOLINHAS */
