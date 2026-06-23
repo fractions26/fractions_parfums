@@ -1238,7 +1238,7 @@ body.modal-aberto {
 
 #brand-ticker {
     overflow: hidden;
-    background: #555;
+    background: #222;
     border-top: 1px solid rgba(0,0,0,.06);
     border-bottom: 1px solid rgba(0,0,0,.06);
     padding: 18px 0;
