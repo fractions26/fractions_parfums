@@ -456,7 +456,7 @@
     align-items: center;
 
     gap: 7px;        /* 🔥 menos “buraco” */
-    padding: 10px 0px; /* 🔥 menos padding lateral */
+    padding: 2px; /* 🔥 menos padding lateral */
 }
 
 @media (max-width: 768px) {
@@ -1073,7 +1073,8 @@
     .slide img {
         width: 100%;
         height: auto;
-        object-fit: contain;
+        display: block;
+        object-fit: cover;
     }
 }
 

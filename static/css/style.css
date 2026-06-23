@@ -1247,6 +1247,11 @@ body.modal-aberto {
     width: 100%;
 }
 
+.banner-carousel {
+    margin-bottom: -5 !important;
+}
+
+
 .ticker-track {
     display: flex;
     gap: 40px;
