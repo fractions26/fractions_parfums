@@ -456,7 +456,7 @@
     align-items: center;
 
     gap: 7px;        /* 🔥 menos “buraco” */
-    padding: 10px 2px; /* 🔥 menos padding lateral */
+    padding: 10px 0px; /* 🔥 menos padding lateral */
 }
 
 @media (max-width: 768px) {
