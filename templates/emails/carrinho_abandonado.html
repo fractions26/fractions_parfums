@@ -1,118 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
+
 <head>
-<meta charset="utf-8">
-<title>Carrinho Abandonado</title>
-</tr></head>
-
-<tr>
-<td style="padding:40px;">
-
-    <h2
-        style="
-            text-align:center;
-            color:#111111;
-        "
-    >
-        Seus perfumes continuam esperando por você ✨
-    </h2>
-
-    <p>
-        Olá, <strong>{{ nome }}</strong>.
-    </p>
-
-    <p>
-        Os itens selecionados continuam reservados em seu carrinho.
-    </p>
-
-    <p>
-        Quando desejar, retorne para concluir seu pedido e garantir suas fragrâncias favoritas.
-    </p>
-
-    <hr style="margin:30px 0;">
-
-    <h3>Itens reservados</h3>
-
-    <ul style="line-height:2;">
-
-        {% for item in itens %}
-
-        <li>
-            <strong>{{ item.perfume.nome }}</strong>
-            - {{ item.tamanho }}
-            ({{ item.quantidade }}x)
-        </li>
-
-        {% endfor %}
-
-    </ul>
-
-    <p
-        style="
-            font-size:18px;
-            margin-top:25px;
-        "
-    >
-        <strong>Total atual:</strong>
-        R$ {{ total }}
-    </p>
-
-    <div
-        style="
-            text-align:center;
-            margin-top:40px;
-        "
-    >
-
-        <a
-            href="https://fractionsparfums.com.br/carrinho/"
-            style="
-                background:#111111;
-                color:#ffffff;
-                padding:15px 35px;
-                border-radius:8px;
-                text-decoration:none;
-                font-weight:bold;
-                display:inline-block;
-            "
-        >
-            FINALIZAR COMPRA
-        </a>
-
-    </div>
-
-</td>
-</tr>
-
-<tr>
-
-<td
-    align="center"
-    style="
-        background:#f7f7f7;
-        padding:20px;
-        color:#777;
-        font-size:12px;
-    "
->
-
-    Fractions Parfums<br>
-    contato@fractionsparfums.com.br<br>
-    www.fractionsparfums.com.br
-
-</td>
-
-</tr>
-
-</table>
-
-</td>
-</tr>
-
-</table>
-
-</body>
-</html>
+    <meta charset="utf-8">
+    <title>Carrinho Abandonado</title>
+</head>
 
 <body style="
     margin:0;
@@ -121,8 +13,7 @@
     font-family:Arial,sans-serif;
 ">
 
-<table width="100%" cellpadding="0" cellspacing="0">
-
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
 <tr>
 <td align="center">
 
@@ -130,6 +21,7 @@
     width="650"
     cellpadding="0"
     cellspacing="0"
+    border="0"
     style="
         background:#ffffff;
         margin:30px auto;
@@ -138,19 +30,124 @@
     "
 >
 
-<tr>
-<td
-    align="center"
-    style="
-        background:#111111;
-        padding:30px;
-    "
->
+    <!-- HEADER -->
+    <tr>
+        <td
+            align="center"
+            style="
+                background:#111111;
+                padding:30px;
+            "
+        >
 
-    <img
-        src="https://fractionsparfums.com.br/static/images/logo.png"
-        alt="Fractions Parfums"
-        style="max-width:220px;"
-    >
+            ctionsparfums.com.br/static/images/logo.png"
+                alt="Fractions Parfums"
+                style="max-width:220px;"
+            >
+
+        </td>
+    </tr>
+
+    <!-- CONTEÚDO -->
+    <tr>
+        <td style="padding:40px;">
+
+            <h2 style="
+                text-align:center;
+                color:#111111;
+                margin-top:0;
+            ">
+                Seus perfumes continuam esperando por você ✨
+            </h2>
+
+            <p>
+                Olá,
+                <strong>{{ nome }}</strong>.
+            </p>
+
+            <p>
+                Os itens selecionados continuam disponíveis em seu carrinho.
+            </p>
+
+            <p>
+                Ainda dá tempo de concluir sua compra e garantir suas fragrâncias favoritas.
+            </p>
+
+            <hr style="margin:30px 0;">
+
+            <h3>Itens do carrinho</h3>
+
+            <ul style="line-height:2;">
+
+                {% for item in itens %}
+
+                <li>
+                    <strong>{{ item.perfume.nome }}</strong>
+                    - {{ item.tamanho }}
+                    ({{ item.quantidade }}x)
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+            <p style="
+                font-size:18px;
+                margin-top:25px;
+            ">
+                <strong>Total atual:</strong>
+                R$ {{ total }}
+            </p>
+
+            <div style="
+                text-align:center;
+                margin-top:40px;
+            ">
+
+                <a
+                    href="https://fractionsparfums.com.br/carrinho/"
+                    style="
+                        background:#111111;
+                        color:#ffffff;
+                        padding:15px 35px;
+                        border-radius:8px;
+                        text-decoration:none;
+                        font-weight:bold;
+                        display:inline-block;
+                    "
+                >
+                    FINALIZAR COMPRA
+                </a>
+
+            </div>
+
+        </td>
+    </tr>
+
+    <!-- RODAPÉ -->
+    <tr>
+        <td
+            align="center"
+            style="
+                background:#f7f7f7;
+                padding:20px;
+                color:#777777;
+                font-size:12px;
+            "
+        >
+
+            Fractions Parfums<br>
+            contato@fractionsparfums.com.br<br>
+            www.fractionsparfums.com.br
+
+        </td>
+    </tr>
+
+</table>
 
 </td>
+</tr>
+</table>
+
+</body>
+</html>

@@ -35,6 +35,14 @@ class CarrinhoAdmin(admin.ModelAdmin):
 
     inlines = [ItemInline]
 
+    def get_queryset(self, request):
+        return (
+            super()
+            .get_queryset(request)
+            .filter(itens__isnull=False)
+            .distinct()
+        )
+
     def email_usuario(self, obj):
         if obj.usuario:
             return obj.usuario.email

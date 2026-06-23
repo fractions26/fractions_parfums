@@ -3,8 +3,6 @@ from datetime import timedelta
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-from apps.carrinho.models import Carrinho
-
 from apps.logs.models import (
     CheckoutVisitado,
     CarrinhoAbandonadoLog
@@ -13,11 +11,11 @@ from apps.logs.models import (
 
 class Command(BaseCommand):
 
-    help = 'Gera carrinhos abandonados após 48 horas'
+    help = 'Registra carrinhos abandonados após 72 horas'
 
     def handle(self, *args, **kwargs):
 
-        limite = timezone.now() - timedelta(hours=48)
+        limite = timezone.now() - timedelta(hours=72)
 
         checkouts = CheckoutVisitado.objects.filter(
             processado=False,
@@ -50,16 +48,8 @@ class Command(BaseCommand):
                 valor_total=checkout.valor_total,
                 quantidade_itens=checkout.quantidade_itens,
                 checkout_em=checkout.checkout_em,
-                itens_removidos=True
+                itens_removidos=False
             )
-
-            carrinho = Carrinho.objects.filter(
-                usuario=checkout.usuario
-            ).first()
-
-            if carrinho:
-
-                carrinho.itens.all().delete()
 
             checkout.processado = True
             checkout.save()

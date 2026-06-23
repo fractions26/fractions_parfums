@@ -140,13 +140,42 @@ class CheckoutVisitado(models.Model):
         default=False
     )
 
-    # ✅ NOVO
+    # ✅ Compatibilidade com versão atual
     email_carrinho_enviado = models.BooleanField(
         default=False
     )
 
-    # ✅ NOVO
     email_carrinho_enviado_em = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    # ✅ NOVO - EMAIL 1 HORA
+    email_1_enviado = models.BooleanField(
+        default=False
+    )
+
+    email_1_enviado_em = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    # ✅ NOVO - EMAIL 24 HORAS
+    email_2_enviado = models.BooleanField(
+        default=False
+    )
+
+    email_2_enviado_em = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    # ✅ NOVO - EMAIL 72 HORAS
+    email_3_enviado = models.BooleanField(
+        default=False
+    )
+
+    email_3_enviado_em = models.DateTimeField(
         null=True,
         blank=True
     )
