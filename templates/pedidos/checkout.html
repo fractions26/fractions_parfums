@@ -747,115 +747,162 @@ function validarStepAtualEAvancar(proximoStep) {
     }
 
     // ✅ STEP 2 → exigir pagamento
-        if (stepAtual === 2) {
+    if (stepAtual === 2) {
 
-            if (!metodoSelecionado) {
+        if (!metodoSelecionado) {
 
-                alert("Selecione uma forma de pagamento");
+            alert("Selecione uma forma de pagamento");
+
+            return;
+        }
+
+        // ✅ VALIDA CAMPOS DO CARTÃO
+        if (metodoSelecionado === 'novo_cartao') {
+
+            const numeroCartao =
+                document.getElementById(
+                    'numeroCartao'
+                ).value.trim();
+
+            const validadeCartao =
+                document.getElementById(
+                    'validadeCartao'
+                ).value.trim();
+
+            const cvvCartao =
+                document.getElementById(
+                    'cvvCartao'
+                ).value.trim();
+
+            const nomeCartao =
+                document.getElementById(
+                    'nomeCartao'
+                ).value.trim();
+
+            const cpfCartao =
+                document.getElementById(
+                    'cpfPagamentoCartao'
+                ).value.trim();
+
+            if (!numeroCartao) {
+
+                alert(
+                    'Informe o número do cartão.'
+                );
+
+                document.getElementById(
+                    'numeroCartao'
+                ).focus();
 
                 return;
             }
 
-            // ✅ VALIDA CAMPOS DO CARTÃO
-            if (metodoSelecionado === 'novo_cartao') {
+            if (!validadeCartao) {
 
-                const numeroCartao =
-                    document.getElementById(
-                        'numeroCartao'
-                    ).value.trim();
+                alert(
+                    'Informe a validade do cartão.'
+                );
 
-                const validadeCartao =
-                    document.getElementById(
-                        'validadeCartao'
-                    ).value.trim();
+                document.getElementById(
+                    'validadeCartao'
+                ).focus();
 
-                const cvvCartao =
-                    document.getElementById(
-                        'cvvCartao'
-                    ).value.trim();
+                return;
+            }
 
-                const nomeCartao =
-                    document.getElementById(
-                        'nomeCartao'
-                    ).value.trim();
+            if (!cvvCartao) {
 
-                const cpfCartao =
-                    document.getElementById(
-                        'cpfPagamentoCartao'
-                    ).value.trim();
+                alert(
+                    'Informe o CVV do cartão.'
+                );
 
-                if (!numeroCartao) {
+                document.getElementById(
+                    'cvvCartao'
+                ).focus();
 
-                    alert(
-                        'Informe o número do cartão.'
-                    );
+                return;
+            }
 
-                    document.getElementById(
-                        'numeroCartao'
-                    ).focus();
+            if (!nomeCartao) {
 
-                    return;
-                }
+                alert(
+                    'Informe o nome impresso no cartão.'
+                );
 
-                if (!validadeCartao) {
+                document.getElementById(
+                    'nomeCartao'
+                ).focus();
 
-                    alert(
-                        'Informe a validade do cartão.'
-                    );
+                return;
+            }
 
-                    document.getElementById(
-                        'validadeCartao'
-                    ).focus();
+            if (!cpfCartao) {
 
-                    return;
-                }
+                alert(
+                    'Informe o CPF do titular.'
+                );
 
-                if (!cvvCartao) {
+                document.getElementById(
+                    'cpfPagamentoCartao'
+                ).focus();
 
-                    alert(
-                        'Informe o CVV do cartão.'
-                    );
+                return;
+            }
 
-                    document.getElementById(
-                        'cvvCartao'
-                    ).focus();
+            if (!validarCPF(cpfCartao)) {
 
-                    return;
-                }
+                alert(
+                    'CPF do titular inválido.'
+                );
 
-                if (!nomeCartao) {
+                document.getElementById(
+                    'cpfPagamentoCartao'
+                ).focus();
 
-                    alert(
-                        'Informe o nome impresso no cartão.'
-                    );
-
-                    document.getElementById(
-                        'nomeCartao'
-                    ).focus();
-
-                    return;
-                }
-
-                if (!cpfCartao) {
-
-                    alert(
-                        'Informe o CPF do titular.'
-                    );
-
-                    document.getElementById(
-                        'cpfPagamentoCartao'
-                    ).focus();
-
-                    return;
-                }
-
+                return;
             }
 
         }
 
-        irParaStep(proximoStep);
+        // ✅ VALIDA PIX
+        if (metodoSelecionado === 'pix') {
+
+            const cpfPix =
+                document.getElementById(
+                    'cpfPagamentoPix'
+                ).value.trim();
+
+            if (!cpfPix) {
+
+                alert(
+                    'Informe o CPF para pagamento PIX.'
+                );
+
+                document.getElementById(
+                    'cpfPagamentoPix'
+                ).focus();
+
+                return;
+            }
+
+            if (!validarCPF(cpfPix)) {
+
+                alert(
+                    'CPF informado é inválido.'
+                );
+
+                document.getElementById(
+                    'cpfPagamentoPix'
+                ).focus();
+
+                return;
+            }
+
+        }
+
     }
 
+    irParaStep(proximoStep);
 
 // =====================================
 // ✅ INICIALIZA
