@@ -1,0 +1,90 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+
+<h1>📊 Dashboard de Acessos</h1>
+
+<form method="get" style="margin-bottom:20px;">
+
+    <select name="periodo">
+
+        <option value="hoje"
+            {% if periodo == 'hoje' %}selected{% endif %}>
+            Hoje
+        </option>
+
+        <option value="ontem"
+            {% if periodo == 'ontem' %}selected{% endif %}>
+            Ontem
+        </option>
+
+        <option value="7"
+            {% if periodo == '7' %}selected{% endif %}>
+            Últimos 7 dias
+        </option>
+
+        <option value="30"
+            {% if periodo == '30' %}selected{% endif %}>
+            Últimos 30 dias
+        </option>
+
+    </select>
+
+    <button type="submit">
+        Filtrar
+    </button>
+
+</form>
+
+<hr>
+
+<h2>🏠 Home</h2>
+
+<p>
+    <strong>Total:</strong>
+    {{ total_home }}
+</p>
+
+<pre>
+{% for hora, total in home_por_hora.items %}
+{{ hora|stringformat:"02d" }}h - {{ total }}
+{% empty %}
+Nenhum acesso encontrado.
+{% endfor %}
+</pre>
+
+<hr>
+
+<h2>🧴 Produtos</h2>
+
+<p>
+    <strong>Total:</strong>
+    {{ total_produtos }}
+</p>
+
+<pre>
+{% for hora, total in produtos_por_hora.items %}
+{{ hora|stringformat:"02d" }}h - {{ total }}
+{% empty %}
+Nenhum acesso encontrado.
+{% endfor %}
+</pre>
+
+<hr>
+
+<h2>🛒 Pedidos</h2>
+
+<p>
+    <strong>Total:</strong>
+    {{ total_pedidos }}
+</p>
+
+<pre>
+{% for hora, total in pedidos_por_hora.items %}
+{{ hora|stringformat:"02d" }}h - {{ total }}
+{% empty %}
+Nenhum acesso encontrado.
+{% endfor %}
+</pre>
+
+{% endblock %}

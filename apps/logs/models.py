@@ -185,3 +185,40 @@ class CheckoutVisitado(models.Model):
             f"{self.usuario.email if self.usuario else 'Sem usuário'} - "
             f"{self.checkout_em}"
         )
+
+class AcessoPagina(models.Model):
+    
+    TIPO_CHOICES = (
+        ('HOME', 'Home'),
+        ('PRODUTO', 'Produto'),
+        ('PEDIDO', 'Pedido'),
+    )
+
+    tipo = models.CharField(
+        max_length=20,
+        choices=TIPO_CHOICES
+    )
+
+    url = models.CharField(
+        max_length=500,
+        blank=True
+    )
+
+    ip = models.CharField(
+        max_length=100,
+        blank=True
+    )
+
+    criado_em = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+        verbose_name = 'Acesso Página'
+        verbose_name_plural = 'Dashboard Acessos'
+
+    def __str__(self):
+        return (
+            f'{self.tipo} - '
+            f'{self.criado_em:%d/%m/%Y %H:%M}'
+        )

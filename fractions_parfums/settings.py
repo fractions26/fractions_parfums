@@ -142,6 +142,9 @@ MIDDLEWARE = [
 
     # ✅ BLOQUEIA URLS MALFORMADAS
     'fractions_parfums.middleware.InvalidPathMiddleware',
+    
+    # ✅ DASHBOARD ADM
+    'apps.logs.middleware.AcessoPaginaMiddleware',
 
     # ✅ STATIC FILES
     'whitenoise.middleware.WhiteNoiseMiddleware',
