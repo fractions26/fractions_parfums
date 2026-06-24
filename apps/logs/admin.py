@@ -148,32 +148,6 @@ class CheckoutVisitadoAdmin(admin.ModelAdmin):
         '-checkout_em',
     )
 
-
-@admin.register(AcessoPagina)
-class AcessoPaginaAdmin(admin.ModelAdmin):
-
-    list_display = (
-        'tipo',
-        'url',
-        'ip',
-        'criado_em',
-    )
-
-    list_filter = (
-        'tipo',
-        'criado_em',
-    )
-
-    search_fields = (
-        'url',
-        'ip',
-    )
-
-    date_hierarchy = 'criado_em'
-
-    ordering = (
-        '-criado_em',
-    )
     
 from django.urls import path
 from django.template.response import TemplateResponse
@@ -183,6 +157,10 @@ from datetime import timedelta
 from collections import defaultdict
 
 
+from django.contrib.admin.views.decorators import staff_member_required
+
+
+@staff_member_required
 def dashboard_acessos(request):
 
     periodo = request.GET.get(
@@ -200,7 +178,8 @@ def dashboard_acessos(request):
                 minute=0,
                 second=0,
                 microsecond=0
-            ) - timedelta(days=1)
+            )
+            - timedelta(days=1)
         )
 
         fim = inicio + timedelta(days=1)
@@ -244,36 +223,54 @@ def dashboard_acessos(request):
     pedidos_por_hora = defaultdict(int)
 
     for acesso in home:
-        home_por_hora[acesso.criado_em.hour] += 1
+        home_por_hora[
+            acesso.criado_em.hour
+        ] += 1
 
     for acesso in produtos:
-        produtos_por_hora[acesso.criado_em.hour] += 1
+        produtos_por_hora[
+            acesso.criado_em.hour
+        ] += 1
 
     for acesso in pedidos:
-        pedidos_por_hora[acesso.criado_em.hour] += 1
+        pedidos_por_hora[
+            acesso.criado_em.hour
+        ] += 1
+
+    context = admin.site.each_context(
+        request
+    )
+
+    context.update({
+
+        'title': 'Dashboard de Acessos',
+
+        'periodo': periodo,
+
+        'total_home': home.count(),
+
+        'total_produtos': produtos.count(),
+
+        'total_pedidos': pedidos.count(),
+
+        'home_por_hora': dict(
+            sorted(home_por_hora.items())
+        ),
+
+        'produtos_por_hora': dict(
+            sorted(produtos_por_hora.items())
+        ),
+
+        'pedidos_por_hora': dict(
+            sorted(pedidos_por_hora.items())
+        ),
+
+    })
 
     return TemplateResponse(
         request,
         'admin/logs/dashboard.html',
-        {
-            'periodo': periodo,
-
-            'total_home': home.count(),
-            'total_produtos': produtos.count(),
-            'total_pedidos': pedidos.count(),
-
-            'home_por_hora': dict(
-                sorted(home_por_hora.items())
-            ),
-
-            'produtos_por_hora': dict(
-                sorted(produtos_por_hora.items())
-            ),
-
-            'pedidos_por_hora': dict(
-                sorted(pedidos_por_hora.items())
-            ),
-        }
+        context
     )
 
 
@@ -285,7 +282,7 @@ def custom_get_urls():
     urls = [
 
         path(
-            'dashboard-acessos/',
+            'dashboard/',
             admin.site.admin_view(
                 dashboard_acessos
             ),
