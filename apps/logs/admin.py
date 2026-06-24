@@ -1,4 +1,9 @@
 from django.contrib import admin
+from django.template.response import TemplateResponse
+from django.utils import timezone
+
+from datetime import timedelta
+from collections import defaultdict
 
 from .models import (
     LoginLog,
@@ -148,150 +153,125 @@ class CheckoutVisitadoAdmin(admin.ModelAdmin):
         '-checkout_em',
     )
 
-    
-from django.urls import path
-from django.template.response import TemplateResponse
-from django.utils import timezone
 
-from datetime import timedelta
-from collections import defaultdict
+@admin.register(AcessoPagina)
+class AcessoPaginaAdmin(admin.ModelAdmin):
 
-
-from django.contrib.admin.views.decorators import staff_member_required
-
-
-@staff_member_required
-def dashboard_acessos(request):
-
-    periodo = request.GET.get(
-        'periodo',
-        'hoje'
+    change_list_template = (
+        'admin/logs/dashboard.html'
     )
 
-    fim = timezone.now()
+    def changelist_view(
+        self,
+        request,
+        extra_context=None
+    ):
 
-    if periodo == 'ontem':
+        periodo = request.GET.get(
+            'periodo',
+            'hoje'
+        )
 
-        inicio = (
-            timezone.now().replace(
+        fim = timezone.now()
+
+        if periodo == 'ontem':
+
+            inicio = (
+                timezone.now().replace(
+                    hour=0,
+                    minute=0,
+                    second=0,
+                    microsecond=0
+                )
+                - timedelta(days=1)
+            )
+
+            fim = inicio + timedelta(days=1)
+
+        elif periodo == '7':
+
+            inicio = fim - timedelta(days=7)
+
+        elif periodo == '30':
+
+            inicio = fim - timedelta(days=30)
+
+        else:
+
+            inicio = timezone.now().replace(
                 hour=0,
                 minute=0,
                 second=0,
                 microsecond=0
             )
-            - timedelta(days=1)
+
+        acessos = AcessoPagina.objects.filter(
+            criado_em__gte=inicio,
+            criado_em__lte=fim
         )
 
-        fim = inicio + timedelta(days=1)
-
-    elif periodo == '7':
-
-        inicio = fim - timedelta(days=7)
-
-    elif periodo == '30':
-
-        inicio = fim - timedelta(days=30)
-
-    else:
-
-        inicio = timezone.now().replace(
-            hour=0,
-            minute=0,
-            second=0,
-            microsecond=0
+        home = acessos.filter(
+            tipo='HOME'
         )
 
-    acessos = AcessoPagina.objects.filter(
-        criado_em__gte=inicio,
-        criado_em__lte=fim
-    )
+        produtos = acessos.filter(
+            tipo='PRODUTO'
+        )
 
-    home = acessos.filter(
-        tipo='HOME'
-    )
+        pedidos = acessos.filter(
+            tipo='PEDIDO'
+        )
 
-    produtos = acessos.filter(
-        tipo='PRODUTO'
-    )
+        home_por_hora = defaultdict(int)
+        produtos_por_hora = defaultdict(int)
+        pedidos_por_hora = defaultdict(int)
 
-    pedidos = acessos.filter(
-        tipo='PEDIDO'
-    )
+        for acesso in home:
+            home_por_hora[
+                acesso.criado_em.hour
+            ] += 1
 
-    home_por_hora = defaultdict(int)
-    produtos_por_hora = defaultdict(int)
-    pedidos_por_hora = defaultdict(int)
+        for acesso in produtos:
+            produtos_por_hora[
+                acesso.criado_em.hour
+            ] += 1
 
-    for acesso in home:
-        home_por_hora[
-            acesso.criado_em.hour
-        ] += 1
+        for acesso in pedidos:
+            pedidos_por_hora[
+                acesso.criado_em.hour
+            ] += 1
 
-    for acesso in produtos:
-        produtos_por_hora[
-            acesso.criado_em.hour
-        ] += 1
+        context = {
 
-    for acesso in pedidos:
-        pedidos_por_hora[
-            acesso.criado_em.hour
-        ] += 1
-
-    context = admin.site.each_context(
-        request
-    )
-
-    context.update({
-
-        'title': 'Dashboard de Acessos',
-
-        'periodo': periodo,
-
-        'total_home': home.count(),
-
-        'total_produtos': produtos.count(),
-
-        'total_pedidos': pedidos.count(),
-
-        'home_por_hora': dict(
-            sorted(home_por_hora.items())
-        ),
-
-        'produtos_por_hora': dict(
-            sorted(produtos_por_hora.items())
-        ),
-
-        'pedidos_por_hora': dict(
-            sorted(pedidos_por_hora.items())
-        ),
-
-    })
-
-    return TemplateResponse(
-        request,
-        'admin/logs/dashboard.html',
-        context
-    )
-
-
-original_get_urls = admin.site.get_urls
-
-
-def custom_get_urls():
-
-    urls = [
-
-        path(
-            'dashboard/',
-            admin.site.admin_view(
-                dashboard_acessos
+            **self.admin_site.each_context(
+                request
             ),
-            name='dashboard-acessos'
+
+            'title': 'Dashboard de Acessos',
+
+            'periodo': periodo,
+
+            'total_home': home.count(),
+
+            'total_produtos': produtos.count(),
+
+            'total_pedidos': pedidos.count(),
+
+            'home_por_hora': dict(
+                sorted(home_por_hora.items())
+            ),
+
+            'produtos_por_hora': dict(
+                sorted(produtos_por_hora.items())
+            ),
+
+            'pedidos_por_hora': dict(
+                sorted(pedidos_por_hora.items())
+            ),
+        }
+
+        return TemplateResponse(
+            request,
+            self.change_list_template,
+            context
         )
-
-    ]
-
-    return urls + original_get_urls()
-
-
-admin.site.get_urls = custom_get_urls
