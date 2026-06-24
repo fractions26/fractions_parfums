@@ -38,12 +38,28 @@
 
 <hr>
 
-<h2>🏠 Home</h2>
+<div style="display:flex;gap:20px;margin-bottom:30px;">
 
-<p>
-    <strong>Total:</strong>
-    {{ total_home }}
-</p>
+    <div style="padding:15px;border:1px solid #ddd;">
+        <h2>🏠 Home</h2>
+        <h1>{{ total_home }}</h1>
+    </div>
+
+    <div style="padding:15px;border:1px solid #ddd;">
+        <h2>🧴 Produtos</h2>
+        <h1>{{ total_produtos }}</h1>
+    </div>
+
+    <div style="padding:15px;border:1px solid #ddd;">
+        <h2>🛒 Pedidos</h2>
+        <h1>{{ total_pedidos }}</h1>
+    </div>
+
+</div>
+
+<hr>
+
+<h2>🏠 Home por Hora</h2>
 
 <pre>
 {% for hora, total in home_por_hora.items %}
@@ -55,12 +71,7 @@ Nenhum acesso encontrado.
 
 <hr>
 
-<h2>🧴 Produtos</h2>
-
-<p>
-    <strong>Total:</strong>
-    {{ total_produtos }}
-</p>
+<h2>🧴 Produtos por Hora</h2>
 
 <pre>
 {% for hora, total in produtos_por_hora.items %}
@@ -72,12 +83,7 @@ Nenhum acesso encontrado.
 
 <hr>
 
-<h2>🛒 Pedidos</h2>
-
-<p>
-    <strong>Total:</strong>
-    {{ total_pedidos }}
-</p>
+<h2>🛒 Pedidos por Hora</h2>
 
 <pre>
 {% for hora, total in pedidos_por_hora.items %}
