@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.template.response import TemplateResponse
 from django.utils import timezone
-
+from django.utils import timezone
 from datetime import timedelta
 from collections import defaultdict
 
@@ -227,18 +227,33 @@ class AcessoPaginaAdmin(admin.ModelAdmin):
         pedidos_por_hora = defaultdict(int)
 
         for acesso in home:
+
+            data_local = timezone.localtime(
+                acesso.criado_em
+            )
+
             home_por_hora[
-                acesso.criado_em.hour
+                data_local.hour
             ] += 1
 
         for acesso in produtos:
+
+            data_local = timezone.localtime(
+                acesso.criado_em
+            )
+
             produtos_por_hora[
-                acesso.criado_em.hour
+                data_local.hour
             ] += 1
 
         for acesso in pedidos:
+
+            data_local = timezone.localtime(
+                acesso.criado_em
+            )
+
             pedidos_por_hora[
-                acesso.criado_em.hour
+                data_local.hour
             ] += 1
 
         context = {
@@ -258,15 +273,21 @@ class AcessoPaginaAdmin(admin.ModelAdmin):
             'total_pedidos': pedidos.count(),
 
             'home_por_hora': dict(
-                sorted(home_por_hora.items())
+                sorted(
+                    home_por_hora.items()
+                )
             ),
 
             'produtos_por_hora': dict(
-                sorted(produtos_por_hora.items())
+                sorted(
+                    produtos_por_hora.items()
+                )
             ),
 
             'pedidos_por_hora': dict(
-                sorted(pedidos_por_hora.items())
+                sorted(
+                    pedidos_por_hora.items()
+                )
             ),
         }
 

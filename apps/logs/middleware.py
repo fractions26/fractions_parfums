@@ -31,8 +31,11 @@ class AcessoPaginaMiddleware:
                     ip=ip
                 )
 
-            # PRODUTO
-            elif '/produto/' in caminho:
+            # PRODUTOS
+            elif (
+                '/produto/' in caminho
+                or '/produtos/' in caminho
+            ):
 
                 AcessoPagina.objects.create(
                     tipo='PRODUTO',
@@ -40,7 +43,7 @@ class AcessoPaginaMiddleware:
                     ip=ip
                 )
 
-            # PEDIDO FINALIZADO
+            # PEDIDOS
             elif (
                 '/pedido/' in caminho
                 and 'sucesso' in caminho
