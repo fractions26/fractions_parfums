@@ -140,7 +140,6 @@ class CheckoutVisitado(models.Model):
         default=False
     )
 
-    # ✅ Compatibilidade com versão atual
     email_carrinho_enviado = models.BooleanField(
         default=False
     )
@@ -150,7 +149,6 @@ class CheckoutVisitado(models.Model):
         blank=True
     )
 
-    # ✅ NOVO - EMAIL 1 HORA
     email_1_enviado = models.BooleanField(
         default=False
     )
@@ -160,7 +158,6 @@ class CheckoutVisitado(models.Model):
         blank=True
     )
 
-    # ✅ NOVO - EMAIL 24 HORAS
     email_2_enviado = models.BooleanField(
         default=False
     )
@@ -170,7 +167,6 @@ class CheckoutVisitado(models.Model):
         blank=True
     )
 
-    # ✅ NOVO - EMAIL 72 HORAS
     email_3_enviado = models.BooleanField(
         default=False
     )
@@ -180,7 +176,14 @@ class CheckoutVisitado(models.Model):
         blank=True
     )
 
+    class Meta:
+
+        verbose_name = "Carrinho Abandonado"
+
+        verbose_name_plural = "Carrinhos Abandonados"
+
     def __str__(self):
+
         return (
             f"{self.usuario.email if self.usuario else 'Sem usuário'} - "
             f"{self.checkout_em}"
