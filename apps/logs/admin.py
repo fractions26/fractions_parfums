@@ -270,7 +270,7 @@ class AcessoPaginaAdmin(admin.ModelAdmin):
                 request
             ),
 
-            'title': 'Dashboard de Acessos',
+            'title': 'Dashboard Geral',
 
             'periodo': periodo,
 
