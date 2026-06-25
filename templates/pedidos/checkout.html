@@ -211,6 +211,13 @@
                     >
 
                     <input
+                    type="hidden"
+                    name="payment_method_id"
+                    id="paymentMethodId"
+                    value="visa"
+                    >
+
+                    <input
                         type="text"
                         name="numero_cartao"
                         id="numeroCartao"
@@ -923,6 +930,10 @@ if (numeroCartao) {
 
             bandeiraCartao.alt = 'Visa';
 
+            document.getElementById(
+                'paymentMethodId'
+            ).value = 'visa';
+
         }
 
         else if (
@@ -935,6 +946,10 @@ if (numeroCartao) {
 
             bandeiraCartao.alt = 'Mastercard';
 
+            document.getElementById(
+                'paymentMethodId'
+            ).value = 'master';
+
         }
 
         else {
@@ -943,6 +958,10 @@ if (numeroCartao) {
                 '/static/images/pagamento/visa.png';
 
             bandeiraCartao.alt = 'Cartão';
+
+            document.getElementById(
+                'paymentMethodId'
+            ).value = '';
 
         }
 

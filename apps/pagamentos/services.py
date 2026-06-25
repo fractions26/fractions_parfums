@@ -57,12 +57,18 @@ def criar_pagamento_cartao(
 
         dados = response.json()
 
+        print("===== MP PAYLOAD =====")
+        print(payload)
+
+        print("===== MP RESPONSE =====")
+        print(dados)
+
+        print("===== HTTP STATUS =====")
+        print(response.status_code)
+
         dados["http_status"] = response.status_code
 
-        dados["bandeira_cartao"] = dados.get(
-            "payment_method_id",
-            ""
-        )
+        dados["bandeira_cartao"] = payment_method_id
 
         return dados
 

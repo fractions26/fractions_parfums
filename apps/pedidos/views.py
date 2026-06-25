@@ -179,7 +179,7 @@ def checkout(request):
         # ✅ CARTÃO DE CRÉDITO
         # =========================
         if metodo_pagamento == 'novo_cartao':
-
+            
             card_token = request.POST.get(
                 'card_token'
             )
@@ -188,7 +188,17 @@ def checkout(request):
                 'parcelas',
                 1
             )
-            
+
+            payment_method_id = request.POST.get(
+                'payment_method_id',
+                'visa'
+            )
+
+            print(
+                'BANDEIRA RECEBIDA:',
+                payment_method_id
+            )
+
             if not card_token:
 
                 messages.error(
@@ -204,7 +214,8 @@ def checkout(request):
                 email=request.user.email,
                 nome=request.user.get_full_name(),
                 cpf=cpf,
-                installments=parcelas
+                installments=parcelas,
+                payment_method_id=payment_method_id
             )
 
             if resultado_pagamento is None:
