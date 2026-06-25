@@ -179,17 +179,7 @@
                     🚚 Frete grátis a partir de R$198,00
                 </p>
 
-                <div class="cep-box">
-                    <input 
-                        type="tel"
-                        inputmode="numeric"
-                        placeholder="Digite seu CEP"
-                        maxlength="9"
-                        id="cepInput"
-                    >
-                    <button type="button" onclick="calcularFrete()">CALCULAR</button>
-                </div>
-
+                {% include 'componentes/frete.html' with cep_input_id='cepProduto' botao_id='btnFreteProduto' lista_id='freteProdutoLista' %}
 
                 <a href="https://buscacepinter.correios.com.br/app/localidade_logradouro/index.php"
                 target="_blank"
@@ -201,11 +191,7 @@
                     ✅ Devolução grátis por 7 dias, consulte condições
                 </p>
 
-                <!-- ✅ LISTA FIXA -->
-                <div class="frete-resultado">
-                    <div class="frete-list"></div>
                 </div>
-            </div>
 
             {% if perfume.imagem_descricao %}
             <div class="descricao-imagem mobile-only">
@@ -252,156 +238,86 @@
 <!-- ✅ SCRIPT FINAL -->
 <script>
 
-const cepInput = document.getElementById("cepInput");
+    // =======================
+    // ✅ FRETE CENTRALIZADO
+    // =======================
 
-cepInput.addEventListener("input", (e) => {
-    let valor = e.target.value.replace(/\D/g, "");
+    document.addEventListener("DOMContentLoaded", () => {
 
-    if (valor.length > 5) {
-        valor = valor.slice(0, 5) + "-" + valor.slice(5, 8);
-    }
+        const input =
+            document.getElementById(
+                "cepProduto"
+            );
 
-    e.target.value = valor;
-});
+        const botao =
+            document.getElementById(
+                "btnFreteProduto"
+            );
 
-// ✅ CALCULO FRETE INTELIGENTE (DECANTS + REGIÃO)
-function calcularFrete() {
+        if (!input || !botao) {
+            return;
+        }
 
-    const cep = document.querySelector(".cep-box input").value.trim();
-    const lista = document.querySelector(".frete-list");
+        // ✅ máscara CEP
+        input.addEventListener(
+            "input",
+            (e) => {
 
-    if (!cep || cep.length < 8) {
-        lista.innerHTML = "<div class='frete-msg'>Digite um CEP válido</div>";
-        return;
-    }
+                let valor =
+                    e.target.value.replace(
+                        /\D/g,
+                        ""
+                    );
 
-    lista.innerHTML = "<div class='frete-msg'>Calculando frete...</div>";
+                if (
+                    valor.length > 5
+                ) {
 
-const cepLimpo = cep.replace(/\D/g, "");
+                    valor =
+                        valor.slice(0, 5)
+                        +
+                        "-"
+                        +
+                        valor.slice(5, 8);
+                }
 
-fetch(`/entrega/frete/?cep=${cepLimpo}`, {
-    credentials: "same-origin"
-})
-.then(res => res.json())
-.then(data => {
-
-    if (!data.success || !data.fretes) {
-
-        lista.innerHTML =
-            "<div class='frete-msg'>Erro ao carregar frete</div>";
-
-        return;
-    }
-
-    let fretes = data.fretes.filter(f => !f.error);
-
-    if (!fretes.length) {
-        lista.innerHTML =
-            "<div class='frete-msg'>Nenhuma opção disponível</div>";
-        return;
-    }
-
-    // ===============================
-    // ✅ DETECTA REGIÃO (pela média de prazo)
-    // ===============================
-    const mediaPrazo =
-        fretes.reduce((acc, f) => acc + parseInt(f.delivery_time || 0), 0)
-        / fretes.length;
-
-    let resultado = [];
-
-    if (mediaPrazo > 10) {
-
-        // 📍 REGIÃO DISTANTE (NORTE / EX: MANAUS)
-        resultado = fretes
-            .filter(f => parseInt(f.delivery_time || 0) <= 20)
-            .sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
-
-        // 🔥 prioriza Jadlog se existir
-        const jadlog = resultado.filter(
-            f => f.company && f.company.name === "Jadlog"
+                e.target.value =
+                    valor;
+            }
         );
 
-        if (jadlog.length >= 2) {
-            resultado = jadlog.slice(0, 2);
-        } else {
-            resultado = resultado.slice(0, 2);
-        }
+        // ✅ calcular frete
+        botao.addEventListener(
+            "click",
+            () => {
 
-    } else {
+                const cep =
+                    input.value.trim();
 
-        // 📍 REGIÃO NORMAL (SUL/SUDESTE)
-        resultado = fretes
-            .filter(f => parseInt(f.delivery_time || 0) <= 10)
-            .sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
-            .slice(0, 3);
-    }
+                if (
+                    !cep ||
+                    cep.length < 8
+                ) {
+                    return;
+                }
 
-    lista.innerHTML = "";
+                Frete.carregar({
 
-    resultado.forEach((f, index) => {
+                    cep: cep,
 
-        const item = document.createElement("div");
-        item.className = "frete-item";
+                    listaId:
+                        "freteProdutoLista",
 
-        if (index === 0) {
-            item.classList.add("melhor");
-        }
+                    subtotal: 0,
 
-        const logo = document.createElement("img");
-        logo.src = f.company?.picture || "";
-        logo.className = "frete-logo";
+                    modo: "produto"
 
-        const nome = document.createElement("strong");
-        nome.textContent = f.name || "Frete";
+                });
 
-        const preco = document.createElement("span");
-        preco.textContent =
-            "R$ " + parseFloat(f.price || 0).toFixed(2);
+            }
+        );
 
-        const prazo = document.createElement("span");
-        prazo.textContent =
-            (parseInt(f.delivery_time || 0) + 2) + " dias úteis";
-
-        const top = document.createElement("div");
-        top.className = "frete-top";
-        top.appendChild(logo);
-        top.appendChild(nome);
-
-        const detalhes = document.createElement("div");
-        detalhes.className = "frete-detalhes";
-        detalhes.appendChild(preco);
-        detalhes.appendChild(prazo);
-
-        item.appendChild(top);
-        item.appendChild(detalhes);
-
-        // ✅ BADGES
-        const badge = document.createElement("small");
-
-        if (index === 0) {
-            badge.className = "badge";
-            badge.textContent = "Melhor custo";
-        } else {
-            badge.className = "badge secundario";
-            badge.textContent = "Alternativa";
-        }
-
-        item.appendChild(badge);
-
-        lista.appendChild(item);
     });
-
-})
-    .catch((error) => {
-
-        console.error("ERRO FRETE:", error);
-
-        lista.innerHTML =
-            "<div class='frete-msg'>Erro ao calcular frete</div>";
-    });
-
-    } // fecha a função calcularFrete
 
     document.addEventListener("DOMContentLoaded", function () {
 

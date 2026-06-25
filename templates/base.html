@@ -353,25 +353,35 @@
             </div>
 
             <button class="toast-close" onclick="fecharToast()">✕</button>
+
         </div>
 
         <!-- ✅ TOTAL -->
         <div class="toast-total">
+
             <span id="toast-total-itens"></span>
+
             <strong id="toast-total-preco"></strong>
+
         </div>
 
         <!-- ✅ BOTÃO -->
-        <button class="btn-ver-carrinho" onclick="abrirCarrinho()">
+        <button
+            class="btn-ver-carrinho"
+            onclick="abrirCarrinho()"
+        >
             VER CARRINHO
         </button>
 
     </div>
+
 </div>
+
+<!-- ✅ NOVO MÓDULO CENTRALIZADO DE FRETE -->
+<script src="{% static 'js/frete.js' %}"></script>
 
 <script>
 
-    
 
 // =======================
 // ✅ CSRF (ROBUSTO FINAL)
@@ -641,18 +651,29 @@ function alterarQtd(btn, delta){
         atualizarBadge();
 
         // ✅ RECALCULA FRETE
-        const freteSalvo =
-            localStorage.getItem("frete_valor");
-
         const cepSalvo =
-            localStorage.getItem("cep_carrinho");
-
-        if(freteSalvo && cepSalvo){
-
-            aplicarFreteCarrinho(
-                parseFloat(freteSalvo),
-                cepSalvo
+            localStorage.getItem(
+                "cep_carrinho"
             );
+
+        if (cepSalvo) {
+
+            Frete.carregar({
+
+                cep: cepSalvo,
+
+                subtotal: data.total,
+
+                listaId: "listaFretes",
+
+                freteId: "valorFrete",
+
+                totalId: "totalComFrete",
+
+                parcelamentoId:
+                    "parcelamentoFrete"
+
+            });
         }
 
         // ✅ detecta páginas de produto/lista
@@ -790,20 +811,30 @@ function removerItem(btn){
         decrementarBadge(qtdRemovida);
 
         // ✅ RECALCULA TOTAL COM FRETE
-        const freteSalvo =
-            localStorage.getItem("frete_valor");
-
         const cepSalvo =
-            localStorage.getItem("cep_carrinho");
-
-        if (freteSalvo && cepSalvo) {
-
-            aplicarFreteCarrinho(
-                parseFloat(freteSalvo),
-                cepSalvo
+            localStorage.getItem(
+                "cep_carrinho"
             );
-        }
 
+        if (cepSalvo) {
+
+            Frete.carregar({
+
+                cep: cepSalvo,
+
+                subtotal: data.total,
+
+                listaId: "listaFretes",
+
+                freteId: "valorFrete",
+
+                totalId: "totalComFrete",
+
+                parcelamentoId:
+                    "parcelamentoFrete"
+
+            });
+        }
 // ✅ atualiza detalhe/lista automaticamente
         if(paginaProduto){
 
@@ -1030,370 +1061,130 @@ document.addEventListener("DOMContentLoaded", function () {
     atualizarBadge();
 });
 
-// =======================
-// ✅ CALCULAR FRETE CARRINHO
-// =======================
 
 // =======================
-// ✅ CALCULAR FRETE CARRINHO
+// ✅ FRETE CENTRALIZADO
 // =======================
 
 function calcularFreteCarrinho() {
 
-    const cep = document.getElementById("cepCarrinho").value.trim();
-    const lista = document.getElementById("listaFretes");
+    const input = document.getElementById(
+        "cepCarrinho"
+    );
 
-    if (!cep || cep.length < 8) {
-        alert("Digite um CEP válido");
+    const lista = document.getElementById(
+        "listaFretes"
+    );
+
+    if (!input || !lista) {
         return;
     }
 
-    localStorage.setItem("cep_carrinho", cep);
+    const cep = input.value.trim();
 
-    lista.innerHTML = "Calculando frete...";
+    if (!cep || cep.length < 8) {
 
-    fetch(`/entrega/frete/?cep=${cep}`, {
-        credentials: 'same-origin'
-    })
+        alert("Digite um CEP válido");
 
-    .then(res => {
+        return;
+    }
 
-        // ✅ usuário não logado → redireciona
-        if (res.redirected) {
+    localStorage.setItem(
+        "cep_carrinho",
+        cep
+    );
 
-            lista.innerHTML = `
-                <p style="color:#666; font-size:13px;">
-                    Faça login para calcular o frete
-                </p>
-            `;
+    lista.innerHTML =
+        "Calculando frete...";
 
-            return null;
-        }
+    const subtotal = parseFloat(
 
-        return res.json();
-    })
+        document
+            .getElementById("totalValor")
+            ?.innerText
+            .replace("R$", "")
+            .replace(",", ".")
 
-    .then(data => {
+    ) || 0;
 
-        if (!data) return;
+    Frete.carregar({
 
-        console.log("DEBUG FRETE:", data);
+        cep: cep,
 
-        // ✅ valida estrutura da resposta
-        if (!data.success || !data.fretes) {
-            lista.innerHTML = "Erro ao carregar frete";
-            return;
-        }
+        subtotal: subtotal,
 
-        let fretes = data.fretes;
+        listaId: "listaFretes",
 
-        // ✅ remove erros da API
-        fretes = fretes.filter(f => !f.error);
+        freteId: "valorFrete",
 
-        if (!fretes.length) {
-            lista.innerHTML = "Nenhuma opção disponível";
-            return;
-        }
+        totalId: "totalComFrete",
 
-        // ✅ ordena por preço
-        fretes.sort((a, b) => (a.price || 0) - (b.price || 0));
+        parcelamentoId:
+            "parcelamentoFrete"
 
-        // ✅ pega só 3 opções
-        fretes = fretes.slice(0, 3);
-
-        lista.innerHTML = "";
-
-        fretes.forEach((f, index) => {
-
-            const div = document.createElement("label");
-            div.className = "frete-option";
-
-            if (index === 0) div.classList.add("melhor");
-
-            const radio = document.createElement("input");
-            radio.type = "radio";
-            radio.name = "frete";
-
-            if (index === 0) radio.checked = true;
-
-            const preco = parseFloat(f.price || 0);
-
-            // ✅ Prazo da API + 2 dias para separação e postagem
-            const prazoOriginal = parseInt(
-                f.delivery_time || 0
-            );
-
-            const prazo = prazoOriginal + 2;
-
-            // ✅ evento troca frete
-            radio.addEventListener("change", () => {
-
-                aplicarFreteCarrinho(preco, cep);
-
-                localStorage.setItem("frete_valor", preco);
-                localStorage.setItem("frete_nome", f.name);
-                localStorage.setItem("frete_prazo", prazo);
-            });
-
-            const left = document.createElement("div");
-            left.className = "frete-left";
-
-            // ✅ imagem segura
-            const img = document.createElement("img");
-            img.src = (
-                f.company &&
-                f.company.picture
-            ) ? f.company.picture : "";
-
-            // ✅ nome seguro
-            const nome = document.createElement("span");
-            nome.innerText = f.name || "Frete";
-
-            left.appendChild(radio);
-            left.appendChild(img);
-            left.appendChild(nome);
-
-            const right = document.createElement("div");
-            right.className = "frete-info";
-
-            right.innerHTML = `
-                <strong>R$ ${preco.toFixed(2)}</strong><br>
-                ${prazo} dias úteis
-            `;
-
-            div.appendChild(left);
-            div.appendChild(right);
-
-            lista.appendChild(div);
-
-            // ✅ aplica automaticamente o primeiro
-            if (index === 0) {
-
-                aplicarFreteCarrinho(preco, cep);
-
-                localStorage.setItem("frete_valor", preco);
-                localStorage.setItem("frete_nome", f.name);
-                localStorage.setItem("frete_prazo", prazo);
-            }
-
-        });
-
-    })
-
-    .catch((error) => {
-
-        console.error("ERRO FRETE:", error);
-
-        lista.innerHTML = "Erro ao calcular frete";
     });
 }
 
 
-function aplicarFreteCarrinho(frete, cep) {
-
-    const subtotalEl = document.getElementById("totalValor");
-    const freteEl = document.getElementById("valorFrete");
-    const totalEl = document.getElementById("totalComFrete");
-    const linhaTotal = document.getElementById("linhaTotalFrete");
-    const parcelamentoEl = document.getElementById("parcelamentoFrete");
-
-    if (!subtotalEl) return;
-
-    let subtotal = parseFloat(
-        subtotalEl.innerText.replace("R$", "").replace(",", ".")
-    );
-
-    const cepPrefix = cep.substring(0, 2);
-
-    let limiteGratis = 199;
-
-    const norteNordeste = [
-        "60","61","62","63","64","65","66","67","68","69",
-        "50","51","52","53","54","55","56","57","58","59"
-    ];
-
-    if (norteNordeste.includes(cepPrefix)) {
-        limiteGratis = 300;
-    }
-
-    let freteFinal = frete;
-    let textoFrete = `R$ ${frete.toFixed(2)}`;
-
-    if (subtotal >= limiteGratis) {
-        freteFinal = 0;
-        textoFrete = "GRÁTIS 🚚";
-    }
-
-    let totalFinal = subtotal + freteFinal;
-
-    // ✅ atualiza valores
-    if (freteEl) freteEl.innerText = textoFrete;
-    if (totalEl) totalEl.innerText = "R$ " + totalFinal.toFixed(2);
-
-    // ✅ mostra total
-    if (linhaTotal) {
-        linhaTotal.style.display = "flex";
-    }
-
-    // ✅ SALVA FRETE (🔥 AGORA PERSISTE)
-    localStorage.setItem("frete_valor", frete);
-    localStorage.setItem("frete_total", totalFinal);
-    localStorage.setItem("frete_cep", cep);
-
-    // ✅ PARCELAMENTO (🔥 CORRIGIDO)
-    if (parcelamentoEl) {
-        const parcela = totalFinal / 3;
-        parcelamentoEl.innerText =
-            "Ou até 3x de R$ " + parcela.toFixed(2) + " sem juros";
-    }
-}
+// =======================
+// ✅ RESTAURA FRETE
+// =======================
 
 function restaurarFreteCarrinho() {
 
-    const cepSalvo = localStorage.getItem("cep_carrinho");
-    const freteSalvo = localStorage.getItem("frete_valor");
+    const cepSalvo =
+        localStorage.getItem(
+            "cep_carrinho"
+        );
 
-    const input = document.getElementById("cepCarrinho");
+    const input =
+        document.getElementById(
+            "cepCarrinho"
+        );
 
-    // ✅ restaura CEP
-    if (cepSalvo && input) {
-        input.value = cepSalvo;
+    if (
+        cepSalvo &&
+        input
+    ) {
+
+        input.value =
+            cepSalvo;
     }
 
-    // ✅ recalcula fretes
-    if (cepSalvo) {
-        calcularFreteCarrinho();
+    if (!cepSalvo) {
+        return;
     }
 
-    // ✅ reaplica frete após montar DOM
-    if (cepSalvo && freteSalvo) {
+    const subtotal = parseFloat(
 
-        let tentativas = 0;
+        document
+            .getElementById("totalValor")
+            ?.innerText
+            .replace("R$", "")
+            .replace(",", ".")
 
-        const intervalo = setInterval(() => {
+    ) || 0;
 
-            const linhaTotal = document.getElementById("linhaTotalFrete");
+    setTimeout(() => {
 
-            if (linhaTotal) {
+        Frete.carregar({
 
-                aplicarFreteCarrinho(parseFloat(freteSalvo), cepSalvo);
+            cep: cepSalvo,
 
-                clearInterval(intervalo);
-            }
+            subtotal: subtotal,
 
-            tentativas++;
+            listaId: "listaFretes",
 
-            if (tentativas > 10) {
-                clearInterval(intervalo);
-            }
+            freteId: "valorFrete",
 
-        }, 200);
-    }
-}
+            totalId: "totalComFrete",
 
-// =======================
-// ✅ BUSCA AJAX DESKTOP
-// =======================
+            parcelamentoId:
+                "parcelamentoFrete"
 
-const desktopInputBusca = document.querySelector(
-    '.search-box input'
-);
+        });
 
-const desktopResultadosBusca = document.getElementById(
-    'search-results'
-);
-
-if(desktopInputBusca && desktopResultadosBusca){
-
-    desktopInputBusca.addEventListener(
-        'input',
-        async function(){
-
-            const q = this.value.trim();
-
-            if(q.length < 2){
-
-                desktopResultadosBusca.style.display = 'none';
-
-                return;
-            }
-
-            try{
-
-                const response = await fetch(
-                    `/produtos/busca/ajax/?q=${encodeURIComponent(q)}`
-                );
-
-                const data = await response.json();
-
-                desktopResultadosBusca.innerHTML = '';
-
-                if(!data.resultados.length){
-
-                    desktopResultadosBusca.style.display = 'none';
-
-                    return;
-                }
-
-                data.resultados.forEach(item => {
-
-                    desktopResultadosBusca.innerHTML += `
-
-                        <a
-                            href="/produtos/detalhe/${item.slug}/"
-                            class="search-item"
-                        >
-
-                            <img src="${item.imagem}">
-
-                            <div class="search-info">
-
-                                <strong>
-                                    ${item.nome}
-                                </strong>
-
-                                <span>
-                                    R$ ${item.preco}
-                                </span>
-
-                            </div>
-
-                        </a>
-                    `;
-                });
-
-                desktopResultadosBusca.innerHTML += `
-
-                    <a
-                        href="/produtos/?q=${encodeURIComponent(q)}"
-                        class="search-ver-todos"
-                    >
-                        VER TODOS OS RESULTADOS
-                    </a>
-                `;
-
-                desktopResultadosBusca.style.display = 'block';
-
-            } catch(e){
-
-                console.log('Erro busca desktop ajax');
-            }
-        }
-    );
-
-    document.addEventListener('click', function(e){
-
-        if(!e.target.closest('.search-box')){
-
-            desktopResultadosBusca.style.display = 'none';
-        }
-    });
-
-    window.addEventListener('scroll', () => {
-
-        desktopResultadosBusca.style.display = 'none';
-
-    });
+    }, 200);
 }
 
 </script>

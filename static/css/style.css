@@ -2718,3 +2718,128 @@ header {
         );
     }
 }
+
+/* =============================== */
+/* ✅ COMPONENTE FRETE CENTRALIZADO */
+/* =============================== */
+
+.frete-container{
+    margin-top:10px;
+}
+
+.frete-header{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    font-size:14px;
+    font-family:"Montserrat", sans-serif;
+
+    color:#333;
+
+    margin-bottom:8px;
+}
+
+.frete-form{
+    display:flex;
+    gap:8px;
+    margin-top:8px;
+}
+
+.frete-cep{
+    flex:1;
+
+    height:42px;
+
+    padding:0 12px;
+
+    border:1px solid #ccc;
+    border-radius:8px;
+
+    font-size:14px;
+}
+
+.btn-calcular-frete{
+    height:42px;
+
+    padding:0 18px;
+
+    border-radius:10px;
+    border:1.5px solid #333;
+
+    background:#fff;
+    color:#333;
+
+    font-size:13px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+}
+
+.btn-calcular-frete:hover{
+    background:#333;
+    color:#fff;
+}
+
+.lista-fretes{
+    margin-top:10px;
+}
+
+.frete-option{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:12px;
+
+    margin-bottom:8px;
+
+    border:1px solid #ddd;
+    border-radius:10px;
+
+    background:#fafafa;
+}
+
+.frete-option.melhor{
+    border:1px solid #cfd8dc;
+    background:#f4fbf7;
+}
+
+.frete-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.frete-left img{
+    height:22px;
+    width:auto;
+}
+
+.frete-info{
+    text-align:right;
+    font-size:13px;
+    color:#666;
+}
+
+.frete-info strong{
+    display:block;
+
+    color:#000;
+    font-size:18px;
+    font-weight:700;
+}
+
+.frete-texto {
+    font-size: 14px;
+    font-family: "Montserrat", sans-serif;
+    color: #333;
+
+    margin: 0 0 8px 0;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}

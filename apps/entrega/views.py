@@ -38,15 +38,19 @@ def calcular_frete(request):
     }
 
     payload = {
-        "from": {"postal_code": "82590100"},
-        "to": {"postal_code": cep},
+        "from": {
+            "postal_code": "82590100"
+        },
+        "to": {
+            "postal_code": cep
+        },
         "products": [
             {
                 "id": "1",
-                "width": 10,
-                "height": 4,
-                "length": 10,
-                "weight": 0.2,
+                "width": 16,
+                "height": 2,
+                "length": 11,
+                "weight": 0.3,
                 "quantity": 1
             }
         ]
@@ -59,6 +63,10 @@ def calcular_frete(request):
             headers=headers,
             verify=False
         )
+        
+        print("STATUS:", response.status_code)
+        print("BODY:", response.text)
+
 
         data = response.json()
 

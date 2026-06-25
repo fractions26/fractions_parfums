@@ -1,0 +1,36 @@
+<div class="frete-container">
+
+    <div class="frete-header">
+        <i class="fa-solid fa-truck"></i>
+        <span>Calcule o prazo e valor da entrega</span>
+    </div>
+
+    <div class="frete-form">
+
+        <input
+            type="text"
+            id="{{ cep_input_id|default:'cepFrete' }}"
+            class="frete-cep"
+            placeholder="Digite seu CEP"
+            maxlength="9"
+            autocomplete="postal-code"
+        >
+
+        <button
+            type="button"
+            id="{{ botao_id|default:'btnCalcularFrete' }}"
+            class="btn-calcular-frete"
+        >
+            CALCULAR
+        </button>
+
+    </div>
+
+    <div
+        id="{{ lista_id|default:'listaFretes' }}"
+        class="lista-fretes"
+    >
+
+    </div>
+
+</div>

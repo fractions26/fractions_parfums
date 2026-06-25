@@ -112,9 +112,7 @@
 
                 <h2>Frete</h2>
 
-                <div id="fretesCheckout">
-                    <p>Calculando opções de entrega...</p>
-                </div>
+                <div id="fretesCheckout"></div>
 
             </div>
             {% endif %}
@@ -476,135 +474,6 @@ function irParaStep(step) {
 }
 
 // =====================================
-// ✅ ATUALIZA TOTAL FRETE
-// =====================================
-function atualizarTotalFrete() {
-
-    const radios = document.querySelectorAll('input[name="frete"]');
-    const subtotal = parseFloat("{{ total|floatformat:2 }}".replace(",", "."));
-
-    radios.forEach(radio => {
-
-        radio.addEventListener('change', function() {
-
-            const frete = parseFloat(this.value);
-            const nome = this.dataset.nome;
-            const prazo = this.dataset.prazo;
-
-            const total = subtotal + frete;
-
-            document.getElementById('valorFreteCheckout').innerText =
-                `R$ ${frete.toFixed(2)}`;
-
-            document.getElementById('totalCheckout').innerText =
-                `R$ ${total.toFixed(2)}`;
-
-            document.getElementById('freteValorInput').value = frete;
-            document.getElementById('freteNomeInput').value = nome;
-            document.getElementById('fretePrazoInput').value = prazo;
-
-            atualizarEstadoBotao();
-        });
-    });
-
-    const selecionado = document.querySelector('input[name="frete"]:checked');
-
-    if (selecionado) {
-        selecionado.dispatchEvent(new Event('change'));
-    }
-}
-
-// =====================================
-// ✅ CARREGA FRETES
-// =====================================
-async function carregarFretesCheckout() {
-
-    const container = document.getElementById('fretesCheckout');
-
-    try {
-
-        const response = await fetch('/pedido/calcular-frete/');
-        const data = await response.json();
-
-        if (!data.success) {
-            container.innerHTML = `<p>Erro ao calcular frete</p>`;
-            return;
-        }
-
-        const fretes = data.fretes;
-        let html = '';
-
-        fretes.forEach((frete, index) => {
-
-            if (frete.error) return;
-
-            const nome = (frete.name || '').replace(/["']/g, '');
-
-            // ✅ Prazo retornado pela API + 2 dias para expedição
-            const prazoOriginal = parseInt(
-                frete.delivery_time || 0
-            );
-
-            const prazo = prazoOriginal + 2;
-
-            const valor = parseFloat(frete.price || 0);
-            const imagem = frete.company?.picture || '';
-            const empresa = (frete.company?.name || '').replace(/["']/g, '');
-
-            const imgTag = imagem
-                ? `<img src="${encodeURI(imagem)}" alt="${empresa}" class="frete-img">`
-                : '';
-
-            html += `
-            <label class="frete-opcao ${index === 0 ? 'melhor' : ''}">
-
-                <div class="frete-left">
-
-                    <input
-                        type="radio"
-                        name="frete"
-                        value="${valor}"
-                        data-nome="${nome}"
-                        data-prazo="${prazo}"
-                    >
-
-                    ${imgTag}
-
-                    <span>${nome}</span>
-
-                </div>
-
-                <div class="frete-info">
-
-                    <strong>R$ ${valor.toFixed(2)}</strong>
-                    <small>${prazo} dias úteis</small>
-
-                </div>
-
-            </label>
-            `;
-        });
-
-        container.innerHTML = html;
-
-        atualizarTotalFrete();
-
-        const radios = document.querySelectorAll('input[name="frete"]');
-
-        if (radios.length > 0) {
-            radios[0].checked = true;
-            radios[0].dispatchEvent(new Event('change'));
-        }
-
-    } catch (error) {
-
-        console.error('Erro frete:', error);
-
-        container.innerHTML = `<p>Falha ao carregar fretes</p>`;
-    }
-}
-
-// =====================================
 // ✅ PAGAMENTO (COM EXPANSÃO)
 // =====================================
 let metodoSelecionado = null;
@@ -703,21 +572,33 @@ function atualizarEstadoBotao() {
     }
 
 
-
-    let cpfOK = false; // ✅ começa como falso (OBRIGATÓRIO)
+    let cpfOK =
+        metodoSelecionado ===
+        'cartao_salvo';
 
     if (cpfInput) {
 
-        const cpf = cpfInput.value.trim();
+        const cpf =
+            cpfInput.value.trim();
 
         if (cpf.length > 0) {
-            cpfOK = validarCPF(cpf);
-            cpfInput.style.borderColor = cpfOK ? '#00a650' : '#dc2626';
-        } else {
-            cpfOK = false; // ✅ força erro se vazio
-            cpfInput.style.borderColor = '#dc2626';
-        }
 
+            cpfOK =
+                validarCPF(cpf);
+
+            cpfInput.style.borderColor =
+                cpfOK
+                    ? '#00a650'
+                    : '#dc2626';
+
+        }
+        else {
+
+            cpfOK = false;
+
+            cpfInput.style.borderColor =
+                '#dc2626';
+        }
     }
 
     // ✅ libera botão só com tudo ok
@@ -909,27 +790,46 @@ function validarStepAtualEAvancar(proximoStep) {
 // =====================================
 // ✅ INICIALIZA
 // =====================================
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
 
-    carregarFretesCheckout();
+    await carregarFretesCheckout();
+
     configurarPagamento();
 
-    // ✅💥 pega o método já selecionado no HTML
-    const selecionadoInicial = document.querySelector('.opcao-pagamento.selected');
+    // ✅ pega o método já selecionado no HTML
+    const selecionadoInicial =
+        document.querySelector(
+            '.opcao-pagamento.selected'
+        );
 
     if (selecionadoInicial) {
-        metodoSelecionado = selecionadoInicial.dataset.metodo;
 
-        const inputMetodo = document.getElementById('metodoPagamentoInput');
+        metodoSelecionado =
+            selecionadoInicial.dataset.metodo;
+
+        // ✅ atualiza resumo imediatamente
+        atualizarResumoPagamento(
+            selecionadoInicial
+        );
+
+        const inputMetodo =
+            document.getElementById(
+                'metodoPagamentoInput'
+            );
+
         if (inputMetodo) {
-            inputMetodo.value = metodoSelecionado;
+
+            inputMetodo.value =
+                metodoSelecionado;
         }
+
     }
 
     // ✅ garante estado inicial do botão
     atualizarEstadoBotao();
 
 });
+
 
 function atualizarResumoPagamento(opcao) {
 
@@ -964,12 +864,6 @@ function atualizarResumoPagamento(opcao) {
         }
     });
 
-    // ✅ quando mudar frete
-    document.addEventListener('change', function(e) {
-        if (e.target.name === 'frete') {
-            atualizarEstadoBotao();
-        }
-    });
 
 // =====================================
 // ✅ PREVIEW CARTÃO + BANDEIRA
@@ -1301,6 +1195,57 @@ async function carregarParcelasCartao(bin) {
         );
 
     }
+}
+
+async function carregarFretesCheckout() {
+
+    const cep =
+        "{{ endereco_principal.cep|default:'' }}";
+
+    const subtotal =
+        parseFloat(
+            "{{ total|floatformat:2 }}"
+                .replace(",", ".")
+        );
+
+    await Frete.carregar({
+
+        cep: cep,
+
+        listaId:
+            "fretesCheckout",
+
+        subtotal: subtotal,
+
+        totalId:
+            "totalCheckout",
+
+        freteId:
+            "valorFreteCheckout",
+
+        callback: (dados) => {
+
+            document.getElementById(
+                "freteValorInput"
+            ).value =
+                dados.frete;
+
+            document.getElementById(
+                "freteNomeInput"
+            ).value =
+                dados.nome;
+
+            document.getElementById(
+                "fretePrazoInput"
+            ).value =
+                dados.prazo;
+
+            atualizarEstadoBotao();
+
+        }
+
+    });
+
 }
 
 </script>
