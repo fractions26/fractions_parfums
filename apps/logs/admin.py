@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.utils import timezone
 from datetime import timedelta
 from collections import defaultdict
-from pedidos.models import Pedido
+from apps.pedidos.models import Pedido
 
 from .models import (
     LoginLog,
