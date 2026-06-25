@@ -27,11 +27,42 @@ class Command(BaseCommand):
         self.enviar_email_72h(agora)
 
     def enviar_email(self, checkout, assunto):
-
+        
         if not checkout.usuario:
 
             checkout.processado = True
             checkout.save()
+
+            return False
+
+        if not checkout.usuario.email:
+
+            checkout.processado = True
+            checkout.save()
+
+            self.stdout.write(
+                self.style.WARNING(
+                    f"Usuário sem email: "
+                    f"{checkout.usuario.username}"
+                )
+            )
+
+            return False
+
+        if (
+            checkout.usuario.is_staff
+            or checkout.usuario.is_superuser
+        ):
+
+            checkout.processado = True
+            checkout.save()
+
+            self.stdout.write(
+                self.style.WARNING(
+                    f"Usuário administrativo ignorado: "
+                    f"{checkout.usuario.username}"
+                )
+            )
 
             return False
 
@@ -55,6 +86,7 @@ class Command(BaseCommand):
             )
 
             return False
+
 
         carrinho = Carrinho.objects.filter(
             usuario=checkout.usuario
