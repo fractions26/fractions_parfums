@@ -215,7 +215,7 @@ class AcessoPagina(models.Model):
 
     class Meta:
         verbose_name = 'Acesso Página'
-        verbose_name_plural = 'Dashboard Acessos'
+        verbose_name_plural = 'Dashboard Geral'
 
     def __str__(self):
         return (
