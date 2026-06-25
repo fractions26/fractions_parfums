@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Acesso Página',
-                'verbose_name_plural': 'Dashboard Acessos',
+                'verbose_name_plural': 'Dashboard Geral',
             },
         ),
     ]
