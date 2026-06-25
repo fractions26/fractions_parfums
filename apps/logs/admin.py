@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.utils import timezone
 from datetime import timedelta
 from collections import defaultdict
+from pedidos.models import Pedido
 
 from .models import (
     LoginLog,
@@ -222,6 +223,13 @@ class AcessoPaginaAdmin(admin.ModelAdmin):
             tipo='PEDIDO'
         )
 
+        pedidos_cancelados = Pedido.objects.filter(
+            status='CANCELADO',
+            criado_em__gte=inicio,
+            criado_em__lte=fim
+        )
+
+
         home_por_hora = defaultdict(int)
         produtos_por_hora = defaultdict(int)
         pedidos_por_hora = defaultdict(int)
@@ -271,6 +279,8 @@ class AcessoPaginaAdmin(admin.ModelAdmin):
             'total_produtos': produtos.count(),
 
             'total_pedidos': pedidos.count(),
+
+            'total_cancelados': pedidos_cancelados.count(),
 
             'home_por_hora': dict(
                 sorted(
