@@ -4,9 +4,12 @@ from apps.produtos.models import Perfume, Preco
 
 
 class Carrinho(models.Model):
-    session_key = models.CharField(max_length=40, unique=True)
 
-    # ✅ NOVO CAMPO (ESSENCIAL)
+    session_key = models.CharField(
+        max_length=40,
+        unique=True
+    )
+
     usuario = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -14,13 +17,38 @@ class Carrinho(models.Model):
         blank=True
     )
 
+    criado_em = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    atualizado_em = models.DateTimeField(
+        auto_now=True
+    )
+
+    def quantidade_itens(self):
+
+        return sum(
+            item.quantidade
+            for item in self.itens.all()
+        )
+
+    def valor_total(self):
+
+        return sum(
+            item.preco * item.quantidade
+            for item in self.itens.all()
+        )
+
     def __str__(self):
+
         if self.usuario:
-            return f"Carrinho de {self.usuario}"
+            return f"Carrinho de {self.usuario.email}"
+
         return f"Carrinho sessão {self.session_key}"
 
 
 class Item(models.Model):
+
     carrinho = models.ForeignKey(
         Carrinho,
         related_name='itens',
@@ -39,12 +67,46 @@ class Item(models.Model):
         blank=True
     )
 
-    tamanho = models.CharField(max_length=10)
-    preco = models.DecimalField(max_digits=10, decimal_places=2)
-    quantidade = models.PositiveIntegerField(default=1)
+    tamanho = models.CharField(
+        max_length=10
+    )
+
+    preco = models.DecimalField(
+        max_digits=10,
+        decimal_places=2
+    )
+
+    quantidade = models.PositiveIntegerField(
+        default=1
+    )
+
+    criado_em = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    atualizado_em = models.DateTimeField(
+        auto_now=True
+    )
 
     class Meta:
-        unique_together = ('carrinho', 'perfume', 'preco_obj')
+
+        unique_together = (
+            'carrinho',
+            'perfume',
+            'preco_obj'
+        )
+
+    def subtotal(self):
+
+        return (
+            self.preco *
+            self.quantidade
+        )
 
     def __str__(self):
-        return f"{self.perfume.nome} - {self.tamanho} ({self.quantidade})"
+
+        return (
+            f"{self.perfume.nome} - "
+            f"{self.tamanho} "
+            f"({self.quantidade})"
+        )

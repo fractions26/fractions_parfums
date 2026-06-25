@@ -4,7 +4,9 @@ from django.core.management.base import BaseCommand
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils import timezone
+
 from apps.carrinho.models import Carrinho
+from apps.pedidos.models import Pedido
 
 from apps.logs.models import (
     CheckoutVisitado,
@@ -25,8 +27,33 @@ class Command(BaseCommand):
         self.enviar_email_72h(agora)
 
     def enviar_email(self, checkout, assunto):
-        
+
         if not checkout.usuario:
+
+            checkout.processado = True
+            checkout.save()
+
+            return False
+
+        pedido_existe = Pedido.objects.filter(
+            usuario=checkout.usuario,
+            criado_em__gte=checkout.checkout_em
+        ).exclude(
+            status="CANCELADO"
+        ).exists()
+
+        if pedido_existe:
+
+            checkout.processado = True
+            checkout.save()
+
+            self.stdout.write(
+                self.style.WARNING(
+                    f"Pedido encontrado para "
+                    f"{checkout.usuario.email}"
+                )
+            )
+
             return False
 
         carrinho = Carrinho.objects.filter(
@@ -34,6 +61,10 @@ class Command(BaseCommand):
         ).first()
 
         if not carrinho:
+
+            checkout.processado = True
+            checkout.save()
+
             return False
 
         itens = carrinho.itens.select_related(
@@ -41,22 +72,16 @@ class Command(BaseCommand):
         )
 
         if not itens.exists():
+
+            checkout.processado = True
+            checkout.save()
+
             return False
 
         total = sum(
             item.preco * item.quantidade
             for item in itens
         )
-
-        from django.conf import settings
-
-        print("EMAIL_HOST =", settings.EMAIL_HOST)
-        print("EMAIL_USER =", settings.EMAIL_HOST_USER)
-        print(
-            "EMAIL_PASSWORD =",
-            bool(settings.EMAIL_HOST_PASSWORD)
-        )
-        print("EMAIL_PORT =", settings.EMAIL_PORT)
 
         try:
 

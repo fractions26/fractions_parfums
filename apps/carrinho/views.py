@@ -6,6 +6,9 @@ from .models import Item
 from .utils import get_carrinho
 from apps.produtos.models import Perfume, Preco
 from django.templatetags.static import static
+from decimal import Decimal
+from apps.logs.models import CheckoutVisitado
+
 
 MAX_QTD = 10
 
@@ -228,6 +231,49 @@ def adicionar_carrinho(request):
                         perfume.imagem
                     )
 
+# =========================
+            # ✅ RECUPERAÇÃO DE CARRINHO
+            # =========================
+
+            if request.user.is_authenticated:
+
+                checkout = CheckoutVisitado.objects.filter(
+                    usuario=request.user,
+                    processado=False
+                ).first()
+
+                if checkout:
+
+                    if quantidade_total == 0:
+
+                        checkout.delete()
+
+                    else:
+
+                        checkout.valor_total = Decimal(
+                            str(total)
+                        )
+
+                        checkout.quantidade_itens = (
+                            quantidade_total
+                        )
+
+                        checkout.save()
+
+                else:
+
+                    if quantidade_total > 0:
+
+                        CheckoutVisitado.objects.create(
+                            usuario=request.user,
+                            valor_total=Decimal(
+                                str(total)
+                            ),
+                            quantidade_itens=(
+                                quantidade_total
+                            )
+                        )
+
             # =========================
             # ✅ RESPOSTA FINAL
             # =========================
@@ -373,7 +419,6 @@ def atualizar_item(request):
 
         ml_no_carrinho = 0
 
-        # ✅ TODOS OS CARRINHOS
         itens_perfume = Item.objects.filter(
             perfume=perfume
         )
@@ -399,12 +444,10 @@ def atualizar_item(request):
 
                 pass
 
-        # ✅ REMOVE ITEM ATUAL
         ml_no_carrinho -= (
             tamanho_ml * item.quantidade
         )
 
-        # ✅ NOVO TOTAL
         ml_total = (
             ml_no_carrinho +
             (tamanho_ml * quantidade)
@@ -412,7 +455,6 @@ def atualizar_item(request):
 
         if quantidade > 0:
 
-            # ✅ LIMITE 10
             if quantidade > MAX_QTD:
 
                 return JsonResponse({
@@ -426,7 +468,6 @@ def atualizar_item(request):
 
                 })
 
-            # ✅ BLOQUEIA ESTOQUE TOTAL
             if ml_total > perfume.estoque_ml:
 
                 ml_restante = (
@@ -471,6 +512,35 @@ def atualizar_item(request):
                 for i in itens
             )
 
+            # =========================
+            # ✅ RECUPERAÇÃO DE CARRINHO
+            # =========================
+
+            if request.user.is_authenticated:
+
+                checkout = CheckoutVisitado.objects.filter(
+                    usuario=request.user,
+                    processado=False
+                ).first()
+
+                if checkout:
+                    
+                    if quantidade_total == 0:
+
+                        checkout.delete()
+
+                    else:
+
+                        checkout.valor_total = Decimal(
+                            str(total)
+                        )
+
+                        checkout.quantidade_itens = (
+                            quantidade_total
+                        )
+
+                        checkout.save()
+
             return JsonResponse({
 
                 "success": True,
@@ -495,6 +565,35 @@ def atualizar_item(request):
             for i in itens
         )
 
+        # =========================
+        # ✅ RECUPERAÇÃO DE CARRINHO
+        # =========================
+
+        if request.user.is_authenticated:
+
+            checkout = CheckoutVisitado.objects.filter(
+                usuario=request.user,
+                processado=False
+            ).first()
+
+            if checkout:
+                
+                if quantidade_total == 0:
+
+                    checkout.delete()
+
+                else:
+
+                    checkout.valor_total = Decimal(
+                        str(total)
+                    )
+
+                    checkout.quantidade_itens = (
+                        quantidade_total
+                    )
+
+                    checkout.save()
+
         return JsonResponse({
 
             "success": True,
@@ -510,31 +609,80 @@ def atualizar_item(request):
     return JsonResponse({
         "success": False
     })
-
 # =========================
 # ✅ REMOVER ITEM
 # =========================
 def remover_item(request):
+
     if request.method == "POST":
 
-        item_id = request.POST.get("item_id")
+        item_id = request.POST.get(
+            "item_id"
+        )
 
-        item = get_object_or_404(Item, id=item_id)
+        item = get_object_or_404(
+            Item,
+            id=item_id
+        )
+
         carrinho = item.carrinho
 
         item.delete()
 
         itens = carrinho.itens.all()
-        total = sum(i.preco * i.quantidade for i in itens)
-        quantidade_total = sum(i.quantidade for i in itens)
+
+        total = sum(
+            i.preco * i.quantidade
+            for i in itens
+        )
+
+        quantidade_total = sum(
+            i.quantidade
+            for i in itens
+        )
+
+        # =========================
+        # ✅ RECUPERAÇÃO DE CARRINHO
+        # =========================
+
+        if request.user.is_authenticated:
+
+            checkout = CheckoutVisitado.objects.filter(
+                usuario=request.user,
+                processado=False
+            ).first()
+
+            if checkout:
+                
+                if quantidade_total == 0:
+
+                    checkout.delete()
+
+                else:
+
+                    checkout.valor_total = Decimal(
+                        str(total)
+                    )
+
+                    checkout.quantidade_itens = (
+                        quantidade_total
+                    )
+
+                    checkout.save()
 
         return JsonResponse({
+
             "success": True,
+
             "total": float(total),
+
             "quantidade_total": quantidade_total
+
         })
 
-    return JsonResponse({"success": False})
+    return JsonResponse({
+        "success": False
+    })
 
 
 # =========================
