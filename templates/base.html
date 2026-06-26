@@ -40,9 +40,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
         
     <!-- ✅ Favicon -->
-    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
-    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
-    <link rel="apple-touch-icon" href="{% static 'images/favicon.jpg' %}">
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'images/favicon.png' %}">
 
     <!-- ✅ PWA -->
     <link rel="manifest" href="{% static 'manifest.json' %}">
@@ -67,56 +67,85 @@
     <!-- ✅ CARRINHO -->
     <link rel="stylesheet" href="{% static 'css/carrinho.css' %}">
 
-    <!-- ✅ SCHEMA ORG - LOJA -->
-    <script type="application/ld+json">
-    {
-    "@context": "https://schema.org",
-    "@type": "OnlineStore",
-    "name": "Fractions Parfums",
-    "url": "https://www.fractionsparfums.com.br",
-    "logo": "https://www.fractionsparfums.com.br/static/images/logo-google.png",
-    "image": "https://www.fractionsparfums.com.br/static/images/logo-google.png",
-    "sameAs": [
-        "https://www.instagram.com/fractionsparfums"
-    ],
-    "description": "Loja especializada em perfumes importados, perfumes árabes e decants originais."
-    }
-    </script>
-
-
-    <!-- ✅ SCHEMA ORG - CATEGORIAS PRINCIPAIS -->
-    <script type="application/ld+json">
-    {
-    "@context":"https://schema.org",
-    "@type":"BreadcrumbList",
-    "itemListElement":[
+        <!-- ✅ SCHEMA ORG - ONLINE STORE -->
+        <script type="application/ld+json">
         {
-        "@type":"ListItem",
-        "position":1,
-        "name":"Home",
-        "item":"https://www.fractionsparfums.com.br/"
-        },
-        {
-        "@type":"ListItem",
-        "position":2,
-        "name":"Masculinos",
-        "item":"https://www.fractionsparfums.com.br/produtos/categoria/masculinos/"
-        },
-        {
-        "@type":"ListItem",
-        "position":3,
-        "name":"Femininos",
-        "item":"https://www.fractionsparfums.com.br/produtos/categoria/femininos/"
-        },
-        {
-        "@type":"ListItem",
-        "position":4,
-        "name":"Árabes",
-        "item":"https://www.fractionsparfums.com.br/produtos/categoria/arabes/"
+        "@context": "https://schema.org",
+        "@type": "OnlineStore",
+        "name": "Fractions Parfums",
+        "url": "https://www.fractionsparfums.com.br",
+        "logo": "https://www.fractionsparfums.com.br/static/images/logo-google.png",
+        "image": "https://www.fractionsparfums.com.br/static/images/logo-google.png",
+        "description": "Loja especializada em perfumes importados, perfumes árabes e decants originais.",
+        "sameAs": [
+            "https://www.instagram.com/fractionsparfums"
+        ]
         }
-    ]
-    }
-    </script>
+        </script>
+
+        <!-- ✅ SCHEMA ORG - ORGANIZATION -->
+        <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Fractions Parfums",
+        "url": "https://www.fractionsparfums.com.br",
+        "logo": "https://www.fractionsparfums.com.br/static/images/logo-google.png",
+        "sameAs": [
+            "https://www.instagram.com/fractionsparfums"
+        ]
+        }
+        </script>
+
+        <!-- ✅ SCHEMA ORG - WEBSITE -->
+        <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Fractions Parfums",
+        "url": "https://www.fractionsparfums.com.br/",
+        "inLanguage": "pt-BR",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.fractionsparfums.com.br/produtos/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+        }
+        </script>
+
+        <!-- ✅ SCHEMA ORG - CATEGORIAS PRINCIPAIS -->
+        <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.fractionsparfums.com.br/"
+            },
+            {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Masculinos",
+            "item": "https://www.fractionsparfums.com.br/produtos/categoria/masculinos/"
+            },
+            {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Femininos",
+            "item": "https://www.fractionsparfums.com.br/produtos/categoria/femininos/"
+            },
+            {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Árabes",
+            "item": "https://www.fractionsparfums.com.br/produtos/categoria/arabes/"
+            }
+        ]
+        }
+        </script>
 
     </head>
 

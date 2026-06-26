@@ -1,10 +1,10 @@
 from PIL import Image
 
 # 🔥 ARQUIVO ORIGINAL
-entrada = r"C:\Users\wwwdl\OneDrive\Documentos\fractions_parfums\static\images\logo_nova.png"
+entrada = r"C:\Users\wwwdl\OneDrive\Documentos\fractions_parfums\static\images\favicon.png"
 
 # 🔥 ARQUIVO FINAL
-saida = r"C:\Users\wwwdl\OneDrive\Documentos\fractions_parfums\static\images\favicon.ico"
+saida = r"C:\Users\wwwdl\OneDrive\Documentos\fractions_parfums\static\images\favicon.png"
 
 with Image.open(entrada) as img:
 
@@ -14,7 +14,7 @@ with Image.open(entrada) as img:
     # ✅ cria ICO com vários tamanhos
     img.save(
         saida,
-        format="ICO",
+        format="png",
         sizes=[
             (16, 16),
             (32, 32),
