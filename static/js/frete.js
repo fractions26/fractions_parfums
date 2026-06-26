@@ -239,9 +239,9 @@ renderizar({
                 );
 
             const prazo =
-                parseInt(
-                    f.delivery_time || 0
-                ) + 2;
+                f.id === "contingencia"
+                    ? parseInt(f.delivery_time || 0)
+                    : parseInt(f.delivery_time || 0) + 2;
 
             const label =
                 document.createElement(
