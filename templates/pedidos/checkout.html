@@ -431,7 +431,21 @@
                     </div>
 
                     <div class="linha-total">
-                        <span>Desconto:</span>
+                        <span>Desconto Cupom:</span>
+                        <strong id="descontoCupomCheckout">
+                            R$ 0,00
+                        </strong>
+                    </div>
+
+                    <div class="linha-total">
+                        <span>Desconto PIX:</span>
+                        <strong id="descontoPixCheckout">
+                            R$ 0,00
+                        </strong>
+                    </div>
+
+                    <div class="linha-total">
+                        <span>Desconto Total:</span>
                         <strong id="descontoCheckout">
                             R$ 0,00
                         </strong>
@@ -1457,35 +1471,61 @@ function recalcularTotalCheckout() {
                 .value
         ) || 0;
 
-    let desconto =
+    const descontoCupom =
         parseFloat(
             document
                 .getElementById('descontoInput')
                 .value
         ) || 0;
 
+    let descontoPix = 0;
+
     if (metodoSelecionado === 'pix') {
 
         const base =
             subtotal +
             frete -
-            desconto;
+            descontoCupom;
 
-        const descontoPix =
+        descontoPix =
             base * 0.03;
+    }
 
-        desconto += descontoPix;
+    const descontoTotal =
+        descontoCupom +
+        descontoPix;
+
+    const campoCupom =
+        document.getElementById(
+            'descontoCupomCheckout'
+        );
+
+    if (campoCupom) {
+
+        campoCupom.innerText =
+            `- R$ ${descontoCupom.toFixed(2)}`;
+    }
+
+    const campoPix =
+        document.getElementById(
+            'descontoPixCheckout'
+        );
+
+    if (campoPix) {
+
+        campoPix.innerText =
+            `- R$ ${descontoPix.toFixed(2)}`;
     }
 
     document.getElementById(
         'descontoCheckout'
     ).innerText =
-        `- R$ ${desconto.toFixed(2)}`;
+        `- R$ ${descontoTotal.toFixed(2)}`;
 
     const total =
         subtotal +
         frete -
-        desconto;
+        descontoTotal;
 
     document.getElementById(
         'totalCheckout'
