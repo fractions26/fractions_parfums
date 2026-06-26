@@ -139,17 +139,50 @@ def checkout(request):
         ) or '0'
 
         try:
-            frete = Decimal(frete_valor)
+
+            frete = Decimal(
+                frete_valor
+            )
 
         except Exception:
+
             frete = Decimal('0')
 
         if frete <= 0:
+
             messages.warning(
                 request,
                 "Selecione um frete."
             )
-            return redirect('checkout')
+
+            return redirect(
+                'checkout'
+            )
+
+        # =========================
+        # ✅ CUPOM
+        # =========================
+
+        desconto = Decimal(
+            request.POST.get(
+                'desconto',
+                '0'
+            )
+        )
+
+        cupom_codigo = request.POST.get(
+            'cupom_codigo',
+            ''
+        ).strip().upper()
+
+        # =========================
+        # ✅ TOTAL BASE
+        # =========================
+
+        valor_total = max(
+            Decimal('0.01'),
+            total + frete - desconto
+        )
 
         # =========================
         # ✅ PAGAMENTO MP
@@ -210,7 +243,7 @@ def checkout(request):
 
             resultado_pagamento = criar_pagamento_cartao(
                 token=card_token,
-                valor=total + frete,
+                valor=valor_total,
                 email=request.user.email,
                 nome=request.user.get_full_name(),
                 cpf=cpf,
@@ -293,17 +326,51 @@ def checkout(request):
         # =========================
         elif metodo_pagamento == 'pix':
 
+            # ✅ DESCONTO EXTRA 3% PIX
+            desconto_pix = (
+                valor_total *
+                Decimal('0.03')
+            ).quantize(
+                Decimal('0.01')
+            )
+
+            desconto += desconto_pix
+
+            # ✅ TOTAL FINAL ARREDONDADO PARA 2 CASAS
+            valor_total = (
+                total +
+                frete -
+                desconto
+            ).quantize(
+                Decimal('0.01')
+            )
+
+            valor_total = max(
+                Decimal('0.01'),
+                valor_total
+            )
+
+            print(
+                f"DESCONTO CUPOM={desconto - desconto_pix}"
+            )
+
+            print(
+                f"DESCONTO PIX={desconto_pix}"
+            )
+
+            print(
+                f"VALOR FINAL PIX={valor_total}"
+            )
+
             resultado_pagamento = criar_pagamento_pix(
-                valor=total + frete,
+                valor=valor_total,
                 email=request.user.email,
                 nome=request.user.get_full_name(),
                 cpf=cpf
             )
 
-            print(
-                f"PIX PAYMENT ID={resultado_pagamento.get('id')} "
-                f"STATUS={resultado_pagamento.get('status')}"
-            )
+            # print("RESULTADO PIX:")
+            # print(resultado_pagamento)
 
             if resultado_pagamento is None:
 
@@ -312,7 +379,14 @@ def checkout(request):
                     'Erro ao gerar PIX.'
                 )
 
-                return redirect('checkout')
+                return redirect(
+                    'checkout'
+                )
+
+            print(
+                f"PIX PAYMENT ID={resultado_pagamento.get('id')} "
+                f"STATUS={resultado_pagamento.get('status')}"
+            )
 
             if resultado_pagamento.get(
                 'http_status'
@@ -326,7 +400,9 @@ def checkout(request):
                     )
                 )
 
-                return redirect('checkout')
+                return redirect(
+                    'checkout'
+                )
 
             status_mp = resultado_pagamento.get(
                 'status',
@@ -365,7 +441,7 @@ def checkout(request):
 
                 status_pedido = 'CANCELADO'
                 
-# =========================
+        # =========================
         # ✅ CRIA PEDIDO
         # =========================
 
@@ -390,8 +466,14 @@ def checkout(request):
             codigo=gerar_codigo_pedido(),
 
             subtotal=total,
+
             frete=frete,
-            total=total + frete,
+
+            desconto=desconto,
+
+            cupom_codigo=cupom_codigo,
+
+            total=valor_total,
 
             status=status_pedido,
 

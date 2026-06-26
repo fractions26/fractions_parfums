@@ -97,7 +97,10 @@ def criar_pagamento_pix(
 
     payload = {
 
-        "transaction_amount": float(valor),
+        "transaction_amount": round(
+            float(valor),
+            2
+        ),
 
         "description": "Pedido Fractions Parfums",
 

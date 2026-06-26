@@ -562,7 +562,14 @@ function configurarPagamento() {
 
             // ✅ atualiza resumo + hidden
             atualizarResumoPagamento(this);
-            document.getElementById('metodoPagamentoInput').value = metodoSelecionado;
+
+            document.getElementById(
+                'metodoPagamentoInput'
+            ).value =
+                metodoSelecionado;
+
+            // ✅ RECALCULA DESCONTOS
+            recalcularTotalCheckout();
 
             // ✅ abre formulário dos métodos que precisam
             if (
@@ -865,31 +872,34 @@ document.addEventListener('DOMContentLoaded', async function () {
             '.opcao-pagamento.selected'
         );
 
-    if (selecionadoInicial) {
+if (selecionadoInicial) {
 
-        metodoSelecionado =
-            selecionadoInicial.dataset.metodo;
+    metodoSelecionado =
+        selecionadoInicial.dataset.metodo;
 
-        // ✅ atualiza resumo imediatamente
-        atualizarResumoPagamento(
-            selecionadoInicial
+    // ✅ atualiza resumo imediatamente
+    atualizarResumoPagamento(
+        selecionadoInicial
+    );
+
+    const inputMetodo =
+        document.getElementById(
+            'metodoPagamentoInput'
         );
 
-        const inputMetodo =
-            document.getElementById(
-                'metodoPagamentoInput'
-            );
+    if (inputMetodo) {
 
-        if (inputMetodo) {
-
-            inputMetodo.value =
-                metodoSelecionado;
-        }
-
+        inputMetodo.value =
+            metodoSelecionado;
     }
 
-    // ✅ garante estado inicial do botão
-    atualizarEstadoBotao();
+    // ✅ recalcula total/descontos iniciais
+    recalcularTotalCheckout();
+
+}
+
+// ✅ garante estado inicial do botão
+atualizarEstadoBotao();
 
 });
 
@@ -1317,6 +1327,9 @@ async function carregarFretesCheckout() {
 
             atualizarEstadoBotao();
 
+            // ✅ Atualiza subtotal/frete/descontos
+            recalcularTotalCheckout();
+
         }
 
     });
@@ -1396,47 +1409,8 @@ document
             ).value =
                 data.desconto;
 
-            document.getElementById(
-                'descontoCheckout'
-            ).innerText =
-                `- R$ ${data.desconto.toFixed(2)}`;
-
-            let freteTexto =
-                document
-                .getElementById(
-                    'valorFreteCheckout'
-                )
-                .innerText
-                .replace('R$', '')
-                .replace('GRÁTIS 🚚', '0')
-                .trim()
-                .replace(',', '.');
-
-            let valorFrete =
-                parseFloat(freteTexto);
-
-            if (
-                isNaN(valorFrete)
-            ) {
-
-                valorFrete = 0;
-            }
-
-            const novoTotal =
-                parseFloat(
-                    subtotalTexto
-                )
-                +
-                valorFrete
-                -
-                parseFloat(
-                    data.desconto
-                );
-
-            document.getElementById(
-                'totalCheckout'
-            ).innerText =
-                `R$ ${novoTotal.toFixed(2)}`;
+            // ✅ Recalcula tudo
+            recalcularTotalCheckout();
 
             mensagem.innerHTML =
                 `✅ Cupom ${data.codigo} aplicado (${data.percentual}% OFF)`;
@@ -1467,6 +1441,57 @@ document
 
     }
 );
+
+function recalcularTotalCheckout() {
+
+    const subtotal =
+        parseFloat(
+            "{{ total|floatformat:2 }}"
+                .replace(",", ".")
+        ) || 0;
+
+    const frete =
+        parseFloat(
+            document
+                .getElementById('freteValorInput')
+                .value
+        ) || 0;
+
+    let desconto =
+        parseFloat(
+            document
+                .getElementById('descontoInput')
+                .value
+        ) || 0;
+
+    if (metodoSelecionado === 'pix') {
+
+        const base =
+            subtotal +
+            frete -
+            desconto;
+
+        const descontoPix =
+            base * 0.03;
+
+        desconto += descontoPix;
+    }
+
+    document.getElementById(
+        'descontoCheckout'
+    ).innerText =
+        `- R$ ${desconto.toFixed(2)}`;
+
+    const total =
+        subtotal +
+        frete -
+        desconto;
+
+    document.getElementById(
+        'totalCheckout'
+    ).innerText =
+        `R$ ${total.toFixed(2)}`;
+}
 
 </script>
 

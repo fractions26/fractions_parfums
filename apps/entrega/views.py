@@ -66,8 +66,8 @@ def calcular_frete(request):
             timeout=15
         )
 
-        print("STATUS:", response.status_code)
-        print("BODY:", response.text)
+        # print("STATUS:", response.status_code)
+        # print("BODY:", response.text)
 
         data = response.json()
 
