@@ -301,11 +301,10 @@ function isMobile() {
 
 window.addEventListener("beforeinstallprompt", (e) => {
 
-    // ✅ Não exibe em desktop
     if (!isMobile()) return;
 
-    // ✅ Usuário já fechou anteriormente
-    if (localStorage.getItem("pwaBannerFechado")) return;
+    // ✅ Se já instalou, nunca mais mostra
+    if (localStorage.getItem("pwaInstalado")) return;
 
     e.preventDefault();
 
@@ -317,6 +316,7 @@ window.addEventListener("beforeinstallprompt", (e) => {
     if (banner) {
         banner.classList.add("ativo");
     }
+
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -352,11 +352,12 @@ document.addEventListener("DOMContentLoaded", () => {
             if (banner) {
                 banner.classList.remove("ativo");
             }
+
         });
 
     }
 
-    // ✅ FECHAR
+    // ✅ FECHAR (somente nesta página)
     if (btnFechar) {
 
         btnFechar.addEventListener("click", () => {
@@ -365,20 +366,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 banner.classList.remove("ativo");
             }
 
-            localStorage.setItem(
-                "pwaBannerFechado",
-                "true"
-            );
         });
 
     }
 
 });
 
-// ✅ Se instalar o app
+// ✅ PWA instalada
 window.addEventListener("appinstalled", () => {
 
     console.log("✅ PWA instalada");
+
+    localStorage.setItem(
+        "pwaInstalado",
+        "true"
+    );
 
     const banner =
         document.getElementById("pwa-banner");
