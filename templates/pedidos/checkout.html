@@ -331,105 +331,161 @@
         ========================= -->
         <div class="checkout-step-content" data-step="3">
 
-        <div class="resumo-box box-resumo">
+            <div class="resumo-box box-resumo">
 
-            <h2>Resumo do Pedido</h2>
+                <h2>Resumo do Pedido</h2>
 
-            {% for item in itens %}
+                {% for item in itens %}
 
-            <div class="item-resumo">
+                <div class="item-resumo">
 
-                <img
-                    src="{% if item.perfume.imagem %}{% static item.perfume.imagem %}{% else %}{% static 'img/sem-imagem.png' %}{% endif %}"
-                    class="item-img"
-                    alt="{{ item.perfume.nome }}"
-                >
+                    <img
+                        src="{% if item.perfume.imagem %}{% static item.perfume.imagem %}{% else %}{% static 'img/sem-imagem.png' %}{% endif %}"
+                        class="item-img"
+                        alt="{{ item.perfume.nome }}"
+                    >
 
-                <div class="item-resumo-info">
+                    <div class="item-resumo-info">
 
-                    <strong>
-                        {{ item.perfume.nome }}
+                        <strong>
+                            {{ item.perfume.nome }}
+                        </strong>
+
+                        <p>{{ item.tamanho }}</p>
+
+                        <p>Qtd: {{ item.quantidade }}</p>
+
+                    </div>
+
+                    <strong class="item-resumo-preco">
+                        R$ {{ item.preco }}
                     </strong>
-
-                    <p>{{ item.tamanho }}</p>
-
-                    <p>Qtd: {{ item.quantidade }}</p>
 
                 </div>
 
-                <strong class="item-resumo-preco">
-                    R$ {{ item.preco }}
-                </strong>
+                {% endfor %}
 
-            </div>
+                <hr>
 
-            {% endfor %}
+                <div class="checkout-pagamento-resumo">
 
-            <hr>
+                    <div class="linha-total">
+                        <span>Pagamento:</span>
+                        <strong id="resumoMetodoPagamento">
+                            Não selecionado
+                        </strong>
+                    </div>
 
-            <div class="checkout-pagamento-resumo">
+                    <div class="linha-total">
+                        <span>Parcelamento:</span>
+                        <strong id="resumoParcelamento">
+                            -
+                        </strong>
+                    </div>
 
-                <div class="linha-total">
-                    <span>Pagamento:</span>
-                    <strong id="resumoMetodoPagamento">
-                        Não selecionado
-                    </strong>
-                </div>
-
-                <div class="linha-total">
-                    <span>Parcelamento:</span>
-                    <strong id="resumoParcelamento">
-                        -
-                    </strong>
-                </div>
-
-            </div>
-
-            <hr>
-
-            <div class="totais-checkout">
-
-                <div class="linha-total">
-                    <span>Subtotal:</span>
-                    <strong>R$ {{ total }}</strong>
-                </div>
-
-                <div class="linha-total">
-                    <span>Frete:</span>
-                    <strong id="valorFreteCheckout">
-                        R$ 0,00
-                    </strong>
                 </div>
 
                 <hr>
 
-                <div class="linha-total total-geral">
-                    <span>Total:</span>
-                    <strong id="totalCheckout">
-                        R$ {{ total }}
-                    </strong>
+                <!-- ✅ CUPOM -->
+                <div class="cupom-box">
+
+                    <label for="cupomInput">
+                        Cupom de desconto
+                    </label>
+
+                    <div class="cupom-form">
+
+                        <input
+                            type="text"
+                            id="cupomInput"
+                            placeholder="Digite seu cupom"
+                            autocomplete="off"
+                        >
+
+                        <button
+                            type="button"
+                            id="btnAplicarCupom"
+                        >
+                            Aplicar
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="cupomMensagem"
+                        class="cupom-mensagem"
+                    ></div>
+
                 </div>
+
+                <hr>
+
+                <div class="totais-checkout">
+
+                    <div class="linha-total">
+                        <span>Subtotal:</span>
+                        <strong id="subtotalCheckout">
+                            R$ {{ total }}
+                        </strong>
+                    </div>
+
+                    <div class="linha-total">
+                        <span>Desconto:</span>
+                        <strong id="descontoCheckout">
+                            R$ 0,00
+                        </strong>
+                    </div>
+
+                    <div class="linha-total">
+                        <span>Frete:</span>
+                        <strong id="valorFreteCheckout">
+                            R$ 0,00
+                        </strong>
+                    </div>
+
+                    <hr>
+
+                    <div class="linha-total total-geral">
+                        <span>Total:</span>
+                        <strong id="totalCheckout">
+                            R$ {{ total }}
+                        </strong>
+                    </div>
+
+                </div>
+
+                <input type="hidden" name="frete_valor" id="freteValorInput">
+                <input type="hidden" name="frete_nome" id="freteNomeInput">
+                <input type="hidden" name="frete_prazo" id="fretePrazoInput">
+                <input type="hidden" name="metodo_pagamento" id="metodoPagamentoInput">
+
+                <input
+                    type="hidden"
+                    name="cupom_codigo"
+                    id="cupomCodigoInput"
+                >
+
+                <input
+                    type="hidden"
+                    name="desconto"
+                    id="descontoInput"
+                    value="0"
+                >
+
+                <button
+                    type="submit"
+                    class="btn-finalizar-checkout"
+                    id="btnFinalizar"
+                    disabled>
+
+                    FAZER PEDIDO
+
+                </button>
 
             </div>
 
-            <input type="hidden" name="frete_valor" id="freteValorInput">
-            <input type="hidden" name="frete_nome" id="freteNomeInput">
-            <input type="hidden" name="frete_prazo" id="fretePrazoInput">
-            <input type="hidden" name="metodo_pagamento" id="metodoPagamentoInput">
-
-            <button
-                type="submit"
-                class="btn-finalizar-checkout"
-                id="btnFinalizar"
-                disabled>
-
-                FAZER PEDIDO
-
-            </button>
-
         </div>
-
-    </div>
 
     </form>
 
@@ -1266,6 +1322,151 @@ async function carregarFretesCheckout() {
     });
 
 }
+
+// =====================================
+// ✅ CUPOM DE DESCONTO
+// =====================================
+
+document
+.getElementById('btnAplicarCupom')
+?.addEventListener(
+    'click',
+    async function () {
+
+        const codigo =
+            document
+            .getElementById(
+                'cupomInput'
+            )
+            .value
+            .trim();
+
+        if (!codigo) {
+
+            alert(
+                'Informe um cupom.'
+            );
+
+            return;
+        }
+
+        const subtotalTexto =
+            document
+            .getElementById(
+                'subtotalCheckout'
+            )
+            .innerText
+            .replace('R$', '')
+            .trim()
+            .replace(',', '.');
+
+        try {
+
+            const response =
+                await fetch(
+                    `/cupons/validar/?codigo=${encodeURIComponent(codigo)}&subtotal=${subtotalTexto}`
+                );
+
+            const data =
+                await response.json();
+
+            const mensagem =
+                document.getElementById(
+                    'cupomMensagem'
+                );
+
+            if (!data.success) {
+
+                mensagem.innerHTML =
+                    data.erro;
+
+                mensagem.className =
+                    'cupom-mensagem cupom-erro';
+
+                return;
+            }
+
+            document.getElementById(
+                'cupomCodigoInput'
+            ).value =
+                data.codigo;
+
+            document.getElementById(
+                'descontoInput'
+            ).value =
+                data.desconto;
+
+            document.getElementById(
+                'descontoCheckout'
+            ).innerText =
+                `- R$ ${data.desconto.toFixed(2)}`;
+
+            let freteTexto =
+                document
+                .getElementById(
+                    'valorFreteCheckout'
+                )
+                .innerText
+                .replace('R$', '')
+                .replace('GRÁTIS 🚚', '0')
+                .trim()
+                .replace(',', '.');
+
+            let valorFrete =
+                parseFloat(freteTexto);
+
+            if (
+                isNaN(valorFrete)
+            ) {
+
+                valorFrete = 0;
+            }
+
+            const novoTotal =
+                parseFloat(
+                    subtotalTexto
+                )
+                +
+                valorFrete
+                -
+                parseFloat(
+                    data.desconto
+                );
+
+            document.getElementById(
+                'totalCheckout'
+            ).innerText =
+                `R$ ${novoTotal.toFixed(2)}`;
+
+            mensagem.innerHTML =
+                `✅ Cupom ${data.codigo} aplicado (${data.percentual}% OFF)`;
+
+            mensagem.className =
+                'cupom-mensagem cupom-sucesso';
+
+        }
+
+        catch (erro) {
+
+            console.error(
+                'Erro ao validar cupom:',
+                erro
+            );
+
+            const mensagem =
+                document.getElementById(
+                    'cupomMensagem'
+                );
+
+            mensagem.innerHTML =
+                'Erro ao validar cupom.';
+
+            mensagem.className =
+                'cupom-mensagem cupom-erro';
+        }
+
+    }
+);
 
 </script>
 

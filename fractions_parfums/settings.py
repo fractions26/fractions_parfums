@@ -125,6 +125,7 @@ INSTALLED_APPS = [
     'apps.usuarios.apps.UsuariosConfig',
     'apps.pagamentos.apps.PagamentosConfig',
     'apps.paginas.apps.PaginasConfig',
+    'apps.cupons',
 
     'mathfilters',
 ]

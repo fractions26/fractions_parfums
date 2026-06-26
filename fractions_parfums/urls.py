@@ -104,6 +104,9 @@ urlpatterns = [
     # ✅ FRETE
     path('entrega/', include('apps.entrega.urls')),
     
+    # ✅ CUPONS
+    path('cupons/', include('apps.cupons.urls')),
+    
 # ✅ RECUPERAR SENHA
 
     path(

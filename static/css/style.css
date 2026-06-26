@@ -2848,3 +2848,74 @@ header {
     gap: 6px;
 }
 
+/* =========================
+   ✅ CUPOM CHECKOUT
+========================= */
+
+.cupom-box{
+    margin: 20px 0;
+}
+
+.cupom-box label{
+    display:block;
+    font-size:15px;
+    font-weight:600;
+    margin-bottom:10px;
+    color:#111;
+}
+
+.cupom-form{
+    display:flex;
+    gap:10px;
+}
+
+.cupom-form input{
+    flex:1;
+    height:44px;
+    padding:0 14px;
+    border:1px solid #d8d8d8;
+    border-radius:8px;
+    font-size:14px;
+    outline:none;
+    transition:.2s;
+}
+
+.cupom-form input:focus{
+    border-color:#8b5cf6;
+    box-shadow:0 0 0 3px rgba(139,92,246,.15);
+}
+
+.cupom-form button{
+    height:44px;
+    padding:0 18px;
+    border:none;
+    border-radius:8px;
+    background:#8b5cf6;
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.cupom-form button:hover{
+    background:#7c3aed;
+}
+
+.cupom-mensagem{
+    margin-top:10px;
+    font-size:13px;
+    font-weight:500;
+    min-height:18px;
+}
+
+/* sucesso */
+.cupom-sucesso{
+    color:#00a650;
+}
+
+/* erro */
+.cupom-erro{
+    color:#dc2626;
+}
+
+

@@ -50,6 +50,19 @@ class Pedido(models.Model):
         decimal_places=2
     )
 
+    # ✅ CUPOM
+    cupom_codigo = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True
+    )
+
+    desconto = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
+
     status = models.CharField(
         max_length=30,
         choices=STATUS_CHOICES,
@@ -59,6 +72,110 @@ class Pedido(models.Model):
     estoque_baixado = models.BooleanField(
         default=False
     )
+
+    # =====================================
+    # ✅ MERCADO PAGO
+    # =====================================
+
+    metodo_pagamento = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True
+    )
+
+    mercadopago_payment_id = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+
+    mercadopago_status = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True
+    )
+
+    bandeira_cartao = models.CharField(
+        max_length=30,
+        blank=True,
+        null=True
+    )
+
+    parcelas = models.PositiveIntegerField(
+        default=1
+    )
+
+    nome = models.CharField(
+        max_length=255
+    )
+
+    email = models.EmailField()
+
+    telefone = models.CharField(
+        max_length=20,
+        blank=True
+    )
+
+    cpf = models.CharField(
+        max_length=14,
+        blank=True,
+        null=True
+    )
+
+    cep = models.CharField(
+        max_length=20
+    )
+
+    endereco = models.CharField(
+        max_length=255
+    )
+
+    numero = models.CharField(
+        max_length=20
+    )
+
+    complemento = models.CharField(
+        max_length=255,
+        blank=True
+    )
+
+    cidade = models.CharField(
+        max_length=100
+    )
+
+    estado = models.CharField(
+        max_length=2
+    )
+
+    criado_em = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    atualizado_em = models.DateTimeField(
+        auto_now=True
+    )
+
+    pix_qr_code = models.TextField(
+        blank=True,
+        null=True
+    )
+
+    pix_qr_code_base64 = models.TextField(
+        blank=True,
+        null=True
+    )
+
+    pix_ticket_url = models.URLField(
+        blank=True,
+        null=True
+    )
+
+    email_pagamento_enviado = models.BooleanField(
+        default=False
+    )
+
+    def __str__(self):
+        return f'Pedido #{self.codigo}'
 
 
 # =====================================
@@ -201,6 +318,7 @@ class ItemPedido(models.Model):
         max_digits=10,
         decimal_places=2
     )
+    
     
     
 
