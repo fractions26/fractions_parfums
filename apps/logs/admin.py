@@ -223,6 +223,12 @@ class AcessoPaginaAdmin(admin.ModelAdmin):
             tipo='PEDIDO'
         )
 
+        pedidos_pagos = Pedido.objects.filter(
+            status='PAGO',
+            criado_em__gte=inicio,
+            criado_em__lte=fim
+        )
+
         pedidos_cancelados = Pedido.objects.filter(
             status='CANCELADO',
             criado_em__gte=inicio,
@@ -278,7 +284,7 @@ class AcessoPaginaAdmin(admin.ModelAdmin):
 
             'total_produtos': produtos.count(),
 
-            'total_pedidos': pedidos.count(),
+            'total_pedidos': pedidos_pagos.count(),
 
             'total_cancelados': pedidos_cancelados.count(),
 
