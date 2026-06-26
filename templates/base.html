@@ -44,6 +44,17 @@
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{% static 'images/favicon.jpg' %}">
 
+    <!-- ✅ PWA -->
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+
+    <meta name="theme-color" content="#000000">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="apple-touch-icon"
+        href="{% static 'images/icon-192.png' %}">
+
     <!-- ✅ CSS principal -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
@@ -1187,7 +1198,26 @@ function restaurarFreteCarrinho() {
     }, 200);
 }
 
+
+// ✅ REGISTRO PWA
+if ("serviceWorker" in navigator) {
+
+    navigator.serviceWorker
+        .register("/static/sw.js")
+
+        .then(() => {
+            console.log("✅ Service Worker registrado");
+        })
+
+        .catch((err) => {
+            console.error(
+                "❌ Erro ao registrar Service Worker:",
+                err
+            );
+        });
+}
+
 </script>
 
 </body>
-</html>]
+</html>

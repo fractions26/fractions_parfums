@@ -1983,3 +1983,108 @@ body.modal-aberto {
     color: #fff;
     opacity: 1; /* importante para alguns navegadores */
 }
+
+.pwa-banner{
+
+    display:none;
+
+    position:fixed;
+
+    top:150px;
+
+    left:10px;
+    right:10px;
+
+    z-index:9999;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:4px 4px;
+
+    background:rgba(20,20,20,.95);
+
+    color:#c9a35f;
+
+    border-radius:10px;
+
+    box-shadow:0 4px 14px rgba(0,0,0,.25);
+
+    backdrop-filter:blur(10px);
+
+    -webkit-backdrop-filter:blur(10px);
+}
+
+.pwa-banner.ativo{
+
+    display:flex;
+}
+
+.pwa-banner span{
+
+    flex:1;
+
+    font-size:13px;
+
+    font-weight:500;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+#btnInstalarApp{
+
+    border:none;
+
+    background:#c9a35f;
+
+    color:#000;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    padding:6px 12px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+#btnInstalarApp:hover{
+
+    opacity:.9;
+}
+
+.pwa-fechar{
+
+    border:none;
+
+    background:transparent;
+
+    color:#fff;
+
+    font-size:18px;
+
+    line-height:1;
+
+    cursor:pointer;
+
+    padding:0;
+
+    margin:0;
+}
+
+@media (min-width:769px){
+
+    .pwa-banner{
+        display:none !important;
+    }
+
+}

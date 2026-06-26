@@ -288,6 +288,108 @@ function moverVendidos(valor){
         });
 }
 
+// =======================
+// ✅ PWA INSTALAR APP
+// =======================
+
+let deferredPrompt;
+
+// ✅ Detecta se é mobile
+function isMobile() {
+    return window.matchMedia("(max-width: 768px)").matches;
+}
+
+window.addEventListener("beforeinstallprompt", (e) => {
+
+    // ✅ Não exibe em desktop
+    if (!isMobile()) return;
+
+    // ✅ Usuário já fechou anteriormente
+    if (localStorage.getItem("pwaBannerFechado")) return;
+
+    e.preventDefault();
+
+    deferredPrompt = e;
+
+    const banner =
+        document.getElementById("pwa-banner");
+
+    if (banner) {
+        banner.classList.add("ativo");
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const btnInstalar =
+        document.getElementById("btnInstalarApp");
+
+    const btnFechar =
+        document.getElementById("fecharPwaBanner");
+
+    const banner =
+        document.getElementById("pwa-banner");
+
+    // ✅ INSTALAR
+    if (btnInstalar) {
+
+        btnInstalar.addEventListener("click", async () => {
+
+            if (!deferredPrompt) return;
+
+            deferredPrompt.prompt();
+
+            const result =
+                await deferredPrompt.userChoice;
+
+            console.log(
+                "Resultado instalação:",
+                result.outcome
+            );
+
+            deferredPrompt = null;
+
+            if (banner) {
+                banner.classList.remove("ativo");
+            }
+        });
+
+    }
+
+    // ✅ FECHAR
+    if (btnFechar) {
+
+        btnFechar.addEventListener("click", () => {
+
+            if (banner) {
+                banner.classList.remove("ativo");
+            }
+
+            localStorage.setItem(
+                "pwaBannerFechado",
+                "true"
+            );
+        });
+
+    }
+
+});
+
+// ✅ Se instalar o app
+window.addEventListener("appinstalled", () => {
+
+    console.log("✅ PWA instalada");
+
+    const banner =
+        document.getElementById("pwa-banner");
+
+    if (banner) {
+        banner.classList.remove("ativo");
+    }
+
+});
+
+
 </script>
 
 {% endblock %}
