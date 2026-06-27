@@ -1209,3 +1209,49 @@
     background-position: right 15px center;
     padding-right: 40px;
 }
+
+/* ===== LOADING SPINNER PEDIDO ===== */
+
+#overlayLoading {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,0.95);
+    z-index: 999999;
+}
+
+#overlayLoading.ativo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#overlayLoading .spinner-container {
+    text-align: center;
+}
+
+#overlayLoading .spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #e5e7eb;
+    border-top: 6px solid #7c3aed;
+    border-radius: 50%;
+    animation: girar-spinner 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+#overlayLoading .spinner-texto {
+    color: #7c3aed;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+@keyframes girar-spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

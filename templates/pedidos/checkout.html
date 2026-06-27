@@ -505,10 +505,26 @@
 
     {% endif %}
 
-    </div> <!-- checkout-left -->
-    </div> <!-- checkout-page -->
+</div> <!-- checkout-left -->
+</div> <!-- checkout-page -->
 
-<script src="https://sdk.mercadopago.com/js/v2"></script>
+    <!-- ✅ OVERLAY LOADING PEDIDO -->
+    <div id="overlayLoading" class="overlay-loading">
+
+        <div class="spinner-container">
+
+            <div class="spinner"></div>
+
+            <div class="spinner-texto">
+                Processando pedido...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
 
 <script>
 
@@ -523,7 +539,31 @@
 
     console.log('Mercado Pago iniciado');
 
+    function mostrarLoadingPedido() {
 
+        console.log('1 - mostrarLoadingPedido executou');
+
+        const overlay =
+            document.getElementById(
+                'overlayLoading'
+            );
+
+        console.log(
+            '2 - overlay encontrado:',
+            overlay
+        );
+
+        if (overlay) {
+
+            overlay.classList.add(
+                'ativo'
+            );
+
+            console.log(
+                '3 - classe ativo adicionada'
+            );
+        }
+    }
 
 // =====================================
 // ✅ CONTROLE DE ETAPAS (NOVO)
@@ -1080,7 +1120,20 @@ if (checkoutForm) {
             )?.value;
 
         // ✅ PIX e BOLETO seguem fluxo normal
+        console.log(
+            'SUBMIT CHAMADO:',
+            metodo
+        );
+
+        // ✅ PIX e BOLETO seguem fluxo normal
         if (metodo !== 'novo_cartao') {
+
+            console.log(
+                'ENTROU NO FLUXO PIX'
+            );
+
+            mostrarLoadingPedido();
+
             return;
         }
 
@@ -1138,9 +1191,23 @@ if (checkoutForm) {
                 'cardToken'
             ).value = resultado.id;
 
+            mostrarLoadingPedido();
+
             checkoutForm.submit();
 
-        } catch (erro) {
+            } catch (erro) {
+
+            const overlay =
+                document.getElementById(
+                    'overlayLoading'
+                );
+
+            if (overlay) {
+
+                overlay.classList.remove(
+                    'ativo'
+                );
+            }
 
             console.error(
                 'Erro Mercado Pago:',
