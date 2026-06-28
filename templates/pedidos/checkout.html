@@ -275,14 +275,13 @@
                         <option value="1" selected>
                             1x sem juros
                         </option>
-                    </
                     </select>
 
                     </div>
 
                     </div>
 
-            <!-- ✅ FECHA novo_cartao -->
+                    <!-- ✅ FECHA novo_cartao -->
 
 
                 <!-- ✅ PIX -->
@@ -290,7 +289,7 @@
 
                     <div class="opcao-header">
 
-                        <strong>⚡ PIX</strong>
+                        <strong>⚡PIX</strong>
 
                         <span class="subtexto">
                             Aprovação imediata
@@ -603,7 +602,10 @@ let metodoSelecionado = null;
 
 function configurarPagamento() {
 
-    const opcoes = document.querySelectorAll('.opcao-pagamento');
+    const opcoes =
+        document.querySelectorAll(
+            '.opcao-pagamento'
+        );
 
     opcoes.forEach(opcao => {
 
@@ -618,10 +620,16 @@ function configurarPagamento() {
             // ✅ marca selecionado
             this.classList.add('selected');
 
-            metodoSelecionado = this.dataset.metodo;
+            metodoSelecionado =
+                this.dataset.metodo;
 
-            // ✅ atualiza resumo + hidden
-            atualizarResumoPagamento(this);
+            // ✅ abre SOMENTE o selecionado
+            this.classList.add('active');
+
+            // ✅ atualiza resumo
+            atualizarResumoPagamento(
+                this
+            );
 
             const metodoInput =
                 document.getElementById(
@@ -652,19 +660,12 @@ function configurarPagamento() {
                 );
             }
 
-            // ✅ RECALCULA DESCONTOS
+            // ✅ recalcula descontos
             recalcularTotalCheckout();
 
-            // ✅ abre formulário dos métodos que precisam
-            if (
-                metodoSelecionado === 'novo_cartao' ||
-                metodoSelecionado === 'pix'
-            ) {
-                this.classList.add('active');
-            }
-
-            // ✅ 💥 ESSENCIAL → atualiza estado do botão
+            // ✅ atualiza botão
             atualizarEstadoBotao();
+
         });
 
     });
@@ -954,44 +955,53 @@ document.addEventListener('DOMContentLoaded', async function () {
             '.opcao-pagamento.selected'
         );
 
-if (selecionadoInicial) {
+    if (selecionadoInicial) {
 
-    metodoSelecionado =
-        selecionadoInicial.dataset.metodo;
+        metodoSelecionado =
+            selecionadoInicial.dataset.metodo;
 
-    // ✅ atualiza resumo imediatamente
-    atualizarResumoPagamento(
-        selecionadoInicial
-    );
+        // ✅ fecha todos
+        document
+            .querySelectorAll('.opcao-pagamento')
+            .forEach(el => {
+                el.classList.remove('active');
+            });
 
-    const inputMetodo =
-        document.getElementById(
-            'metodoPagamentoInput'
+        // ✅ abre somente o selecionado
+        selecionadoInicial.classList.add('active');
+
+        // ✅ atualiza resumo
+        atualizarResumoPagamento(
+            selecionadoInicial
         );
 
-if (inputMetodo) {
+        const inputMetodo =
+            document.getElementById(
+                'metodoPagamentoInput'
+            );
 
-    inputMetodo.value =
-        metodoSelecionado;
+        if (inputMetodo) {
 
-    console.log(
-        'METODO INICIAL:',
-        metodoSelecionado
-    );
+            inputMetodo.value =
+                metodoSelecionado;
 
-    console.log(
-        'HIDDEN INICIAL:',
-        inputMetodo.value
-    );
-}
+            console.log(
+                'METODO INICIAL:',
+                metodoSelecionado
+            );
 
-    // ✅ recalcula total/descontos iniciais
-    recalcularTotalCheckout();
+            console.log(
+                'HIDDEN INICIAL:',
+                inputMetodo.value
+            );
+        }
 
-}
+        // ✅ recalcula total/descontos iniciais
+        recalcularTotalCheckout();
+    }
 
-// ✅ garante estado inicial do botão
-atualizarEstadoBotao();
+    // ✅ garante estado inicial do botão
+    atualizarEstadoBotao();
 
 });
 
@@ -1377,7 +1387,8 @@ async function carregarParcelasCartao(bin) {
         const data = await response.json();
 
         selectParcelas.innerHTML =
-            `<option value="">Selecione o parcelamento</option>`;
+            `<option value="1" selected>1x sem juros</option>`;
+
 
         if (
             !data.success ||
