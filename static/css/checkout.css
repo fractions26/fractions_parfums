@@ -728,7 +728,7 @@
         display: flex !important;
         flex-direction: column !important;
         margin: 20px auto;
-        padding: 0 20px;
+        padding: 0 25px;
         gap: 12px;
     }
 
@@ -738,6 +738,11 @@
         gap: 2px;
     }
 
+    .checkout-box,
+    .resumo-box {
+
+        box-sizing: border-box;
+    }
     /* ordem principal */
     .box-endereco {
         order: 1;
