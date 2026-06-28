@@ -100,15 +100,34 @@ def checkout(request):
     # =====================================
     if request.method == 'POST':
 
+
+        print("=" * 80)
+        print("POST RECEBIDO")
+        print(dict(request.POST))
+        print("=" * 80)
+
         # =========================
         # ✅ CPF (OBRIGATÓRIO)
         # =========================
         perfil = getattr(request.user, 'perfil', None)
 
-        cpf_input = request.POST.get('cpf_pagamento') or ''
-        cpf_perfil = perfil.cpf if perfil and perfil.cpf else ''
+        cpf_cartao = request.POST.get(
+            'cpf_pagamento',
+            ''
+        ).strip()
 
-        cpf = cpf_input or cpf_perfil
+        cpf_pix = request.POST.get(
+            'cpf_pagamento_pix',
+            ''
+        ).strip()
+
+        cpf_perfil = (
+            perfil.cpf
+            if perfil and getattr(perfil, 'cpf', None)
+            else ''
+        )
+
+        cpf = cpf_cartao or cpf_pix or cpf_perfil
 
         if not cpf:
             messages.error(
@@ -117,8 +136,7 @@ def checkout(request):
             )
             return redirect('checkout')
 
-        cpf = str(cpf)
-        cpf = re.sub(r'\D', '', cpf)
+        cpf = re.sub(r'\D', '', str(cpf))
 
         if len(cpf) != 11:
             messages.error(
@@ -127,9 +145,20 @@ def checkout(request):
             )
             return redirect('checkout')
 
-        if perfil and not getattr(perfil, 'cpf', None):
+        # ✅ Salva automaticamente nos dados pessoais
+        if (
+            perfil
+            and cpf
+            and not getattr(perfil, 'cpf', None)
+        ):
+
             perfil.cpf = cpf
             perfil.save()
+
+            print(
+                f'CPF {cpf} salvo automaticamente '
+                f'para {request.user.username}'
+            )
 
         # =========================
         # ✅ FRETE

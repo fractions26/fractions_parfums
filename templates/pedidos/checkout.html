@@ -98,7 +98,7 @@
                 <a href="{% url 'meus_enderecos' %}?next={% url 'checkout' %}"
                    class="btn-checkout-endereco">
 
-                    Cadastrar Endereço
+                    CADASTRAR ENDEREÇO
 
                 </a>
 
@@ -284,38 +284,37 @@
                     <!-- ✅ FECHA novo_cartao -->
 
 
-                <!-- ✅ PIX -->
-                <div class="opcao-pagamento" data-metodo="pix">
+                    <!-- ✅ PIX -->
+                    <div class="opcao-pagamento" data-metodo="pix">
 
-                    <div class="opcao-header">
+                        <div class="opcao-header">
 
-                        <strong>⚡PIX</strong>
+                            <strong>⚡PIX</strong>
 
-                        <span class="subtexto">
-                            Aprovação imediata
-                        </span>
+                            <span class="subtexto">
+                                Aprovação imediata
+                            </span>
 
-                        <span class="badge-desconto">
-                            3% OFF
-                        </span>
+                            <span class="badge-desconto">
+                                3% OFF
+                            </span>
+
+                        </div>
+
+                        <div class="form-cartao">
+
+                            <input
+                                type="text"
+                                name="cpf_pagamento_pix"
+                                id="cpfPagamentoPix"
+                                placeholder="CPF para pagamento"
+                            >
+
+                        </div>
 
                     </div>
 
-                    <div class="form-cartao">
-
-                        <input
-                            type="text"
-                            name="cpf_pagamento"
-                            id="cpfPagamentoPix"
-                            placeholder="CPF para pagamento"
-                        >
-
                     </div>
-
-                </div>
-
-
-            </div>
             <!-- ✅ FECHA checkout-box box-pagamento -->
 
 
@@ -1027,12 +1026,17 @@ function atualizarResumoPagamento(opcao) {
 
 }
 
-    // ✅ quando digitar CPF
-    document.addEventListener('input', function(e) {
-        if (e.target.name === 'cpf_pagamento') {
-            atualizarEstadoBotao();
-        }
-    });
+// ✅ quando digitar CPF
+document.addEventListener('input', function(e) {
+
+    if (
+        e.target.name === 'cpf_pagamento' ||
+        e.target.name === 'cpf_pagamento_pix'
+    ) {
+        atualizarEstadoBotao();
+    }
+
+});
 
 
 // =====================================
