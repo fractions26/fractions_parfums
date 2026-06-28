@@ -687,22 +687,31 @@ let mobileResultadosBusca = document.getElementById(
     'mobile-search-results'
 );
 
-if(mobileInputBusca && mobileResultadosBusca){
+let pwaBanner = document.getElementById(
+    'pwa-banner'
+);
+
+if (mobileInputBusca && mobileResultadosBusca) {
 
     mobileInputBusca.addEventListener(
         'input',
-        async function(){
+        async function() {
 
             const q = this.value.trim();
 
-            if(q.length < 2){
+            // ✅ limpa busca
+            if (q.length < 2) {
 
                 mobileResultadosBusca.style.display = 'none';
+
+                if (pwaBanner) {
+                    pwaBanner.style.display = 'flex';
+                }
 
                 return;
             }
 
-            try{
+            try {
 
                 const response = await fetch(
                     `/produtos/busca/ajax/?q=${encodeURIComponent(q)}`
@@ -712,13 +721,19 @@ if(mobileInputBusca && mobileResultadosBusca){
 
                 mobileResultadosBusca.innerHTML = '';
 
-                if(!data.resultados.length){
+                // ✅ esconde banner durante busca
+                if (pwaBanner) {
+                    pwaBanner.style.display = 'none';
+                }
+
+                if (!data.resultados.length) {
 
                     mobileResultadosBusca.innerHTML = `
 
                         <div class="search-empty">
                             Nenhum perfume encontrado
                         </div>
+
                     `;
 
                     mobileResultadosBusca.style.display = 'block';
@@ -750,6 +765,7 @@ if(mobileInputBusca && mobileResultadosBusca){
                             </div>
 
                         </a>
+
                     `;
                 });
 
@@ -761,24 +777,39 @@ if(mobileInputBusca && mobileResultadosBusca){
                     >
                         VER TODOS OS RESULTADOS
                     </a>
+
                 `;
 
                 mobileResultadosBusca.style.display = 'block';
 
-            } catch(e){
+            } catch (e) {
 
-                console.log('Erro busca mobile ajax', e);
+                console.error(
+                    'Erro busca mobile ajax',
+                    e
+                );
+
             }
+
         }
     );
 
     // ✅ FECHA AO CLICAR FORA
-    document.addEventListener('click', function(e){
+    document.addEventListener('click', function(e) {
 
-        if(!e.target.closest('.search-mobile')){
+        if (!e.target.closest('.search-mobile')) {
 
             mobileResultadosBusca.style.display = 'none';
+
+            if (
+                pwaBanner &&
+                mobileInputBusca.value.trim().length < 2
+            ) {
+                pwaBanner.style.display = 'flex';
+            }
+
         }
+
     });
 
     // ✅ FECHA AO ROLAR
@@ -786,7 +817,15 @@ if(mobileInputBusca && mobileResultadosBusca){
 
         mobileResultadosBusca.style.display = 'none';
 
+        if (
+            pwaBanner &&
+            mobileInputBusca.value.trim().length < 2
+        ) {
+            pwaBanner.style.display = 'flex';
+        }
+
     });
+
 }
 
 </script>
