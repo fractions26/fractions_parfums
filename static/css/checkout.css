@@ -4,9 +4,8 @@
 
 .checkout-page {
     margin: 40px auto;
-    padding: 0 20px;
-
-    display: block; /* ✅ fluxo normal (sem grid) */
+    padding: 0 16px;
+    display: block;
 }
 
 
@@ -722,13 +721,14 @@
 
 }
 
+
 @media (max-width: 768px) {
 
     .checkout-page {
         display: flex !important;
         flex-direction: column !important;
         margin: 20px auto;
-        padding: 0 12px;
+        padding: 0 20px;
         gap: 12px;
     }
 
