@@ -140,25 +140,9 @@
 
                 <h2>Forma de pagamento</h2>
 
-            <!-- ✅ CARTÃO SALVO -->
-            <div class="opcao-pagamento selected" data-metodo="cartao_salvo">
-
-                <div class="opcao-header">
-                    <strong>✅ Cartão Salvo</strong>
-
-                    <span class="subtexto">
-                        Mastercard • **** 3811
-                    </span>
-
-                    <span class="subtexto">
-                        Até 3x sem juros
-                    </span>
-                </div>
-
-            </div>
 
             <!-- ✅ NOVO CARTÃO -->
-            <div class="opcao-pagamento" data-metodo="novo_cartao">
+            <div class="opcao-pagamento selected active" data-metodo="novo_cartao">
 
                 <div class="opcao-header">
 
@@ -263,6 +247,26 @@
                         placeholder="CPF do titular"
                     >
 
+                    <!-- ✅ SALVAR CARTÃO NO DISPOSITIVO -->
+                    <div class="lembrar-cartao-box">
+
+                        <label class="lembrar-cartao-label">
+
+                            <input
+                                type="checkbox"
+                                id="lembrarCartao"
+                            >
+
+                            Salvar informações deste cartão apenas neste dispositivo
+
+                        </label>
+
+                        <div class="lembrar-cartao-info">
+                            Não armazenamos CVV, validade ou número completo do cartão.
+                        </div>
+
+                    </div>
+
                     <!-- ✅ PARCELAMENTO -->
                     <select
                         id="parcelasCartao"
@@ -273,9 +277,10 @@
                         </option>
                     </select>
 
-                </div>
+                    </div>
 
-            </div>
+                    </div>
+
             <!-- ✅ FECHA novo_cartao -->
 
 
@@ -696,9 +701,7 @@ function atualizarEstadoBotao() {
     }
 
 
-    let cpfOK =
-        metodoSelecionado ===
-        'cartao_salvo';
+    let cpfOK = false;
 
     if (cpfInput) {
 
@@ -967,14 +970,9 @@ function atualizarResumoPagamento(opcao) {
 
     const metodo = opcao.dataset.metodo;
 
-    if (metodo === 'cartao_salvo') {
-        metodoEl.innerText = "Cartão salvo (**** 3811)";
-        parcelaEl.innerText = "Até 3x sem juros";
-    }
-
     if (metodo === 'novo_cartao') {
         metodoEl.innerText = "Cartão de crédito";
-        parcelaEl.innerText = "Até 3x sem juros";
+        parcelaEl.innerText = "Até 12x disponíveis";
     }
 
     if (metodo === 'pix') {

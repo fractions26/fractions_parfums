@@ -1255,3 +1255,32 @@
         transform: rotate(360deg);
     }
 }
+
+.lembrar-cartao-box {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.lembrar-cartao-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: #333;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.lembrar-cartao-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.lembrar-cartao-info {
+    margin-top: 6px;
+    margin-left: 26px;
+    font-size: 12px;
+    color: #666;
+    line-height: 1.4;
+}

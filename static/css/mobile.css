@@ -497,7 +497,7 @@
 
 /* ✅ INPUT AJUSTADO */
 .search-mobile input {
-    width: 97%;
+    width: 100%;
     max-width: 500px;
 
     background: #333;
