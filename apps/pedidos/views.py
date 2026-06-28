@@ -218,9 +218,8 @@ def checkout(request):
             )
 
             parcelas = request.POST.get(
-                'parcelas',
-                1
-            )
+                'parcelas'
+            ) or '1'
 
             payment_method_id = request.POST.get(
                 'payment_method_id',
@@ -231,6 +230,15 @@ def checkout(request):
                 'BANDEIRA RECEBIDA:',
                 payment_method_id
             )
+            
+            
+
+            print("=" * 80)
+            print("METODO:", metodo_pagamento)
+            print("CARD TOKEN:", card_token)
+            print("BANDEIRA:", payment_method_id)
+            print("PARCELAS:", parcelas)
+            print("=" * 80)
 
             if not card_token:
 

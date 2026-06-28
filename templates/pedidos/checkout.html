@@ -272,9 +272,10 @@
                         id="parcelasCartao"
                         name="parcelas"
                     >
-                        <option value="">
-                            Selecione o parcelamento
+                        <option value="1" selected>
+                            1x sem juros
                         </option>
+                    </
                     </select>
 
                     </div>
@@ -622,10 +623,34 @@ function configurarPagamento() {
             // ✅ atualiza resumo + hidden
             atualizarResumoPagamento(this);
 
-            document.getElementById(
-                'metodoPagamentoInput'
-            ).value =
-                metodoSelecionado;
+            const metodoInput =
+                document.getElementById(
+                    'metodoPagamentoInput'
+                );
+
+            if (metodoInput) {
+
+                metodoInput.value =
+                    metodoSelecionado;
+
+                console.log(
+                    '==================================='
+                );
+
+                console.log(
+                    'METODO SELECIONADO:',
+                    metodoSelecionado
+                );
+
+                console.log(
+                    'VALOR HIDDEN metodoPagamentoInput:',
+                    metodoInput.value
+                );
+
+                console.log(
+                    '==================================='
+                );
+            }
 
             // ✅ RECALCULA DESCONTOS
             recalcularTotalCheckout();
@@ -944,11 +969,21 @@ if (selecionadoInicial) {
             'metodoPagamentoInput'
         );
 
-    if (inputMetodo) {
+if (inputMetodo) {
 
-        inputMetodo.value =
-            metodoSelecionado;
-    }
+    inputMetodo.value =
+        metodoSelecionado;
+
+    console.log(
+        'METODO INICIAL:',
+        metodoSelecionado
+    );
+
+    console.log(
+        'HIDDEN INICIAL:',
+        inputMetodo.value
+    );
+}
 
     // ✅ recalcula total/descontos iniciais
     recalcularTotalCheckout();
@@ -1101,21 +1136,59 @@ if (nomeCartao) {
 
 }
 
-// =====================================
-// ✅ TOKENIZAÇÃO MERCADO PAGO
-// =====================================
+    // =====================================
+    // ✅ TOKENIZAÇÃO MERCADO PAGO
+    // =====================================
 
-const checkoutForm =
-    document.getElementById('checkoutForm');
+    const checkoutForm =
+        document.getElementById('checkoutForm');
 
-if (checkoutForm) {
+    if (checkoutForm) {
 
-    checkoutForm.addEventListener('submit', async function(e) {
+        checkoutForm.addEventListener('submit', async function(e) {
 
-        const metodo =
-            document.getElementById(
-                'metodoPagamentoInput'
-            )?.value;
+    const metodo =
+        document.getElementById(
+            'metodoPagamentoInput'
+        )?.value;
+
+    console.log(
+        '==================================='
+    );
+
+    console.log(
+        'SUBMIT CHAMADO'
+    );
+
+    console.log(
+        'METODO PAGAMENTO:',
+        metodo
+    );
+
+    console.log(
+        'CARD TOKEN ANTES TOKENIZACAO:',
+        document.getElementById(
+            'cardToken'
+        )?.value
+    );
+
+    console.log(
+        'BANDEIRA:',
+        document.getElementById(
+            'paymentMethodId'
+        )?.value
+    );
+
+    console.log(
+        'PARCELAS:',
+        document.getElementById(
+            'parcelasCartao'
+        )?.value
+    );
+
+    console.log(
+        '==================================='
+    );
 
         // ✅ PIX e BOLETO seguem fluxo normal
         console.log(
@@ -1164,6 +1237,8 @@ if (checkoutForm) {
             const mes = partes[0];
             const ano = '20' + partes[1];
 
+            console.log('INICIANDO TOKENIZACAO');
+
             const resultado =
                 await mp.createCardToken({
 
@@ -1185,13 +1260,22 @@ if (checkoutForm) {
 
                 });
 
+            console.log('TOKEN MP RETORNO:', resultado);
+
             document.getElementById(
                 'cardToken'
             ).value = resultado.id;
 
+            console.log(
+                'TOKEN GRAVADO:',
+                document.getElementById('cardToken').value
+            );
+
             mostrarLoadingPedido();
 
-            checkoutForm.submit();
+            HTMLFormElement.prototype.submit.call(
+                checkoutForm
+            );
 
             } catch (erro) {
 
