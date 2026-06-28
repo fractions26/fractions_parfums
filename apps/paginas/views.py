@@ -5,7 +5,6 @@ from django.conf import settings
 from apps.produtos.models import Perfume
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from apps.carrinho.models import Carrinho
 from apps.carrinho.models import Carrinho, Item
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
@@ -184,7 +183,9 @@ def contato(request):
 
         except Exception as e:
 
-            print("ERRO EMAIL:", e)
+            print(
+                f"Erro ao enviar email de contato: {e}"
+            )
 
             messages.error(
                 request,
@@ -461,9 +462,9 @@ def criar_conta(request):
         except Exception as e:
 
             print(
-                "Erro ao enviar email:",
-                e
+                f"Erro ao enviar email de boas-vindas: {e}"
             )
+
 
         # ✅ LOGIN AUTOMÁTICO
         login(request, user, backend='django.contrib.auth.backends.ModelBackend')

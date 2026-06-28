@@ -101,10 +101,10 @@ def checkout(request):
     if request.method == 'POST':
 
 
-        print("=" * 80)
-        print("POST RECEBIDO")
-        print(dict(request.POST))
-        print("=" * 80)
+        # print("=" * 80)
+        # print("POST RECEBIDO")
+        # print(dict(request.POST))
+        # print("=" * 80)
 
         # =========================
         # ✅ CPF (OBRIGATÓRIO)
@@ -155,10 +155,6 @@ def checkout(request):
             perfil.cpf = cpf
             perfil.save()
 
-            print(
-                f'CPF {cpf} salvo automaticamente '
-                f'para {request.user.username}'
-            )
 
         # =========================
         # ✅ FRETE
@@ -232,10 +228,10 @@ def checkout(request):
             'metodo_pagamento'
         )
 
-        print(
-            "METODO RECEBIDO:",
-            metodo_pagamento
-        )
+        # print(
+        #     "METODO RECEBIDO:",
+        #     metodo_pagamento
+        # )
 
         # =========================
         # ✅ CARTÃO DE CRÉDITO
@@ -262,12 +258,12 @@ def checkout(request):
             
             
 
-            print("=" * 80)
-            print("METODO:", metodo_pagamento)
-            print("CARD TOKEN:", card_token)
-            print("BANDEIRA:", payment_method_id)
-            print("PARCELAS:", parcelas)
-            print("=" * 80)
+            # print("=" * 80)
+            # print("METODO:", metodo_pagamento)
+            # print("CARD TOKEN:", card_token)
+            # print("BANDEIRA:", payment_method_id)
+            # print("PARCELAS:", parcelas)
+            # print("=" * 80)
 
             if not card_token:
 
@@ -332,11 +328,11 @@ def checkout(request):
 
                 return redirect('checkout')
 
-            print(
-                f"MP PAYMENT ID={payment_id} "
-                f"STATUS={status_mp} "
-                f"BANDEIRA={bandeira_cartao}"
-            )
+            # print(
+            #     f"MP PAYMENT ID={payment_id} "
+            #     f"STATUS={status_mp} "
+            #     f"BANDEIRA={bandeira_cartao}"
+            # )
 
             if status_mp == 'approved':
 
@@ -387,18 +383,6 @@ def checkout(request):
                 valor_total
             )
 
-            print(
-                f"DESCONTO CUPOM={desconto - desconto_pix}"
-            )
-
-            print(
-                f"DESCONTO PIX={desconto_pix}"
-            )
-
-            print(
-                f"VALOR FINAL PIX={valor_total}"
-            )
-
             resultado_pagamento = criar_pagamento_pix(
                 valor=valor_total,
                 email=request.user.email,
@@ -420,10 +404,10 @@ def checkout(request):
                     'checkout'
                 )
 
-            print(
-                f"PIX PAYMENT ID={resultado_pagamento.get('id')} "
-                f"STATUS={resultado_pagamento.get('status')}"
-            )
+            # print(
+            #     f"PIX PAYMENT ID={resultado_pagamento.get('id')} "
+            #     f"STATUS={resultado_pagamento.get('status')}"
+            # )
 
             if resultado_pagamento.get(
                 'http_status'
@@ -453,10 +437,10 @@ def checkout(request):
                 )
             )
 
-            print(
-                f"PIX PAYMENT ID={payment_id} "
-                f"STATUS={status_mp}"
-            )
+            # print(
+            #     f"PIX PAYMENT ID={payment_id} "
+            #     f"STATUS={status_mp}"
+            # )
 
             if status_mp == 'approved':
 

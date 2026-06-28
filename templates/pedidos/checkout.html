@@ -541,21 +541,13 @@
         }
     );
 
-    console.log('Mercado Pago iniciado');
-
     function mostrarLoadingPedido() {
-
-        console.log('1 - mostrarLoadingPedido executou');
 
         const overlay =
             document.getElementById(
                 'overlayLoading'
             );
 
-        console.log(
-            '2 - overlay encontrado:',
-            overlay
-        );
 
         if (overlay) {
 
@@ -563,9 +555,6 @@
                 'ativo'
             );
 
-            console.log(
-                '3 - classe ativo adicionada'
-            );
         }
     }
 
@@ -640,23 +629,6 @@ function configurarPagamento() {
                 metodoInput.value =
                     metodoSelecionado;
 
-                console.log(
-                    '==================================='
-                );
-
-                console.log(
-                    'METODO SELECIONADO:',
-                    metodoSelecionado
-                );
-
-                console.log(
-                    'VALOR HIDDEN metodoPagamentoInput:',
-                    metodoInput.value
-                );
-
-                console.log(
-                    '==================================='
-                );
             }
 
             // ✅ recalcula descontos
@@ -984,15 +956,6 @@ document.addEventListener('DOMContentLoaded', async function () {
             inputMetodo.value =
                 metodoSelecionado;
 
-            console.log(
-                'METODO INICIAL:',
-                metodoSelecionado
-            );
-
-            console.log(
-                'HIDDEN INICIAL:',
-                inputMetodo.value
-            );
         }
 
         // ✅ recalcula total/descontos iniciais
@@ -1166,56 +1129,9 @@ if (nomeCartao) {
             'metodoPagamentoInput'
         )?.value;
 
-    console.log(
-        '==================================='
-    );
-
-    console.log(
-        'SUBMIT CHAMADO'
-    );
-
-    console.log(
-        'METODO PAGAMENTO:',
-        metodo
-    );
-
-    console.log(
-        'CARD TOKEN ANTES TOKENIZACAO:',
-        document.getElementById(
-            'cardToken'
-        )?.value
-    );
-
-    console.log(
-        'BANDEIRA:',
-        document.getElementById(
-            'paymentMethodId'
-        )?.value
-    );
-
-    console.log(
-        'PARCELAS:',
-        document.getElementById(
-            'parcelasCartao'
-        )?.value
-    );
-
-    console.log(
-        '==================================='
-    );
-
-        // ✅ PIX e BOLETO seguem fluxo normal
-        console.log(
-            'SUBMIT CHAMADO:',
-            metodo
-        );
 
         // ✅ PIX e BOLETO seguem fluxo normal
         if (metodo !== 'novo_cartao') {
-
-            console.log(
-                'ENTROU NO FLUXO PIX'
-            );
 
             mostrarLoadingPedido();
 
@@ -1251,7 +1167,6 @@ if (nomeCartao) {
             const mes = partes[0];
             const ano = '20' + partes[1];
 
-            console.log('INICIANDO TOKENIZACAO');
 
             const resultado =
                 await mp.createCardToken({
@@ -1274,16 +1189,10 @@ if (nomeCartao) {
 
                 });
 
-            console.log('TOKEN MP RETORNO:', resultado);
-
             document.getElementById(
                 'cardToken'
             ).value = resultado.id;
 
-            console.log(
-                'TOKEN GRAVADO:',
-                document.getElementById('cardToken').value
-            );
 
             mostrarLoadingPedido();
 
@@ -1405,15 +1314,6 @@ async function carregarParcelasCartao(bin) {
         const parcelas =
             data.dados[0].payer_costs || [];
 
-        console.log(
-            'QUANTIDADE PARCELAS:',
-            parcelas.length
-        );
-
-        console.log(
-            'LISTA PARCELAS:',
-            parcelas
-        );
 
         parcelas.forEach(item => {
 
