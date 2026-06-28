@@ -142,7 +142,7 @@
 
 
             <!-- ✅ NOVO CARTÃO -->
-            <div class="opcao-pagamento selected active" data-metodo="novo_cartao">
+            <div class="opcao-pagamento" data-metodo="novo_cartao">
 
                 <div class="opcao-header">
 
@@ -586,6 +586,7 @@ function irParaStep(step) {
 // =====================================
 // ✅ PAGAMENTO (COM EXPANSÃO)
 // =====================================
+
 let metodoSelecionado = null;
 
 function configurarPagamento() {
@@ -597,47 +598,116 @@ function configurarPagamento() {
 
     opcoes.forEach(opcao => {
 
-        opcao.addEventListener('click', function() {
-
-            // ✅ remove seleção e expansão dos outros
-            opcoes.forEach(o => {
-                o.classList.remove('selected');
-                o.classList.remove('active');
-            });
-
-            // ✅ marca selecionado
-            this.classList.add('selected');
-
-            metodoSelecionado =
-                this.dataset.metodo;
-
-            // ✅ abre SOMENTE o selecionado
-            this.classList.add('active');
-
-            // ✅ atualiza resumo
-            atualizarResumoPagamento(
-                this
+        const header =
+            opcao.querySelector(
+                '.opcao-header'
             );
 
-            const metodoInput =
-                document.getElementById(
-                    'metodoPagamentoInput'
+        if (!header) return;
+
+        header.addEventListener(
+            'click',
+            function() {
+
+                const jaEstaAberto =
+                    opcao.classList.contains(
+                        'active'
+                    );
+
+                // ✅ Se já está aberto, fecha
+                if (jaEstaAberto) {
+
+                    opcao.classList.remove(
+                        'active'
+                    );
+
+                    opcao.classList.remove(
+                        'selected'
+                    );
+
+                    metodoSelecionado = null;
+
+                    const metodoInput =
+                        document.getElementById(
+                            'metodoPagamentoInput'
+                        );
+
+                    if (metodoInput) {
+                        metodoInput.value = '';
+                    }
+
+                    const resumoMetodo =
+                        document.getElementById(
+                            'resumoMetodoPagamento'
+                        );
+
+                    const resumoParcela =
+                        document.getElementById(
+                            'resumoParcelamento'
+                        );
+
+                    if (resumoMetodo) {
+                        resumoMetodo.innerText =
+                            'Não selecionado';
+                    }
+
+                    if (resumoParcela) {
+                        resumoParcela.innerText =
+                            '-';
+                    }
+
+                    recalcularTotalCheckout();
+                    atualizarEstadoBotao();
+
+                    return;
+                }
+
+                // ✅ Fecha todos os outros
+                opcoes.forEach(o => {
+
+                    o.classList.remove(
+                        'active'
+                    );
+
+                    o.classList.remove(
+                        'selected'
+                    );
+
+                });
+
+                // ✅ Abre o clicado
+                opcao.classList.add(
+                    'active'
                 );
 
-            if (metodoInput) {
+                opcao.classList.add(
+                    'selected'
+                );
 
-                metodoInput.value =
-                    metodoSelecionado;
+                metodoSelecionado =
+                    opcao.dataset.metodo;
+
+                atualizarResumoPagamento(
+                    opcao
+                );
+
+                const metodoInput =
+                    document.getElementById(
+                        'metodoPagamentoInput'
+                    );
+
+                if (metodoInput) {
+
+                    metodoInput.value =
+                        metodoSelecionado;
+
+                }
+
+                recalcularTotalCheckout();
+                atualizarEstadoBotao();
 
             }
-
-            // ✅ recalcula descontos
-            recalcularTotalCheckout();
-
-            // ✅ atualiza botão
-            atualizarEstadoBotao();
-
-        });
+        );
 
     });
 
@@ -920,53 +990,62 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     configurarPagamento();
 
-    // ✅ pega o método já selecionado no HTML
-    const selecionadoInicial =
-        document.querySelector(
-            '.opcao-pagamento.selected'
+    // ✅ inicia sem método selecionado
+    metodoSelecionado = null;
+
+    // ✅ garante todos fechados
+    document
+        .querySelectorAll('.opcao-pagamento')
+        .forEach(el => {
+
+            el.classList.remove('active');
+            el.classList.remove('selected');
+
+        });
+
+    // ✅ limpa campo oculto
+    const inputMetodo =
+        document.getElementById(
+            'metodoPagamentoInput'
         );
 
-    if (selecionadoInicial) {
+    if (inputMetodo) {
 
-        metodoSelecionado =
-            selecionadoInicial.dataset.metodo;
+        inputMetodo.value = '';
 
-        // ✅ fecha todos
-        document
-            .querySelectorAll('.opcao-pagamento')
-            .forEach(el => {
-                el.classList.remove('active');
-            });
-
-        // ✅ abre somente o selecionado
-        selecionadoInicial.classList.add('active');
-
-        // ✅ atualiza resumo
-        atualizarResumoPagamento(
-            selecionadoInicial
-        );
-
-        const inputMetodo =
-            document.getElementById(
-                'metodoPagamentoInput'
-            );
-
-        if (inputMetodo) {
-
-            inputMetodo.value =
-                metodoSelecionado;
-
-        }
-
-        // ✅ recalcula total/descontos iniciais
-        recalcularTotalCheckout();
     }
 
-    // ✅ garante estado inicial do botão
+    // ✅ resumo inicial
+    const metodoResumo =
+        document.getElementById(
+            'resumoMetodoPagamento'
+        );
+
+    const parcelaResumo =
+        document.getElementById(
+            'resumoParcelamento'
+        );
+
+    if (metodoResumo) {
+
+        metodoResumo.innerText =
+            'Não selecionado';
+
+    }
+
+    if (parcelaResumo) {
+
+        parcelaResumo.innerText = '-';
+
+    }
+
+    // ✅ recalcula totais
+    recalcularTotalCheckout();
+
+    // ✅ mantém botão bloqueado
     atualizarEstadoBotao();
 
 });
-
 
 function atualizarResumoPagamento(opcao) {
 
