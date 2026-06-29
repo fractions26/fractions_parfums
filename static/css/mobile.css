@@ -2094,3 +2094,11 @@ body.modal-aberto {
     }
 
 }
+
+@media (max-width:768px){
+
+    .search-mobile{
+        display:none !important;
+    }
+
+}
