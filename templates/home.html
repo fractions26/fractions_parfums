@@ -184,8 +184,29 @@
                     <h3>{{ perfume.nome }}</h3>
 
                     <div class="avaliacao-home">
-                        <span class="stars">★★★★☆</span>
-                        <span class="qtd">(21)</span>
+
+                        {% if perfume.total_avaliacoes > 0 %}
+
+                            <span class="stars">
+                                {{ perfume.estrelas_media }}
+                            </span>
+
+                            <span class="qtd">
+                                ({{ perfume.total_avaliacoes }})
+                            </span>
+
+                        {% else %}
+
+                            <span class="stars">
+                                ☆☆☆☆☆
+                            </span>
+
+                            <span class="qtd">
+                                (0)
+                            </span>
+
+                        {% endif %}
+
                     </div>
 
                     {% with preco=perfume.precos.first %}
@@ -193,19 +214,22 @@
                         {% if preco %}
 
                         <div class="preco">
-                            R$ {{ preco.valor|floatformat:2 }}
 
-                            <span class="desconto">
-                                5% OFF
+                            R$      5% OFF
                             </span>
+
                         </div>
 
                         <p class="parcelado">
+
                             <strong>3x</strong> de
+
                             <strong>
                                 R$ {{ preco.valor|floatformat:2 }}
                             </strong>
+
                             sem juros
+
                         </p>
 
                         {% endif %}
