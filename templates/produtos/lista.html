@@ -384,8 +384,29 @@
 
             <!-- ✅ AVALIAÇÃO -->
             <div class="avaliacao-home">
-                <span class="stars">★★★★☆</span>
-                <span class="qtd">(21)</span>
+
+                {% if perfume.total_avaliacoes > 0 %}
+
+                    <span class="stars">
+                        {{ perfume.estrelas_media }}
+                    </span>
+
+                    <span class="qtd">
+                        ({{ perfume.total_avaliacoes }})
+                    </span>
+
+                {% else %}
+
+                    <span class="stars">
+                        ☆☆☆☆☆
+                    </span>
+
+                    <span class="qtd">
+                        (0)
+                    </span>
+
+                {% endif %}
+
             </div>
 
             <!-- ✅ PREÇO -->

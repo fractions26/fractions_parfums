@@ -5,7 +5,8 @@ from .views import (
     lista_categoria,
     lista_produtos,
     detalhes_pagamento,
-    busca_ajax
+    busca_ajax,
+    avaliar_produto
 )
 
 urlpatterns = [
@@ -37,7 +38,14 @@ urlpatterns = [
         detalhe_produto,
         name='detalhe_produto'
     ),
-    
+
+    # ✅ AVALIAR PRODUTO
+    path(
+        'avaliar/<int:perfume_id>/',
+        avaliar_produto,
+        name='avaliar_produto'
+    ),
+
     # ✅ BUSCA AJAX
     path(
         'busca/ajax/',

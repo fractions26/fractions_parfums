@@ -51,25 +51,66 @@
             >
             {% endif %}
 
-    </div>
+        </div>
 
-</div>
+    </div>
 
 
     <!-- ✅ INFO -->
     <div class="produto-info">
 
         <div class="breadcrumb">
-            Início > {{ perfume.categoria.nome }} > {{ perfume.nome }}
+            Início >
+            {% if perfume.categorias.first %}
+                {{ perfume.categorias.first.nome }} >
+            {% endif %}
+            {{ perfume.nome }}
         </div>
 
-        <h1 class="produto-titulo">{{ perfume.nome }}</h1>
+        <h1 class="produto-titulo">
+            {{ perfume.nome }}
+        </h1>
 
         <div class="produto-avaliacao">
-            <span class="nota">4.4 de 5</span>
-            <span class="stars">★★★★☆</span>
-            <span class="qtd-avaliacao">(10)</span>
-            <span class="link-avaliacao">Clique e veja!</span>
+
+            {% if total_avaliacoes > 0 %}
+
+                <span class="nota">
+                    {{ media_avaliacao|floatformat:1 }} de 5
+                </span>
+
+                <span class="stars">
+                    {{ estrelas_media }}
+                </span>
+
+                <span class="qtd-avaliacao">
+                    ({{ total_avaliacoes }})
+                </span>
+
+                <a
+                    href="#avaliacoes"
+                    class="link-avaliacao">
+
+                    Ver avaliações
+
+                </a>
+
+            {% else %}
+
+                <span class="nota">
+                    Ainda sem avaliações
+                </span>
+
+                <span class="stars">
+                    ☆☆☆☆☆
+                </span>
+
+                <span class="qtd-avaliacao">
+                    (0)
+                </span>
+
+            {% endif %}
+
         </div>
 
         {% with preco=perfume.precos.first %}
@@ -191,7 +232,7 @@
                     ✅ Devolução grátis por 7 dias, consulte condições
                 </p>
 
-                </div>
+            </div>
 
             {% if perfume.imagem_descricao %}
             <div class="descricao-imagem mobile-only">
@@ -203,37 +244,154 @@
             </div>
             {% endif %}
 
-        </div>
+            </div>
 
-    </div>
+            </div>
 
-</div>
+            </div>
 
-<!-- ✅ MODAL COMPLETO -->
-<div id="modalImagem" class="modal-img">
+        <!-- ========================================= -->
+        <!-- ✅ AVALIAÇÕES DOS CLIENTES -->
+        <!-- ========================================= -->
+        <section
+            id="avaliacoes"
+            class="avaliacoes-produto">
 
-    <div class="modal-topo">
-        <span id="indicadorModal">1 / 2</span>
-        <span class="fechar" onclick="fecharImagem()">✕</span>
-    </div>
+            <h2>
+                ⭐ Avaliações dos Clientes
+            </h2>
 
-    <span class="seta esquerda" onclick="trocarModal(-1)">❮</span>
+            <!-- ✅ BOTÃO AVALIAR -->
+            <div class="avaliacao-acoes">
 
-    <img id="imgExpandida">
+                {% if user.is_authenticated %}
 
-    <span class="seta direita" onclick="trocarModal(1)">❯</span>
+                    <a
+                        href="{% url 'avaliar_produto' perfume.id %}"
+                        class="btn-avaliar-produto">
 
-    </div> <!-- produto-container -->
+                        ⭐ Avaliar Produto
 
+                    </a>
 
-    <!-- ✅ MODAL ZOOM DESCRIÇÃO (NOVO) -->
-    <div id="modalZoomDescricao" class="modal-zoom-desc">
+                {% else %}
 
-        <span class="fechar-zoom" onclick="fecharZoomDescricao()">✕</span>
+                    <a
+                        href="{% url 'login' %}?next={{ request.path }}"
+                        class="btn-avaliar-produto">
 
-        <img id="imgZoomDescricao">
+                        ⭐ Entrar para Avaliar
 
-    </div>
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+            {% if avaliacoes %}
+
+                <div class="avaliacoes-wrapper">
+
+                    <button
+                        class="btn-avaliacao esquerda"
+                        onclick="scrollAvaliacoes(-1)">
+
+                        ❮
+
+                    </button>
+
+                    <div
+                        class="avaliacoes-scroll"
+                        id="avaliacoesScroll">
+
+                        {% for avaliacao in avaliacoes %}
+
+                            <div class="avaliacao-card">
+
+                                <div class="avaliacao-nome">
+                                    {{ avaliacao.usuario.username }}
+                                </div>
+
+                                <div class="avaliacao-data">
+                                    Data da avaliação:
+                                    {{ avaliacao.criado_em|date:"d/m/Y" }}
+                                </div>
+
+                                <div class="avaliacao-estrelas">
+
+                                    {% if avaliacao.nota == 5 %}
+                                        ★★★★★
+                                    {% elif avaliacao.nota == 4 %}
+                                        ★★★★☆
+                                    {% elif avaliacao.nota == 3 %}
+                                        ★★★☆☆
+                                    {% elif avaliacao.nota == 2 %}
+                                        ★★☆☆☆
+                                    {% elif avaliacao.nota == 1 %}
+                                        ★☆☆☆☆
+                                    {% endif %}
+
+                                </div>
+
+                                <div class="avaliacao-comentario">
+                                    {{ avaliacao.comentario }}
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                        <button class="btn-avaliacao direita"
+                                onclick="scrollAvaliacoes(1)">
+                            ❯
+                        </button>
+
+                    </div>
+
+                {% else %}
+
+                    <div class="avaliacao-vazia">
+
+                        <div class="avaliacao-estrelas">
+                            ☆☆☆☆☆
+                        </div>
+
+                        <p>
+                            Este produto ainda não possui avaliações.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </section>
+
+            <!-- ✅ MODAL COMPLETO -->
+            <div id="modalImagem" class="modal-img">
+
+                <div class="modal-topo">
+                    <span id="indicadorModal">1 / 2</span>
+                    <span class="fechar" onclick="fecharImagem()">✕</span>
+                </div>
+
+                <span class="seta esquerda" onclick="trocarModal(-1)">❮</span>
+
+                <img id="imgExpandida">
+
+                <span class="seta direita" onclick="trocarModal(1)">❯</span>
+
+            </div>
+
+            <!-- ✅ MODAL ZOOM DESCRIÇÃO (NOVO) -->
+            <div id="modalZoomDescricao" class="modal-zoom-desc">
+
+                <span class="fechar-zoom" onclick="fecharZoomDescricao()">✕</span>
+
+                <img id="imgZoomDescricao">
+
+            </div>
 
 <!-- ✅ SCRIPT FINAL -->
 <script>
@@ -956,6 +1114,79 @@ function atualizarQtdTela() {
     }
 }
 
+/* ========================= */
+/* ✅ CARROSSEL AVALIAÇÕES */
+/* ========================= */
+
+function scrollAvaliacoes(direcao){
+
+    const container =
+        document.getElementById(
+            "avaliacoesScroll"
+        );
+
+    if(!container){
+        return;
+    }
+
+    container.scrollBy({
+
+        left: direcao * container.clientWidth,
+
+        behavior:"smooth"
+    });
+}
+
+/* ========================= */
+/* ✅ AUTO PLAY */
+/* ========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        const container =
+            document.getElementById(
+                "avaliacoesScroll"
+            );
+
+        if(!container){
+            return;
+        }
+
+        const cards =
+            container.querySelectorAll(
+                ".avaliacao-card"
+            );
+
+        if(cards.length <= 1){
+            return;
+        }
+
+        let indice = 0;
+
+        setInterval(function(){
+
+            indice++;
+
+            if(indice >= cards.length){
+                indice = 0;
+            }
+
+            cards[indice].scrollIntoView({
+
+                behavior:"smooth",
+
+                inline:"start",
+
+                block:"nearest"
+
+            });
+
+        }, 5000);
+
+    }
+);
 
 </script>
 

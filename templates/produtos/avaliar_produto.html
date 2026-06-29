@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-avaliacao">
+
+    <h1>
+        ⭐ Avaliar Produto
+    </h1>
+
+    <h2>
+        {{ perfume.nome }}
+    </h2>
+
+    {% if avaliacao_existente %}
+
+        <div class="msg-avaliado">
+
+            ✅ Você já avaliou este produto.
+
+        </div>
+
+    {% else %}
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            <div class="campo">
+
+                <label>
+                    Sua nota
+                </label>
+
+                <select
+                    name="nota"
+                    required>
+
+                    <option value="">
+                        Selecione
+                    </option>
+
+                    <option value="5">
+                        ★★★★★
+                    </option>
+
+                    <option value="4">
+                        ★★★★☆
+                    </option>
+
+                    <option value="3">
+                        ★★★☆☆
+                    </option>
+
+                    <option value="2">
+                        ★★☆☆☆
+                    </option>
+
+                    <option value="1">
+                        ★☆☆☆☆
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="campo">
+
+                <label>
+                    Comentário
+                </label>
+
+                <textarea
+                    name="comentario"
+                    rows="6"
+                    required
+                    placeholder="Conte como foi sua experiência com este perfume">
+                </textarea>
+
+            </div>
+
+            <button
+                type="submit"
+                class="btn-enviar-avaliacao">
+
+                Enviar Avaliação
+
+            </button>
+
+        </form>
+
+    {% endif %}
+
+</div>
+
+<style>
+
+.container-avaliacao{
+
+    max-width:700px;
+
+    margin:50px auto;
+
+    padding:30px;
+
+    background:#fff;
+
+    border-radius:12px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.container-avaliacao h1{
+
+    margin-bottom:10px;
+}
+
+.container-avaliacao h2{
+
+    font-size:18px;
+
+    color:#666;
+
+    margin-bottom:25px;
+}
+
+.campo{
+
+    margin-bottom:20px;
+}
+
+.campo label{
+
+    display:block;
+
+    font-weight:600;
+
+    margin-bottom:8px;
+}
+
+.campo select,
+.campo textarea{
+
+    width:100%;
+
+    padding:12px;
+
+    border:1px solid #ddd;
+
+    border-radius:8px;
+
+    font-size:15px;
+}
+
+.btn-enviar-avaliacao{
+
+    background:#5b21b6;
+
+    color:#fff;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:14px 26px;
+
+    cursor:pointer;
+
+    font-weight:700;
+}
+
+.btn-enviar-avaliacao:hover{
+
+    background:#4c1d95;
+}
+
+.msg-avaliado{
+
+    padding:15px;
+
+    background:#f5f5f5;
+
+    border-radius:8px;
+}
+
+</style>
+
+{% endblock %}

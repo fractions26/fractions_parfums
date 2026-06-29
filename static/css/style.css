@@ -2918,4 +2918,365 @@ header {
     color:#dc2626;
 }
 
+/* ===================================== */
+/* ✅ AVALIAÇÕES DOS CLIENTES */
+/* ===================================== */
 
+.avaliacoes-produto{
+
+    max-width:1250px;
+
+    margin:60px auto 80px auto;
+
+    padding:0 20px;
+
+    scroll-margin-top:120px;
+}
+
+.avaliacoes-produto h2{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:32px;
+
+    font-family:"Montserrat",sans-serif;
+
+    font-weight:700;
+
+    color:#111;
+
+    margin-bottom:25px;
+
+    padding-bottom:18px;
+
+    border-bottom:1px solid #e5e5e5;
+}
+
+/* ========================= */
+/* ✅ WRAPPER */
+/* ========================= */
+
+.avaliacoes-wrapper{
+
+    position:relative;
+
+    width:100%;
+}
+
+/* ========================= */
+/* ✅ SCROLL */
+/* ========================= */
+
+.avaliacoes-scroll{
+
+    display:flex;
+
+    gap:18px;
+
+    overflow-x:auto;
+
+    scroll-behavior:smooth;
+
+    scrollbar-width:none;
+
+    padding:8px 5px 15px;
+}
+
+.avaliacoes-scroll::-webkit-scrollbar{
+
+    display:none;
+}
+
+/* ========================= */
+/* ✅ CARD */
+/* ========================= */
+
+.avaliacao-card{
+
+    min-width:300px;
+
+    max-width:300px;
+
+    flex-shrink:0;
+
+    background:#fff;
+
+    border:1px solid #ececec;
+
+    border-radius:14px;
+
+    padding:20px;
+
+    transition:.25s;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.05);
+}
+
+.avaliacao-card:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 8px 18px rgba(0,0,0,.08);
+}
+
+/* ========================= */
+/* ✅ NOME */
+/* ========================= */
+
+.avaliacao-nome{
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:#111;
+
+    margin-bottom:3px;
+
+    line-height:1.3;
+}
+
+/* ========================= */
+/* ✅ DATA */
+/* ========================= */
+
+.avaliacao-data{
+
+    font-size:14px;
+
+    color:#666;
+
+    margin-bottom:14px;
+}
+
+/* ========================= */
+/* ✅ ESTRELAS */
+/* ========================= */
+
+.avaliacao-estrelas{
+
+    font-size:28px;
+
+    color:#e7b416;
+
+    letter-spacing:2px;
+
+    margin-bottom:12px;
+}
+
+/* ========================= */
+/* ✅ COMENTÁRIO */
+/* ========================= */
+
+.avaliacao-comentario{
+
+    font-size:16px;
+
+    color:#333;
+
+    line-height:1.6;
+}
+
+/* ========================= */
+/* ✅ SETAS */
+/* ========================= */
+
+.btn-avaliacao{
+
+    position:absolute;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:46px;
+
+    height:46px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#f3f3f3;
+
+    color:#666;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    z-index:20;
+
+    transition:.2s;
+}
+
+.btn-avaliacao:hover{
+
+    background:#e5e5e5;
+
+    color:#111;
+}
+
+.btn-avaliacao.esquerda{
+
+    left:-15px;
+}
+
+.btn-avaliacao.direita{
+
+    right:-15px;
+}
+
+/* ========================= */
+/* ✅ SEM AVALIAÇÕES */
+/* ========================= */
+
+.avaliacao-vazia{
+
+    border:1px solid #e5e5e5;
+
+    background:#fff;
+
+    border-radius:14px;
+
+    padding:40px;
+
+    text-align:center;
+}
+
+.avaliacao-vazia .avaliacao-estrelas{
+
+    font-size:34px;
+
+    color:#ccc;
+
+    margin-bottom:10px;
+}
+
+.avaliacao-vazia p{
+
+    color:#666;
+
+    font-size:15px;
+}
+
+/* ========================= */
+/* ✅ LINK VER AVALIAÇÕES */
+/* ========================= */
+
+.link-avaliacao{
+
+    font-size:13px;
+
+    color:#5b21b6;
+
+    text-decoration:underline;
+
+    cursor:pointer;
+
+    margin-left:4px;
+
+    font-weight:500;
+}
+
+.link-avaliacao:hover{
+
+    color:#4c1d95;
+}
+
+/* ========================= */
+/* ✅ SCROLL SUAVE */
+/* ========================= */
+
+html{
+
+    scroll-behavior:smooth;
+}
+
+/* ========================= */
+/* ✅ MOBILE */
+/* ========================= */
+
+@media(max-width:768px){
+
+    .avaliacoes-produto{
+
+        margin:40px auto 60px;
+
+        padding:0 15px;
+    }
+
+    .avaliacoes-produto h2{
+
+        font-size:24px;
+    }
+
+    .avaliacoes-scroll{
+
+        gap:0;
+
+        scroll-snap-type:x mandatory;
+    }
+
+    .avaliacao-card{
+
+        min-width:100%;
+
+        max-width:100%;
+
+        scroll-snap-align:center;
+
+        text-align:center;
+    }
+
+    .avaliacao-nome{
+
+        font-size:18px;
+    }
+
+    .avaliacao-data{
+
+        font-size:13px;
+    }
+
+    .avaliacao-estrelas{
+
+        font-size:24px;
+    }
+
+    .avaliacao-comentario{
+
+        font-size:14px;
+    }
+
+    .btn-avaliacao{
+
+        display:flex;
+
+        align-items:center;
+
+        justify-content:center;
+
+        width:42px;
+
+        height:42px;
+
+        background:#f5f5f5;
+
+        border-radius:8px;
+    }
+
+    .btn-avaliacao.esquerda{
+
+        left:-5px;
+    }
+
+    .btn-avaliacao.direita{
+
+        right:-5px;
+    }
+}

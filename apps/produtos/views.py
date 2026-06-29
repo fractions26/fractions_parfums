@@ -1,16 +1,36 @@
-from django.shortcuts import render, get_object_or_404
-from django.db.models import Q, Min
-from .models import Perfume, Categoria
-from apps.carrinho.models import Item
-from django.views.decorators.csrf import ensure_csrf_cookie
 from decimal import Decimal
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
+from django.db.models import (
+    Q,
+    Min,
+    Avg,
+    Count
+)
 from django.http import JsonResponse
+from django.shortcuts import (
+    render,
+    get_object_or_404,
+    redirect
+)
+from django.views.decorators.csrf import (
+    ensure_csrf_cookie
+)
+
+from apps.carrinho.models import Item
+
+from .models import (
+    Perfume,
+    Categoria,
+    Avaliacao
+)
 
 # =========================
 # ✅ DETALHE DO PRODUTO
 # =========================
 def detalhe_produto(request, slug):
-
+    
     import re
 
     perfume = get_object_or_404(
@@ -19,12 +39,35 @@ def detalhe_produto(request, slug):
     )
 
     # =========================
+    # ✅ AVALIAÇÕES
+    # =========================
+
+    avaliacoes = perfume.avaliacoes.filter(
+        aprovado=True
+    )
+
+    total_avaliacoes = avaliacoes.count()
+
+    media_avaliacao = (
+        avaliacoes.aggregate(
+            Avg("nota")
+        )["nota__avg"]
+        or 0
+    )
+
+    media_arredondada = int(round(media_avaliacao))
+
+    estrelas_media = (
+        "★" * media_arredondada +
+        "☆" * (5 - media_arredondada)
+    )
+
+    # =========================
     # ✅ ML RESERVADO GLOBAL
     # =========================
 
     ml_reservado = 0
 
-    # ✅ TODOS OS CARRINHOS
     itens = Item.objects.filter(
         perfume=perfume
     )
@@ -50,7 +93,6 @@ def detalhe_produto(request, slug):
 
             pass
 
-    # ✅ ESTOQUE REAL RESTANTE
     estoque_restante = max(
         0,
         perfume.estoque_ml - ml_reservado
@@ -75,7 +117,6 @@ def detalhe_produto(request, slug):
 
                 tamanho_ml = int(numero[0])
 
-                # ✅ ESTOQUE REAL
                 preco.unidades_disponiveis = (
                     estoque_restante // tamanho_ml
                 )
@@ -96,9 +137,14 @@ def detalhe_produto(request, slug):
         {
             'perfume': perfume,
             'precos': precos,
+
+            # ✅ AVALIAÇÕES
+            'avaliacoes': avaliacoes,
+            'total_avaliacoes': total_avaliacoes,
+            'media_avaliacao': media_avaliacao,
+            'estrelas_media': estrelas_media,
         }
     )
-
 
 # =========================
 # ✅ LISTA POR CATEGORIA
@@ -314,11 +360,44 @@ def lista_categoria(request, slug):
 
     perfumes = perfumes.distinct()
 
-    # =========================
+# =========================
     # ✅ PARCELAMENTO + ESTOQUE
+    # ✅ AVALIAÇÕES
     # =========================
 
     for perfume in perfumes:
+
+        # =========================
+        # ✅ AVALIAÇÕES
+        # =========================
+
+        dados_avaliacao = perfume.avaliacoes.filter(
+            aprovado=True
+        ).aggregate(
+            media=Avg("nota"),
+            total=Count("id")
+        )
+
+        perfume.media_avaliacao = (
+            dados_avaliacao["media"] or 0
+        )
+
+        perfume.total_avaliacoes = (
+            dados_avaliacao["total"] or 0
+        )
+
+        media_arredondada = round(
+            perfume.media_avaliacao
+        )
+
+        perfume.estrelas_media = (
+            "★" * media_arredondada +
+            "☆" * (5 - media_arredondada)
+        )
+
+        # =========================
+        # ✅ PARCELAMENTO
+        # =========================
 
         preco = perfume.precos.first()
 
@@ -394,6 +473,7 @@ def lista_categoria(request, slug):
             precos_tratados.append(p)
 
         # ✅ SOBRESCREVE
+
         perfume.precos_tratados = precos_tratados
 
     # =========================
@@ -585,9 +665,42 @@ def lista_produtos(request):
 
     # =========================
     # ✅ PARCELAMENTO + ESTOQUE
+    # ✅ AVALIAÇÕES
     # =========================
 
     for perfume in perfumes:
+
+        # =========================
+        # ✅ AVALIAÇÕES
+        # =========================
+
+        dados_avaliacao = perfume.avaliacoes.filter(
+            aprovado=True
+        ).aggregate(
+            media=Avg("nota"),
+            total=Count("id")
+        )
+
+        perfume.media_avaliacao = (
+            dados_avaliacao["media"] or 0
+        )
+
+        perfume.total_avaliacoes = (
+            dados_avaliacao["total"] or 0
+        )
+
+        media_arredondada = round(
+            perfume.media_avaliacao
+        )
+
+        perfume.estrelas_media = (
+            "★" * media_arredondada +
+            "☆" * (5 - media_arredondada)
+        )
+
+        # =========================
+        # ✅ PARCELAMENTO
+        # =========================
 
         preco = perfume.precos.first()
 
@@ -598,14 +711,12 @@ def lista_produtos(request):
                 2
             )
 
-
         # =========================
         # ✅ ML RESERVADO GLOBAL
         # =========================
 
         ml_reservado = 0
 
-        # ✅ TODOS OS CARRINHOS
         itens = Item.objects.filter(
             perfume=perfume
         )
@@ -721,6 +832,91 @@ def detalhes_pagamento(request, perfume_id):
         'parcelas': parcelas
     })
     
+# =========================
+# ✅ AVALIAR PRODUTO
+# =========================
+
+@login_required
+def avaliar_produto(request, perfume_id):
+
+    perfume = get_object_or_404(
+        Perfume,
+        id=perfume_id
+    )
+
+    avaliacao_existente = Avaliacao.objects.filter(
+        perfume=perfume,
+        usuario=request.user
+    ).first()
+
+    if request.method == "POST":
+
+        nota = request.POST.get(
+            "nota"
+        )
+
+        comentario = request.POST.get(
+            "comentario",
+            ""
+        ).strip()
+
+        if not nota:
+
+            messages.error(
+                request,
+                "Selecione uma nota."
+            )
+
+            return redirect(
+                "avaliar_produto",
+                perfume_id=perfume.id
+            )
+
+        if avaliacao_existente:
+
+            messages.error(
+                request,
+                "Você já avaliou este produto."
+            )
+
+            return redirect(
+                "detalhe_produto",
+                slug=perfume.slug
+            )
+
+        Avaliacao.objects.create(
+
+            perfume=perfume,
+
+            usuario=request.user,
+
+            nota=int(nota),
+
+            comentario=comentario,
+
+            aprovado=False
+        )
+
+        messages.success(
+
+            request,
+
+            "Avaliação enviada com sucesso e aguardando aprovação."
+        )
+
+        return redirect(
+            "detalhe_produto",
+            slug=perfume.slug
+        )
+
+    return render(
+        request,
+        "produtos/avaliar_produto.html",
+        {
+            "perfume": perfume,
+            "avaliacao_existente": avaliacao_existente
+        }
+    )
 
 # =========================
 # ✅ BUSCA AJAX

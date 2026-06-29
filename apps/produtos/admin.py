@@ -1,6 +1,12 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Perfume, Categoria, Preco
+
+from .models import (
+    Perfume,
+    Categoria,
+    Preco,
+    Avaliacao
+)
 
 
 # ✅ INLINE DE PREÇO
@@ -20,7 +26,6 @@ class CategoriaAdmin(admin.ModelAdmin):
 @admin.register(Perfume)
 class PerfumeAdmin(admin.ModelAdmin):
 
-    # ✅ ADICIONADO ESTOQUE E ATIVO
     list_display = (
         "nome",
         "marca",
@@ -30,46 +35,51 @@ class PerfumeAdmin(admin.ModelAdmin):
         "imagem_preview",
     )
 
-    # ✅ ADICIONADO FILTRO ATIVO
     list_filter = (
         "categorias",
         "ativo",
     )
 
-    search_fields = ("nome", "marca")
+    search_fields = (
+        "nome",
+        "marca"
+    )
 
-    prepopulated_fields = {"slug": ("nome",)}
+    prepopulated_fields = {
+        "slug": ("nome",)
+    }
 
     inlines = [PrecoInline]
 
-    filter_horizontal = ("categorias",)
+    filter_horizontal = (
+        "categorias",
+    )
 
-    # ✅ CAMPOS ADMIN
     fields = (
         "nome",
         "marca",
         "slug",
-
-        # ✅ NOVOS CAMPOS
         "estoque_ml",
         "ativo",
-
         "categorias",
         "imagem",
         "imagem_preview",
         "imagem_descricao",
     )
 
-    readonly_fields = ("imagem_preview",)
+    readonly_fields = (
+        "imagem_preview",
+    )
 
     def mostrar_categorias(self, obj):
-        return ", ".join([c.nome for c in obj.categorias.all()])
+        return ", ".join(
+            [c.nome for c in obj.categorias.all()]
+        )
 
     mostrar_categorias.short_description = "Categorias"
 
-    # ✅ PREVIEW AJUSTADO PARA CHARFIELD
     def imagem_preview(self, obj):
-        
+
         if obj.imagem:
 
             return format_html(
@@ -79,9 +89,44 @@ class PerfumeAdmin(admin.ModelAdmin):
 
         return "Sem imagem"
 
+    imagem_preview.short_description = "Preview"
 
 
 # ✅ PREÇO
 @admin.register(Preco)
 class PrecoAdmin(admin.ModelAdmin):
-    list_display = ("perfume", "tamanho", "valor")
+
+    list_display = (
+        "perfume",
+        "tamanho",
+        "valor"
+    )
+
+
+# ✅ AVALIAÇÕES
+@admin.register(Avaliacao)
+class AvaliacaoAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "perfume",
+        "usuario",
+        "nota",
+        "aprovado",
+        "criado_em"
+    )
+
+    list_filter = (
+        "nota",
+        "aprovado",
+        "criado_em"
+    )
+
+    search_fields = (
+        "perfume__nome",
+        "usuario__username",
+        "comentario"
+    )
+
+    ordering = (
+        "-criado_em",
+    )
