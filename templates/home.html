@@ -214,29 +214,68 @@
                         {% if preco %}
 
                         <div class="preco">
+                            R$ {{ preco.valor|floatformat:2 }}
 
-                            R$      5% OFF
+                            <span class="desconto">
+                                5% OFF
                             </span>
-
                         </div>
 
                         <p class="parcelado">
-
                             <strong>3x</strong> de
-
                             <strong>
                                 R$ {{ preco.valor|floatformat:2 }}
                             </strong>
-
                             sem juros
-
                         </p>
 
                         {% endif %}
 
                     {% endwith %}
 
-                </div>
+                    <!-- ✅ BOTÕES -->
+                    <div class="card-actions">
+
+                        <button
+                            type="button"
+                            class="btn-acao comprar"
+                            onclick="abrirModalCompra(this)"
+                            data-id="{{ perfume.id }}"
+                            data-nome="{{ perfume.nome }}"
+                            data-img="{% if perfume.imagem %}{% static perfume.imagem %}{% else %}{% static 'img/sem-imagem.png' %}{% endif %}"
+
+                            data-precos='[
+
+                                {% for preco in perfume.precos.all %}
+
+                                    {
+                                        "id":"{{ preco.id }}",
+                                        "tamanho":"{{ preco.tamanho }}",
+                                        "valor":"{{ preco.valor }}",
+                                        "disponivel":"999"
+                                    }
+
+                                    {% if not forloop.last %},{% endif %}
+
+                                {% endfor %}
+
+                            ]'>
+
+                            COMPRAR
+
+                        </button>
+
+                        <a
+                            href="{% url 'detalhe_produto' perfume.slug %}"
+                            class="btn-acao ver">
+
+                            VER
+
+                        </a>
+
+                    </div>
+
+                    </div>
 
             </div>
 
