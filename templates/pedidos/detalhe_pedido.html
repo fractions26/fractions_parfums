@@ -261,15 +261,22 @@
 
                     {% endif %}
 
-                    <p>
-                        <strong>Subtotal:</strong>
-                        R$ {{ pedido.subtotal }}
-                    </p>
+                        <p>
+                            <strong>Subtotal:</strong>
+                            R$ {{ pedido.subtotal }}
+                        </p>
 
-                    <p class="total-pedido">
-                        Total Pedido:
-                        <strong>R$ {{ pedido.total }}</strong>
-                    </p>
+                        <p>
+                            <strong>Frete:</strong>
+                            R$ {{ pedido.frete }}
+                        </p>
+
+                        <hr>
+
+                        <p class="total-pedido">
+                            Total Pedido:
+                            <strong>R$ {{ pedido.total }}</strong>
+                        </p>
 
                 </div>
 
