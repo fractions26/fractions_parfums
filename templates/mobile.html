@@ -540,13 +540,6 @@
 <!-- SCRIPT -->
 <script>
 
-function isPWAInstalled() {
-    return (
-        window.matchMedia("(display-mode: standalone)").matches ||
-        window.navigator.standalone === true
-    );
-}
-
 function toggleMenu() {
     const menu = document.getElementById("menuMobile");
     const overlay = document.getElementById("overlay");
