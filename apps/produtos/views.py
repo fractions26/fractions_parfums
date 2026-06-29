@@ -189,6 +189,13 @@ def lista_categoria(request, slug):
             perfumes = perfumes.filter(
                 categorias__slug='femininos'
             )
+        
+        # ✅ Apenas Nicho
+        elif categorias_param == ['nicho']:
+
+            perfumes = perfumes.filter(
+                categorias__slug='nicho'
+            )
 
         else:
             
@@ -490,6 +497,13 @@ def lista_produtos(request):
 
             perfumes = perfumes.filter(
                 categorias__slug='femininos'
+            )
+            
+        # ✅ Apenas Nicho
+        elif categorias_param == ['nicho']:
+
+            perfumes = perfumes.filter(
+                categorias__slug='nicho'
             )
 
     # =========================

@@ -399,6 +399,10 @@
                     Árabes
                 </a>
 
+                <a href="javascript:void(0)" class="menu-link" onclick="openSubmenu('nicho')">
+                    Nicho
+                </a>
+
                 <a href="javascript:void(0)" class="menu-link" onclick="openSubmenu('marcas')">
                     Marcas
                 </a>
@@ -454,6 +458,19 @@
 
             <!-- ✅ TODOS ÁRABES -->
             <a href="{% url 'lista_categoria' 'arabes' %}">
+                Ver todos
+            </a>
+
+        </div>
+
+                <!-- SUBMENU NICHO -->
+        <div id="submenu-nicho" class="submenu-page">
+
+            <div class="submenu-header" onclick="backMenu()">
+                Nicho
+            </div>
+
+            <a href="{% url 'lista_categoria' 'nicho' %}">
                 Ver todos
             </a>
 

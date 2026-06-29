@@ -45,6 +45,16 @@
                     Femininos
                 </label>
 
+                <label>
+                <input
+                    type="checkbox"
+                    name="categoria"
+                    value="nicho"
+                    {% if 'nicho' in categorias_selecionadas %}checked{% endif %}
+                >
+                Nicho
+                </label>
+
                 <!-- ✅ ÁRABES -->
                 <label>
                     <input
@@ -492,6 +502,16 @@
                         {% if 'femininos' in categorias_selecionadas %}checked{% endif %}
                     >
                     Femininos
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        name="categoria"
+                        value="nicho"
+                        {% if 'nicho' in categorias_selecionadas %}checked{% endif %}
+                    >
+                    Nicho
                 </label>
 
                 <!-- ✅ ÁRABES -->
