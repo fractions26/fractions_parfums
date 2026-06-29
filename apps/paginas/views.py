@@ -14,6 +14,7 @@ from apps.usuarios.models import Endereco
 from apps.pedidos.models import Pedido
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from django.db.models import Avg, Count
 
 
 # ✅ 🔥 VINCULAR CARRINHO AO USUÁRIO (COM MIGRAÇÃO DE ITENS)
@@ -65,7 +66,7 @@ def vincular_carrinho_usuario(request, user):
 
 # ✅ HOME
 def home(request):
-    
+
     masculinos = Perfume.objects.filter(
         categorias__slug='masculinos'
     ).distinct()
@@ -77,6 +78,33 @@ def home(request):
     mais_vendidos = Perfume.objects.filter(
         categorias__slug='mais-vendidos'
     ).distinct()
+
+    # ✅ AVALIAÇÕES DOS MAIS VENDIDOS
+    for perfume in mais_vendidos:
+
+        dados_avaliacao = perfume.avaliacoes.filter(
+            aprovado=True
+        ).aggregate(
+            media=Avg("nota"),
+            total=Count("id")
+        )
+
+        perfume.media_avaliacao = (
+            dados_avaliacao["media"] or 0
+        )
+
+        perfume.total_avaliacoes = (
+            dados_avaliacao["total"] or 0
+        )
+
+        media_arredondada = round(
+            perfume.media_avaliacao
+        )
+
+        perfume.estrelas_media = (
+            "★" * media_arredondada +
+            "☆" * (5 - media_arredondada)
+        )
 
     return render(
         request,
