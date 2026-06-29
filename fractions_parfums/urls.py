@@ -52,7 +52,7 @@ urlpatterns = [
     path(
         "favicon.ico",
         RedirectView.as_view(
-            url=static_url("images/favicon.ico"),
+            url=static_url("images/favicon.png"),
             permanent=True
         ),
     ),
