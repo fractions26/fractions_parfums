@@ -309,11 +309,23 @@ function isMobile() {
     return window.matchMedia("(max-width: 768px)").matches;
 }
 
+// ✅ Detecta se o app já está rodando instalado
+function isPWAInstalled() {
+
+    return (
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true
+    );
+
+}
+
+// ✅ Banner de instalação
 window.addEventListener("beforeinstallprompt", (e) => {
 
     if (!isMobile()) return;
 
-    // ✅ Se já instalou, nunca mais mostra
+    if (isPWAInstalled()) return;
+
     if (localStorage.getItem("pwaInstalado")) return;
 
     e.preventDefault();
@@ -339,6 +351,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const banner =
         document.getElementById("pwa-banner");
+
+    // ✅ Se já estiver rodando como APP, esconde banner
+    if (isPWAInstalled() && banner) {
+
+        banner.classList.remove("ativo");
+        return;
+
+    }
 
     // ✅ INSTALAR
     if (btnInstalar) {
@@ -400,7 +420,6 @@ window.addEventListener("appinstalled", () => {
     }
 
 });
-
 
 </script>
 
