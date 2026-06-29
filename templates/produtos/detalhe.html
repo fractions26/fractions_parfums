@@ -68,7 +68,7 @@
         <div class="produto-avaliacao">
             <span class="nota">4.4 de 5</span>
             <span class="stars">★★★★☆</span>
-            <span class="qtd-avaliacao">(40)</span>
+            <span class="qtd-avaliacao">(10)</span>
             <span class="link-avaliacao">Clique e veja!</span>
         </div>
 
@@ -76,7 +76,7 @@
             {% if preco %}
 
             {% comment %} 👉 opcional: cálculo de desconto fixo (exemplo 5%) {% endcomment %}
-            {% with desconto=5 %}
+            {% with desconto=3 %}
 
             <div class="produto-preco" id="precoPrincipal">
                 R$ {{ preco.valor }}
@@ -95,7 +95,7 @@
                 </p>
 
                 <p class="pix">
-                    💰 5% de desconto pagando com Pix
+                    💰 3% de desconto pagando com Pix
                 </p>
 
                 <a href="{% url 'detalhes_pagamento' perfume.id %}" class="ver-detalhes">
@@ -720,7 +720,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         precoPrincipal.innerHTML = `
             ${precoFormatado}
-            <span class="desconto">5% OFF</span>
+            <span class="desconto">3% OFF</span>
         `;
 
 // ✅ ESTOQUE

@@ -2095,10 +2095,12 @@ body.modal-aberto {
 
 }
 
-@media (max-width:768px){
+#cepProduto{
+    position: relative !important;
+    z-index: 999999 !important;
+}
 
-    .search-mobile{
-        display:none !important;
-    }
-
+.frete-box{
+    position: relative !important;
+    z-index: 999999 !important;
 }
