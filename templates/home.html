@@ -314,7 +314,10 @@ function isPWAInstalled() {
 
     return (
         window.matchMedia("(display-mode: standalone)").matches ||
-        window.navigator.standalone === true
+        window.matchMedia("(display-mode: fullscreen)").matches ||
+        window.matchMedia("(display-mode: minimal-ui)").matches ||
+        document.referrer.startsWith("android-app://") ||
+        localStorage.getItem("pwaInstalado") === "true"
     );
 
 }
@@ -353,9 +356,15 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("pwa-banner");
 
     // ✅ Se já estiver rodando como APP, esconde banner
-    if (isPWAInstalled() && banner) {
+    if (
+        banner &&
+        (
+            isPWAInstalled() ||
+            localStorage.getItem("pwaInstalado") === "true"
+        )
+    ) {
 
-        banner.classList.remove("ativo");
+        banner.remove();
         return;
 
     }
@@ -416,7 +425,7 @@ window.addEventListener("appinstalled", () => {
         document.getElementById("pwa-banner");
 
     if (banner) {
-        banner.classList.remove("ativo");
+        banner.remove();
     }
 
 });
