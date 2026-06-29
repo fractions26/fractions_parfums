@@ -540,6 +540,13 @@
 <!-- SCRIPT -->
 <script>
 
+function isPWAInstalled() {
+    return (
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true
+    );
+}
+
 function toggleMenu() {
     const menu = document.getElementById("menuMobile");
     const overlay = document.getElementById("overlay");
@@ -681,6 +688,15 @@ document.addEventListener("DOMContentLoaded", function () {
 // ✅ BUSCA AJAX MOBILE
 // ==========================
 
+function isPWAInstalled() {
+
+    return (
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true
+    );
+
+}
+
 let mobileInputBusca = document.getElementById(
     'mobile-search-input'
 );
@@ -692,6 +708,14 @@ let mobileResultadosBusca = document.getElementById(
 let pwaBanner = document.getElementById(
     'pwa-banner'
 );
+
+// ✅ remove banner se o app já estiver instalado
+if (pwaBanner && isPWAInstalled()) {
+
+    pwaBanner.remove();
+
+    pwaBanner = null;
+}
 
 // ✅ controla apenas durante a página atual
 let pwaFechado = false;
@@ -711,7 +735,8 @@ if (mobileInputBusca && mobileResultadosBusca) {
 
                 if (
                     pwaBanner &&
-                    !pwaFechado
+                    !pwaFechado &&
+                    !isPWAInstalled()
                 ) {
                     pwaBanner.style.display = 'flex';
                 }
@@ -812,7 +837,8 @@ if (mobileInputBusca && mobileResultadosBusca) {
             if (
                 pwaBanner &&
                 mobileInputBusca.value.trim().length < 2 &&
-                !pwaFechado
+                !pwaFechado &&
+                !isPWAInstalled()
             ) {
                 pwaBanner.style.display = 'flex';
             }
@@ -829,7 +855,8 @@ if (mobileInputBusca && mobileResultadosBusca) {
         if (
             pwaBanner &&
             mobileInputBusca.value.trim().length < 2 &&
-            !pwaFechado
+            !pwaFechado &&
+            !isPWAInstalled()
         ) {
             pwaBanner.style.display = 'flex';
         }
@@ -857,7 +884,6 @@ if (btnFecharPwa && pwaBanner) {
     };
 
 }
-
 
 </script>
 
