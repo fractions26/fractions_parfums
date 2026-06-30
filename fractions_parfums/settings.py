@@ -72,6 +72,11 @@ MELHOR_ENVIO_TOKEN = config(
     default=''
 )
 
+MELHOR_ENVIO_CLIENT_SECRET = config(
+    'MELHOR_ENVIO_CLIENT_SECRET',
+    default=''
+)
+
 # =========================
 # ✅ MERCADO PAGO
 # =========================

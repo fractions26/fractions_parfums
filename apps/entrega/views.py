@@ -128,3 +128,31 @@ def calcular_frete(request):
                 }
             ]
         })
+        
+def gerar_token_melhor_envio(request):
+    
+    code = request.GET.get("code")
+
+    response = requests.post(
+        "https://www.melhorenvio.com.br/oauth/token",
+        headers={
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "User-Agent": (
+                "Fractions Parfums "
+                "(contato@fractionsparfums.com.br)"
+            )
+        },
+        json={
+            "grant_type": "authorization_code",
+            "client_id": 26576,
+            "client_secret": settings.MELHOR_ENVIO_CLIENT_SECRET,
+            "redirect_uri": "https://www.fractionsparfums.com.br",
+            "code": code
+        }
+    )
+
+    return JsonResponse(
+        response.json(),
+        safe=False
+    )
