@@ -1,11 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 import requests
-import urllib3
 from django.conf import settings
-
-# ✅ remove aviso SSL (apenas ambiente local)
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 # =========================
@@ -29,7 +25,7 @@ def calcular_frete(request):
             "erro": "CEP inválido"
         })
 
-    url = "https://sandbox.melhorenvio.com.br/api/v2/me/shipment/calculate"
+    url = "https://www.melhorenvio.com.br/api/v2/me/shipment/calculate"
 
     headers = {
         "Authorization": f"Bearer {settings.MELHOR_ENVIO_TOKEN}",
@@ -48,9 +44,9 @@ def calcular_frete(request):
             {
                 "id": "1",
                 "width": 16,
-                "height": 2,
+                "height": 5,
                 "length": 11,
-                "weight": 0.3,
+                "weight": 0.4,
                 "quantity": 1
             }
         ]
@@ -62,12 +58,11 @@ def calcular_frete(request):
             url,
             json=payload,
             headers=headers,
-            verify=False,
             timeout=15
         )
 
-        # print("STATUS:", response.status_code)
-        # print("BODY:", response.text)
+        print("STATUS:", response.status_code)
+        print("BODY:", response.text)
 
         data = response.json()
 
