@@ -258,7 +258,7 @@
             class="avaliacoes-produto">
 
             <h2>
-                ⭐ Avaliações dos Clientes
+                ★ Avaliações dos clientes
             </h2>
 
             <!-- ✅ BOTÃO AVALIAR -->
@@ -1173,13 +1173,11 @@ document.addEventListener(
                 indice = 0;
             }
 
-            cards[indice].scrollIntoView({
+            container.scrollTo({
 
-                behavior:"smooth",
+                left: cards[indice].offsetLeft,
 
-                inline:"start",
-
-                block:"nearest"
+                behavior:"smooth"
 
             });
 

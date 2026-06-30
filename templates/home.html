@@ -372,6 +372,17 @@ function isMobile() {
     return window.matchMedia("(max-width: 768px)").matches;
 }
 
+// ✅ Banner foi fechado nesta sessão?
+function pwaBannerFechado() {
+
+    return (
+        sessionStorage.getItem(
+            "pwaBannerFechado"
+        ) === "true"
+    );
+
+}
+
 // ✅ Detecta se o app já está rodando instalado
 function isPWAInstalled() {
 
@@ -394,6 +405,9 @@ window.addEventListener("beforeinstallprompt", (e) => {
 
     if (localStorage.getItem("pwaInstalado")) return;
 
+    // ✅ Não exibe novamente na mesma sessão
+    if (pwaBannerFechado()) return;
+
     e.preventDefault();
 
     deferredPrompt = e;
@@ -402,7 +416,10 @@ window.addEventListener("beforeinstallprompt", (e) => {
         document.getElementById("pwa-banner");
 
     if (banner) {
+
+        banner.style.display = "flex";
         banner.classList.add("ativo");
+
     }
 
 });
@@ -418,17 +435,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const banner =
         document.getElementById("pwa-banner");
 
-    // ✅ Se já estiver rodando como APP, esconde banner
+    if (!banner) return;
+
+    // ✅ Se já estiver instalado remove
     if (
-        banner &&
-        (
-            isPWAInstalled() ||
-            localStorage.getItem("pwaInstalado") === "true"
-        )
+        isPWAInstalled() ||
+        localStorage.getItem("pwaInstalado") === "true"
     ) {
 
         banner.remove();
         return;
+
+    }
+
+    // ✅ Se já fechou nesta sessão, não mostra novamente
+    if (pwaBannerFechado()) {
+
+        banner.style.display = "none";
+        banner.classList.remove("ativo");
 
     }
 
@@ -451,22 +475,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
             deferredPrompt = null;
 
-            if (banner) {
-                banner.classList.remove("ativo");
-            }
+            banner.classList.remove("ativo");
 
         });
 
     }
 
-    // ✅ FECHAR (somente nesta página)
+    // ✅ FECHAR
     if (btnFechar) {
 
         btnFechar.addEventListener("click", () => {
 
-            if (banner) {
-                banner.classList.remove("ativo");
-            }
+            // ✅ Guarda apenas até fechar a aba
+            sessionStorage.setItem(
+                "pwaBannerFechado",
+                "true"
+            );
+
+            banner.style.display = "none";
+            banner.classList.remove("ativo");
 
         });
 

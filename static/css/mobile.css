@@ -1993,10 +1993,10 @@ body.modal-aberto {
 
     position:fixed;
 
-    top:145px;
+    top:135px;
 
-    left:10px;
-    right:10px;
+    left:20px;
+    right:20px;
 
     z-index:9999;
 
@@ -2004,9 +2004,9 @@ body.modal-aberto {
 
     gap:10px;
 
-    padding:6px 8px;
+    padding:3px 4px;
 
-    background:rgba(20,20,20,.95);
+    background: #222;
 
     color:#c9a35f;
 
@@ -2051,7 +2051,7 @@ body.modal-aberto {
 
     font-size:12px;
 
-    font-weight:700;
+    font-weight:550;
 
     padding:6px 12px;
 

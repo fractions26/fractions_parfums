@@ -732,7 +732,10 @@ if (pwaBanner && isPWAInstalled()) {
 }
 
 // ✅ controla apenas durante a página atual
-let pwaFechado = false;
+let pwaFechado =
+    sessionStorage.getItem(
+        "pwaBannerFechado"
+    ) === "true";
 
 if (mobileInputBusca && mobileResultadosBusca) {
 
