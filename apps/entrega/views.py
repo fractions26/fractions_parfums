@@ -31,7 +31,11 @@ def calcular_frete(request):
     headers = {
         "Authorization": f"Bearer {settings.MELHOR_ENVIO_TOKEN}",
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "User-Agent": (
+            "Fractions Parfums "
+            "(contato@fractionsparfums.com.br)"
+        )
     }
 
     payload = {
@@ -66,6 +70,24 @@ def calcular_frete(request):
             (settings.MELHOR_ENVIO_TOKEN or "")[:50]
         )
 
+        # ✅ TESTA O TOKEN
+        teste = requests.get(
+            "https://www.melhorenvio.com.br/api/v2/me",
+            headers=headers,
+            timeout=15
+        )
+
+        print(
+            "ME STATUS:",
+            teste.status_code
+        )
+
+        print(
+            "ME BODY:",
+            teste.text
+        )
+
+        # ✅ CONSULTA FRETE
         response = requests.post(
             url,
             json=payload,
@@ -85,20 +107,15 @@ def calcular_frete(request):
 
         data = response.json()
 
-        # ✅ Melhor Envio respondeu corretamente
         if (
             response.status_code == 200 and
             isinstance(data, list)
         ):
 
             fretes_validos = [
-
                 frete
-
                 for frete in data
-
                 if not frete.get("error")
-
             ]
 
             if fretes_validos:
@@ -118,10 +135,6 @@ def calcular_frete(request):
             "⚠️ CONTINGÊNCIA DE FRETE:",
             str(e)
         )
-
-        # =========================
-        # ✅ FRETE ECONÔMICO
-        # =========================
 
         prefixo = str(cep)[:2]
 
@@ -159,7 +172,6 @@ def calcular_frete(request):
                 }
             ]
         })
-
         # =========================
         # ✅ FRETE ECONÔMICO
         # =========================
