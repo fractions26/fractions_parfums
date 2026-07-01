@@ -179,6 +179,8 @@ def calcular_frete(request):
         
 def gerar_token_melhor_envio(request):
     
+    import json
+
     code = request.GET.get("code")
 
     response = requests.post(
@@ -202,7 +204,15 @@ def gerar_token_melhor_envio(request):
     print("TOKEN STATUS:", response.status_code)
     print("TOKEN BODY:", response.text)
 
+    dados = json.loads(response.text)
+
     return JsonResponse({
-        "status": response.status_code,
-        "body": response.text
+        "token_type": dados.get("token_type"),
+        "expires_in": dados.get("expires_in"),
+        "access_token_tamanho": len(
+            dados.get("access_token", "")
+        ),
+        "refresh_token_tamanho": len(
+            dados.get("refresh_token", "")
+        )
     })
