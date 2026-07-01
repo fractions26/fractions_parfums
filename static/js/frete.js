@@ -361,9 +361,13 @@ fretes
 
                     });
 
+                    const nomeCompletoFrete =
+                        `${f.company?.name || ''} ${f.name || ''}`
+                            .trim();
+
                     localStorage.setItem(
                         "frete_nome",
-                        f.name
+                        nomeCompletoFrete
                     );
 
                     localStorage.setItem(
@@ -379,7 +383,7 @@ fretes
 
                             frete: preco,
                             prazo,
-                            nome: f.name
+                            nome: nomeCompletoFrete
 
                         });
                     }
@@ -390,20 +394,17 @@ fretes
                 label
             );
 
-            if (
-                index === 0
-            ) {
+            if (index === 0) {
 
                 radio.dispatchEvent(
-                    new Event(
-                        "change"
-                    )
+                    new Event("change")
                 );
+
             }
 
-        });
+            });
 
-},
+            },
 
     // =========================
     // CONSULTAR + RENDERIZAR

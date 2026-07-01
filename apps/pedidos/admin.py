@@ -23,17 +23,104 @@ class PedidoAdmin(admin.ModelAdmin):
         'usuario',
         'total',
         'status',
+        'transportadora',
+        'codigo_rastreio',
+        'etiqueta_gerada',
+        'status_envio',
         'criado_em',
     )
 
     list_filter = (
         'status',
+        'etiqueta_gerada',
+        'status_envio',
+        'transportadora',
         'criado_em',
     )
 
     search_fields = (
         'codigo',
         'email',
+        'codigo_rastreio',
+        'transportadora',
+    )
+
+    readonly_fields = (
+        'melhor_envio_id',
+        'codigo_rastreio',
+        'transportadora',
+        'url_etiqueta',
+        'status_envio',
+    )
+
+    fieldsets = (
+
+        (
+            'Pedido',
+            {
+                'fields': (
+                    'codigo',
+                    'usuario',
+                    'status',
+                    'subtotal',
+                    'frete',
+                    'total',
+                )
+            }
+        ),
+
+        (
+            'Cliente',
+            {
+                'fields': (
+                    'nome',
+                    'email',
+                    'telefone',
+                    'cpf',
+                )
+            }
+        ),
+
+        (
+            'Endereço',
+            {
+                'fields': (
+                    'cep',
+                    'endereco',
+                    'numero',
+                    'complemento',
+                    'cidade',
+                    'estado',
+                )
+            }
+        ),
+
+        (
+            'Mercado Pago',
+            {
+                'fields': (
+                    'mercadopago_payment_id',
+                    'mercadopago_status',
+                    'metodo_pagamento',
+                    'parcelas',
+                )
+            }
+        ),
+
+        (
+            'Melhor Envio',
+            {
+                'fields': (
+                    'melhor_envio_id',
+                    'transportadora',
+                    'codigo_rastreio',
+                    'status_envio',
+                    'url_etiqueta',
+                    'etiqueta_gerada',
+                )
+            }
+        ),
+
     )
 
     inlines = [ItemPedidoInline]

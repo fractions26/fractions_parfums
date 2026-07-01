@@ -45,6 +45,48 @@ class Pedido(models.Model):
         blank=True
     )
 
+    # =====================================
+    # ✅ MELHOR ENVIO
+    # =====================================
+
+    melhor_envio_id = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+
+    codigo_rastreio = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+
+    transportadora = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+
+    url_etiqueta = models.URLField(
+        blank=True,
+        null=True
+    )
+
+    status_envio = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True
+    )
+
+    etiqueta_gerada = models.BooleanField(
+        default=False
+    )
+
+    total = models.DecimalField(
+        max_digits=10,
+        decimal_places=2
+    )
+
     total = models.DecimalField(
         max_digits=10,
         decimal_places=2
