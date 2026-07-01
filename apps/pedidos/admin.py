@@ -129,6 +129,7 @@ class PedidoAdmin(admin.ModelAdmin):
         'consultar_mercadopago',
         'sincronizar_mercadopago',
         'reembolsar_pagamentos',
+        'testar_melhor_envio',
     ]
 
     def consultar_mercadopago(
@@ -328,4 +329,59 @@ class PedidoAdmin(admin.ModelAdmin):
 
     reembolsar_pagamentos.short_description = (
         '💰 Reembolsar Pagamentos'
+    )
+
+    def testar_melhor_envio(
+        self,
+        request,
+        queryset
+    ):
+
+        for pedido in queryset:
+
+            print("=" * 80)
+
+            print("PEDIDO")
+            print(pedido.codigo)
+
+            print("NOME")
+            print(pedido.nome)
+
+            print("CPF")
+            print(pedido.cpf)
+
+            print("TELEFONE")
+            print(pedido.telefone)
+
+            print("CEP")
+            print(pedido.cep)
+
+            print("ENDERECO")
+            print(pedido.endereco)
+
+            print("NUMERO")
+            print(pedido.numero)
+
+            print("COMPLEMENTO")
+            print(pedido.complemento)
+
+            print("CIDADE")
+            print(pedido.cidade)
+
+            print("ESTADO")
+            print(pedido.estado)
+
+            print("FRETE")
+            print(pedido.frete_nome)
+
+            print("=" * 80)
+
+        self.message_user(
+            request,
+            'Dados enviados para os logs.',
+            messages.SUCCESS
+        )
+
+    testar_melhor_envio.short_description = (
+        '📦 Testar Dados Melhor Envio'
     )
