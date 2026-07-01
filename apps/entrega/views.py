@@ -18,6 +18,12 @@ def calcular_frete(request):
 
     cep = request.GET.get("cep", "")
 
+    cep = (
+        cep
+        .replace("-", "")
+        .replace(" ", "")
+    )
+
     if not cep or len(cep) < 8:
 
         return JsonResponse({
@@ -59,54 +65,11 @@ def calcular_frete(request):
 
     try:
 
-        print(
-            "TOKEN TAMANHO:",
-            len(settings.MELHOR_ENVIO_TOKEN or "")
-        )
-
-        print(
-            "TOKEN INICIO:",
-            (settings.MELHOR_ENVIO_TOKEN or "")[:50]
-        )
-
-        print(
-            "TOKEN FINAL:",
-            (settings.MELHOR_ENVIO_TOKEN or "")[-100:]
-        )
-
-        # ✅ TESTA O TOKEN
-        teste = requests.get(
-            "https://melhorenvio.com.br/api/v2/me",
-            headers=headers,
-            timeout=15
-        )
-
-        print(
-            "ME STATUS:",
-            teste.status_code
-        )
-
-        print(
-            "ME BODY:",
-            teste.text
-        )
-
-        # ✅ CONSULTA FRETE
         response = requests.post(
             url,
             json=payload,
             headers=headers,
             timeout=15
-        )
-
-        print(
-            "STATUS:",
-            response.status_code
-        )
-
-        print(
-            "BODY:",
-            response.text
         )
 
         data = response.json()
@@ -122,11 +85,33 @@ def calcular_frete(request):
                 if not frete.get("error")
             ]
 
-            if fretes_validos:
+            # ✅ Ordena pelo menor preço
+            fretes_validos.sort(
+                key=lambda x: float(x.get("price", 9999))
+            )
+
+            # ✅ Mantém os 3 mais baratos
+            fretes_exibir = fretes_validos[:3]
+
+            # ✅ Procura o SEDEX
+            sedex = next(
+                (
+                    frete
+                    for frete in fretes_validos
+                    if frete.get("name", "").upper() == "SEDEX"
+                ),
+                None
+            )
+
+            # ✅ Adiciona SEDEX se não estiver entre os 3
+            if sedex and sedex not in fretes_exibir:
+                fretes_exibir.append(sedex)
+
+            if fretes_exibir:
 
                 return JsonResponse({
                     "success": True,
-                    "fretes": fretes_validos
+                    "fretes": fretes_exibir
                 })
 
         raise Exception(
@@ -176,43 +161,3 @@ def calcular_frete(request):
                 }
             ]
         })
-        
-def gerar_token_melhor_envio(request):
-    
-    import json
-
-    code = request.GET.get("code")
-
-    response = requests.post(
-        "https://www.melhorenvio.com.br/oauth/token",
-        headers={
-            "Accept": "application/json",
-            "User-Agent": (
-                "Fractions Parfums "
-                "(contato@fractionsparfums.com.br)"
-            )
-        },
-        data={
-            "grant_type": "authorization_code",
-            "client_id": 26576,
-            "client_secret": settings.MELHOR_ENVIO_CLIENT_SECRET,
-            "redirect_uri": "https://www.fractionsparfums.com.br",
-            "code": code
-        }
-    )
-
-    print("TOKEN STATUS:", response.status_code)
-    print("TOKEN BODY:", response.text)
-
-    dados = json.loads(response.text)
-
-    return JsonResponse({
-        "token_type": dados.get("token_type"),
-        "expires_in": dados.get("expires_in"),
-        "access_token_tamanho": len(
-            dados.get("access_token", "")
-        ),
-        "refresh_token_tamanho": len(
-            dados.get("refresh_token", "")
-        )
-    })
