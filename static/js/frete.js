@@ -227,37 +227,37 @@ renderizar({
 
     if (!lista) return;
 
-    lista.innerHTML = "";
+lista.innerHTML = "";
 
-    fretes
-        .slice(0, 3)
-        .forEach((f, index) => {
+fretes
+    .forEach((f, index) => {
 
-            const preco =
-                parseFloat(
-                    f.price || 0
-                );
+        const preco =
+            parseFloat(
+                f.price || 0
+            );
 
-            const prazo =
-                f.id === "contingencia"
-                    ? parseInt(f.delivery_time || 0)
-                    : parseInt(f.delivery_time || 0) + 2;
+        const prazo =
+            f.id === "contingencia"
+                ? parseInt(f.delivery_time || 0)
+                : parseInt(f.delivery_time || 0) + 2;
 
-            const label =
-                document.createElement(
-                    "label"
-                );
+        const label =
+            document.createElement(
+                "label"
+            );
 
-            label.className =
-                "frete-option";
+        label.className =
+            "frete-option";
 
-            if (
-                index === 0
-            ) {
-                label.classList.add(
-                    "melhor"
-                );
-            }
+        if (
+            index === 0
+        ) {
+            label.classList.add(
+                "melhor"
+            );
+        }
+
 
             // =========================
             // ✅ MODO PRODUTO
