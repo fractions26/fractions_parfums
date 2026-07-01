@@ -26,7 +26,7 @@ def calcular_frete(request):
             "erro": "CEP inválido"
         })
 
-    url = "https://www.melhorenvio.com.br/api/v2/me/shipment/calculate"
+    url = "https://melhorenvio.com.br/api/v2/me/shipment/calculate"
 
     headers = {
         "Authorization": f"Bearer {settings.MELHOR_ENVIO_TOKEN}",
@@ -59,7 +59,6 @@ def calcular_frete(request):
 
     try:
 
-        # ✅ DEBUG TOKEN
         print(
             "TOKEN TAMANHO:",
             len(settings.MELHOR_ENVIO_TOKEN or "")
@@ -70,9 +69,14 @@ def calcular_frete(request):
             (settings.MELHOR_ENVIO_TOKEN or "")[:50]
         )
 
+        print(
+            "TOKEN FINAL:",
+            (settings.MELHOR_ENVIO_TOKEN or "")[-100:]
+        )
+
         # ✅ TESTA O TOKEN
         teste = requests.get(
-            "https://www.melhorenvio.com.br/api/v2/me",
+            "https://melhorenvio.com.br/api/v2/me",
             headers=headers,
             timeout=15
         )
@@ -135,46 +139,6 @@ def calcular_frete(request):
             "⚠️ CONTINGÊNCIA DE FRETE:",
             str(e)
         )
-
-        prefixo = str(cep)[:2]
-
-        sul_sudeste = [
-            "01","02","03","04","05","06","07","08","09",
-            "10","11","12","13","14","15","16","17","18","19",
-            "20","21","22","23","24","25","26","27","28",
-            "29","30","31","32","33","34","35","36","37","38","39",
-            "80","81","82","83","84","85","86","87","88","89"
-        ]
-
-        if prefixo in sul_sudeste:
-
-            valor = "14.90"
-            prazo = 5
-
-        else:
-
-            valor = "40.90"
-            prazo = 10
-
-        return JsonResponse({
-            "success": True,
-            "contingencia": True,
-            "fretes": [
-                {
-                    "id": "contingencia",
-                    "name": "Frete Econômico",
-                    "price": valor,
-                    "delivery_time": prazo,
-                    "company": {
-                        "name": "Fractions Parfums",
-                        "picture": ""
-                    }
-                }
-            ]
-        })
-        # =========================
-        # ✅ FRETE ECONÔMICO
-        # =========================
 
         prefixo = str(cep)[:2]
 
