@@ -16,9 +16,10 @@ def checkout(request):
 # =========================
 def calcular_frete(request):
 
-    cep = request.GET.get("cep")
+    cep = request.GET.get("cep", "")
 
     if not cep or len(cep) < 8:
+
         return JsonResponse({
             "success": False,
             "fretes": [],
@@ -54,6 +55,17 @@ def calcular_frete(request):
 
     try:
 
+        # ✅ DEBUG TOKEN
+        print(
+            "TOKEN TAMANHO:",
+            len(settings.MELHOR_ENVIO_TOKEN or "")
+        )
+
+        print(
+            "TOKEN INICIO:",
+            (settings.MELHOR_ENVIO_TOKEN or "")[:50]
+        )
+
         response = requests.post(
             url,
             json=payload,
@@ -61,32 +73,92 @@ def calcular_frete(request):
             timeout=15
         )
 
-        print("STATUS:", response.status_code)
-        print("BODY:", response.text)
+        print(
+            "STATUS:",
+            response.status_code
+        )
+
+        print(
+            "BODY:",
+            response.text
+        )
 
         data = response.json()
 
-        # ✅ Melhor Envio retornou normalmente
-        if response.status_code == 200 and isinstance(data, list):
+        # ✅ Melhor Envio respondeu corretamente
+        if (
+            response.status_code == 200 and
+            isinstance(data, list)
+        ):
 
             fretes_validos = [
+
                 frete
+
                 for frete in data
+
                 if not frete.get("error")
+
             ]
 
             if fretes_validos:
-    
+
                 return JsonResponse({
                     "success": True,
                     "fretes": fretes_validos
                 })
 
-        raise Exception("Melhor Envio indisponível")
+        raise Exception(
+            f"Melhor Envio retornou {response.status_code}"
+        )
 
     except Exception as e:
 
-        print("⚠️ CONTINGÊNCIA DE FRETE:", str(e))
+        print(
+            "⚠️ CONTINGÊNCIA DE FRETE:",
+            str(e)
+        )
+
+        # =========================
+        # ✅ FRETE ECONÔMICO
+        # =========================
+
+        prefixo = str(cep)[:2]
+
+        sul_sudeste = [
+            "01","02","03","04","05","06","07","08","09",
+            "10","11","12","13","14","15","16","17","18","19",
+            "20","21","22","23","24","25","26","27","28",
+            "29","30","31","32","33","34","35","36","37","38","39",
+            "80","81","82","83","84","85","86","87","88","89"
+        ]
+
+        if prefixo in sul_sudeste:
+
+            valor = "14.90"
+            prazo = 5
+
+        else:
+
+            valor = "40.90"
+            prazo = 10
+
+        return JsonResponse({
+            "success": True,
+            "contingencia": True,
+            "fretes": [
+                {
+                    "id": "contingencia",
+                    "name": "Frete Econômico",
+                    "price": valor,
+                    "delivery_time": prazo,
+                    "company": {
+                        "name": "Fractions Parfums",
+                        "picture": ""
+                    }
+                }
+            ]
+        })
 
         # =========================
         # ✅ FRETE ECONÔMICO
