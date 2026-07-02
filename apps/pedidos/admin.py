@@ -408,8 +408,10 @@ class PedidoAdmin(admin.ModelAdmin):
 
             if not pedido.melhor_envio_id:
 
-                print(
-                    f"PEDIDO {pedido.codigo} SEM MELHOR_ENVIO_ID"
+                self.message_user(
+                    request,
+                    f'Pedido {pedido.codigo} sem Melhor Envio ID.',
+                    messages.ERROR
                 )
 
                 continue
@@ -418,30 +420,55 @@ class PedidoAdmin(admin.ModelAdmin):
                 pedido
             )
 
+            status_code = resultado.get(
+                "status_code"
+            )
+
+            body = resultado.get(
+                "body",
+                {}
+            )
+
             print("=" * 80)
             print("COMPRA ETIQUETA")
 
+            print("PEDIDO")
+            print(pedido.codigo)
+
             print("STATUS_CODE")
-            print(
-                resultado.get(
-                    "status_code"
-                )
-            )
+            print(status_code)
 
             print("BODY")
-            print(
-                resultado.get(
-                    "body"
-                )
-            )
+            print(body)
 
             print("=" * 80)
 
-        self.message_user(
-            request,
-            'Compra da etiqueta enviada. Verifique os logs.',
-            messages.SUCCESS
-        )
+            if status_code == 200:
+
+                self.message_user(
+                    request,
+                    f'Etiqueta do pedido {pedido.codigo} comprada com sucesso.',
+                    messages.SUCCESS
+                )
+
+            elif status_code == 422:
+
+                self.message_user(
+                    request,
+                    body.get(
+                        'error',
+                        'Erro de validação no Melhor Envio.'
+                    ),
+                    messages.ERROR
+                )
+
+            else:
+
+                self.message_user(
+                    request,
+                    f'Erro {status_code} ao comprar etiqueta no Melhor Envio.',
+                    messages.ERROR
+                )
 
     comprar_etiqueta_melhor_envio.short_description = (
         '🏷 Comprar Etiqueta Melhor Envio'
