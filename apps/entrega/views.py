@@ -85,15 +85,12 @@ def calcular_frete(request):
                 if not frete.get("error")
             ]
 
-            # ✅ Ordena pelo menor preço
             fretes_validos.sort(
                 key=lambda x: float(x.get("price", 9999))
             )
 
-            # ✅ Mantém os 3 mais baratos
             fretes_exibir = fretes_validos[:3]
 
-            # ✅ Procura o SEDEX
             sedex = next(
                 (
                     frete
@@ -103,7 +100,6 @@ def calcular_frete(request):
                 None
             )
 
-            # ✅ Adiciona SEDEX se não estiver entre os 3
             if sedex and sedex not in fretes_exibir:
                 fretes_exibir.append(sedex)
 
@@ -127,6 +123,7 @@ def calcular_frete(request):
 
         prefixo = str(cep)[:2]
 
+        # Sul e Sudeste
         sul_sudeste = [
             "01","02","03","04","05","06","07","08","09",
             "10","11","12","13","14","15","16","17","18","19",
@@ -135,15 +132,26 @@ def calcular_frete(request):
             "80","81","82","83","84","85","86","87","88","89"
         ]
 
-        if prefixo in sul_sudeste:
+        # Acre, Amapá, Amazonas e Roraima
+        ceps_criticos = [
+            "68",
+            "69"
+        ]
 
-            valor = "14.90"
-            prazo = 5
+        if prefixo in ceps_criticos:
+
+            valor = "49.90"
+            prazo = 20
+
+        elif prefixo in sul_sudeste:
+
+            valor = "24.90"
+            prazo = 7
 
         else:
 
-            valor = "40.90"
-            prazo = 10
+            valor = "39.90"
+            prazo = 12
 
         return JsonResponse({
             "success": True,

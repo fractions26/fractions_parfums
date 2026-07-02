@@ -597,58 +597,153 @@ function backMenu() {
 // ==========================
 document.addEventListener("DOMContentLoaded", function () {
 
-    // ==========================
-    // ✅ CAROUSEL PRINCIPAL (LIMITADO A 3)
-    // ==========================
-    const track = document.querySelector(".carousel-track");
-    const slides = document.querySelectorAll(".slide");
-    const dotsContainer = document.querySelector(".carousel-dots");
+// ==========================
+// ✅ CAROUSEL PRINCIPAL + SWIPE
+// ==========================
+const track = document.querySelector(".carousel-track");
+const slides = document.querySelectorAll(".slide");
+const dotsContainer = document.querySelector(".carousel-dots");
 
-    if (track && slides.length > 0 && dotsContainer) {
+if (track && slides.length > 0 && dotsContainer) {
 
-        let index = 0;
+    let index = 0;
 
-        const maxSlides = Math.min(3, slides.length); // ✅ LIMITA A 3
+    const maxSlides = Math.min(3, slides.length);
 
-        dotsContainer.innerHTML = "";
+    dotsContainer.innerHTML = "";
 
-        const validSlides = [];
+    const validSlides = [];
 
-        slides.forEach((slide, i) => {
-            if (i < maxSlides) {
-                validSlides.push(slide);
-            }
-        });
+    slides.forEach((slide, i) => {
 
-        validSlides.forEach((_, i) => {
-
-            const dot = document.createElement("span");
-
-            if (i === 0) dot.classList.add("active");
-
-            dot.addEventListener("click", () => {
-                index = i;
-                updateCarousel();
-            });
-
-            dotsContainer.appendChild(dot);
-        });
-
-        const dots = dotsContainer.querySelectorAll("span");
-
-        function updateCarousel() {
-            track.style.transform = `translateX(-${index * 100}%)`;
-
-            dots.forEach(dot => dot.classList.remove("active"));
-            dots[index].classList.add("active");
+        if (i < maxSlides) {
+            validSlides.push(slide);
         }
 
-        setInterval(() => {
-            index = (index + 1) % maxSlides;
+    });
+
+    validSlides.forEach((_, i) => {
+
+        const dot = document.createElement("span");
+
+        if (i === 0) {
+            dot.classList.add("active");
+        }
+
+        dot.addEventListener("click", () => {
+
+            index = i;
+
             updateCarousel();
+
+            reiniciarAutoplay();
+
+        });
+
+        dotsContainer.appendChild(dot);
+
+    });
+
+    const dots =
+        dotsContainer.querySelectorAll("span");
+
+    function updateCarousel() {
+
+        track.style.transform =
+            `translateX(-${index * 100}%)`;
+
+        dots.forEach(dot =>
+            dot.classList.remove("active")
+        );
+
+        dots[index].classList.add("active");
+    }
+
+    // ==========================
+    // ✅ AUTOPLAY
+    // ==========================
+
+    let autoplay = setInterval(() => {
+
+        index = (index + 1) % maxSlides;
+
+        updateCarousel();
+
+    }, 5000);
+
+    function reiniciarAutoplay() {
+
+        clearInterval(autoplay);
+
+        autoplay = setInterval(() => {
+
+            index = (index + 1) % maxSlides;
+
+            updateCarousel();
+
         }, 5000);
     }
 
+    // ==========================
+    // ✅ SWIPE COM DEDO
+    // ==========================
+
+    let startX = 0;
+    let endX = 0;
+
+    track.addEventListener(
+        "touchstart",
+        (e) => {
+
+            startX =
+                e.touches[0].clientX;
+
+        },
+        { passive: true }
+    );
+
+    track.addEventListener(
+        "touchend",
+        (e) => {
+
+            endX =
+                e.changedTouches[0].clientX;
+
+            const distancia =
+                startX - endX;
+
+            if (
+                Math.abs(distancia) < 50
+            ) {
+                return;
+            }
+
+            // Próximo banner
+            if (distancia > 0) {
+
+                index =
+                    (index + 1) %
+                    maxSlides;
+            }
+
+            // Banner anterior
+            else {
+
+                index =
+                    (index - 1 + maxSlides) %
+                    maxSlides;
+            }
+
+            updateCarousel();
+
+            reiniciarAutoplay();
+
+        },
+        { passive: true }
+    );
+
+    updateCarousel();
+}
 
     // ==========================
     // ✅ BANNER INFO (FRETE, PARCELAMENTO)

@@ -7,6 +7,15 @@ const Frete = {
     limiteSulSudeste: 199,
     limiteNorteNordeste: 300,
 
+    taxaPadrao: 6,
+    taxaContingencia: 10,
+
+    // Acre, Amapá, Amazonas e Roraima
+    cepsContingencia: [
+        "68",
+        "69"
+    ],
+
     norteNordeste: [
         "50","51","52","53","54","55","56","57","58","59",
         "60","61","62","63","64","65","66","67","68","69"
@@ -104,6 +113,28 @@ const Frete = {
         }
 
         return subtotal >= limite;
+    },
+
+    // =========================
+    // TAXA POR REGIÃO
+    // =========================
+
+    obterTaxaFrete(cep) {
+
+        const prefixo =
+            String(cep || "")
+            .substring(0, 2);
+
+        if (
+            this.cepsContingencia.includes(
+                prefixo
+            )
+        ) {
+
+            return this.taxaContingencia;
+        }
+
+        return this.taxaPadrao;
     },
 
     // =========================
@@ -235,7 +266,7 @@ fretes
         const preco =
             parseFloat(
                 f.price || 0
-            );
+            ) + this.obterTaxaFrete(cep);
 
         const prazo =
             f.id === "contingencia"
