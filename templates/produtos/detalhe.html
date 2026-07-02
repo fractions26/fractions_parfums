@@ -309,7 +309,17 @@
                             <div class="avaliacao-card">
 
                                 <div class="avaliacao-nome">
-                                    {{ avaliacao.usuario.username }}
+
+                                    {% if avaliacao.usuario.get_full_name %}
+
+                                        {{ avaliacao.usuario.get_full_name }}
+
+                                    {% else %}
+
+                                        {{ avaliacao.usuario.first_name }}
+
+                                    {% endif %}
+
                                 </div>
 
                                 <div class="avaliacao-data">

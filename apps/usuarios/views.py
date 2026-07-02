@@ -149,12 +149,17 @@ def criar_conta(request):
 
             return response
 
-        # ✅ cria usuario
         user = User.objects.create_user(
+
             username=email,
+
             email=email,
+
             password=senha,
-            first_name=nome
+
+            first_name=first_name,
+
+            last_name=last_name
         )
 
         # ✅ login automático
