@@ -567,9 +567,14 @@ class PedidoAdmin(admin.ModelAdmin):
 
             else:
 
+                erro = body.get(
+                    "error",
+                    "Erro desconhecido"
+                )
+
                 self.message_user(
                     request,
-                    f'Erro ao comprar etiqueta do pedido {pedido.codigo}.',
+                    f'Pedido {pedido.codigo}: {erro}',
                     messages.ERROR
                 )
 
