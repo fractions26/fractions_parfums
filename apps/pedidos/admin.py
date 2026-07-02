@@ -342,10 +342,10 @@ class PedidoAdmin(admin.ModelAdmin):
     )
 
     def enviar_para_melhor_envio(
-        self,
-        request,
-        queryset
-    ):
+            self,
+            request,
+            queryset
+        ):
 
         for pedido in queryset:
 
@@ -458,16 +458,12 @@ class PedidoAdmin(admin.ModelAdmin):
 
             print("=" * 80)
             print("CONSULTA ENVIO")
-
             print("PEDIDO")
             print(pedido.codigo)
-
             print("STATUS_CODE")
             print(status_code)
-
             print("BODY")
             print(body)
-
             print("=" * 80)
 
             if status_code == 200:
@@ -487,7 +483,10 @@ class PedidoAdmin(admin.ModelAdmin):
                     pedido.melhor_envio_protocolo
                 )
 
-                tracking = envio.get("tracking")
+                tracking = (
+                    envio.get("tracking")
+                    or envio.get("tracking_code")
+                )
 
                 if tracking:
 
@@ -576,3 +575,77 @@ class PedidoAdmin(admin.ModelAdmin):
                     f'Erro {status_code} ao consultar envio.',
                     messages.ERROR
                 )
+
+    consultar_status_melhor_envio.short_description = (
+        '📋 Consultar Status Melhor Envio'
+    )
+
+    def comprar_etiqueta_melhor_envio(
+        self,
+        request,
+        queryset
+    ):
+
+        for pedido in queryset:
+
+            if not pedido.melhor_envio_id:
+
+                self.message_user(
+                    request,
+                    f'Pedido {pedido.codigo} sem Melhor Envio ID.',
+                    messages.ERROR
+                )
+
+                continue
+
+            resultado = comprar_etiqueta(
+                pedido
+            )
+
+            status_code = resultado.get(
+                "status_code"
+            )
+
+            body = resultado.get(
+                "body",
+                {}
+            )
+
+            print("=" * 80)
+            print("COMPRA ETIQUETA")
+            print("PEDIDO")
+            print(pedido.codigo)
+            print("STATUS_CODE")
+            print(status_code)
+            print("BODY")
+            print(body)
+            print("=" * 80)
+
+            if status_code in [200, 201]:
+
+                pedido.etiqueta_gerada = True
+
+                pedido.save()
+
+                self.message_user(
+                    request,
+                    f'Etiqueta do pedido {pedido.codigo} comprada com sucesso.',
+                    messages.SUCCESS
+                )
+
+            else:
+
+                erro = body.get(
+                    "error",
+                    "Erro desconhecido"
+                )
+
+                self.message_user(
+                    request,
+                    f'Pedido {pedido.codigo}: {erro}',
+                    messages.ERROR
+                )
+
+    comprar_etiqueta_melhor_envio.short_description = (
+        '🏷️ Comprar Etiqueta Melhor Envio'
+    )
