@@ -481,16 +481,23 @@ def comprar_etiqueta(pedido):
 
 def consultar_envio(pedido):
 
-    response = requests.get(
-        (
-            "https://melhorenvio.com.br/api/v2/me/shipment/"
-            f"{pedido.melhor_envio_id}"
-        ),
+    response = requests.post(
+
+        "https://melhorenvio.com.br/api/v2/me/shipment/tracking",
+
         headers=headers(),
+
+        json={
+            "orders": [
+                pedido.melhor_envio_id
+            ]
+        },
+
         timeout=60
     )
 
     try:
+
         body = response.json()
 
     except Exception:
