@@ -335,7 +335,7 @@ class PedidoAdmin(admin.ModelAdmin):
         '💰 Reembolsar Pagamentos'
     )
 
-    def testar_melhor_envio(
+def testar_melhor_envio(
         self,
         request,
         queryset
@@ -353,6 +353,32 @@ class PedidoAdmin(admin.ModelAdmin):
                 pedido
             )
 
+            body = resultado.get(
+                "body",
+                {}
+            )
+
+            if resultado.get("status_code") == 201:
+
+                pedido.melhor_envio_id = body.get(
+                    "id"
+                )
+
+                pedido.status_envio = body.get(
+                    "status",
+                    ""
+                )
+
+                pedido.transportadora = (
+                    pedido.frete_nome
+                )
+
+                pedido.save()
+
+                print(
+                    "✅ DADOS SALVOS NO PEDIDO"
+                )
+
             print("STATUS_CODE")
 
             print(
@@ -363,11 +389,7 @@ class PedidoAdmin(admin.ModelAdmin):
 
             print("BODY")
 
-            print(
-                resultado.get(
-                    "body"
-                )
-            )
+            print(body)
 
             print("=" * 80)
 
@@ -377,6 +399,6 @@ class PedidoAdmin(admin.ModelAdmin):
             messages.SUCCESS
         )
 
-    testar_melhor_envio.short_description = (
+        testar_melhor_envio.short_description = (
         '📦 Testar Melhor Envio'
     )
