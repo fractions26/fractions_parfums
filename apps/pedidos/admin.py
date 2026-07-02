@@ -335,7 +335,7 @@ class PedidoAdmin(admin.ModelAdmin):
         '💰 Reembolsar Pagamentos'
     )
 
-def testar_melhor_envio(
+    def testar_melhor_envio(
         self,
         request,
         queryset
@@ -380,15 +380,9 @@ def testar_melhor_envio(
                 )
 
             print("STATUS_CODE")
-
-            print(
-                resultado.get(
-                    "status_code"
-                )
-            )
+            print(resultado.get("status_code"))
 
             print("BODY")
-
             print(body)
 
             print("=" * 80)
@@ -399,6 +393,6 @@ def testar_melhor_envio(
             messages.SUCCESS
         )
 
-        testar_melhor_envio.short_description = (
+    testar_melhor_envio.short_description = (
         '📦 Testar Melhor Envio'
     )
