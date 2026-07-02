@@ -508,3 +508,23 @@ def consultar_envio(pedido):
         "status_code": response.status_code,
         "body": body,
     }
+    
+def consultar_detalhes_envio(pedido):
+    
+    response = requests.get(
+
+        f"https://melhorenvio.com.br/api/v2/me/orders/{pedido.melhor_envio_id}",
+
+        headers=headers(),
+        timeout=60
+    )
+
+    try:
+        body = response.json()
+    except Exception:
+        body = response.text
+
+    return {
+        "status_code": response.status_code,
+        "body": body,
+    }
