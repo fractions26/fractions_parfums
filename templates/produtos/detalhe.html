@@ -933,55 +933,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-// ✅ ESTOQUE
-if(disponivel <= 0){
-
-    alerta.innerHTML =
-        "❌ Produto indisponível";
-
-    alerta.style.color = "#d32f2f";
-
-    // ✅ BLOQUEIA BOTÃO
-    btnComprar.disabled = true;
-
-    btnComprar.innerText =
-        "INDISPONÍVEL";
-
-    btnComprar.style.opacity = "0.6";
-
-    btnComprar.style.cursor =
-        "not-allowed";
-
-}
-else{
-
-    alerta.innerHTML = "";
-
-    // ✅ REATIVA BOTÃO
-    btnComprar.disabled = false;
-
-    btnComprar.innerText =
-        "COMPRAR";
-
-    btnComprar.style.opacity = "1";
-
-    btnComprar.style.cursor =
-        "pointer";
-}
-
-}
-
-// ✅ Quando trocar volume
-selectTamanho.addEventListener(
-    "change",
-    atualizarPreco
-);
-
-// ✅ Inicializa
-atualizarPreco();
-
-});
-
 // =======================
 // ✅ ADICIONAR AO CARRINHO
 // =======================
