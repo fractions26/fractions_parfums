@@ -55,6 +55,12 @@ class Pedido(models.Model):
         null=True
     )
 
+    melhor_envio_protocolo = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+
     codigo_rastreio = models.CharField(
         max_length=100,
         blank=True,
@@ -87,10 +93,6 @@ class Pedido(models.Model):
         decimal_places=2
     )
 
-    total = models.DecimalField(
-        max_digits=10,
-        decimal_places=2
-    )
 
     # ✅ CUPOM
     cupom_codigo = models.CharField(

@@ -469,9 +469,34 @@ class PedidoAdmin(admin.ModelAdmin):
 
             if status_code == 200:
 
+                envio = body.get(
+                    pedido.melhor_envio_id,
+                    {}
+                )
+
+                pedido.status_envio = envio.get(
+                    "status",
+                    pedido.status_envio
+                )
+
+                pedido.melhor_envio_protocolo = envio.get(
+                    "protocol",
+                    pedido.melhor_envio_protocolo
+                )
+
+                pedido.codigo_rastreio = (
+                    envio.get("tracking")
+                    or pedido.codigo_rastreio
+                )
+
+                pedido.save()
+
                 self.message_user(
                     request,
-                    f'Consulta realizada para o pedido {pedido.codigo}. Verifique os logs.',
+                    (
+                        f'Pedido {pedido.codigo} atualizado. '
+                        f'Status: {pedido.status_envio}'
+                    ),
                     messages.SUCCESS
                 )
 
