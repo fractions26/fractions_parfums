@@ -12,6 +12,7 @@ from apps.pagamentos.services import (
 from apps.pedidos.melhor_envio import (
     inserir_frete_carrinho,
     comprar_etiqueta,
+    consultar_envio,
 )
 
 class ItemPedidoInline(admin.TabularInline):
@@ -134,6 +135,7 @@ class PedidoAdmin(admin.ModelAdmin):
         'sincronizar_mercadopago',
         'reembolsar_pagamentos',
         'enviar_para_melhor_envio',
+        'consultar_status_melhor_envio',
         'comprar_etiqueta_melhor_envio',
     ]
 
@@ -420,7 +422,7 @@ class PedidoAdmin(admin.ModelAdmin):
         '📦 Enviar Para Melhor Envio'
     )
 
-    def comprar_etiqueta_melhor_envio(
+    def consultar_status_melhor_envio(
         self,
         request,
         queryset
@@ -438,7 +440,7 @@ class PedidoAdmin(admin.ModelAdmin):
 
                 continue
 
-            resultado = comprar_etiqueta(
+            resultado = consultar_envio(
                 pedido
             )
 
@@ -452,7 +454,7 @@ class PedidoAdmin(admin.ModelAdmin):
             )
 
             print("=" * 80)
-            print("COMPRA ETIQUETA")
+            print("CONSULTA ENVIO")
 
             print("PEDIDO")
             print(pedido.codigo)
@@ -469,29 +471,18 @@ class PedidoAdmin(admin.ModelAdmin):
 
                 self.message_user(
                     request,
-                    f'Etiqueta do pedido {pedido.codigo} comprada com sucesso.',
+                    f'Consulta realizada para o pedido {pedido.codigo}. Verifique os logs.',
                     messages.SUCCESS
-                )
-
-            elif status_code == 422:
-
-                self.message_user(
-                    request,
-                    body.get(
-                        'error',
-                        'Erro de validação no Melhor Envio.'
-                    ),
-                    messages.ERROR
                 )
 
             else:
 
                 self.message_user(
                     request,
-                    f'Erro {status_code} ao comprar etiqueta no Melhor Envio.',
+                    f'Erro {status_code} ao consultar envio.',
                     messages.ERROR
                 )
 
-    comprar_etiqueta_melhor_envio.short_description = (
-        '🏷 Comprar Etiqueta Melhor Envio'
+    consultar_status_melhor_envio.short_description = (
+        '📋 Consultar Status Melhor Envio'
     )

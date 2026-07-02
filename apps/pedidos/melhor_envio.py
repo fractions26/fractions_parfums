@@ -474,3 +474,30 @@ def comprar_etiqueta(pedido):
         "status_code": response.status_code,
         "body": body,
     }
+    
+# =====================================
+# ✅ CONSULTAR ENVIO
+# =====================================
+
+def consultar_envio(pedido):
+
+    response = requests.get(
+        (
+            "https://melhorenvio.com.br/api/v2/me/shipment/"
+            f"{pedido.melhor_envio_id}"
+        ),
+        headers=headers(),
+        timeout=60
+    )
+
+    try:
+        body = response.json()
+
+    except Exception:
+
+        body = response.text
+
+    return {
+        "status_code": response.status_code,
+        "body": body,
+    }
