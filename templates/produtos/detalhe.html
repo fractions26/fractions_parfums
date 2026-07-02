@@ -846,8 +846,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 selectTamanho.selectedIndex
             ];
 
+        // ✅ CORRIGE VÍRGULA PARA PONTO
         const preco =
-            option.getAttribute("data-preco");
+            option
+                .getAttribute("data-preco")
+                .replace(",", ".");
 
         const disponivel =
             parseInt(
@@ -880,6 +883,55 @@ document.addEventListener("DOMContentLoaded", function () {
             ${precoFormatado}
             <span class="desconto">3% OFF</span>
         `;
+
+        // ✅ ESTOQUE
+        if (disponivel <= 0) {
+
+            alerta.innerHTML =
+                "❌ Produto indisponível";
+
+            alerta.style.color =
+                "#d32f2f";
+
+            btnComprar.disabled = true;
+
+            btnComprar.innerText =
+                "INDISPONÍVEL";
+
+            btnComprar.style.opacity =
+                "0.6";
+
+            btnComprar.style.cursor =
+                "not-allowed";
+
+        }
+        else {
+
+            alerta.innerHTML = "";
+
+            btnComprar.disabled = false;
+
+            btnComprar.innerText =
+                "COMPRAR";
+
+            btnComprar.style.opacity =
+                "1";
+
+            btnComprar.style.cursor =
+                "pointer";
+        }
+    }
+
+    // ✅ Quando trocar volume
+    selectTamanho.addEventListener(
+        "change",
+        atualizarPreco
+    );
+
+    // ✅ Inicializa
+    atualizarPreco();
+
+});
 
 // ✅ ESTOQUE
 if(disponivel <= 0){
