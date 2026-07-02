@@ -441,3 +441,36 @@ def inserir_frete_carrinho(pedido):
         "status_code": response.status_code,
         "body": body,
     }
+
+# =====================================
+# ✅ COMPRAR ETIQUETA
+# =====================================
+
+def comprar_etiqueta(pedido):
+
+    response = requests.post(
+
+        "https://melhorenvio.com.br/api/v2/me/shipment/checkout",
+
+        headers=headers(),
+
+        json={
+            "orders": [
+                pedido.melhor_envio_id
+            ]
+        },
+
+        timeout=60
+    )
+
+    try:
+        body = response.json()
+
+    except Exception:
+
+        body = response.text
+
+    return {
+        "status_code": response.status_code,
+        "body": body,
+    }

@@ -11,8 +11,8 @@ from apps.pagamentos.services import (
 
 from apps.pedidos.melhor_envio import (
     inserir_frete_carrinho,
+    comprar_etiqueta,
 )
-
 
 class ItemPedidoInline(admin.TabularInline):
     model = ItemPedido
@@ -134,6 +134,7 @@ class PedidoAdmin(admin.ModelAdmin):
         'sincronizar_mercadopago',
         'reembolsar_pagamentos',
         'testar_melhor_envio',
+        'comprar_etiqueta_melhor_envio',
     ]
 
     def consultar_mercadopago(
@@ -395,4 +396,53 @@ class PedidoAdmin(admin.ModelAdmin):
 
     testar_melhor_envio.short_description = (
         '📦 Testar Melhor Envio'
+    )
+    
+    def comprar_etiqueta_melhor_envio(
+        self,
+        request,
+        queryset
+    ):
+
+        for pedido in queryset:
+
+            if not pedido.melhor_envio_id:
+
+                print(
+                    f"PEDIDO {pedido.codigo} SEM MELHOR_ENVIO_ID"
+                )
+
+                continue
+
+            resultado = comprar_etiqueta(
+                pedido
+            )
+
+            print("=" * 80)
+            print("COMPRA ETIQUETA")
+
+            print("STATUS_CODE")
+            print(
+                resultado.get(
+                    "status_code"
+                )
+            )
+
+            print("BODY")
+            print(
+                resultado.get(
+                    "body"
+                )
+            )
+
+            print("=" * 80)
+
+        self.message_user(
+            request,
+            'Compra da etiqueta enviada. Verifique os logs.',
+            messages.SUCCESS
+        )
+
+    comprar_etiqueta_melhor_envio.short_description = (
+        '🏷 Comprar Etiqueta Melhor Envio'
     )
