@@ -133,7 +133,7 @@ class PedidoAdmin(admin.ModelAdmin):
         'consultar_mercadopago',
         'sincronizar_mercadopago',
         'reembolsar_pagamentos',
-        'testar_melhor_envio',
+        'enviar_para_melhor_envio',
         'comprar_etiqueta_melhor_envio',
     ]
 
@@ -336,13 +336,23 @@ class PedidoAdmin(admin.ModelAdmin):
         '💰 Reembolsar Pagamentos'
     )
 
-    def testar_melhor_envio(
+    def enviar_para_melhor_envio(
         self,
         request,
         queryset
     ):
 
         for pedido in queryset:
+
+            if pedido.melhor_envio_id:
+
+                self.message_user(
+                    request,
+                    f'Pedido {pedido.codigo} já possui envio criado.',
+                    messages.WARNING
+                )
+
+                continue
 
             print("=" * 80)
 
@@ -380,24 +390,36 @@ class PedidoAdmin(admin.ModelAdmin):
                     "✅ DADOS SALVOS NO PEDIDO"
                 )
 
+                self.message_user(
+                    request,
+                    f'Pedido {pedido.codigo} enviado para o Melhor Envio com sucesso.',
+                    messages.SUCCESS
+                )
+
+            else:
+
+                self.message_user(
+                    request,
+                    f'Erro {resultado.get("status_code")} ao criar envio.',
+                    messages.ERROR
+                )
+
             print("STATUS_CODE")
-            print(resultado.get("status_code"))
+            print(
+                resultado.get(
+                    "status_code"
+                )
+            )
 
             print("BODY")
             print(body)
 
             print("=" * 80)
 
-        self.message_user(
-            request,
-            'Requisição enviada. Verifique os logs.',
-            messages.SUCCESS
-        )
-
-    testar_melhor_envio.short_description = (
-        '📦 Testar Melhor Envio'
+    enviar_para_melhor_envio.short_description = (
+        '📦 Enviar Para Melhor Envio'
     )
-    
+
     def comprar_etiqueta_melhor_envio(
         self,
         request,
