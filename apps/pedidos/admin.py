@@ -16,6 +16,7 @@ from apps.pedidos.melhor_envio import (
     inserir_frete_carrinho,
     comprar_etiqueta,
     consultar_envio,
+    imprimir_etiqueta,
 )
 
 class ItemPedidoInline(admin.TabularInline):
@@ -625,11 +626,59 @@ class PedidoAdmin(admin.ModelAdmin):
 
                 pedido.etiqueta_gerada = True
 
+                try:
+
+                    resultado_print = (
+                        imprimir_etiqueta(
+                            pedido
+                        )
+                    )
+
+                    print("=" * 80)
+                    print("IMPRESSAO ETIQUETA")
+                    print("PEDIDO")
+                    print(pedido.codigo)
+                    print("STATUS_CODE")
+                    print(
+                        resultado_print.get(
+                            "status_code"
+                        )
+                    )
+                    print("BODY")
+                    print(
+                        resultado_print.get(
+                            "body"
+                        )
+                    )
+                    print("=" * 80)
+
+                    if (
+                        resultado_print.get(
+                            "status_code"
+                        ) == 200
+                    ):
+
+                        pedido.url_etiqueta = (
+                            resultado_print
+                            .get("body", {})
+                            .get("url", "")
+                        )
+
+                except Exception as erro:
+
+                    print(
+                        "ERRO AO OBTER URL DA ETIQUETA:"
+                    )
+                    print(erro)
+
                 pedido.save()
 
                 self.message_user(
                     request,
-                    f'Etiqueta do pedido {pedido.codigo} comprada com sucesso.',
+                    (
+                        f'Etiqueta do pedido '
+                        f'{pedido.codigo} comprada com sucesso.'
+                    ),
                     messages.SUCCESS
                 )
 
