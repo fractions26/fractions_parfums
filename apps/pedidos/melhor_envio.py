@@ -528,3 +528,57 @@ def consultar_detalhes_envio(pedido):
         "status_code": response.status_code,
         "body": body,
     }
+    
+def gerar_etiqueta(pedido):
+    
+    response = requests.post(
+
+        "https://melhorenvio.com.br/api/v2/me/shipment/generate",
+
+        headers=headers(),
+
+        json={
+            "orders": [
+                pedido.melhor_envio_id
+            ]
+        },
+
+        timeout=60
+    )
+
+    try:
+        body = response.json()
+    except Exception:
+        body = response.text
+
+    return {
+        "status_code": response.status_code,
+        "body": body,
+    }
+
+def imprimir_etiqueta(pedido):
+    
+    response = requests.post(
+
+        "https://melhorenvio.com.br/api/v2/me/shipment/print",
+
+        headers=headers(),
+
+        json={
+            "orders": [
+                pedido.melhor_envio_id
+            ]
+        },
+
+        timeout=60
+    )
+
+    try:
+        body = response.json()
+    except Exception:
+        body = response.text
+
+    return {
+        "status_code": response.status_code,
+        "body": body,
+    }
