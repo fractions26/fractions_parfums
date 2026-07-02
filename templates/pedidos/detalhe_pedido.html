@@ -73,31 +73,36 @@
 
             <div class="dados-usuario">
 
-                <!-- ✅ TRANSPORTADORA COM LOGO -->
-            <div class="frete-linha">
+                <div class="frete-linha">
 
-                {% with pedido.frete_nome|lower as nome %}
+                    {% with pedido.frete_nome|lower as nome %}
 
-                    {% if '.package' in nome or '.com' in nome %}
-                        <img src="{% static 'images/jadlog.png' %}"
-                            alt="Jadlog"
-                            class="frete-logo">
+                        {% if 'jadlog' in nome or '.package' in nome or '.com' in nome %}
+                            <img src="{% static 'images/jadlog.png' %}"
+                                alt="Jadlog"
+                                class="frete-logo">
 
-                    {% elif 'correios' in nome or 'sedex' in nome or 'pac' in nome %}
-                        <img src="{% static 'images/correios.png' %}"
-                            alt="Correios"
-                            class="frete-logo">
-                    {% endif %}
+                        {% elif 'loggi' in nome %}
+                            <img src="{% static 'images/loggi.png' %}"
+                                alt="Loggi"
+                                class="frete-logo">
 
-                {% endwith %}
+                        {% elif 'correios' in nome or 'sedex' in nome or 'pac' in nome %}
+                            <img src="{% static 'images/correios.png' %}"
+                                alt="Correios"
+                                class="frete-logo">
 
-                <div>
-                    <strong>
-                        {{ pedido.frete_nome }}
-                    </strong>
+                        {% endif %}
+
+                    {% endwith %}
+
+                    <div>
+                        <strong>
+                            {{ pedido.frete_nome }}
+                        </strong>
+                    </div>
+
                 </div>
-
-            </div>
 
 
                 <p>
@@ -110,11 +115,69 @@
                     R$ {{ pedido.frete }}
                 </p>
 
-            </div>
+                <hr>
 
-        </div>
+                    <p>
+                        <strong>Status do Envio:</strong>
 
-    </div>
+                        {% if pedido.status_envio %}
+
+                            {% if pedido.status_envio == 'pending' %}
+                                Aguardando Postagem
+
+                            {% elif pedido.status_envio == 'paid' %}
+                                Etiqueta Gerada
+
+                            {% elif pedido.status_envio == 'posted' %}
+                                Em Transporte
+
+                            {% elif pedido.status_envio == 'delivered' %}
+                                Entregue
+
+                            {% elif pedido.status_envio == 'cancelled' %}
+                                Cancelado
+
+                            {% else %}
+                                {{ pedido.status_envio }}
+
+                            {% endif %}
+
+                        {% else %}
+
+                            Aguardando Postagem
+
+                        {% endif %}
+
+                    </p>
+
+                <p>
+                    <strong>Código de Rastreio:</strong>
+
+                    {% if pedido.codigo_rastreio %}
+                        {{ pedido.codigo_rastreio }}
+                    {% else %}
+                        Aguardando Postagem
+                    {% endif %}
+                </p>
+
+                {% if pedido.transportadora %}
+                <p>
+                    <strong>Transportadora:</strong>
+                    {{ pedido.transportadora }}
+                </p>
+                {% endif %}
+
+                {% if pedido.codigo_rastreio %}
+                <p style="color:#28a745;font-weight:600;">
+                    📦 Seu pedido já possui código de rastreio.
+                </p>
+                {% endif %}
+
+                </div>
+
+                </div>
+
+                </div>
 
         <!-- ✅ DIREITA -->
         <div>
