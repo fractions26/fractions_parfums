@@ -3,7 +3,7 @@ from django.contrib import messages
 
 from .models import Pedido
 from .models import ItemPedido
-
+from django.utils.html import format_html
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
@@ -26,6 +26,26 @@ class ItemPedidoInline(admin.TabularInline):
 
 @admin.register(Pedido)
 class PedidoAdmin(admin.ModelAdmin):
+
+    def imprimir_etiqueta_link(
+        self,
+        obj
+    ):
+
+        if obj.url_etiqueta:
+
+            return format_html(
+                '<a href="{}" target="_blank">'
+                '🖨️ Imprimir Etiqueta'
+                '</a>',
+                obj.url_etiqueta
+            )
+
+        return "-"
+
+    imprimir_etiqueta_link.short_description = (
+        'Impressão'
+    )
 
     list_display = (
         'codigo',
@@ -59,6 +79,7 @@ class PedidoAdmin(admin.ModelAdmin):
         'codigo_rastreio',
         'transportadora',
         'url_etiqueta',
+        'imprimir_etiqueta_link',
         'status_envio',
     )
 
@@ -125,6 +146,7 @@ class PedidoAdmin(admin.ModelAdmin):
                     'codigo_rastreio',
                     'status_envio',
                     'url_etiqueta',
+                    'imprimir_etiqueta_link',
                     'etiqueta_gerada',
                 )
             }
