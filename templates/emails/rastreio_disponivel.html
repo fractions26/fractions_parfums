@@ -1,0 +1,118 @@
+<tr>
+<td style="padding:40px;">
+
+    <h1
+        style="
+            text-align:center;
+            color:#111111;
+            margin-bottom:30px;
+        "
+    >
+        📦 Seu pedido foi enviado!
+    </h1>
+
+    <p>
+        Olá <strong>{{ pedido.nome }}</strong>,
+    </p>
+
+    <p>
+        Temos uma ótima notícia!
+        Seu pedido foi despachado e já está em trânsito.
+    </p>
+
+    <p>
+        Número do pedido:
+        <strong>#{{ pedido.codigo }}</strong>
+    </p>
+
+    <p>
+        <strong>Transportadora:</strong><br>
+        {{ pedido.frete_nome }}
+    </p>
+
+    <p>
+        <strong>Código de rastreio:</strong><br>
+        {{ pedido.codigo_rastreio }}
+    </p>
+
+    <div
+        style="
+            margin:30px 0;
+            padding:20px;
+            border:1px solid #e5e5e5;
+            border-radius:8px;
+            background:#fafafa;
+        "
+    >
+
+        <h3
+            style="
+                margin-top:0;
+                color:#111111;
+            "
+        >
+            🚚 Acompanhe sua entrega
+        </h3>
+
+        <p style="margin-bottom:0;">
+            Utilize o código de rastreio acima para acompanhar
+            o andamento da sua encomenda.
+        </p>
+
+    </div>
+
+    <h3>Endereço de Entrega</h3>
+
+    <p>
+
+        {{ pedido.nome }}<br>
+
+        {{ pedido.endereco }},
+        {{ pedido.numero }}<br>
+
+        {% if pedido.complemento %}
+            {{ pedido.complemento }}<br>
+        {% endif %}
+
+        {{ pedido.cidade }}/{{ pedido.estado }}<br>
+
+        CEP: {{ pedido.cep }}
+
+    </p>
+
+    <div
+        style="
+            text-align:center;
+            margin-top:40px;
+        "
+    >
+
+        <a
+            href="https://www.fractionsparfums.com.br{% url 'detalhe_pedido' codigo=pedido.codigo %}"
+            style="
+                background:#111111;
+                     text-decoration:none;
+                padding:16px 36px;
+                border-radius:8px;
+                display:inline-block;
+                font-weight:bold;
+            "
+        >
+            ACOMPANHAR PEDIDO
+        </a>
+
+    </div>
+
+    <p
+        style="
+            margin-top:30px;
+            font-size:14px;
+            color:#666666;
+        "
+    >
+        Agradecemos pela sua compra e confiança na
+        <strong>Fractions Parfums</strong>.
+    </p>
+
+</td>
+</tr>

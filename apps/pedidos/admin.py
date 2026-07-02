@@ -4,6 +4,9 @@ from django.contrib import messages
 from .models import Pedido
 from .models import ItemPedido
 
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+
 from apps.pagamentos.services import (
     reembolsar_pagamento,
     consultar_pagamento,
@@ -484,12 +487,78 @@ class PedidoAdmin(admin.ModelAdmin):
                     pedido.melhor_envio_protocolo
                 )
 
-                pedido.codigo_rastreio = (
-                    envio.get("tracking")
-                    or pedido.codigo_rastreio
-                )
+                tracking = envio.get("tracking")
+
+                if tracking:
+
+                    pedido.codigo_rastreio = tracking
+
+                    if pedido.status != "ENVIADO":
+                        pedido.status = "ENVIADO"
 
                 pedido.save()
+
+                # =========================
+                # ✅ EMAIL DE RASTREIO
+                # =========================
+
+                if (
+                    pedido.codigo_rastreio
+                    and not pedido.email_rastreio_enviado
+                ):
+
+                    try:
+
+                        html_content = render_to_string(
+                            'emails/rastreio_disponivel.html',
+                            {
+                                'pedido': pedido
+                            }
+                        )
+
+                        email_msg = EmailMultiAlternatives(
+
+                            subject=(
+                                f'📦 Pedido #{pedido.codigo} enviado'
+                            ),
+
+                            body=(
+                                f'Seu pedido #{pedido.codigo} foi enviado.'
+                            ),
+
+                            from_email=(
+                                'Fractions Parfums '
+                                '<contato@fractionsparfums.com.br>'
+                            ),
+
+                            to=[pedido.email]
+                        )
+
+                        email_msg.attach_alternative(
+                            html_content,
+                            "text/html"
+                        )
+
+                        email_msg.send()
+
+                        pedido.email_rastreio_enviado = True
+
+                        pedido.save(
+                            update_fields=[
+                                'email_rastreio_enviado'
+                            ]
+                        )
+
+                        print(
+                            f'✅ Email de rastreio enviado para {pedido.email}'
+                        )
+
+                    except Exception as erro:
+
+                        print(
+                            '❌ Erro ao enviar email de rastreio:',
+                            erro
+                        )
 
                 self.message_user(
                     request,
@@ -507,78 +576,3 @@ class PedidoAdmin(admin.ModelAdmin):
                     f'Erro {status_code} ao consultar envio.',
                     messages.ERROR
                 )
-
-    consultar_status_melhor_envio.short_description = (
-        '📋 Consultar Status Melhor Envio'
-    )
-    
-    def comprar_etiqueta_melhor_envio(
-        self,
-        request,
-        queryset
-    ):
-
-        for pedido in queryset:
-
-            if not pedido.melhor_envio_id:
-
-                self.message_user(
-                    request,
-                    f'Pedido {pedido.codigo} sem Melhor Envio ID.',
-                    messages.ERROR
-                )
-
-                continue
-
-            resultado = comprar_etiqueta(
-                pedido
-            )
-
-            status_code = resultado.get(
-                "status_code"
-            )
-
-            body = resultado.get(
-                "body",
-                {}
-            )
-
-            print("=" * 80)
-            print("COMPRA ETIQUETA")
-            print("PEDIDO")
-            print(pedido.codigo)
-            print("STATUS_CODE")
-            print(status_code)
-            print("BODY")
-            print(body)
-            print("=" * 80)
-
-            if status_code in [200, 201]:
-
-                pedido.etiqueta_gerada = True
-
-                pedido.save()
-
-                self.message_user(
-                    request,
-                    f'Etiqueta do pedido {pedido.codigo} comprada com sucesso.',
-                    messages.SUCCESS
-                )
-
-            else:
-
-                erro = body.get(
-                    "error",
-                    "Erro desconhecido"
-                )
-
-                self.message_user(
-                    request,
-                    f'Pedido {pedido.codigo}: {erro}',
-                    messages.ERROR
-                )
-
-
-    comprar_etiqueta_melhor_envio.short_description = (
-        '🏷️ Comprar Etiqueta Melhor Envio'
-    )

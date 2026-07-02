@@ -217,6 +217,10 @@ class Pedido(models.Model):
     email_pagamento_enviado = models.BooleanField(
         default=False
     )
+    
+    email_rastreio_enviado = models.BooleanField(
+    default=False
+    )
 
     def __str__(self):
         return f'Pedido #{self.codigo}'
