@@ -9,6 +9,10 @@ from apps.pagamentos.services import (
     consultar_pagamento,
 )
 
+from apps.pedidos.melhor_envio import (
+    inserir_frete_carrinho,
+)
+
 
 class ItemPedidoInline(admin.TabularInline):
     model = ItemPedido
@@ -341,47 +345,38 @@ class PedidoAdmin(admin.ModelAdmin):
 
             print("=" * 80)
 
-            print("PEDIDO")
-            print(pedido.codigo)
+            print(
+                f"ENVIANDO PEDIDO {pedido.codigo}"
+            )
 
-            print("NOME")
-            print(pedido.nome)
+            resultado = inserir_frete_carrinho(
+                pedido
+            )
 
-            print("CPF")
-            print(pedido.cpf)
+            print("STATUS_CODE")
 
-            print("TELEFONE")
-            print(pedido.telefone)
+            print(
+                resultado.get(
+                    "status_code"
+                )
+            )
 
-            print("CEP")
-            print(pedido.cep)
+            print("BODY")
 
-            print("ENDERECO")
-            print(pedido.endereco)
-
-            print("NUMERO")
-            print(pedido.numero)
-
-            print("COMPLEMENTO")
-            print(pedido.complemento)
-
-            print("CIDADE")
-            print(pedido.cidade)
-
-            print("ESTADO")
-            print(pedido.estado)
-
-            print("FRETE")
-            print(pedido.frete_nome)
+            print(
+                resultado.get(
+                    "body"
+                )
+            )
 
             print("=" * 80)
 
         self.message_user(
             request,
-            'Dados enviados para os logs.',
+            'Requisição enviada. Verifique os logs.',
             messages.SUCCESS
         )
 
     testar_melhor_envio.short_description = (
-        '📦 Testar Dados Melhor Envio'
+        '📦 Testar Melhor Envio'
     )
