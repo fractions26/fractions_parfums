@@ -18,7 +18,7 @@
         {% endfor %}
     {% endif %}
 
-    <form method="post" id="loginForm">
+    <form method="post">
 
         {% csrf_token %}
 
@@ -125,14 +125,13 @@
         </div>
 
         <!-- ✅ BOTÃO ENTRAR -->
-            <button
-                type="submit"
-                class="btn-criar-conta"
-                id="btnEntrar">
+        <button
+            type="submit"
+            class="btn-criar-conta">
 
-                ENTRAR
+            ENTRAR
 
-            </button>
+        </button>
 
     </form>
 
@@ -176,29 +175,3 @@
 </div>
 
 {% endblock %}
-
-<script>
-
-let loginPermitido = false;
-
-document.addEventListener('DOMContentLoaded', function () {
-
-    document.getElementById('btnEntrar').addEventListener('click', function () {
-        loginPermitido = true;
-    });
-
-    document.getElementById('loginForm').addEventListener('submit', function (e) {
-
-        if (!loginPermitido) {
-
-            e.preventDefault();
-
-            console.log('Login automático bloqueado.');
-
-            return false;
-        }
-    });
-
-});
-
-</script>
