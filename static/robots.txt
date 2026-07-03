@@ -24,4 +24,4 @@ Allow: /
 User-agent: Twitterbot
 Allow: /
 
-Sitemap: https://fractionsparfums.com.br/sitemap.xml
+Sitemap: https://www.fractionsparfums.com.br/sitemap.xml

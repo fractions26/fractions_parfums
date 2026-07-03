@@ -1,28 +1,15 @@
 from PIL import Image
 
-# 🔥 ARQUIVO ORIGINAL
 entrada = r"C:\Users\wwwdl\OneDrive\Documentos\fractions_parfums\static\images\favicon.png"
-
-# 🔥 ARQUIVO FINAL
 saida = r"C:\Users\wwwdl\OneDrive\Documentos\fractions_parfums\static\images\favicon.png"
 
 with Image.open(entrada) as img:
 
-    # ✅ RGB
-    img = img.convert("RGB")
+    img = img.convert("RGBA")
 
-    # ✅ cria ICO com vários tamanhos
-    img.save(
-        saida,
-        format="png",
-        sizes=[
-            (16, 16),
-            (32, 32),
-            (48, 48),
-            (64, 64),
-            (128, 128),
-            (256, 256)
-        ]
-    )
+    # Recomendo 512x512
+    img = img.resize((512, 512))
 
-print("✅ favicon.ico criado com múltiplos tamanhos!")
+    img.save(saida, format="PNG", optimize=True)
+
+print("✅ favicon.png atualizado")
