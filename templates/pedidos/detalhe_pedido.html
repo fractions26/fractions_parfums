@@ -118,58 +118,44 @@
                 <hr>
 
                     <p>
-                        <strong>Status do Envio:</strong>
+                        <strong>Status da Entrega:</strong>
 
-                        {% if pedido.status_envio %}
+                        {% if pedido.status == 'ENTREGUE' %}
 
-                            {% if pedido.status_envio == 'pending' %}
-                                Aguardando Postagem
+                            ✅ Pedido Entregue
 
-                            {% elif pedido.status_envio == 'paid' %}
-                                Etiqueta Gerada
+                        {% elif pedido.codigo_rastreio %}
 
-                            {% elif pedido.status_envio == 'posted' %}
-                                Em Transporte
+                            🚚 Pedido Enviado
 
-                            {% elif pedido.status_envio == 'delivered' %}
-                                Entregue
+                        {% elif pedido.etiqueta_gerada %}
 
-                            {% elif pedido.status_envio == 'cancelled' %}
-                                Cancelado
-
-                            {% else %}
-                                {{ pedido.status_envio }}
-
-                            {% endif %}
+                            📦 Pedido Pronto para Postagem
 
                         {% else %}
 
-                            Aguardando Postagem
+                            ⏳ Pedido em Preparação
 
                         {% endif %}
-
                     </p>
 
-                <p>
-                    <strong>Código de Rastreio:</strong>
+                    {% if pedido.codigo_rastreio %}
+                    <p>
+                        <strong>Código de Rastreio:</strong>
+                        {{ pedido.codigo_rastreio }}
+                    </p>
+                    {% endif %}
 
                     {% if pedido.codigo_rastreio %}
-                        {{ pedido.codigo_rastreio }}
-                    {% else %}
-                        Aguardando Postagem
+                    <p style="color:#28a745;font-weight:600;">
+                        🚚 Seu pedido já foi despachado e está em transporte.
+                    </p>
                     {% endif %}
-                </p>
 
                 {% if pedido.transportadora %}
                 <p>
                     <strong>Transportadora:</strong>
                     {{ pedido.transportadora }}
-                </p>
-                {% endif %}
-
-                {% if pedido.codigo_rastreio %}
-                <p style="color:#28a745;font-weight:600;">
-                    📦 Seu pedido já possui código de rastreio.
                 </p>
                 {% endif %}
 

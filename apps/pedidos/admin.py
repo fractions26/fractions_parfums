@@ -56,7 +56,7 @@ class PedidoAdmin(admin.ModelAdmin):
         'transportadora',
         'codigo_rastreio',
         'etiqueta_gerada',
-        'status_envio',
+        'imprimir_etiqueta_link',
         'criado_em',
     )
 
@@ -507,13 +507,17 @@ class PedidoAdmin(admin.ModelAdmin):
                     or body.get("tracking")
                     or body.get("tracking_code")
                 )
+                
+            if body.get("delivered_at"):
+                
+                pedido.status = "ENTREGUE"
 
-                if tracking:
+            elif tracking:
 
-                    pedido.codigo_rastreio = tracking
+                pedido.codigo_rastreio = tracking
 
-                    if pedido.status != "ENVIADO":
-                        pedido.status = "ENVIADO"
+                if pedido.status != "ENVIADO":
+                    pedido.status = "ENVIADO"
 
                 pedido.save()
 
