@@ -38,28 +38,78 @@
                 required
             >
 
-        </div>
+            </div>
 
-        <div class="form-group">
+            <div class="form-group">
 
-            <label>Senha</label>
+                <label>Senha</label>
 
-            <input
-                type="password"
-                name="senha"
-                required
+                <div class="senha-wrapper">
+
+                    <input
+                        type="password"
+                        name="senha"
+                        id="senha"
+                        required
+                    >
+
+                    <span
+                        class="toggle-senha"
+                        onclick="toggleSenha()"
+                    >
+                        👁️
+                    </span>
+
+                </div>
+
+            </div>
+
+            <style>
+
+            .senha-wrapper{
+                position: relative;
+            }
+
+            .senha-wrapper input{
+                width: 100%;
+                padding-right: 45px;
+            }
+
+            .toggle-senha{
+                position: absolute;
+                right: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                font-size: 18px;
+                user-select: none;
+            }
+
+            </style>
+
+            <script>
+
+            function toggleSenha() {
+
+                const campo = document.getElementById('senha');
+
+                if (campo.type === 'password') {
+                    campo.type = 'text';
+                } else {
+                    campo.type = 'password';
+                }
+            }
+
+            </script>
+
+            <!-- ✅ ESQUECEU A SENHA -->
+            <div
+                style="
+                    text-align:center;
+                    margin-top:-10px;
+                    margin-bottom:20px;
+                "
             >
-
-        </div>
-
-        <!-- ✅ ESQUECEU A SENHA -->
-        <div
-            style="
-                text-align:center;
-                margin-top:-10px;
-                margin-bottom:20px;
-            "
-        >
 
             <a
                 href="{% url 'password_reset' %}"
