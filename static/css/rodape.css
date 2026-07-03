@@ -258,11 +258,8 @@
 
 /* ✅ LOGO DESKTOP */
 .footer-dev img {
-    height: 60px;   /* 🎯 grande e visível no desktop */
-
-    filter: brightness(0) invert(1);
-    opacity: 0.95;
-
+    height: 60px;
+    width: auto;
     display: block;
 }
 
