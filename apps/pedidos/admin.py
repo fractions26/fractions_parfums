@@ -17,6 +17,7 @@ from apps.pedidos.melhor_envio import (
     comprar_etiqueta,
     consultar_envio,
     imprimir_etiqueta,
+    consultar_detalhes_envio,
 )
 
 class ItemPedidoInline(admin.TabularInline):
@@ -466,7 +467,7 @@ class PedidoAdmin(admin.ModelAdmin):
 
                 continue
 
-            resultado = consultar_envio(
+            resultado = consultar_detalhes_envio(
                 pedido
             )
 
@@ -491,24 +492,20 @@ class PedidoAdmin(admin.ModelAdmin):
 
             if status_code == 200:
 
-                envio = body.get(
-                    pedido.melhor_envio_id,
-                    {}
-                )
-
-                pedido.status_envio = envio.get(
+                pedido.status_envio = body.get(
                     "status",
                     pedido.status_envio
                 )
 
-                pedido.melhor_envio_protocolo = envio.get(
+                pedido.melhor_envio_protocolo = body.get(
                     "protocol",
                     pedido.melhor_envio_protocolo
                 )
 
                 tracking = (
-                    envio.get("tracking")
-                    or envio.get("tracking_code")
+                    body.get("self_tracking")
+                    or body.get("tracking")
+                    or body.get("tracking_code")
                 )
 
                 if tracking:
