@@ -2132,3 +2132,11 @@ body.modal-aberto {
     position: relative !important;
     z-index: 999999 !important;
 }
+
+@media (max-width: 768px) {
+
+    .product-slider-image {
+        margin-top: 20px;
+    }
+
+}
