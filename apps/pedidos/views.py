@@ -687,6 +687,53 @@ def checkout(request):
             ),
         )
         
+        # =========================
+        # ✅ EMAIL AVISO NOVO PEDIDO
+        # =========================
+
+        try:
+
+            EmailMultiAlternatives(
+
+                subject=f"🛒 Nova Venda #{pedido.codigo}",
+
+                body=f"""
+        🛒 NOVA VENDA
+
+        Pedido: {pedido.codigo}
+
+        Cliente: {pedido.nome}
+
+        Email: {pedido.email}
+
+        Telefone: {pedido.telefone}
+
+        Valor Total: R$ {pedido.total}
+
+        Pagamento: {pedido.metodo_pagamento}
+
+        Status: {pedido.status}
+        """,
+
+                from_email=(
+                    'Fractions Parfums '
+                    '<contato@fractionsparfums.com.br>'
+                ),
+
+                to=[
+                    'www.dls14@gmail.com',
+                    'prigpaixao@gmail.com'
+                ]
+
+            ).send()
+
+        except Exception as erro:
+
+            print(
+                'Erro ao enviar email administrativo:',
+                erro
+            )
+        
         # ✅ LOG PEDIDO
 
         PedidoLog.objects.create(
