@@ -139,36 +139,39 @@
                         {% endif %}
                     </p>
 
-                {% if pedido.codigo_rastreio %}
-                <p>
-                    <strong>Código de Rastreio:</strong>
-
-                    orrastreio.com.br/app/melhorenvio/{{ pedido.codigo_rastreio }}"
-                    target="_blank"
-                    style="font-weight:600;color:#6f42c1;">
-                        {{ pedido.codigo_rastreio }}
-                    </a>
-                </p>
-                {% endif %}
-
                     {% if pedido.codigo_rastreio %}
+
+                    <p>
+                        <strong>Código de Rastreio:</strong>
+                        {{ pedido.codigo_rastreio }}
+                    </p>
+
+                    io.com.br/app/melhorenvio/{{ pedido.codigo_rastreio }}"
+                        target="_blank"
+                        class="btn-rastreio"
+                    >
+                        🚚 Acompanhar Pedido
+                    </a>
+
                     <p style="color:#28a745;font-weight:600;">
                         🚚 Seu pedido já foi despachado e está em transporte.
                     </p>
+
                     {% endif %}
 
-                {% if pedido.transportadora %}
-                <p>
-                    <strong>Transportadora:</strong>
-                    {{ pedido.transportadora }}
-                </p>
-                {% endif %}
+                    {% if pedido.transportadora %}
+                    <p>
+                        <strong>Transportadora:</strong>
+                        {{ pedido.transportadora }}
+                    </p>
+                    {% endif %}
 
-                </div>
+                    </div>
 
-                </div>
+                    </div>
 
-                </div>
+                    </div>
+
 
         <!-- ✅ DIREITA -->
         <div>
