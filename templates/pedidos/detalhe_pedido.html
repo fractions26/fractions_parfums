@@ -139,12 +139,17 @@
                         {% endif %}
                     </p>
 
-                    {% if pedido.codigo_rastreio %}
-                    <p>
-                        <strong>Código de Rastreio:</strong>
+                {% if pedido.codigo_rastreio %}
+                <p>
+                    <strong>Código de Rastreio:</strong>
+
+                    orrastreio.com.br/app/melhorenvio/{{ pedido.codigo_rastreio }}"
+                    target="_blank"
+                    style="font-weight:600;color:#6f42c1;">
                         {{ pedido.codigo_rastreio }}
-                    </p>
-                    {% endif %}
+                    </a>
+                </p>
+                {% endif %}
 
                     {% if pedido.codigo_rastreio %}
                     <p style="color:#28a745;font-weight:600;">

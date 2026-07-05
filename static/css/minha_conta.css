@@ -834,3 +834,15 @@
 .btn-finalizar-checkout:active {
     transform: translateY(0);
 }
+
+.link-rastreio {
+    color: #6f42c1;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.link-rastreio:hover {
+    text-decoration: underline;
+    color: #5a32a3;
+}
