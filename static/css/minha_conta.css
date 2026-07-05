@@ -573,7 +573,7 @@
 @media (max-width: 768px){
 
     .minha-conta-page{
-        margin:20px auto 30px;  /* ✅ bem menor embaixo */
+        margin:30px auto 30px;  /* ✅ bem menor embaixo */
     }
 
 }
@@ -842,7 +842,7 @@
 
     padding:10px 18px;
 
-    background:#6934bf;
+    background:#333;
     color:#fff !important;
 
     text-decoration:none;
