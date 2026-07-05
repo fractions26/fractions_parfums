@@ -94,8 +94,8 @@
         "@type": "OnlineStore",
         "name": "Fractions Parfums",
         "url": "https://www.fractionsparfums.com.br",
-        "logo": "https://www.fractionsparfums.com.br/static/images/logo-google.png?v=2",
-        "image": "https://www.fractionsparfums.com.br/static/images/logo-google.png?v=2",
+        "logo": "https://www.fractionsparfums.com.br/static/images/logo-google.png?v=3",
+        "image": "https://www.fractionsparfums.com.br/static/images/logo-google.png?v=3",
         "description": "Loja especializada em perfumes importados, perfumes árabes e decants originais.",
         "sameAs": [
             "https://www.instagram.com/fractionsparfums"
@@ -132,7 +132,7 @@
             "url": "https://www.fractionsparfums.com.br/",
             "logo": {
             "@type": "ImageObject",
-            "url": "https://www.fractionsparfums.com.br/static/images/"
+            "url": "https://www.fractionsparfums.com.br/static/images/logo-google.png?v=3"
             }
         },
         "potentialAction": {
@@ -631,7 +631,9 @@ document.addEventListener("keydown", function(e){
 
 
 // =======================
-// ✅ ALTERAR QUANTIDADE (CORRIGIDO FINAL)
+// ✅ ALTERAR QUANTIDADE
+// ✅ SEM RELOAD DE PÁGINA
+// ✅ SEM FECHAR DRAWER
 // =======================
 function alterarQtd(btn, delta){
 
@@ -689,13 +691,13 @@ function alterarQtd(btn, delta){
 
             alert(data.erro);
 
-            // ✅ RESTAURA CARRINHO REAL
+            // ✅ RESTAURA VALORES REAIS
             atualizarCarrinhoDrawer();
 
             return;
         }
 
-        // ✅ GARANTE VALOR REAL BACKEND
+        // ✅ QUANTIDADE REAL RETORNADA PELO BACKEND
         if(data.quantidade_item !== undefined){
 
             qtdSpan.innerText =
@@ -759,29 +761,9 @@ function alterarQtd(btn, delta){
             });
         }
 
-        // ✅ detecta páginas de produto/lista
-        const path =
-            window.location.pathname;
-
-        const paginaProduto =
-            path.includes("/produtos/") ||
-            path.includes("/detalhe/");
-
-// ✅ atualiza estoque visual automaticamente
-        if(paginaProduto){
-
-            // ✅ evita múltiplos reloads
-            if(!window.reloadEstoque){
-
-                window.reloadEstoque = true;
-
-                setTimeout(() => {
-
-                    location.reload();
-
-                }, 300);
-            }
-        }
+        // ✅ NÃO RECARREGA A PÁGINA
+        // ✅ NÃO FECHA O DRAWER
+        // ✅ USUÁRIO CONTINUA NAVEGANDO
 
     })
 
@@ -796,7 +778,9 @@ function alterarQtd(btn, delta){
 }
 
 // =======================
-// ✅ REMOVER ITEM (CORRIGIDO + FRETE DINÂMICO)
+// ✅ REMOVER ITEM
+// ✅ SEM RELOAD
+// ✅ SEM FECHAR DRAWER
 // =======================
 function removerItem(btn){
 
@@ -804,7 +788,7 @@ function removerItem(btn){
 
     if(!itemDiv) return;
 
-    // ✅ pega a quantidade antes de remover
+    // ✅ pega quantidade removida
     const qtdElemento =
         itemDiv.querySelector(".qtd-value");
 
@@ -824,6 +808,7 @@ function removerItem(btn){
 
             "X-CSRFToken":
                 getCSRF()
+
         },
 
         body: `item_id=${itemDiv.dataset.id}`
@@ -843,21 +828,14 @@ function removerItem(btn){
         }
 
         return res.json();
+
     })
 
     .then(data => {
 
         if(!data || !data.success) return;
 
-        // ✅ detecta páginas de produto/lista
-        const path =
-            window.location.pathname;
-
-        const paginaProduto =
-            path.includes("/produtos/") ||
-            path.includes("/detalhe/");
-
-        // ✅ animação UX
+        // ✅ animação de remoção
         itemDiv.style.transition = "0.2s";
 
         itemDiv.style.opacity = "0";
@@ -882,18 +860,20 @@ function removerItem(btn){
 
             total.innerText =
                 "R$ " + data.total.toFixed(2);
+
         }
 
         if(totalFinal){
 
             totalFinal.innerText =
                 "R$ " + data.total.toFixed(2);
+
         }
 
         // ✅ badge
         decrementarBadge(qtdRemovida);
 
-        // ✅ RECALCULA TOTAL COM FRETE
+        // ✅ recarrega frete
         const cepSalvo =
             localStorage.getItem(
                 "cep_carrinho"
@@ -917,28 +897,16 @@ function removerItem(btn){
                     "parcelamentoFrete"
 
             });
-        }
-// ✅ atualiza detalhe/lista automaticamente
-        if(paginaProduto){
 
-            // ✅ evita múltiplos reloads
-            if(!window.reloadEstoque){
-
-                window.reloadEstoque = true;
-
-                setTimeout(() => {
-
-                    location.reload();
-
-                }, 300);
-            }
         }
 
-        // ✅ se zerar carrinho
-        if(data.total === 0){
+        // ✅ sincroniza drawer
+        // útil quando sobrar apenas 1 item
+        setTimeout(() => {
 
-            location.reload();
-        }
+            atualizarCarrinhoDrawer();
+
+        }, 250);
 
     })
 
@@ -948,9 +916,10 @@ function removerItem(btn){
             "❌ Erro no removerItem:",
             err
         );
-    });
-}
 
+    });
+
+}
 
 function atualizarCarrinhoDrawer(){
 

@@ -380,10 +380,21 @@ fretes
                 "change",
                 () => {
 
+                    const gratis =
+                        this.calcularGratis(
+                            subtotal,
+                            cep
+                        );
+
+                    const freteFinal =
+                        gratis
+                            ? 0
+                            : preco;
+
                     this.aplicar({
 
                         subtotal,
-                        frete: preco,
+                        frete: freteFinal,
                         cep,
 
                         totalId,
@@ -406,17 +417,27 @@ fretes
                         prazo
                     );
 
-                    if (
-                        callback
-                    ) {
+                    if (callback) {
+
+                        // console.log(
+                        //     'ENVIANDO CALLBACK',
+                        //     {
+                        //         freteFinal,
+                        //         preco,
+                        //         subtotal,
+                        //         cep,
+                        //         gratis
+                        //     }
+                        // );
 
                         callback({
 
-                            frete: preco,
+                            frete: freteFinal,
                             prazo,
                             nome: nomeCompletoFrete
 
                         });
+
                     }
                 }
             );

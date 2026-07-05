@@ -1467,6 +1467,11 @@ async function carregarFretesCheckout() {
 
         callback: (dados) => {
 
+            {% comment %} console.log(
+                'CALLBACK FRETE:',
+                dados
+            ); {% endcomment %}
+
             document.getElementById(
                 "freteValorInput"
             ).value =
@@ -1484,7 +1489,6 @@ async function carregarFretesCheckout() {
 
             atualizarEstadoBotao();
 
-            // ✅ Atualiza subtotal/frete/descontos
             recalcularTotalCheckout();
 
         }
@@ -1607,11 +1611,14 @@ function recalcularTotalCheckout() {
                 .replace(",", ".")
         ) || 0;
 
+    const freteInput =
+        document.getElementById(
+            'freteValorInput'
+        );
+
     const frete =
         parseFloat(
-            document
-                .getElementById('freteValorInput')
-                .value
+            freteInput?.value
         ) || 0;
 
     const descontoCupom =
@@ -1637,6 +1644,14 @@ function recalcularTotalCheckout() {
     const descontoTotal =
         descontoCupom +
         descontoPix;
+
+    {% comment %} console.log('====================');
+    console.log('SUBTOTAL:', subtotal);
+    console.log('FRETE INPUT:', freteInput?.value);
+    console.log('FRETE CALCULADO:', frete);
+    console.log('DESCONTO CUPOM:', descontoCupom);
+    console.log('DESCONTO PIX:', descontoPix);
+    console.log('METODO:', metodoSelecionado); {% endcomment %}
 
     const campoCupom =
         document.getElementById(
@@ -1669,6 +1684,8 @@ function recalcularTotalCheckout() {
         subtotal +
         frete -
         descontoTotal;
+
+    {% comment %} console.log('TOTAL FINAL:', total); {% endcomment %}
 
     document.getElementById(
         'totalCheckout'

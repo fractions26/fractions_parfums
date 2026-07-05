@@ -3,6 +3,9 @@ from django.http import JsonResponse
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from apps.entrega.utils import possui_frete_gratis
+from apps.cupons.models import Cupom
+from django.utils import timezone
 
 import requests
 import re
@@ -155,6 +158,18 @@ def checkout(request):
             perfil.cpf = cpf
             perfil.save()
 
+        # ✅ GARANTE ENDEREÇO DE ENTREGA
+        if not endereco_principal:
+
+            messages.error(
+                request,
+                "Endereço de entrega não encontrado."
+            )
+
+            return redirect(
+                'checkout'
+            )
+
 
         # =========================
         # ✅ FRETE
@@ -173,7 +188,30 @@ def checkout(request):
 
             frete = Decimal('0')
 
-        if frete <= 0:
+        frete_gratis = possui_frete_gratis(
+            total,
+            endereco_principal.cep
+        )
+
+        # ✅ Não aceita frete negativo
+        if frete < 0:
+
+            messages.warning(
+                request,
+                "Valor de frete inválido."
+            )
+
+            return redirect(
+                'checkout'
+            )
+
+        # ✅ Força frete zero quando elegível
+        if frete_gratis:
+
+            frete = Decimal('0')
+
+        # ✅ Exige frete para quem não tem direito
+        elif frete == 0:
 
             messages.warning(
                 request,
@@ -183,22 +221,71 @@ def checkout(request):
             return redirect(
                 'checkout'
             )
-
+            
         # =========================
         # ✅ CUPOM
         # =========================
 
-        desconto = Decimal(
-            request.POST.get(
-                'desconto',
-                '0'
-            )
-        )
+        desconto = Decimal('0')
 
         cupom_codigo = request.POST.get(
             'cupom_codigo',
             ''
         ).strip().upper()
+
+        if cupom_codigo:
+
+            cupom = Cupom.objects.filter(
+                codigo=cupom_codigo,
+                ativo=True
+            ).first()
+
+            if cupom:
+
+                agora = timezone.now()
+
+                cupom_valido = True
+
+                # ✅ Data início
+                if (
+                    cupom.data_inicio
+                    and agora < cupom.data_inicio
+                ):
+
+                    cupom_valido = False
+
+                # ✅ Data fim
+                if (
+                    cupom.data_fim
+                    and agora > cupom.data_fim
+                ):
+
+                    cupom_valido = False
+
+                # ✅ Primeira compra
+                if cupom.primeira_compra:
+
+                    possui_pedido = Pedido.objects.filter(
+                        usuario=request.user
+                    ).exclude(
+                        status='CANCELADO'
+                    ).exists()
+
+                    if possui_pedido:
+
+                        cupom_valido = False
+
+                if cupom_valido:
+
+                    desconto = (
+                        Decimal(total)
+                        *
+                        cupom.desconto_percentual
+                    ) / Decimal('100')
+
+                else:
+
+                    cupom_codigo = ''
 
         # =========================
         # ✅ TOTAL BASE

@@ -152,9 +152,28 @@
 
         </div>
 
-        {% else %}
+            {% else %}
 
-            <p>Seu carrinho está vazio</p>
+            <div class="carrinho-vazio">
 
-        {% endif %}
+                <div class="carrinho-vazio-icon">
+                    🛒
+                </div>
+
+                <h3>Seu carrinho está vazio</h3>
+
+                <p>
+                    Adicione nossos decants e descubra as melhores fragrâncias.
+                </p>
+
+                <button
+                    class="btn-continuar-comprando"
+                    onclick="fecharCarrinho()"
+                >
+                    CONTINUAR COMPRANDO
+                </button>
+
+            </div>
+
+            {% endif %}
 
