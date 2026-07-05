@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib import messages
+import json
 
 from .models import Pedido
 from .models import ItemPedido
@@ -47,6 +48,41 @@ class PedidoAdmin(admin.ModelAdmin):
     imprimir_etiqueta_link.short_description = (
         'Impressão'
     )
+    
+    def mercadopago_json_formatado(
+        self,
+        obj
+    ):
+
+        if not obj.mercadopago_resposta:
+
+            return "-"
+
+        try:
+
+            dados = json.loads(
+                obj.mercadopago_resposta
+            )
+
+            return format_html(
+                '<pre style="white-space:pre-wrap;'
+                'max-height:500px;overflow:auto;">'
+                '{}'
+                '</pre>',
+                json.dumps(
+                    dados,
+                    ensure_ascii=False,
+                    indent=4
+                )
+            )
+
+        except Exception:
+
+            return obj.mercadopago_resposta
+
+    mercadopago_json_formatado.short_description = (
+        'Resposta Mercado Pago'
+    )
 
     list_display = (
         'codigo',
@@ -82,6 +118,8 @@ class PedidoAdmin(admin.ModelAdmin):
         'url_etiqueta',
         'imprimir_etiqueta_link',
         'status_envio',
+        'mercadopago_resposta',
+        'mercadopago_json_formatado',
     )
 
     fieldsets = (
@@ -134,6 +172,8 @@ class PedidoAdmin(admin.ModelAdmin):
                     'mercadopago_status',
                     'metodo_pagamento',
                     'parcelas',
+                    'mercadopago_resposta',
+                    'mercadopago_json_formatado',
                 )
             }
         ),

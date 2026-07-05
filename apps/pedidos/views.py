@@ -6,6 +6,7 @@ from django.template.loader import render_to_string
 from apps.entrega.utils import possui_frete_gratis
 from apps.cupons.models import Cupom
 from django.utils import timezone
+import json
 
 import requests
 import re
@@ -380,6 +381,22 @@ def checkout(request):
 
                 return redirect('checkout')
 
+            if resultado_pagamento.get(
+                'http_status'
+            ) != 201:
+
+                messages.error(
+                    request,
+                    resultado_pagamento.get(
+                        'message',
+                        'Erro ao processar pagamento.'
+                    )
+                )
+
+                return redirect(
+                    'checkout'
+                )
+
             status_mp = resultado_pagamento.get(
                 'status',
                 ''
@@ -595,6 +612,15 @@ def checkout(request):
             mercadopago_payment_id=payment_id,
 
             mercadopago_status=status_mp,
+
+            mercadopago_resposta=(
+                json.dumps(
+                    resultado_pagamento,
+                    ensure_ascii=False
+                )
+                if resultado_pagamento
+                else ''
+            ),
 
             bandeira_cartao=bandeira_cartao,
 

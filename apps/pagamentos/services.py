@@ -26,7 +26,10 @@ def criar_pagamento_cartao(
     }
 
     payload = {
-        "transaction_amount": float(valor),
+        "transaction_amount": round(
+            float(valor),
+            2
+        ),
 
         "token": token,
 
