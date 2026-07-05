@@ -1289,3 +1289,12 @@
     color: #666;
     line-height: 1.4;
 }
+
+.step{
+    cursor:pointer;
+    transition:.2s;
+}
+
+.step:hover{
+    opacity:.85;
+}

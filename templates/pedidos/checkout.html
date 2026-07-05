@@ -559,28 +559,122 @@
     }
 
 // =====================================
-// ✅ CONTROLE DE ETAPAS (NOVO)
+// ✅ CONTROLE DE ETAPAS
+// ✅ COM SUPORTE À TIMELINE CLICÁVEL
+// =====================================
+
 let stepAtual = 1;
+
+let maiorStepLiberado = 1;
 
 function irParaStep(step) {
 
-    // troca conteúdo
-    document.querySelectorAll('.checkout-step-content').forEach(el => {
-        el.classList.remove('active');
-    });
+    // ✅ troca conteúdo
+    document
+        .querySelectorAll(
+            '.checkout-step-content'
+        )
+        .forEach(el => {
 
-    const destino = document.querySelector(`.checkout-step-content[data-step="${step}"]`);
-    if (destino) destino.classList.add('active');
+            el.classList.remove(
+                'active'
+            );
 
-    // atualiza timeline
-    document.querySelectorAll('.step').forEach(s => {
-        s.classList.remove('active');
-    });
+        });
 
-    const stepEl = document.querySelector(`.step[data-step="${step}"]`);
-    if (stepEl) stepEl.classList.add('active');
+    const destino =
+        document.querySelector(
+            `.checkout-step-content[data-step="${step}"]`
+        );
 
-    stepAtual = step;
+    if (destino) {
+
+        destino.classList.add(
+            'active'
+        );
+
+    }
+
+    // ✅ atualiza timeline
+    document
+        .querySelectorAll('.step')
+        .forEach(s => {
+
+            s.classList.remove(
+                'active'
+            );
+
+        });
+
+    const stepEl =
+        document.querySelector(
+            `.step[data-step="${step}"]`
+        );
+
+    if (stepEl) {
+
+        stepEl.classList.add(
+            'active'
+        );
+
+    }
+
+    // ✅ registra step atual
+        stepAtual = step;
+
+        // ✅ sobe para o topo ao trocar etapa
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+        // ✅ guarda o maior step atingido
+        if (step > maiorStepLiberado) {
+
+            maiorStepLiberado = step;
+
+        }
+
+    }
+
+// =====================================
+// ✅ TIMELINE CLICÁVEL
+// =====================================
+function configurarTimelineClique() {
+
+    document
+        .querySelectorAll('.step')
+        .forEach(stepEl => {
+
+            stepEl.style.cursor = 'pointer';
+
+            stepEl.addEventListener(
+                'click',
+                function() {
+
+                    const stepDestino =
+                        parseInt(
+                            this.dataset.step
+                        );
+
+                    // ✅ só permite voltar
+                    // ou acessar etapas já liberadas
+                    if (
+                        stepDestino <=
+                        maiorStepLiberado
+                    ) {
+
+                        irParaStep(
+                            stepDestino
+                        );
+
+                    }
+
+                }
+            );
+
+        });
+
 }
 
 // =====================================
@@ -803,19 +897,29 @@ function atualizarEstadoBotao() {
     }
 }
 
-
 // =====================================
-// ✅ CONTROLE DE AVANÇO ENTRE STEPS (NOVO)
+// ✅ CONTROLE DE AVANÇO ENTRE STEPS
+// ✅ COM LIBERAÇÃO DA TIMELINE
 // =====================================
 function validarStepAtualEAvancar(proximoStep) {
 
     // ✅ STEP 1 → exigir frete
     if (stepAtual === 1) {
 
-        const freteInput = document.getElementById('freteValorInput');
+        const freteInput =
+            document.getElementById(
+                'freteValorInput'
+            );
 
-        if (!freteInput || freteInput.value === "") {
-            alert("Selecione um frete para continuar");
+        if (
+            !freteInput ||
+            freteInput.value === ""
+        ) {
+
+            alert(
+                "Selecione um frete para continuar"
+            );
+
             return;
         }
 
@@ -826,12 +930,14 @@ function validarStepAtualEAvancar(proximoStep) {
 
         if (!metodoSelecionado) {
 
-            alert("Selecione uma forma de pagamento");
+            alert(
+                "Selecione uma forma de pagamento"
+            );
 
             return;
         }
 
-        // ✅ VALIDA CAMPOS DO CARTÃO
+        // ✅ VALIDA CARTÃO
         if (metodoSelecionado === 'novo_cartao') {
 
             const numeroCartao =
@@ -977,9 +1083,23 @@ function validarStepAtualEAvancar(proximoStep) {
 
     }
 
-    irParaStep(proximoStep);
+    // ✅ libera o step atingido
+    if (
+        proximoStep >
+        maiorStepLiberado
+    ) {
+
+        maiorStepLiberado =
+            proximoStep;
 
     }
+
+    // ✅ avança para o próximo step
+    irParaStep(
+        proximoStep
+    );
+
+}
 
 // =====================================
 // ✅ INICIALIZA
@@ -989,6 +1109,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     await carregarFretesCheckout();
 
     configurarPagamento();
+
+    configurarTimelineClique();
+
 
     // ✅ inicia sem método selecionado
     metodoSelecionado = null;
