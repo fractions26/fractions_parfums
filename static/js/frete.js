@@ -271,7 +271,7 @@ fretes
         const prazo =
             f.id === "contingencia"
                 ? parseInt(f.delivery_time || 0)
-                : parseInt(f.delivery_time || 0) + 2;
+                : parseInt(f.delivery_time || 0) + 1;
 
         const label =
             document.createElement(
