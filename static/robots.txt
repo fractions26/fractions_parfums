@@ -1,11 +1,14 @@
 User-agent: *
 Allow: /
 
+# Carrinho e Checkout
 Disallow: /carrinho/
 Disallow: /carrinho/drawer/
 Disallow: /checkout/
 Disallow: /pedido/
 Disallow: /pagamento/
+
+# Área do usuário
 Disallow: /usuario/
 Disallow: /accounts/
 Disallow: /criar-conta/
@@ -13,9 +16,11 @@ Disallow: /login/
 Disallow: /logout/
 Disallow: /minha-conta/
 Disallow: /meus-enderecos/
-Disallow: /painel-interno-fractions/
-Disallow: /contato/
 
+# Área administrativa
+Disallow: /painel-interno-fractions/
+
+# Bots de compartilhamento
 User-agent: facebookexternalhit
 Allow: /
 
@@ -25,4 +30,5 @@ Allow: /
 User-agent: Twitterbot
 Allow: /
 
-Sitemap: https://www.fractionsparfums.com.br/sitemap.xml
+# Sitemap
+Sitemap: https://fractionsparfums.com.br/sitemap.xml

@@ -9,6 +9,16 @@ from .views import (
     avaliar_produto
 )
 
+from fractions_parfums.sitemaps import (
+    StaticSitemap,
+    PerfumeSitemap,
+)
+
+sitemaps = {
+    "static": StaticSitemap,
+    "produtos": PerfumeSitemap,
+}
+
 urlpatterns = [
 
     # ✅ LISTA GERAL
