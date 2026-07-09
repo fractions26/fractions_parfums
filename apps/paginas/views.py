@@ -629,6 +629,10 @@ def logout_usuario(request):
 def quem_somos(request):
     return render(request, 'quem_somos.html')
 
+# ✅ O QUE É UM DECANT?
+def o_que_e_decant(request):
+    return render(request, 'o_que_e_decant.html')
+
 # ✅ privacidade
 def politica_privacidade(request):
     return render(request, 'politica_privacidade.html')

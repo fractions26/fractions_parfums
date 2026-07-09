@@ -528,6 +528,11 @@
     }
 }
 
+.whatsapp-float:hover{
+    transform:scale(1.08);
+    transition:.25s;
+}
+
 /* ===================== */
 /* ✅ LINK BUSCA GOOGLE */
 /* ===================== */
@@ -545,4 +550,25 @@
 .seo-link:hover {
     background: #7b2cff;
     color: #fff;
+}
+
+.footer-localizacao{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-top:14px;
+
+    color:#555;
+    font-size:13px;
+    line-height:20px;
+}
+
+.footer-localizacao i{
+    color:#555;
+    margin-top:2px;
+    min-width:16px;
+}
+
+.footer-localizacao span{
+    display:block;
 }
