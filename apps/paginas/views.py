@@ -2,7 +2,7 @@ import requests
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
-from apps.produtos.models import Perfume
+from apps.produtos.models import Perfume, Avaliacao
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from apps.carrinho.models import Carrinho, Item
@@ -78,6 +78,14 @@ def home(request):
     mais_vendidos = Perfume.objects.filter(
         categorias__slug='mais-vendidos'
     ).distinct()
+    
+        # ✅ TODAS AS AVALIAÇÕES APROVADAS
+    avaliacoes_home = (
+        Avaliacao.objects
+        .filter(aprovado=True)
+        .select_related("usuario", "perfume")
+        .order_by("-criado_em")
+    )
 
     # ✅ AVALIAÇÕES DOS MAIS VENDIDOS
     for perfume in mais_vendidos:
@@ -113,6 +121,9 @@ def home(request):
             'masculinos': masculinos,
             'femininos': femininos,
             'mais_vendidos': mais_vendidos,
+
+            # ✅ NOVO
+            'avaliacoes_home': avaliacoes_home,
         }
     )
 

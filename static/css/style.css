@@ -3358,3 +3358,300 @@ header {
         right:-5px;
     }
 }
+
+
+/* ===========================================
+   AVALIAÇÕES HOME
+=========================================== */
+
+.avaliacoes-home{
+    width:100%;
+    max-width:1400px;
+    margin:70px auto;
+    padding:0 20px;
+}
+
+.titulo-avaliacoes-home{
+    font-size:24px;
+    font-weight:700;
+    text-align:center;
+    margin-bottom:35px;
+}
+
+/* ========================= */
+
+.avaliacoes-wrapper{
+    position:relative;
+}
+
+.avaliacoes-scroll{
+    display:flex;
+    gap:24px;
+    overflow-x:auto;
+    scroll-behavior:smooth;
+    scrollbar-width:none;
+    padding:15px 10px 30px;
+    scroll-snap-type:x mandatory;
+}
+
+.avaliacoes-scroll::-webkit-scrollbar{
+    display:none;
+}
+
+/* ========================= */
+
+.avaliacao-card{
+
+    flex:0 0 320px;
+
+    min-height:290px;
+
+    background:#fff;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    padding:25px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    text-align:center;
+
+    transition:.3s;
+
+    scroll-snap-align:start;
+
+}
+
+.avaliacao-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+}
+
+/* ========================= */
+
+.avaliacao-nome{
+
+    font-size:20px;
+
+    font-weight:700;
+
+    color:#111;
+
+    margin-bottom:4px;
+
+}
+
+.avaliacao-data{
+
+    font-size:13px;
+
+    color:#888;
+
+    margin-bottom:15px;
+
+}
+
+.avaliacao-estrelas{
+
+    color:#000;
+
+    font-size:20px;
+
+    letter-spacing:4px;
+
+    margin-bottom:18px;
+
+}
+
+.avaliacao-comentario{
+
+    flex:1;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:15px;
+
+    color:#444;
+
+    line-height:1.6;
+
+    font-style:italic;
+
+    margin-bottom:20px;
+
+    padding:0 5px;
+
+}
+
+/* ========================= */
+
+.avaliacao-produto{
+
+    border-top:1px solid #ececec;
+
+    padding-top:18px;
+
+}
+
+.avaliacao-produto small{
+
+    display:block;
+
+    color:#666;
+
+    font-size:13px;
+
+    margin-bottom:8px;
+
+}
+
+.avaliacao-produto a{
+
+    text-decoration:none;
+
+    color:#444;
+
+    font-weight:400;
+
+    font-size:14px;
+
+    line-height:1.35;
+
+    transition:.25s;
+
+}
+
+.avaliacao-produto a:hover{
+
+    color:#000;
+
+}
+
+/* ========================= */
+/* SETAS */
+/* ========================= */
+
+.btn-avaliacao{
+
+    position:absolute;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:52px;
+
+    height:52px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+    cursor:pointer;
+
+    font-size:24px;
+
+    transition:.25s;
+
+    z-index:30;
+
+}
+
+.btn-avaliacao:hover{
+
+    transform:translateY(-50%) scale(1.08);
+
+}
+
+.btn-avaliacao.esquerda{
+
+    left:-15px;
+
+}
+
+.btn-avaliacao.direita{
+
+    right:-15px;
+
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
+@media (max-width:768px){
+
+    .avaliacoes-home{
+
+        padding:0 10px;
+
+        margin:50px auto;
+
+    }
+
+    .titulo-avaliacoes-home{
+
+        font-size:19px;
+
+        margin-bottom:25px;
+
+    }
+
+    .avaliacoes-scroll{
+
+        gap:0;
+
+        padding:10px 0 25px;
+
+    }
+
+    .avaliacao-card{
+
+        flex:0 0 calc(100% - 20px);
+
+        margin:0 10px;
+
+        min-height:280px;
+
+    }
+
+    .btn-avaliacao{
+
+        width:46px;
+
+        height:46px;
+
+        font-size:20px;
+
+    }
+
+    .btn-avaliacao.esquerda{
+
+        left:4px;
+
+    }
+
+    .btn-avaliacao.direita{
+
+        right:4px;
+
+    }
+
+}

@@ -307,6 +307,115 @@
 
 </section>
 
+<!-- ========================================= -->
+<!-- ✅ VEJA AS AVALIAÇÕES -->
+<!-- ========================================= -->
+<section class="avaliacoes-home">
+
+    <h2 class="titulo-avaliacoes-home">
+        ★ Veja as avaliações
+    </h2>
+
+    {% if avaliacoes_home %}
+
+        <div class="avaliacoes-wrapper">
+
+            <button
+                class="btn-avaliacao esquerda"
+                onclick="scrollAvaliacoesHome(-1)">
+
+                ❮
+
+            </button>
+
+            <div
+                class="avaliacoes-scroll"
+                id="avaliacoesHomeScroll">
+
+                {% for avaliacao in avaliacoes_home %}
+
+                    <div class="avaliacao-card">
+
+                        <div class="avaliacao-nome">
+
+                            {% if avaliacao.usuario.get_full_name %}
+
+                                {{ avaliacao.usuario.get_full_name }}
+
+                            {% else %}
+
+                                {{ avaliacao.usuario.first_name }}
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="avaliacao-data">
+
+                            {{ avaliacao.criado_em|date:"d/m/Y" }}
+
+                        </div>
+
+                        <div class="avaliacao-estrelas">
+
+                            {% if avaliacao.nota == 5 %}
+                                ★★★★★
+                            {% elif avaliacao.nota == 4 %}
+                                ★★★★☆
+                            {% elif avaliacao.nota == 3 %}
+                                ★★★☆☆
+                            {% elif avaliacao.nota == 2 %}
+                                ★★☆☆☆
+                            {% else %}
+                                ★☆☆☆☆
+                            {% endif %}
+
+                        </div>
+
+                        <div class="avaliacao-comentario">
+
+                            {{ avaliacao.comentario }}
+
+                        </div>
+
+                        <div class="avaliacao-produto">
+
+                            <small>Perfume avaliado</small><br>
+
+                            <a href="{% url 'detalhe_produto' avaliacao.perfume.slug %}">
+                                {{ avaliacao.perfume.nome }}
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+            <button
+                class="btn-avaliacao direita"
+                onclick="scrollAvaliacoesHome(1)">
+
+                ❯
+
+            </button>
+
+        </div>
+
+    {% else %}
+
+        <div class="avaliacao-vazia">
+
+            Ainda não existem avaliações cadastradas.
+
+        </div>
+
+    {% endif %}
+
+</section>
+
 
 <!-- ========================================= -->
 <!-- ✅ SCRIPT CARROSSEL -->
@@ -525,6 +634,99 @@ window.addEventListener("appinstalled", () => {
     }
 
 });
+
+const avaliacoesHome =
+    document.getElementById("avaliacoesHomeScroll");
+
+if(avaliacoesHome){
+
+    const card =
+        avaliacoesHome.querySelector(".avaliacao-card");
+
+    let largura = 0;
+
+    if(card){
+        largura = card.offsetWidth + 24;
+    }
+
+    let intervalo;
+
+    function iniciarAuto(){
+
+        intervalo = setInterval(()=>{
+
+            if(
+                avaliacoesHome.scrollLeft +
+                avaliacoesHome.clientWidth >=
+                avaliacoesHome.scrollWidth - 20
+            ){
+
+                avaliacoesHome.scrollTo({
+                    left:0,
+                    behavior:"smooth"
+                });
+
+            }else{
+
+                avaliacoesHome.scrollBy({
+                    left:largura,
+                    behavior:"smooth"
+                });
+
+            }
+
+        },5000);
+
+    }
+
+    function pararAuto(){
+
+        clearInterval(intervalo);
+
+    }
+
+    iniciarAuto();
+
+    avaliacoesHome.addEventListener(
+        "mouseenter",
+        pararAuto
+    );
+
+    avaliacoesHome.addEventListener(
+        "mouseleave",
+        iniciarAuto
+    );
+
+}
+
+function scrollAvaliacoesHome(direcao){
+
+    const container =
+        document.getElementById("avaliacoesHomeScroll");
+
+    if(!container){
+        return;
+    }
+
+    const card =
+        container.querySelector(".avaliacao-card");
+
+    if(!card){
+        return;
+    }
+
+    const largura =
+        card.offsetWidth + 24;
+
+    container.scrollBy({
+
+        left:direcao * largura,
+
+        behavior:"smooth"
+
+    });
+
+}
 
 </script>
 
