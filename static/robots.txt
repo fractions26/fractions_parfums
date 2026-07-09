@@ -14,6 +14,7 @@ Disallow: /logout/
 Disallow: /minha-conta/
 Disallow: /meus-enderecos/
 Disallow: /painel-interno-fractions/
+Disallow: /contato/
 
 User-agent: facebookexternalhit
 Allow: /
