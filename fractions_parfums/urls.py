@@ -8,7 +8,10 @@ from django.urls import path, include
 from two_factor.urls import urlpatterns as tf_patterns
 
 # ✅ SITEMAP
-from fractions_parfums.sitemaps import StaticSitemap
+from fractions_parfums.sitemaps import (
+    StaticSitemap,
+    PerfumeSitemap,
+)
 
 # ✅ ROBOTS
 from django.http import HttpResponse
@@ -43,8 +46,8 @@ def robots_txt(request):
 # ✅ SITEMAPS REGISTRADOS
 sitemaps = {
     'static': StaticSitemap,
+    'produtos': PerfumeSitemap,
 }
-
 
 urlpatterns = [
 
