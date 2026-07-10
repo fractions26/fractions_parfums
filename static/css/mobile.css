@@ -507,7 +507,7 @@ header {
 .search-mobile {
     position: fixed;
 
-    top: 72px;
+    top: 65px;
 
     left: 0px;
     right: 0px;
@@ -518,7 +518,7 @@ header {
     align-items: center;
     justify-content: center;
 
-    padding: 8px;
+    padding: 5px;
 
     background: #1f1f1f;
 
