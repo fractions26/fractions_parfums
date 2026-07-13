@@ -1,0 +1,44 @@
+<!-- ✅ MODAL COMPRA RÁPIDA -->
+<div id="modalCompra" class="modal-compra">
+
+    <div class="modal-content">
+
+        <button type="button"
+                class="btn-close-modal"
+                onclick="fecharModalCompra()">
+            ✕
+        </button>
+
+        <img id="modalImagem"
+             class="modal-img-product"
+             alt="Produto">
+
+        <h2 id="modalNome"></h2>
+
+        <div class="modal-select-box">
+
+            <label>Tamanho</label>
+
+            <select id="modalSelect"></select>
+
+            <div id="modalAlertaEstoque"
+                 class="alerta-estoque-modal">
+            </div>
+
+        </div>
+
+        <div class="modal-qtd">
+            <button type="button" onclick="alterarQtdModal(-1)">−</button>
+            <span id="modalQtd">1</span>
+            <button type="button" onclick="alterarQtdModal(1)">+</button>
+        </div>
+
+        <button id="btnModalComprar"
+                class="btn-modal-comprar"
+                onclick="confirmarCompra()">
+            COMPRAR
+        </button>
+
+    </div>
+
+</div>
