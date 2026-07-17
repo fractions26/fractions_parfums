@@ -1,5 +1,6 @@
 from .models import Carrinho
 
+
 def get_carrinho(request):
 
     # ✅ garante session ativa
@@ -13,40 +14,65 @@ def get_carrinho(request):
         session_key=session_key
     ).first()
 
-    # 🔥 se estiver logado
+    # 🔥 usuário autenticado
     if request.user.is_authenticated:
 
         carrinho_user = Carrinho.objects.filter(
             usuario=request.user
         ).first()
 
-        # ✅ se já existe carrinho do usuário
+        # ✅ usuário já possui carrinho
         if carrinho_user:
 
-            # 🔥 MIGRA itens da session se existir
+            # 🔥 existe também um carrinho da sessão
             if carrinho_session and carrinho_session != carrinho_user:
-                for item in carrinho_session.itens.all():
-                    item.carrinho = carrinho_user
-                    item.save()
 
+                for item in carrinho_session.itens.all():
+
+                    existente = carrinho_user.itens.filter(
+                        perfume=item.perfume,
+                        preco_obj=item.preco_obj
+                    ).first()
+
+                    if existente:
+                        existente.quantidade += item.quantidade
+                        existente.save()
+
+                        # remove o item duplicado do carrinho da sessão
+                        item.delete()
+
+                    else:
+                        item.carrinho = carrinho_user
+                        item.save()
+
+                # mantém a sessão atual vinculada ao carrinho do usuário
+                carrinho_user.session_key = session_key
+                carrinho_user.save(update_fields=["session_key"])
+
+                # remove o carrinho temporário
                 carrinho_session.delete()
 
             return carrinho_user
 
-        # ✅ se NÃO existe carrinho do usuário → usa o da sessão
+        # ✅ usuário não tinha carrinho
         if carrinho_session:
             carrinho_session.usuario = request.user
+            carrinho_session.session_key = session_key
             carrinho_session.save()
+
             return carrinho_session
 
-        # ✅ fallback
+        # ✅ cria um novo carrinho
         return Carrinho.objects.create(
             usuario=request.user,
             session_key=session_key
         )
 
-    # ✅ visitante (não logado)
+    # ✅ visitante
     if carrinho_session:
         return carrinho_session
 
-    return Carrinho.objects.create(session_key=session_key)
+    # ✅ cria carrinho para visitante
+    return Carrinho.objects.create(
+        session_key=session_key
+    )
