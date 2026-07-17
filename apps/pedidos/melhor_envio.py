@@ -401,10 +401,10 @@ def payload_carrinho(pedido):
 def dados_remetente():
 
     return {
-        "name": "Douglas Antonio",
-        "email": "www.dls14@gmail.com",
-        "phone": "41991970399",
-        "document": "06533837974",
+        "name": "Fractions Parfums",
+        "email": "contato@fractionsparfums.com.br",
+        "phone": "41985176290",
+        "document": "67.176.769/0001-36",
         "address": "Rodovia Br 116",
         "complement": "Bloco 2 ap 507",
         "number": "2785",
