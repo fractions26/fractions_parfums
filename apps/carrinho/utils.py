@@ -45,9 +45,6 @@ def get_carrinho(request):
                         item.carrinho = carrinho_user
                         item.save()
 
-                # mantém a sessão atual vinculada ao carrinho do usuário
-                carrinho_user.session_key = session_key
-                carrinho_user.save(update_fields=["session_key"])
 
                 # remove o carrinho temporário
                 carrinho_session.delete()
