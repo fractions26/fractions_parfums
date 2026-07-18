@@ -1,38 +1,47 @@
 from django.contrib.auth.signals import user_logged_in
 from django.dispatch import receiver
+
 from .models import Carrinho, Item
 
 
 @receiver(user_logged_in)
 def merge_carrinho(sender, request, user, **kwargs):
 
+    print("=" * 60)
     print("🔥 SIGNAL DISPARADO")
-    print("👤 USER:", user)
+    print(f"👤 USER: {user}")
 
-    # ✅ CORREÇÃO CRÍTICA
     if not request.session.session_key:
         request.session.save()
 
-    print("🧩 SESSION KEY (nova):", request.session.session_key)
+    print(f"🧩 SESSION KEY: {request.session.session_key}")
 
-    # ✅ NÃO confiar só na session_key
-    carrinho_session = Carrinho.objects.filter(
-        usuario__isnull=True
-    ).order_by('-id').first()
-
-    print("📦 CARRINHO SESSION ENCONTRADO:", carrinho_session)
-
-    if not carrinho_session:
-        print("❌ Nenhum carrinho de sessão encontrado")
-        return
-
-    # ✅ pega ou cria carrinho do usuário
-    carrinho_usuario, created = Carrinho.objects.get_or_create(
-        usuario=user,
-        defaults={"session_key": request.session.session_key}
+    # Procura somente carrinho sem usuário que possua itens.
+    carrinho_session = (
+        Carrinho.objects
+        .filter(usuario__isnull=True)
+        .exclude(itens__isnull=True)
+        .distinct()
+        .order_by("-criado_em")
+        .first()
     )
 
-    print("🧑‍💼 CARRINHO DO USUÁRIO:", carrinho_usuario)
+    print("📦 CARRINHO SESSION:", carrinho_session)
+
+    if not carrinho_session:
+        print("❌ Nenhum carrinho anônimo encontrado")
+        print("=" * 60)
+        return
+
+    # Obtém ou cria o carrinho do usuário
+    carrinho_usuario, created = Carrinho.objects.get_or_create(
+        usuario=user,
+        defaults={
+            "session_key": request.session.session_key
+        }
+    )
+
+    print("🛒 CARRINHO USUÁRIO:", carrinho_usuario)
 
     for item in carrinho_session.itens.all():
 
@@ -43,14 +52,25 @@ def merge_carrinho(sender, request, user, **kwargs):
         ).first()
 
         if existente:
+
             existente.quantidade += item.quantidade
             existente.save()
-            print(f"➕ Item somado: {item}")
+
+            item.delete()
+
+            print(f"➕ Somado: {existente}")
+
         else:
+
             item.carrinho = carrinho_usuario
             item.save()
-            print(f"➡️ Item movido: {item}")
 
-    carrinho_session.delete()
+            print(f"➡️ Movido: {item}")
 
-    print("✅ MERGE FINALIZADO COM SUCESSO")
+    # Remove o carrinho anônimo somente se ficou vazio
+    if not carrinho_session.itens.exists():
+        carrinho_session.delete()
+        print("🗑️ Carrinho anônimo removido")
+
+    print("✅ MERGE FINALIZADO")
+    print("=" * 60)
