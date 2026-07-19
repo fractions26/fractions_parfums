@@ -3,9 +3,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from django.contrib.auth import views as auth_views
-from django.contrib import admin
 from django.urls import path, include
 from two_factor.urls import urlpatterns as tf_patterns
+from fractions_parfums.feeds import google_shopping_feed
 
 # ✅ SITEMAP
 from fractions_parfums.sitemaps import (
@@ -85,6 +85,13 @@ urlpatterns = [
         name='sitemap'
     ),
 
+    # ✅ GOOGLE SHOPPING
+    path(
+        "google-shopping.xml",
+        google_shopping_feed,
+        name="google_shopping_feed",
+    ),
+
     # ✅ PÁGINAS
     path('', include('apps.paginas.urls')),
 
@@ -121,6 +128,7 @@ urlpatterns = [
         ),
         name='password_reset'
     ),
+    
 
     path(
         'senha/reset/enviado/',
