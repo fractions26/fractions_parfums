@@ -1,12 +1,42 @@
 {% extends 'base.html' %}
-{% load static %}
+    {% load static %}
 
-{% block content %}
+    {% block schema %}
+
+        {% with preco=perfume.precos.first %}
+        {% if preco %}
+        <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "{{ perfume.nome|escapejs }}",
+        "image": [
+            "https://www.fractionsparfums.com.br{{ perfume.get_imagem_url }}"
+        ],
+        "brand": {
+            "@type": "Brand",
+            "name": "{{ perfume.marca|escapejs }}"
+        },
+        "sku": "{{ perfume.slug }}",
+        "url": "{{ request.build_absolute_uri }}",
+        "offers": {
+            "@type": "Offer",
+            "url": "{{ request.build_absolute_uri }}",
+            "priceCurrency": "BRL",
+            "price": "{{ preco.valor }}",
+            "availability": "{% if perfume.ativo and perfume.estoque_ml > 0 %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+            "itemCondition": "https://schema.org/NewCondition"
+        }
+        }
+    </script>
+        {% endif %}
+            {% endwith %}
+
+            {% endblock %}
+
+    {% block content %}
 
 <div class="produto-container">
-
-<!-- ✅ IMAGEM COM THUMBNAILS -->
-<div class="produto-imagem">
 
     <!-- ✅ COLUNA DE THUMBNAILS -->
         <div class="thumb-coluna desktop-only">
