@@ -199,10 +199,30 @@
         }
         </script>
 
-       <!-- ✅ BLOCO PARA SCHEMAS ESPECÍFICOS DE CADA PÁGINA -->
+        <!-- ✅ BLOCO PARA SCHEMAS ESPECÍFICOS DE CADA PÁGINA -->
         {% block schema %}{% endblock %}
 
-    </head>
+        <!-- ✅ GOOGLE ANALYTICS 4 -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-W4FTW94788"></script>
+
+        <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-W4FTW94788', {
+            page_title: document.title,
+            page_location: window.location.href
+        });
+        </script>
+
+</head>
+
+<body>
 
 <!-- ✅ CARRINHO DRAWER -->
 <div id="drawer-carrinho" class="drawer-carrinho">
@@ -215,10 +235,10 @@
             {% if user.is_authenticated %}
             <span class="usuario-inline">
                 <i class="fa-solid fa-user icon-usuario"></i>
-             <span>Olá, {{ user.first_name }}</span>
+                <span>Olá, {{ user.first_name }}</span>
             </span>
-
             {% endif %}
+
         </div>
 
         <button onclick="fecharCarrinho()" class="btn-close-drawer">
@@ -236,7 +256,6 @@
 <!-- ✅ OVERLAY -->
 <div id="overlay-carrinho" class="overlay-carrinho" onclick="fecharCarrinho()"></div>
 
-<body>
     {% csrf_token %}
 
     <!-- ✅ MOBILE -->
