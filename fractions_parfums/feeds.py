@@ -75,15 +75,15 @@ def google_shopping_feed(request):
         )
 
         descricao = (
-            f"Decant original {perfume.nome}. "
-            "Perfume importado original disponível na Fractions Parfums."
+            f"{perfume.nome} {preco.tamanho}. "
+            "Decant de perfume importado, ideal para experimentar a fragrância antes de investir no frasco completo."
         )
 
         xml.append(f"""
 <item>
     <g:id>{perfume.id}</g:id>
 
-    <title><![CDATA[{perfume.nome}]]></title>
+    <title><![CDATA[{perfume.nome} {preco.tamanho}]]></title>
 
     <description><![CDATA[{descricao}]]></description>
 
@@ -98,6 +98,8 @@ def google_shopping_feed(request):
     <g:price>{preco.valor} BRL</g:price>
 
     <g:brand><![CDATA[{escape(perfume.marca)}]]></g:brand>
+    
+    <g:size>{preco.tamanho}</g:size>
 
     <g:product_type><![CDATA[{categoria}]]></g:product_type>
 
