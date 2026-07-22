@@ -67,7 +67,7 @@
             {{ perfume.nome }}
         </div>
 
-        <h1 class="produto-titulo">
+        <h1 class="produto-titulo" id="tituloProduto">
             {{ perfume.nome }}
         </h1>
 
@@ -153,11 +153,12 @@
 
                     {% for preco in precos %}
 
-                        <option
-                            value="{{ preco.id }}"
-                            data-preco="{{ preco.valor }}"
-                            data-disponivel="{{ preco.unidades_disponiveis }}"
-                        >
+                    <option
+                        value="{{ preco.id }}"
+                        data-preco="{{ preco.valor }}"
+                        data-disponivel="{{ preco.unidades_disponiveis }}"
+                        data-tamanho="{{ preco.tamanho }}"
+                    >
 
                             {{ preco.tamanho }} - R$ {{ preco.valor }}
 
@@ -850,6 +851,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const precoPrincipal =
         document.getElementById("precoPrincipal");
 
+    const tituloProduto =
+        document.getElementById("tituloProduto");
+
+    const tituloOriginal =
+        "{{ perfume.nome|escapejs }}";
+
     function atualizarPreco() {
 
         const option =
@@ -857,18 +864,37 @@ document.addEventListener("DOMContentLoaded", function () {
                 selectTamanho.selectedIndex
             ];
 
-        // ✅ CORRIGE VÍRGULA PARA PONTO
+        // ✅ PREÇO
         const preco =
             option
                 .getAttribute("data-preco")
                 .replace(",", ".");
 
+        // ✅ ESTOQUE
         const disponivel =
             parseInt(
                 option.getAttribute(
                     "data-disponivel"
                 )
             );
+
+        // ✅ TAMANHO
+        const tamanho =
+            option.text
+                .split(" - ")[0]
+                .trim();
+
+        // ✅ ALTERA H1 DINAMICAMENTE
+        if (tituloProduto) {
+
+            tituloProduto.innerText =
+                `${tituloOriginal} ${tamanho}`;
+
+        }
+
+        // ✅ ALTERA TÍTULO DA ABA (SEO)
+        document.title =
+            `${tituloOriginal} ${tamanho} | Fractions Parfums`;
 
         const alerta =
             document.getElementById(
@@ -880,7 +906,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ".btn-comprar-principal"
             );
 
-        // ✅ PREÇO
+        // ✅ FORMATA PREÇO
         const precoFormatado =
             parseFloat(preco).toLocaleString(
                 "pt-BR",
@@ -895,7 +921,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <span class="desconto">3% OFF</span>
         `;
 
-        // ✅ ESTOQUE
+        // ✅ CONTROLE DE ESTOQUE
         if (disponivel <= 0) {
 
             alerta.innerHTML =
