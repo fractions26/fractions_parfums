@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load l10n %}
 
 {% block title %}
 {{ perfume.nome }} | Fractions Parfums
@@ -28,7 +29,7 @@
         {% if preco %},
         "offers": {
             "@type": "Offer",
-            "price": "{{ preco.valor|floatformat:2 }}",
+            "price": "{{ preco.valor|unlocalize }}",
             "priceCurrency": "BRL",
             "availability": "https://schema.org/InStock",
             "url": "{{ request.build_absolute_uri }}"
