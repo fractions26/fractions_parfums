@@ -24,17 +24,17 @@
         "@type": "Brand",
         "name": "Fractions Parfums"
     }
-    {% with preco=perfume.precos.first %}
-    {% if preco %},
-    "offers": {
-        "@type": "Offer",
-        "price": "{{ preco.valor }}",
-        "priceCurrency": "BRL",
-        "availability": "https://schema.org/InStock",
-        "url": "{{ request.build_absolute_uri }}"
-    }
-    {% endif %}
-    {% endwith %}
+        {% with preco=perfume.precos.first %}
+        {% if preco %},
+        "offers": {
+            "@type": "Offer",
+            "price": "{{ preco.valor|floatformat:2 }}",
+            "priceCurrency": "BRL",
+            "availability": "https://schema.org/InStock",
+            "url": "{{ request.build_absolute_uri }}"
+        }
+        {% endif %}
+        {% endwith %}
 }
 </script>
 {% endblock %}
