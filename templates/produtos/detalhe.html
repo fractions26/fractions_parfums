@@ -23,7 +23,7 @@
     "description": "{{ perfume.nome|escapejs }} disponível em decants originais de 2ml, 5ml e 10ml. Fragrância importada original com envio para todo o Brasil.",
     "brand": {
         "@type": "Brand",
-        "name": "Fractions Parfums"
+        "name": "{{ perfume.marca.nome|escapejs }}"
     }
         {% with preco=perfume.precos.first %}
         {% if preco %},
