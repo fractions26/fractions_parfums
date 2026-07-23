@@ -1,6 +1,44 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}
+{{ perfume.nome }} | Fractions Parfums
+{% endblock %}
+
+{% block meta_description %}
+{{ perfume.nome }} disponível em decants originais de 2ml, 5ml e 10ml. Fragrância importada original com envio para todo o Brasil.
+{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "{{ perfume.nome|escapejs }}",
+    "url": "{{ request.build_absolute_uri }}",
+    {% if perfume.imagem %}
+    "image": "{{ request.scheme }}://{{ request.get_host }}{% static perfume.imagem %}",
+    {% endif %}
+    "description": "{{ perfume.nome|escapejs }} disponível em decants originais de 2ml, 5ml e 10ml. Fragrância importada original com envio para todo o Brasil.",
+    "brand": {
+        "@type": "Brand",
+        "name": "Fractions Parfums"
+    }
+    {% with preco=perfume.precos.first %}
+    {% if preco %},
+    "offers": {
+        "@type": "Offer",
+        "price": "{{ preco.valor }}",
+        "priceCurrency": "BRL",
+        "availability": "https://schema.org/InStock",
+        "url": "{{ request.build_absolute_uri }}"
+    }
+    {% endif %}
+    {% endwith %}
+}
+</script>
+{% endblock %}
+
 {% block content %}
 
 <div class="produto-container">
@@ -47,7 +85,7 @@
             <img 
                 src="{% static perfume.imagem_descricao %}"
                 class="product-slider-image produto-img"
-                alt="Descrição"
+                alt="{{ perfume.nome }} - Descrição do produto"
             >
             {% endif %}
 
@@ -231,7 +269,7 @@
                 </a>
 
                 <p class="devolucao-aviso">
-                    ✅ Devolução grátis por 7 dias, consulte condições
+                    ✅ Devolução grátis por 7 dias, consulte condições.
                 </p>
 
             </div>
@@ -241,6 +279,7 @@
                 <img 
                     src="{% static perfume.imagem_descricao %}"
                     class="img-desc"
+                    alt="{{ perfume.nome }} - Descrição do produto"
                     onclick="abrirZoomDescricao(this.src)"
                 >
             </div>

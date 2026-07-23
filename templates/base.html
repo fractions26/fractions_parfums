@@ -6,13 +6,14 @@
     {% load static %}
 
     <!-- ✅ TITLE SEO -->
-    <title>Perfumes Importados originais Decants | Fractions Parfums</title>
+    <title>{% block title %}Decants de Perfumes Originais Importados | Fractions Parfums{% endblock %}</title>
+
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
 
     <!-- ✅ META DESCRIPTION (IMPORTANTE GOOGLE) -->
     <meta
         name="description"
-        content="Decants dos melhores perfumes importados originais com envio para todo o Brasil."
+        content="{% block meta_description %}Decants dos melhores perfumes importados originais com envio para todo o Brasil.{% endblock %}"
     >
 
     <meta
