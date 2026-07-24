@@ -13,8 +13,8 @@
 }
 
 
-/* Facebook container */
-.menu-topbar span:last-child {
+/* Container Facebook */
+.menu-topbar span:last-child a {
     width: 28px;
     height: 28px;
 
@@ -22,18 +22,18 @@
     align-items: center;
     justify-content: center;
 
-    border-radius: 6px;
+    background: #1877F2; /* azul oficial Facebook */
+    border-radius: 50%;  /* círculo */
 
-    position: relative;
-    top: -1px;   /* 🔥 SOBE LEVEMENTE (ajuste fino) */
+    text-decoration: none;
 }
 
-/* Ícone Facebook */
+/* Ícone */
 .menu-topbar span:last-child i {
-    font-size: 15px;
     color: #fff;
+    font-size: 16px;
+    line-height: 1;
 }
-
 
 /* ===================== */
 /* ✅ ESCONDE DESKTOP */
@@ -263,7 +263,7 @@ header {
     .menu-footer {
         margin-top: auto;   /* ✅ ESSENCIAL */
 
-        padding: 6px;
+        padding: 1px;
         display: flex;
         gap: 10px;
     }
@@ -529,7 +529,7 @@ header {
 
 /* ✅ INPUT AJUSTADO */
 .search-mobile input {
-    width: 100%;
+    width: 99%;
     max-width: 500px;
 
     background: #333;
@@ -2033,7 +2033,7 @@ body.modal-aberto {
 
     gap:10px;
 
-    padding:3px 4px;
+    padding:0px 10px;
 
     background: #222;
 
