@@ -1298,6 +1298,69 @@ if ("serviceWorker" in navigator) {
         });
 }
 
+function toggleCupom(){
+
+    const cupomBox =
+        document.getElementById("cupomBox");
+
+    cupomBox.classList.toggle("ativo");
+
+    // ✅ fecha sozinho após 5 segundos
+
+    clearTimeout(window.cupomTimer);
+
+    if(cupomBox.classList.contains("ativo")){
+
+        window.cupomTimer = setTimeout(() => {
+
+            cupomBox.classList.remove("ativo");
+
+        }, 7000);
+    }
+}
+
+function copiarCupom(){
+
+    navigator.clipboard.writeText(
+        "FRACTIONS5"
+    );
+
+    const btn =
+        document.querySelector(
+            ".btn-copiar-cupom"
+        );
+
+    btn.innerHTML = "✅ Copiado!";
+
+    setTimeout(() => {
+
+        btn.innerHTML =
+            "Copiar Cupom";
+
+    }, 2000);
+}
+
+// ✅ fecha ao clicar fora
+
+document.addEventListener("click", function(event){
+
+    const cupomFloat =
+        document.querySelector(".cupom-float");
+
+    const cupomBox =
+        document.getElementById("cupomBox");
+
+    if(
+        cupomFloat &&
+        cupomBox &&
+        !cupomFloat.contains(event.target)
+    ){
+        cupomBox.classList.remove("ativo");
+
+        clearTimeout(window.cupomTimer);
+    }
+});
+
 </script>
 
 </body>
