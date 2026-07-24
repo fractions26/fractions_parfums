@@ -17,25 +17,30 @@
     "@type": "Product",
     "name": "{{ perfume.nome|escapejs }}",
     "url": "{{ request.build_absolute_uri }}",
+
     {% if perfume.imagem %}
     "image": "{{ request.scheme }}://{{ request.get_host }}{% static perfume.imagem %}",
     {% endif %}
+
     "description": "{{ perfume.nome|escapejs }} disponível em decants originais de 2ml, 5ml e 10ml. Fragrância importada original com envio para todo o Brasil.",
+
     "brand": {
         "@type": "Brand",
-        "name": "{{ perfume.marca.nome|escapejs }}"
+        "name": "{{ perfume.marca|escapejs }}"
     }
-        {% with preco=perfume.precos.first %}
-        {% if preco %},
-        "offers": {
-            "@type": "Offer",
-            "price": "{{ preco.valor|unlocalize }}",
-            "priceCurrency": "BRL",
-            "availability": "https://schema.org/InStock",
-            "url": "{{ request.build_absolute_uri }}"
-        }
-        {% endif %}
-        {% endwith %}
+
+    {% with preco=perfume.precos.first %}
+    {% if preco %},
+    "offers": {
+        "@type": "Offer",
+        "price": "{{ preco.valor|unlocalize }}",
+        "priceCurrency": "BRL",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "url": "{{ request.build_absolute_uri }}"
+    }
+    {% endif %}
+    {% endwith %}
 }
 </script>
 {% endblock %}
